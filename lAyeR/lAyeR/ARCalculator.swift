@@ -36,6 +36,9 @@ class ARCalculator {
             sin = -sin
         }
         
+        // 0 degree: vertical
+        // positive direction: yaw right
+        // -pi ~ pi
         let yawAngle = atan2(sin, cos)
         
         // STEP 2. calculate offset
