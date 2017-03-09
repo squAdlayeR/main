@@ -18,26 +18,18 @@ class ARCalculator {
         let rollSin = rotationMatrix.m32
         let pitchSin = rotationMatrix.m33
         
-        let m31 = rotationMatrix.m31
-        let m32 = rotationMatrix.m32
-        let m33 = rotationMatrix.m33
-        let m21 = rotationMatrix.m21
-        let m22 = rotationMatrix.m22
-        let m23 = rotationMatrix.m23
-        
         // STEP 1. calculate "pure" yaw angle
+        let deviceZ = Vector3D(x: rotationMatrix.m31, y: rotationMatrix.m32, z: rotationMatrix.m33)
+        let deviceY = Vector3D(x: rotationMatrix.m21, y: rotationMatrix.m22, z: rotationMatrix.m23)
         
         // the horizontal vector perpendicular to the z-axis vector of the device
-        let horzVectorPerpToDeviceZ = Vector3D(x: -m32, y: m31, z: 0)
+        let horzVectorPerpToDeviceZ = Vector3D(x: -(deviceZ.y), y: deviceZ.x, z: 0)
         
         // the normal vector of the surface spanned by the following 2 vectors:
         // - the z-axis vector of the device
         // - horzVectorPerpToDeviceZ
-        let normalVector = Vector3D(x: (m33 * m31) / (m32 * m32 + m31 * m31),
-                                    y: (m33 * m32) / (m32 * m32 + m31 * m31),
-                                    z: -1)
+        let normalVector = horzVectorPerpToDeviceZ.crossProduct(with: deviceZ)
         
-        let deviceY = Vector3D(x: m21, y: m22, z: m23)
         let cos = -deviceY.projectionLength(on: normalVector) / deviceY.length
         var sin = sqrt(1 - cos * cos)
         if deviceY * horzVectorPerpToDeviceZ < 0 {

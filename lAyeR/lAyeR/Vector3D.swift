@@ -36,7 +36,7 @@ struct Vector3D {
         let z2 = v.z
         return Vector3D(x: y1 * z2 - z1 * y2,
                         y: z1 * x2 - x1 * z2,
-                        z: x2 * y2 - y1 * x2)
+                        z: x1 * y2 - y1 * x2)
     }
     
     /// - Returns: the length of the projection of this vector on the input vector "v"
