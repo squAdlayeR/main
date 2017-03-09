@@ -10,9 +10,9 @@ import UIKit
 
 class LayerAlert: UIView {
     
-    var topBanner: TopBanner!
     var bottomBanner: BottomBanner!
     var infoPanel: InfoPanel!
+    var topBanner: TopBanner!
     var isOpened = false
     
     init(frame: CGRect, topBannerHeight: CGFloat, bottomBannerHeight: CGFloat) {
@@ -40,6 +40,9 @@ class LayerAlert: UIView {
         let backgroundImage = getImageView(by: "bannerTop.png")
         backgroundImage.frame = imageFrame
         topBanner.addSubview(backgroundImage)
+        let titleLable = UILabel()
+        titleLable.text = "Default"
+        topBanner.title = titleLable
         self.addSubview(topBanner)
     }
     
@@ -127,6 +130,14 @@ extension LayerAlert {
     
     func closeInfoPanel() {
         infoPanel.transform = CGAffineTransform(scaleX: 1, y: 0.1)
+    }
+    
+}
+
+extension LayerAlert {
+    
+    func setTitle() {
+        
     }
     
 }

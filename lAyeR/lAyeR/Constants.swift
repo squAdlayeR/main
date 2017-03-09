@@ -8,4 +8,6 @@
 
 import UIKit
 
-let bannerHeight = 30
+let maxAlertHeight = 450
+let backgroundCorrectionOffset = 0.5
+let titlePaddingTop: CGFloat = 30

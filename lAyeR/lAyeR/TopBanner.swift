@@ -10,12 +10,23 @@ import UIKit
 
 class TopBanner: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    @IBOutlet weak var title: UILabel? {
+        
+        didSet {
+            title!.frame = titleFrame
+            title!.font = UIFont(name: "HomenajeMod-Bold", size: 30)
+            title!.textAlignment = NSTextAlignment.center
+            title!.textColor = UIColor.white
+            self.addSubview(title!)
+        }
+        
     }
-    */
+    
+    var titleFrame: CGRect {
+        return CGRect(x: 0,
+                      y: self.frame.height * 0.15,
+                      width: self.frame.width,
+                      height: self.frame.height * 0.8)
+    }
 
 }
