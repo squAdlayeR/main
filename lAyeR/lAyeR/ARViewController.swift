@@ -14,7 +14,7 @@ import UIKit
 
 class ARViewController: UIViewController {
     var cameraView: UIView!
-    private var checkPointCards: [UIView] = []
+    private var checkPointCards: [(Double, UIView)] = []
     
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -27,7 +27,6 @@ class ARViewController: UIViewController {
     
     // for AR effect
     let motionManager = CMMotionManager()
-    let arCalculator = ARCalculator()
     
     // setting constants
     let sampleCardWidth = 60
@@ -56,35 +55,51 @@ class ARViewController: UIViewController {
     }
     
     private func addCheckPointCards() {
+        // FOR TESTING PURPOSE
+        
+        // sample card 1: pointing to North
         let sampleCard = UIView()
         sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-        sampleCard.backgroundColor = UIColor.white
+        sampleCard.backgroundColor = UIColor.orange
         sampleCard.alpha = sampleCardAlpha
-        checkPointCards.append(sampleCard)
-        for card in checkPointCards {
+        checkPointCards.append((0, sampleCard))
+        
+        // sample card 2: pointing to East
+        let sampleCard2 = UIView()
+        sampleCard2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+        sampleCard2.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+        sampleCard2.backgroundColor = UIColor.blue
+        sampleCard2.alpha = sampleCardAlpha
+        checkPointCards.append((M_PI / 2, sampleCard2))
+        
+        for (_, card) in checkPointCards {
             view.addSubview(card)
         }
     }
     
     /**
-        After this method is called, the system will monitor the device motion,
-        and update the view accordingly
-    */
+     After this method is called, the system will monitor the device motion,
+     and update the view accordingly
+     */
     private func startObservingDeviceMotion() {
         if motionManager.isDeviceMotionAvailable && !motionManager.isDeviceMotionActive {
-            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main,
-                                                   withHandler: { [unowned self] (data, error) in
+            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main, withHandler: { [unowned self] (data, error) in
                 guard let data = data else {
                     return
                 }
-                let layoutAdjustment = self.arCalculator.calculateARLayoutAdjustment(motion: data, azimuth: 0, within: self.view)
-                
+
                 // update position and orientation of checkPointCards
-                for checkPointCard in self.checkPointCards {
-                    let deviceZAxisX = data.attitude.rotationMatrix.m31
-                    checkPointCard.isHidden = deviceZAxisX > 0 ? true : false
+                for (azimuth, checkPointCard) in self.checkPointCards {
+                    let arCalculator = ARCalculator(motion: data, azimuth: azimuth, superView: self.view)
+                    let layoutAdjustment = arCalculator.calculateARLayoutAdjustment()
                     
+                    let horzAngle = arCalculator.calculateHorzAngle()
+                    var isOutOfView = false
+                    if horzAngle > M_PI / 2 || horzAngle < -M_PI / 2 {
+                        isOutOfView = true
+                    }
+                    checkPointCard.isHidden = isOutOfView
                     layoutAdjustment.apply(to: checkPointCard, within: self.view)
                 }
             })
@@ -100,7 +115,7 @@ extension ARViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             .defaultDevice(withDeviceType: .builtInWideAngleCamera,
                            mediaType: AVMediaTypeVideo,
                            position: .back) else{
-            return
+                            return
         }
         captureDevice = device
         beginSession()

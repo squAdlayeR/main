@@ -15,6 +15,7 @@
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
 		A28540471E70DD5000CF51B7 /* ARCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* ARCalculator.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
+		A285404B1E71C4A200CF51B7 /* ARLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */; };
 		A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AB91E70103800B4478C /* ARViewController.swift */; };
 		A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		2C3119B11E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* ARCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCalculator.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
+		A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARLayoutAdjustment.swift; sourceTree = "<group>"; };
 		A2AF0AB91E70103800B4478C /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3DTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +114,7 @@
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
 				A28540461E70DD5000CF51B7 /* ARCalculator.swift */,
 				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
+				A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */,
 			);
 			name = ARRenderer;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				A28540471E70DD5000CF51B7 /* ARCalculator.swift in Sources */,
+				A285404B1E71C4A200CF51B7 /* ARLayoutAdjustment.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
 			);

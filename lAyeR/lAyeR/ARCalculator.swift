@@ -10,15 +10,50 @@ import CoreMotion
 import Foundation
 import UIKit
 
-class ARCalculator {
-    func calculateARLayoutAdjustment(motion: CMDeviceMotion, azimuth: Double, within superView: UIView) -> ARLayoutAdjustment {
-        //TODO: handle different azimuth also (also elevation angle if data can be got)
+struct ARCalculator {
+    private let motion: CMDeviceMotion
+    private let azimuth: Double
+    private let superView: UIView
+    private var rotationMatrix: CMRotationMatrix {
+        return motion.attitude.rotationMatrix
+    }
+    
+    init(motion: CMDeviceMotion, azimuth: Double, superView: UIView) {
+        self.motion = motion
+        self.azimuth = azimuth
+        self.superView = superView
+    }
+    
+    func calculateARLayoutAdjustment() -> ARLayoutAdjustment {
+        let yawAngle = calculateYawAngle()
+        let horzAngle = calculateHorzAngle()
+        let verticalAngle = calculateVerticalAngle()
         
-        let rotationMatrix = motion.attitude.rotationMatrix
-        let rollSin = rotationMatrix.m32
-        let pitchSin = rotationMatrix.m33
+        let yawCos = cos(yawAngle)
+        let yawSin = sin(yawAngle)
         
-        // STEP 1. calculate "pure" yaw angle
+        let superViewWidth = superView.bounds.width
+        let superViewHeight = superView.bounds.height
+        let visionWidth = superViewWidth * CGFloat(abs(yawCos)) + superViewHeight * CGFloat(abs(yawSin))
+        let visionHeight = superViewWidth * CGFloat(abs(yawSin)) + superViewHeight * CGFloat(abs(yawCos))
+        
+        // positive x direction is rigth
+        let horzOffset = CGFloat(sin(horzAngle)) * visionWidth
+        // positive y direction is down
+        let verticalOffset = CGFloat(-sin(verticalAngle)) * visionHeight
+        
+        let xOffset = CGFloat(horzOffset) * CGFloat(yawCos) - CGFloat(verticalOffset) * CGFloat(yawSin)
+        let yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
+        
+        return ARLayoutAdjustment(xOffset: xOffset, yOffset: yOffset, rotationAngle: -(CGFloat)(yawAngle))
+    }
+    
+    /**
+     0 degree: vertical
+     positive direction: yaw right
+     range: -pi ~ pi
+     */
+    private func calculateYawAngle() -> Double {
         let deviceZ = Vector3D(x: rotationMatrix.m31, y: rotationMatrix.m32, z: rotationMatrix.m33)
         let deviceY = Vector3D(x: rotationMatrix.m21, y: rotationMatrix.m22, z: rotationMatrix.m23)
         
@@ -30,44 +65,50 @@ class ARCalculator {
         // - horzVectorPerpToDeviceZ
         let normalVector = horzVectorPerpToDeviceZ.crossProduct(with: deviceZ)
         
-        let cos = -deviceY.projectionLength(on: normalVector) / deviceY.length
-        var sin = sqrt(1 - cos * cos)
+        let yawCos = -deviceY.projectionLength(on: normalVector) / deviceY.length
+        var yawSin = sqrt(1 - yawCos * yawCos)
         if deviceY * horzVectorPerpToDeviceZ < 0 {
-            sin = -sin
+            yawSin = -yawSin
         }
         
-        // 0 degree: vertical
-        // positive direction: yaw right
-        // -pi ~ pi
-        let yawAngle = atan2(sin, cos)
-        
-        // STEP 2. calculate offset
-        let superViewWidth = superView.bounds.width
-        let superViewHeight = superView.bounds.height
-        let visionWidth = superViewWidth * CGFloat(abs(cos)) + superViewHeight * CGFloat(abs(sin))
-        let visionHeight = superViewWidth * CGFloat(abs(sin)) + superViewHeight * CGFloat(abs(cos))
-        // positive x direction is rigth
-        let horzOffset = -CGFloat(rollSin) * visionWidth
-        // positive y direction is down
-        let verticalOffset = CGFloat(pitchSin) * visionHeight
-        
-        let xOffset = CGFloat(horzOffset) * CGFloat(cos) - CGFloat(verticalOffset) * CGFloat(sin)
-        let yOffset = -(CGFloat(verticalOffset) * CGFloat(cos) + CGFloat(horzOffset) * CGFloat(sin))
-        
-        return ARLayoutAdjustment(xOffset: xOffset, yOffset: yOffset, rotationAngle: -(CGFloat)(yawAngle))
+        return atan2(yawSin, yawCos)
+    }
+    
+    /**
+     0 degree: horizontal
+     positive direction: pitch up
+     range: -pi/2 ~ pi/2
+     */
+    func calculateVerticalAngle() -> Double {
+        let m33 = -rotationMatrix.m33
+        return atan2(m33, sqrt(1 - m33 * m33))
+    }
+    
+    /**
+     0 degree: back pointing to true north
+     positive direction: roll left
+     range: -pi ~ pi
+     */
+    func calculateHorzAngleRelToNorth() -> Double {  // "RelTo": relative to
+        return atan2(-rotationMatrix.m32, -rotationMatrix.m31)
+    }
+    
+    /**
+     0 degree: back pointing to the target
+     positive direction: roll left
+     range: -pi ~ pi
+     */
+    func calculateHorzAngle() -> Double {
+        // the positive direction of azimuth is right, which is the opposite of rollAngle
+        return angleWithinMinusPiToPi(calculateHorzAngleRelToNorth() + azimuth)
+    }
+    
+    private func angleWithinMinusPiToPi(_ angle: Double) -> Double {
+        if angle > M_PI {
+            return angle - 2 * M_PI
+        } else if angle < -M_PI {
+            return angle + 2 * M_PI
+        }
+        return angle
     }
 }
-
-
-struct ARLayoutAdjustment {
-    let xOffset: CGFloat
-    let yOffset: CGFloat
-    let rotationAngle: CGFloat
-
-    func apply(to view: UIView, within superView: UIView) {
-        view.transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
-        view.center.x = (superView.bounds.width - view.frame.width) / 2 + xOffset
-        view.center.y = (superView.bounds.height - view.frame.height) / 2 + yOffset
-    }
-}
-
