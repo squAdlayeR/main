@@ -7,3 +7,15 @@
 //
 
 import Foundation
+import XCTest
+@testable import lAyeR
+
+class Vector3DTests: XCTestCase {
+
+}
+
+
+
+
+
+

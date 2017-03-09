@@ -27,6 +27,7 @@ class ARViewController: UIViewController {
     
     // for AR effect
     let motionManager = CMMotionManager()
+    let arCalculator = ARCalculator()
     
     // setting constants
     let sampleCardWidth = 60
@@ -72,64 +73,19 @@ class ARViewController: UIViewController {
     */
     private func startObservingDeviceMotion() {
         if motionManager.isDeviceMotionAvailable && !motionManager.isDeviceMotionActive {
-            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main, withHandler: { [unowned self] (data, error) in
-                guard let rotationMatrix = data?.attitude.rotationMatrix else {
+            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main,
+                                                   withHandler: { [unowned self] (data, error) in
+                guard let data = data else {
                     return
                 }
-                let rollSin = rotationMatrix.m32
-                let pitchSin = rotationMatrix.m33
-
-                let m31 = rotationMatrix.m31
-                let m32 = rotationMatrix.m32
-                let m33 = rotationMatrix.m33
-                let m21 = rotationMatrix.m21
-                let m22 = rotationMatrix.m22
-                let m23 = rotationMatrix.m23
-                
-                // STEP 0. calculate "pure" yaw angle
-                let deviceY = Vector3D(x: m21, y: m22, z: m23)
-                
-                // the horizontal vector perpendicular to the z-axis vector of the device
-                let horzVectorPerpToDeviceZ = Vector3D(x: -m32, y: m31, z: 0)
-                
-                // the normal vector of the surface spanned by the following 2 vectors:
-                // 1. the z-axis vector of the device
-                // 2. horzVectorPerpToDeviceZ
-                let normalVector = Vector3D(x: (m33 * m31) / (m32 * m32 + m31 * m31),
-                                            y: (m33 * m32) / (m32 * m32 + m31 * m31),
-                                            z: -1)
-                
-                let cos = -deviceY.projectionLength(on: normalVector) / deviceY.length
-                var sin = sqrt(1 - cos * cos)
-                if deviceY * horzVectorPerpToDeviceZ < 0 {
-                    sin = -sin
-                }
-                
-                let yawAngle = atan2(sin, cos)
+                let layoutAdjustment = self.arCalculator.calculateARLayoutAdjustment(motion: data, azimuth: 0, within: self.view)
                 
                 // update position and orientation of checkPointCards
                 for checkPointCard in self.checkPointCards {
-                    checkPointCard.isHidden = m31 > 0 ? true : false
+                    let deviceZAxisX = data.attitude.rotationMatrix.m31
+                    checkPointCard.isHidden = deviceZAxisX > 0 ? true : false
                     
-                    // STEP 1. update orientation
-                    checkPointCard.transform = CGAffineTransform(rotationAngle: CGFloat(-yawAngle))
-                    
-                    
-                    // STEP 2. update position
-                    let superViewWidth = self.view.bounds.width
-                    let superViewHeight = self.view.bounds.height
-                    let visionWidth = superViewWidth * CGFloat(abs(cos)) + superViewHeight * CGFloat(abs(sin))
-                    let visionHeight = superViewWidth * CGFloat(abs(sin)) + superViewHeight * CGFloat(abs(cos))
-                    // positive x direction is rigth
-                    let horzOffset = -CGFloat(rollSin) * visionWidth
-                    // positive y direction is down
-                    let verticalOffset = CGFloat(pitchSin) * visionHeight
-                    
-                    let xOffset = CGFloat(horzOffset) * CGFloat(cos) - CGFloat(verticalOffset) * CGFloat(sin)
-                    let yOffset = CGFloat(verticalOffset) * CGFloat(cos) + CGFloat(horzOffset) * CGFloat(sin)
-                    
-                    checkPointCard.center.x = (self.view.bounds.width - checkPointCard.frame.height) / 2 + xOffset
-                    checkPointCard.center.y = (self.view.bounds.height - checkPointCard.frame.width) / 2 - yOffset
+                    layoutAdjustment.apply(to: checkPointCard, within: self.view)
                 }
             })
         }

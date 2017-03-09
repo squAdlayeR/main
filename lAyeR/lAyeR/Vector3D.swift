@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Vector3D {
+struct Vector3D {
     private(set) var x: Double
     private(set) var y: Double
     private(set) var z: Double
@@ -17,15 +17,26 @@ class Vector3D {
         return sqrt(x * x + y * y + z * z)
     }
     
-    init(x: Double, y: Double, z: Double) {
-        self.x = x
-        self.y = y
-        self.z = z
+    static prefix func -(v: Vector3D) -> Vector3D {
+        return Vector3D(x: -(v.x), y: -(v.y), z: -(v.z))
     }
     
     /// - Returns: dot product of two 3d-vectors
     static func *(v1: Vector3D, v2: Vector3D) -> Double {
         return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
+    }
+    
+    /// - Returns: the cross product of this vector and the input vector: this x input
+    func crossProduct(with v: Vector3D) -> Vector3D {
+        let x1 = self.x
+        let y1 = self.y
+        let z1 = self.z
+        let x2 = v.x
+        let y2 = v.y
+        let z2 = v.z
+        return Vector3D(x: y1 * z2 - z1 * y2,
+                        y: z1 * x2 - x1 * z2,
+                        z: x2 * y2 - y1 * x2)
     }
     
     /// - Returns: the length of the projection of this vector on the input vector "v"
