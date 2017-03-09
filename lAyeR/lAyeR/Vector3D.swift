@@ -23,8 +23,13 @@ class Vector3D {
         self.z = z
     }
     
-    /// dot product of two 3d-vectors
+    /// - Returns: dot product of two 3d-vectors
     static func *(v1: Vector3D, v2: Vector3D) -> Double {
         return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
+    }
+    
+    /// - Returns: the length of the projection of this vector on the input vector "v"
+    func projectionLength(on v: Vector3D) -> Double {
+        return self * v / v.length
     }
 }

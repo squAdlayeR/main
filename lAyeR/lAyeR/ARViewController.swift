@@ -25,13 +25,13 @@ class ARViewController: UIViewController {
     var currentFrame: CIImage!
     var done = false
     
-    // for ar effect
+    // for AR effect
     let motionManager = CMMotionManager()
     
     // setting constants
     let sampleCardWidth = 60
     let sampleCardHeight = 80
-    let sampleCardAlpha: CGFloat = 0.38
+    let sampleCardAlpha: CGFloat = 0.48
     
     
     override func viewDidLoad() {
@@ -66,57 +66,70 @@ class ARViewController: UIViewController {
         }
     }
     
+    /**
+        After this method is called, the system will monitor the device motion,
+        and update the view accordingly
+    */
     private func startObservingDeviceMotion() {
         if motionManager.isDeviceMotionAvailable && !motionManager.isDeviceMotionActive {
-            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main, withHandler: { [unowned self] (data, error) in
-                guard let data = data else {
+            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main,
+                                                   withHandler: { [unowned self] (data, error) in
+                guard let rotationMatrix = data?.attitude.rotationMatrix else {
                     return
                 }
-                let rollSin = data.attitude.rotationMatrix.m32
-                let pitchSin = data.attitude.rotationMatrix.m33
+                let rollSin = rotationMatrix.m32
+                let pitchSin = rotationMatrix.m33
+
+                let m31 = rotationMatrix.m31
+                let m32 = rotationMatrix.m32
+                let m33 = rotationMatrix.m33
+                let m21 = rotationMatrix.m21
+                let m22 = rotationMatrix.m22
+                let m23 = rotationMatrix.m23
+                
+                // STEP 0. calculate "pure" yaw angle
+                let deviceY = Vector3D(x: m21, y: m22, z: m23)
+                
+                // the horizontal vector perpendicular to the z-axis vector of the device
+                let horzVectorPerpToDeviceZ = Vector3D(x: -m32, y: m31, z: 0)
+                
+                // the normal vector of the surface spanned by the following 2 vectors:
+                // 1. the z-axis vector of the device
+                // 2. horzVectorPerpToDeviceZ
+                let normalVector = Vector3D(x: (m33 * m31) / (m32 * m32 + m31 * m31),
+                                            y: (m33 * m32) / (m32 * m32 + m31 * m31),
+                                            z: -1)
+                
+                let cos = -deviceY.projectionLength(on: normalVector) / deviceY.length
+                var sin = sqrt(1 - cos * cos)
+                if deviceY * horzVectorPerpToDeviceZ < 0 {
+                    sin = -sin
+                }
+                
+                let yawAngle = atan2(sin, cos)
                 
                 // update position and orientation of checkPointCards
                 for checkPointCard in self.checkPointCards {
-                    checkPointCard.isHidden = data.attitude.rotationMatrix.m31 > 0 ? true : false
-                
-                    // update orientation
-
-                    let x = data.attitude.rotationMatrix.m31
-                    let y = data.attitude.rotationMatrix.m32
-                    let z = data.attitude.rotationMatrix.m33
-                    let m21 = data.attitude.rotationMatrix.m21
-                    let m22 = data.attitude.rotationMatrix.m22
-                    let m23 = data.attitude.rotationMatrix.m23
+                    checkPointCard.isHidden = m31 > 0 ? true : false
                     
-//                    let vz = [x, y, z]
-                    let vy = [m21, m22, m23]
-                    var horiz = [-y, x, 0]
+                    // STEP 1. update orientation
+                    checkPointCard.transform = CGAffineTransform(rotationAngle: CGFloat(-yawAngle))
                     
-                    let norm = [(z*x)/(y*y+x*x), (z*y)/(y*y+x*x), -1]
-                    let proj = (vy[0]*norm[0] + vy[1]*norm[1] + vy[2]*norm[2]) / sqrt(norm[0]*norm[0] + norm[1]*norm[1] + norm[2]*norm[2])
-                    let cos = -proj / sqrt(vy[0]*vy[0] + vy[1]*vy[1] + vy[2]*vy[2])
-                    var sin = sqrt(1 - cos * cos)
-                    if (vy[0]*horiz[0] + vy[1]*horiz[1] + vy[2]*horiz[2]) < 0 {
-                        sin = -sin
-                    }
                     
-                    let angle = atan2(sin, cos)
-                    checkPointCard.transform = CGAffineTransform(rotationAngle: CGFloat(-angle))
-                    
-                    // update position
+                    // STEP 2. update position
                     let cardHeight = checkPointCard.frame.height
                     let cardWidth = checkPointCard.frame.width
                     
                     // positive x direction is rigth
-                    let xOffset = -CGFloat(rollSin) * self.view.bounds.width
+                    let horzOffset = -CGFloat(rollSin) * self.view.bounds.width
                     // positive y direction is down
-                    let yOffset = CGFloat(pitchSin) * self.view.bounds.height
+                    let verticalOffset = CGFloat(pitchSin) * self.view.bounds.height
                     
-                    let xoff = CGFloat(xOffset) * CGFloat(cos) - CGFloat(yOffset) * CGFloat(sin)
-                    let yoff = CGFloat(yOffset) * CGFloat(cos) + CGFloat(xOffset) * CGFloat(sin)
+                    let xOffset = CGFloat(horzOffset) * CGFloat(cos) - CGFloat(verticalOffset) * CGFloat(sin)
+                    let yOffset = CGFloat(verticalOffset) * CGFloat(cos) + CGFloat(horzOffset) * CGFloat(sin)
                     
-                    checkPointCard.center.x = (self.view.bounds.width - cardWidth) / 2 + xoff
-                    checkPointCard.center.y = (self.view.bounds.height - cardHeight) / 2 - yoff
+                    checkPointCard.center.x = (self.view.bounds.width - cardWidth) / 2 + xOffset
+                    checkPointCard.center.y = (self.view.bounds.height - cardHeight) / 2 - yOffset
                 }
             })
         }
