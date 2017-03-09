@@ -72,8 +72,7 @@ class ARViewController: UIViewController {
     */
     private func startObservingDeviceMotion() {
         if motionManager.isDeviceMotionAvailable && !motionManager.isDeviceMotionActive {
-            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main,
-                                                   withHandler: { [unowned self] (data, error) in
+            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main, withHandler: { [unowned self] (data, error) in
                 guard let rotationMatrix = data?.attitude.rotationMatrix else {
                     return
                 }
@@ -117,19 +116,20 @@ class ARViewController: UIViewController {
                     
                     
                     // STEP 2. update position
-                    let cardHeight = checkPointCard.frame.height
-                    let cardWidth = checkPointCard.frame.width
-                    
+                    let superViewWidth = self.view.bounds.width
+                    let superViewHeight = self.view.bounds.height
+                    let visionWidth = superViewWidth * CGFloat(abs(cos)) + superViewHeight * CGFloat(abs(sin))
+                    let visionHeight = superViewWidth * CGFloat(abs(sin)) + superViewHeight * CGFloat(abs(cos))
                     // positive x direction is rigth
-                    let horzOffset = -CGFloat(rollSin) * self.view.bounds.width
+                    let horzOffset = -CGFloat(rollSin) * visionWidth
                     // positive y direction is down
-                    let verticalOffset = CGFloat(pitchSin) * self.view.bounds.height
+                    let verticalOffset = CGFloat(pitchSin) * visionHeight
                     
                     let xOffset = CGFloat(horzOffset) * CGFloat(cos) - CGFloat(verticalOffset) * CGFloat(sin)
                     let yOffset = CGFloat(verticalOffset) * CGFloat(cos) + CGFloat(horzOffset) * CGFloat(sin)
                     
-                    checkPointCard.center.x = (self.view.bounds.width - cardWidth) / 2 + xOffset
-                    checkPointCard.center.y = (self.view.bounds.height - cardHeight) / 2 - yOffset
+                    checkPointCard.center.x = (self.view.bounds.width - checkPointCard.frame.height) / 2 + xOffset
+                    checkPointCard.center.y = (self.view.bounds.height - checkPointCard.frame.width) / 2 - yOffset
                 }
             })
         }
