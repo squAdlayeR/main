@@ -1,16 +1,17 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  lAyeR
 //
-//  Created by BillStark on 3/1/17.
-//  Copyright © 2017 nus.cs3217.layer. All rights reserved.
+//  Created by Victoria Duan on 2017/3/10.
+//  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import GoogleMaps
 import GooglePlaces
+import GoogleMaps
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     var placesClient: GMSPlacesClient?
     let locationManger: CLLocationManager = CLLocationManager()
@@ -54,9 +55,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
             
         })
-        //print(userLocation)
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,5 +75,5 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         print(userLocation.altitude)
     }
 
+    
 }
-
