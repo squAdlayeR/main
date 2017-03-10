@@ -9,5 +9,5 @@
 import Foundation
 
 class POIManager {
-
+    // to be implemented
 }

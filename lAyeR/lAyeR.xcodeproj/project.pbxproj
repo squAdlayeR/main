@@ -21,6 +21,8 @@
 		5249B1B01E7264880048249D /* POIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1AF1E7264880048249D /* POIManager.swift */; };
 		5249B1B21E7264AB0048249D /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B11E7264AB0048249D /* POI.swift */; };
 		5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B41E72B3A30048249D /* LocalStorageManager.swift */; };
+		5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B61E72FC660048249D /* GeoUtil.swift */; };
+		5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B81E73009F0048249D /* MapViewDelegate.swift */; };
 		B4EEF9CDCE1F28C23A26F902 /* Pods_lAyeR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,8 @@
 		5249B1AF1E7264880048249D /* POIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIManager.swift; sourceTree = "<group>"; };
 		5249B1B11E7264AB0048249D /* POI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
 		5249B1B41E72B3A30048249D /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
+		5249B1B61E72FC660048249D /* GeoUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtil.swift; sourceTree = "<group>"; };
+		5249B1B81E73009F0048249D /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
 		F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.release.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +135,8 @@
 				5249B1AD1E7264790048249D /* UserConfig.swift */,
 				5249B1AF1E7264880048249D /* POIManager.swift */,
 				5249B1B11E7264AB0048249D /* POI.swift */,
+				5249B1B61E72FC660048249D /* GeoUtil.swift */,
+				5249B1B81E73009F0048249D /* MapViewDelegate.swift */,
 			);
 			name = RouteDesigner;
 			sourceTree = "<group>";
@@ -315,6 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
@@ -323,6 +330,7 @@
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
+				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				5249B1B01E7264880048249D /* POIManager.swift in Sources */,
 			);

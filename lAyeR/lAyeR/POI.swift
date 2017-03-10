@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import CoreLocation
 
 class POI {
-
+    // to be implemented
 }

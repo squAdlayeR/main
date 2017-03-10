@@ -9,5 +9,5 @@
 import Foundation
 
 class UserConfig {
-
+    // to be implemented
 }
