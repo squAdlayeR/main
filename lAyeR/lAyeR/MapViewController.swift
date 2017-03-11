@@ -30,13 +30,43 @@ class MapViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
-        placesClient = GMSPlacesClient()
+        //placesClient = GMSPlacesClient()
+    }
+    
+    func test() {
+        let urlPath: String = MapQueryParser.googleServerURL
+        let url: NSURL = NSURL(string: urlPath)!
+        let request1: NSURLRequest = NSURLRequest(url: url as URL)
+        let response: AutoreleasingUnsafeMutablePointer<URLResponse?>? = nil
+        
+        
+        do{
+            
+            let dataVal = try NSURLConnection.sendSynchronousRequest(request1 as URLRequest, returning: response)
+            
+            print(response)
+            do {
+//                if let jsonResult = try JSONSerialization.jsonObject(with: dataVal, options: []) as? NSDictionary {
+//                    print("Synchronous\(jsonResult)")
+//                }
+                MapQueryParser.parseServerResponse(dataVal)
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+            
+            
+            
+        }catch let error as NSError
+        {
+            print(error.localizedDescription)
+        }
     }
     
     // Test
     @IBAction func getLocation(_ sender: Any) {
         // test method
-        print(mapViewDelegate.userLocation)
+        //print(mapViewDelegate.userLocation)
+        test()
     }
 
     override func didReceiveMemoryWarning() {
