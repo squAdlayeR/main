@@ -15,13 +15,15 @@ import UIKit
  */
 
 /// Basic
-let maxAlertHeight: CGFloat = 450
-let minAlertHeight: CGFloat = 300
-let topBannerHeight: CGFloat = 80
-let bottomBannerHeight: CGFloat = 60
+let maxAlertHeight: CGFloat = 500
+let minAlertHeight: CGFloat = 250
+let topBannerHeight: CGFloat = 60
+let bottomBannerHeight: CGFloat = 80
 
 /// BackgroundImage
-let topBannerImage: String = "bannerTop.png"
+let topBannerImage: String = "banner.png"
+let bottomBannerImage: String = "banner.png"
+let infoPanelImage: String = "panelInfo.png"
 
 /// Title
 let titleFontColor: UIColor = UIColor.white
@@ -30,5 +32,8 @@ let titleFontSize: CGFloat = 30
 let titlePaddingTop: CGFloat = 30
 let titlePlaceHolder: String = "Place holder"
 
-let backgroundCorrectionOffset: CGFloat = 0.5
+/// Buttons
+let buttonFontName: String = "HomenajeMod-Regular"
+let buttonFontSize: CGFloat = 20
+
 
