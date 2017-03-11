@@ -75,7 +75,6 @@ extension BasicAlertController {
     /// Closes the alert
     func closeAlert() {
         alert.close()
-        alert.removeFromSuperview()
     }
     
 }

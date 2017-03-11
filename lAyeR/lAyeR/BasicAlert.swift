@@ -148,6 +148,7 @@ extension BasicAlert {
             self.bottomBanner.close()
             self.infoPanel.hideInfo()
             self.infoPanel.close()
+            self.removeFromSuperview()
         })
     }
     

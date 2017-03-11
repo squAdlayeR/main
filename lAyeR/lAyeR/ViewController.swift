@@ -11,32 +11,36 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var layerAlert: BasicAlert?
+    var testController: BasicAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+//        let button2 = UIButton()
+//        button2.setTitle("Cancel", for: .normal)
+//        button2.titleLabel?.font = UIFont(name: buttonFontName, size: buttonFontSize)
+        
         let button1 = UIButton()
         button1.setTitle("OK", for: .normal)
         button1.titleLabel?.font = UIFont(name: buttonFontName, size: buttonFontSize)
-        let button2 = UIButton()
-        button2.setTitle("Cancel", for: .normal)
-        button2.titleLabel?.font = UIFont(name: buttonFontName, size: buttonFontSize)
+        button1.addTarget(self, action: #selector(confirmAction), for: .touchUpInside)
+        
         let newLable = UILabel()
-        newLable.text = "This is just for testing."
+        newLable.text = "Welcome to lAyeR! Your AR jouney starts from here."
         newLable.font = UIFont(name: buttonFontName, size: 18)
         newLable.textColor = titleFontColor
         newLable.textAlignment = NSTextAlignment.center
+        
         let frame = CGRect(x: view.bounds.width / 2 - 175,
                            y: view.bounds.height / 2 - 125,
                            width: 350,
                            height: 250)
-        let newAlert = BasicAlert(frame: frame, title: nil)
-        layerAlert = newAlert
-        newAlert.addButton(button1)
-        newAlert.addButton(button2)
-        newAlert.insertIntoInfoPanel(with: newLable)
-        newAlert.prepareDisplay()
-        mainView.addSubview(layerAlert!)
+        let newAlertController = BasicAlertController(title: "Welcome", frame: frame)
+        newAlertController.addViewToAlert(newLable)
+        newAlertController.addButtonToAlert(button1)
+        newAlertController.presentAlert(within: mainView)
+        testController = newAlertController
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,11 +49,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func openClicked(_ sender: Any) {
-        layerAlert?.open()
+        testController?.presentAlert(within: mainView)
     }
 
     @IBAction func closePressed(_ sender: Any) {
-        layerAlert?.close()
+        testController?.closeAlert()
     }
+    
+    func confirmAction() {
+        testController?.closeAlert()
+    }
+    
 }
 
