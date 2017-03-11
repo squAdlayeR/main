@@ -9,5 +9,21 @@
 import Foundation
 
 class LocalStorageManager {
-
+    
+    /// Saves the route to device.
+    static func save(_ route: Route) {
+    
+    }
+    
+    /// Loads the route from device.
+    /// method signature to be determined.
+    static func load() -> Route? {
+        return nil
+    }
+    
+    /// Deletes the route from device.
+    /// method signature to be determined.
+    static func delete() {
+    
+    }
 }

@@ -18,15 +18,15 @@
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
 		5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A91E72641C0048249D /* CheckPoint.swift */; };
 		5249B1AE1E7264790048249D /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1AD1E7264790048249D /* UserConfig.swift */; };
-		5249B1B01E7264880048249D /* POIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1AF1E7264880048249D /* POIManager.swift */; };
 		5249B1B21E7264AB0048249D /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B11E7264AB0048249D /* POI.swift */; };
 		5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B41E72B3A30048249D /* LocalStorageManager.swift */; };
 		5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B61E72FC660048249D /* GeoUtil.swift */; };
 		5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B81E73009F0048249D /* MapViewDelegate.swift */; };
-		5249B1BC1E7450380048249D /* MapQueryParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1BB1E7450380048249D /* MapQueryParser.swift */; };
+		5249B1BC1E7450380048249D /* MapQuerymManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1BB1E7450380048249D /* MapQuerymManager.swift */; };
 		5249B1BE1E7463E30048249D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5249B1BD1E7463E30048249D /* GoogleService-Info.plist */; };
 		5249B1BF1E7463E30048249D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5249B1BD1E7463E30048249D /* GoogleService-Info.plist */; };
 		5249B1C11E7467D10048249D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C01E7467D10048249D /* DatabaseManager.swift */; };
+		5249B1C31E746CC70048249D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C21E746CC70048249D /* AppConfig.swift */; };
 		B4EEF9CDCE1F28C23A26F902 /* Pods_lAyeR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,14 +56,14 @@
 		5249B1A71E7264000048249D /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
 		5249B1A91E72641C0048249D /* CheckPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
 		5249B1AD1E7264790048249D /* UserConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
-		5249B1AF1E7264880048249D /* POIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIManager.swift; sourceTree = "<group>"; };
 		5249B1B11E7264AB0048249D /* POI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
 		5249B1B41E72B3A30048249D /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		5249B1B61E72FC660048249D /* GeoUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtil.swift; sourceTree = "<group>"; };
 		5249B1B81E73009F0048249D /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
-		5249B1BB1E7450380048249D /* MapQueryParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapQueryParser.swift; sourceTree = "<group>"; };
+		5249B1BB1E7450380048249D /* MapQuerymManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapQuerymManager.swift; sourceTree = "<group>"; };
 		5249B1BD1E7463E30048249D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5249B1C01E7467D10048249D /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		5249B1C21E746CC70048249D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
 		F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +121,7 @@
 				2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */,
 				5249B1BD1E7463E30048249D /* GoogleService-Info.plist */,
 				2C3119A61E670A5F00FF6334 /* Info.plist */,
+				5249B1C21E746CC70048249D /* AppConfig.swift */,
 			);
 			path = lAyeR;
 			sourceTree = "<group>";
@@ -138,14 +139,13 @@
 			isa = PBXGroup;
 			children = (
 				5249B1A21E7263300048249D /* MapViewController.swift */,
-				5249B1A51E7263C40048249D /* Route.swift */,
+				5249B1B81E73009F0048249D /* MapViewDelegate.swift */,
+				5249B1AD1E7264790048249D /* UserConfig.swift */,
 				5249B1A71E7264000048249D /* GeoPoint.swift */,
 				5249B1A91E72641C0048249D /* CheckPoint.swift */,
-				5249B1AD1E7264790048249D /* UserConfig.swift */,
-				5249B1AF1E7264880048249D /* POIManager.swift */,
 				5249B1B11E7264AB0048249D /* POI.swift */,
+				5249B1A51E7263C40048249D /* Route.swift */,
 				5249B1B61E72FC660048249D /* GeoUtil.swift */,
-				5249B1B81E73009F0048249D /* MapViewDelegate.swift */,
 			);
 			name = RouteDesigner;
 			sourceTree = "<group>";
@@ -161,7 +161,7 @@
 		5249B1BA1E7450190048249D /* WebQuery */ = {
 			isa = PBXGroup;
 			children = (
-				5249B1BB1E7450380048249D /* MapQueryParser.swift */,
+				5249B1BB1E7450380048249D /* MapQuerymManager.swift */,
 				5249B1C01E7467D10048249D /* DatabaseManager.swift */,
 			);
 			name = WebQuery;
@@ -344,6 +344,7 @@
 				5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
+				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
 				5249B1A31E7263300048249D /* MapViewController.swift in Sources */,
@@ -353,8 +354,7 @@
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
-				5249B1BC1E7450380048249D /* MapQueryParser.swift in Sources */,
-				5249B1B01E7264880048249D /* POIManager.swift in Sources */,
+				5249B1BC1E7450380048249D /* MapQuerymManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

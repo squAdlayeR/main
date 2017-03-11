@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 import GooglePlaces
 import GoogleMaps
 
@@ -34,32 +35,7 @@ class MapViewController: UIViewController {
     }
     
     func test() {
-        let urlPath: String = MapQueryParser.googleServerURL
-        let url: NSURL = NSURL(string: urlPath)!
-        let request1: NSURLRequest = NSURLRequest(url: url as URL)
-        let response: AutoreleasingUnsafeMutablePointer<URLResponse?>? = nil
         
-        
-        do{
-            
-            let dataVal = try NSURLConnection.sendSynchronousRequest(request1 as URLRequest, returning: response)
-            
-            print(response)
-            do {
-//                if let jsonResult = try JSONSerialization.jsonObject(with: dataVal, options: []) as? NSDictionary {
-//                    print("Synchronous\(jsonResult)")
-//                }
-                MapQueryParser.parseServerResponse(dataVal)
-            } catch let error as NSError {
-                print(error.localizedDescription)
-            }
-            
-            
-            
-        }catch let error as NSError
-        {
-            print(error.localizedDescription)
-        }
     }
     
     // Test

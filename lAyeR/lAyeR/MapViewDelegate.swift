@@ -16,5 +16,5 @@ class MapViewDelegate: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = locations.last
     }
-
+    
 }
