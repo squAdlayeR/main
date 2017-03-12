@@ -8,10 +8,26 @@
 
 import Foundation
 
-class Route {
+class Route: NSCoding {
     
     /// Stores check points on the route.
+    private(set) var name: String
     private var checkPoints: [CheckPoint] = []
+    
+    init(_ name: String) {
+        self.name = name
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.name = aDecoder.decodeObject(forKey: "routeName") as? String ?? ""
+        self.checkPoints = aDecoder.decodeObject(forKey: "checkPoints") as?
+        [CheckPoint] ?? []
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "routeName")
+        aCoder.encode(checkPoints, forKey: "checkPoints")
+    }
     
     /// Returns the number of check points on the route.
     var size: Int {

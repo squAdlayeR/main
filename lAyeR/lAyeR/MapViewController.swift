@@ -31,27 +31,29 @@ class MapViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
-        //placesClient = GMSPlacesClient()
     }
     
-    func test() {
-        
+    func test(_ json: NSDictionary) {
+        let pois = Parser.parseJSONToPOIs(json)
+        print(pois.count)
+        for poi in pois {
+            print(poi.name)
+        }
     }
     
     // Test
     @IBAction func getLocation(_ sender: Any) {
-        // test method
-        //print(mapViewDelegate.userLocation)
-        test()
+        //test()
+        guard let currentLocation = mapViewDelegate.userLocation else {
+            return
+        }
+        let request = Parser.parsePOISearchRequest(500, "food", currentLocation)
+        QueryManager.handleServerResponse(request, completion: test)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
-
     
 }
