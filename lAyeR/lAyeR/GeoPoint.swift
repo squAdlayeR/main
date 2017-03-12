@@ -19,9 +19,9 @@ class GeoPoint: NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         let latitude = aDecoder.decodeDouble(forKey: "lat")
-        let longtitude = aDecoder.decodeDouble(forKey: "lng")
+        let longitude = aDecoder.decodeDouble(forKey: "lng")
         self.location = CLLocation(latitude: latitude,
-                                   longitude: longtitude)
+                                   longitude: longitude)
     }
     
     func encode(with aCoder: NSCoder) {
