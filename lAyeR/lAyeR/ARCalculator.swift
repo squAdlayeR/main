@@ -45,7 +45,9 @@ struct ARCalculator {
         let xOffset = CGFloat(horzOffset) * CGFloat(yawCos) - CGFloat(verticalOffset) * CGFloat(yawSin)
         let yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
         
-        return ARLayoutAdjustment(xOffset: xOffset, yOffset: yOffset, rotationAngle: -(CGFloat)(yawAngle))
+        return ARLayoutAdjustment(xOffset: xOffset, yOffset: yOffset,
+                                  yawRotationAngle: -(CGFloat)(yawAngle),
+                                  horzRotationAngle: -(CGFloat)(horzAngle))
     }
     
     /**

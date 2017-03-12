@@ -57,21 +57,33 @@ class ARViewController: UIViewController {
     private func addCheckPointCards() {
         // FOR TESTING PURPOSE
         
-        // sample card 1: pointing to North
         let sampleCard = UIView()
-        sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+        sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard.backgroundColor = UIColor.orange
         sampleCard.alpha = sampleCardAlpha
         checkPointCards.append((0, sampleCard))
         
-        // sample card 2: pointing to East
         let sampleCard2 = UIView()
-        sampleCard2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard2.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+        sampleCard2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard2.backgroundColor = UIColor.blue
         sampleCard2.alpha = sampleCardAlpha
-        checkPointCards.append((M_PI / 2, sampleCard2))
+        checkPointCards.append((M_PI / 6, sampleCard2))
+        
+        let sampleCard3 = UIView()
+        sampleCard3.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+        sampleCard3.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+        sampleCard3.backgroundColor = UIColor.yellow
+        sampleCard3.alpha = sampleCardAlpha
+        checkPointCards.append((M_PI / 3, sampleCard3))
+        
+        let sampleCard4 = UIView()
+        sampleCard4.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+        sampleCard4.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+        sampleCard4.backgroundColor = UIColor.green
+        sampleCard4.alpha = sampleCardAlpha
+        checkPointCards.append((M_PI / 2, sampleCard4))
         
         for (_, card) in checkPointCards {
             view.addSubview(card)
