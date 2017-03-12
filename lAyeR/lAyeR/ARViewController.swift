@@ -29,8 +29,8 @@ class ARViewController: UIViewController {
     let motionManager = CMMotionManager()
     
     // setting constants
-    let sampleCardWidth = 60
-    let sampleCardHeight = 80
+    let sampleCardWidth = 108
+    let sampleCardHeight = 108
     let sampleCardAlpha: CGFloat = 0.48
     
     

@@ -81,7 +81,7 @@ struct ARCalculator {
      positive direction: pitch up
      range: -pi/2 ~ pi/2
      */
-    func calculateVerticalAngle() -> Double {
+    private func calculateVerticalAngle() -> Double {
         let m33 = -rotationMatrix.m33
         return atan2(m33, sqrt(1 - m33 * m33))
     }
@@ -91,7 +91,7 @@ struct ARCalculator {
      positive direction: roll left
      range: -pi ~ pi
      */
-    func calculateHorzAngleRelToNorth() -> Double {  // "RelTo": relative to
+    private func calculateHorzAngleRelToNorth() -> Double {  // "RelTo": relative to
         return atan2(-rotationMatrix.m32, -rotationMatrix.m31)
     }
     
@@ -105,6 +105,8 @@ struct ARCalculator {
         return angleWithinMinusPiToPi(calculateHorzAngleRelToNorth() + azimuth)
     }
     
+    
+    /// tranform an angle in the range from -2PI to 2PI to the equivalent one in the range from -PI to PI
     private func angleWithinMinusPiToPi(_ angle: Double) -> Double {
         if angle > M_PI {
             return angle - 2 * M_PI
