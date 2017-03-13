@@ -14,7 +14,7 @@ import UIKit
 
 class ARViewController: UIViewController {
     var cameraView: UIView!
-    private var checkPointCards: [(Double, UIView)] = []
+    private var checkPointCards: [(CheckPoint, UIView)] = []
     
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -34,11 +34,26 @@ class ARViewController: UIViewController {
     let sampleCardAlpha: CGFloat = 0.48
     
     
+    // for testing get current location
+//    let locationManager: CLLocationManager = CLLocationManager()
+//    var mapViewDelegate: MapViewDelegate = MapViewDelegate()
+    let locationManager = LocationManager()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addCameraView()
         addCheckPointCards()
         setupAVCapture()
+        
+        // for getting the current location
+//        locationManager.delegate = mapViewDelegate
+//        locationManager.requestAlwaysAuthorization()
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.startUpdatingLocation()
+        
+        
         startObservingDeviceMotion()
     }
     
@@ -62,28 +77,28 @@ class ARViewController: UIViewController {
         sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard.backgroundColor = UIColor.orange
         sampleCard.alpha = sampleCardAlpha
-        checkPointCards.append((0, sampleCard))
+        checkPointCards.append((CheckPoint(1.2909, 103.7813, "PGP", 4), sampleCard))
         
         let sampleCard2 = UIView()
         sampleCard2.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
         sampleCard2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard2.backgroundColor = UIColor.blue
         sampleCard2.alpha = sampleCardAlpha
-        checkPointCards.append((M_PI / 6, sampleCard2))
+        checkPointCards.append((CheckPoint(1.2923, 103.7799, "CP2", 3), sampleCard2))
         
         let sampleCard3 = UIView()
         sampleCard3.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
         sampleCard3.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard3.backgroundColor = UIColor.yellow
         sampleCard3.alpha = sampleCardAlpha
-        checkPointCards.append((M_PI / 3, sampleCard3))
+        checkPointCards.append((CheckPoint(1.2937, 103.7769, "CP1", 2), sampleCard3))
         
         let sampleCard4 = UIView()
         sampleCard4.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
         sampleCard4.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         sampleCard4.backgroundColor = UIColor.green
         sampleCard4.alpha = sampleCardAlpha
-        checkPointCards.append((M_PI / 2, sampleCard4))
+        checkPointCards.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
         
         for (_, card) in checkPointCards {
             view.addSubview(card)
@@ -102,7 +117,9 @@ class ARViewController: UIViewController {
                 }
 
                 // update position and orientation of checkPointCards
-                for (azimuth, checkPointCard) in self.checkPointCards {
+                for (checkPoint, checkPointCard) in self.checkPointCards {
+                    let userPoint = self.locationManager.getUserPoint()
+                    let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
                     let arCalculator = ARCalculator(motion: data, azimuth: azimuth, superView: self.view)
                     let layoutAdjustment = arCalculator.calculateARLayoutAdjustment()
                     
