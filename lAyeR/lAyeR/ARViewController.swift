@@ -14,7 +14,7 @@ import UIKit
 
 class ARViewController: UIViewController {
     var cameraView: UIView!
-    private var checkPointCards: [(CheckPoint, UIView)] = []
+    private var checkPointCards: [(CheckPoint, CheckpointView)] = []
     
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -138,6 +138,9 @@ class ARViewController: UIViewController {
                     }
                     checkPointCard.isHidden = isOutOfView
                     layoutAdjustment.apply(to: checkPointCard, within: self.view)
+                    
+                    let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
+                    checkPointCard.marker.setDistance(CGFloat(distance))
                 }
             })
         }
