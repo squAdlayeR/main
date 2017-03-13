@@ -37,8 +37,14 @@ class GeoUtil {
                                    longitude: geoPoint2.longitude)
         let referencePoint = CLLocation(latitude: geoPoint2.latitude,
                                         longitude: geoPoint1.longitude)
-        let longtitudeDistance = referencePoint.distance(from: location2)
-        let latitudeDistance = referencePoint.distance(from: location1)
+        var longtitudeDistance = referencePoint.distance(from: location2)
+        var latitudeDistance = referencePoint.distance(from: location1)
+        if geoPoint2.longitude < geoPoint1.longitude {
+            longtitudeDistance = -longtitudeDistance
+        }
+        if geoPoint2.latitude < geoPoint1.latitude {
+            latitudeDistance = -latitudeDistance
+        }
         return atan2(longtitudeDistance, latitudeDistance)
     }
     
