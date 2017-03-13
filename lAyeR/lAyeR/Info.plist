@@ -8,6 +8,13 @@
 	<string>Always need the location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Show your location on the map</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SAOUI-Regular.otf</string>
+		<string>SAOUI-Bold.otf</string>
+		<string>HomenajeMod-Regular.otf</string>
+		<string>HomenajeMod-Bold.otf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

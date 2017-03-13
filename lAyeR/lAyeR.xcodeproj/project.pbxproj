@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C11E62B1E7457D900468F42 /* BasicAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C11E62A1E7457D900468F42 /* BasicAlertController.swift */; };
 		2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199A1E670A5F00FF6334 /* AppDelegate.swift */; };
 		2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199C1E670A5F00FF6334 /* ViewController.swift */; };
 		2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C31199E1E670A5F00FF6334 /* Main.storyboard */; };
@@ -35,6 +36,22 @@
 		A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */; };
 		A2AF0AD11E76C2FB00B4478C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */; };
 		B4EEF9CDCE1F28C23A26F902 /* Pods_lAyeR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */; };
+		2C7333D71E711C6000EDE1D8 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D61E711C6000EDE1D8 /* TopBanner.swift */; };
+		2C7333D91E711C7700EDE1D8 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */; };
+		2C7333DB1E711C8F00EDE1D8 /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */; };
+		2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */; };
+		2C7333DF1E716CB900EDE1D8 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */; };
+		2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */; };
+		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
+		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
+		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
+		2C7813891E7544C000851188 /* dialog_close.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813871E7544C000851188 /* dialog_close.wav */; };
+		2C78138C1E7559EE00851188 /* CheckpointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138B1E7559EE00851188 /* CheckpointView.swift */; };
+		2C78138E1E755AC100851188 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138D1E755AC100851188 /* BasicMarker.swift */; };
+		2C7813921E755EAC00851188 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7813911E755EAC00851188 /* MarkerIcon.swift */; };
+		2C7813941E755EB700851188 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7813931E755EB700851188 /* MarkerInfo.swift */; };
+		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
+		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C11E62A1E7457D900468F42 /* BasicAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAlertController.swift; sourceTree = "<group>"; };
 		2C3119971E670A5F00FF6334 /* lAyeR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lAyeR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C31199A1E670A5F00FF6334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C31199C1E670A5F00FF6334 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +99,22 @@
 		A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
 		F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.release.xcconfig"; sourceTree = "<group>"; };
+		2C7333D61E711C6000EDE1D8 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBanner.swift; sourceTree = "<group>"; };
+		2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBanner.swift; sourceTree = "<group>"; };
+		2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAlert.swift; sourceTree = "<group>"; };
+		2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertConfig.swift; sourceTree = "<group>"; };
+		2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanel.swift; sourceTree = "<group>"; };
+		2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
+		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
+		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
+		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
+		2C7813871E7544C000851188 /* dialog_close.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dialog_close.wav; sourceTree = "<group>"; };
+		2C78138B1E7559EE00851188 /* CheckpointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointView.swift; sourceTree = "<group>"; };
+		2C78138D1E755AC100851188 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicMarker.swift; sourceTree = "<group>"; };
+		2C7813911E755EAC00851188 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerIcon.swift; sourceTree = "<group>"; };
+		2C7813931E755EB700851188 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerInfo.swift; sourceTree = "<group>"; };
+		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
+		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +163,12 @@
 				5249B1BA1E7450190048249D /* WebQuery */,
 				5249B1B31E72AF770048249D /* LocalStorage */,
 				5249B1A41E7263A30048249D /* RouteDesigner */,
+				2C7813851E7544B100851188 /* Sounds */,
+				2C7333E61E71BA8E00EDE1D8 /* Fonts */,
+				2C7333E11E71B4EA00EDE1D8 /* Common */,
+				2C7333D51E711C3900EDE1D8 /* BasicAlert */,
+				2C78138F1E755E6600851188 /* BasicMarker */,
+				2C78138A1E7559C200851188 /* CheckPoint */,
 				2C31199A1E670A5F00FF6334 /* AppDelegate.swift */,
 				2C31199C1E670A5F00FF6334 /* ViewController.swift */,
 				2C31199E1E670A5F00FF6334 /* Main.storyboard */,
@@ -221,6 +261,81 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2C7333D51E711C3900EDE1D8 /* BasicAlert */ = {
+			isa = PBXGroup;
+			children = (
+				2C7333E01E71B48700EDE1D8 /* AlertElements */,
+				2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */,
+				2C11E62A1E7457D900468F42 /* BasicAlertController.swift */,
+			);
+			name = BasicAlert;
+			sourceTree = "<group>";
+		};
+		2C7333E01E71B48700EDE1D8 /* AlertElements */ = {
+			isa = PBXGroup;
+			children = (
+				2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */,
+				2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */,
+				2C7333D61E711C6000EDE1D8 /* TopBanner.swift */,
+			);
+			name = AlertElements;
+			sourceTree = "<group>";
+		};
+		2C7333E11E71B4EA00EDE1D8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */,
+				2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		2C7333E61E71BA8E00EDE1D8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */,
+				2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */,
+				2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */,
+				2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		2C7813851E7544B100851188 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				2C7813861E7544C000851188 /* confirm.wav */,
+				2C7813871E7544C000851188 /* dialog_close.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		2C78138A1E7559C200851188 /* CheckPoint */ = {
+			isa = PBXGroup;
+			children = (
+				2C78138B1E7559EE00851188 /* CheckpointView.swift */,
+			);
+			name = CheckPoint;
+			sourceTree = "<group>";
+		};
+		2C78138F1E755E6600851188 /* BasicMarker */ = {
+			isa = PBXGroup;
+			children = (
+				2C7813901E755E7D00851188 /* MarkerElements */,
+				2C78138D1E755AC100851188 /* BasicMarker.swift */,
+			);
+			name = BasicMarker;
+			sourceTree = "<group>";
+		};
+		2C7813901E755E7D00851188 /* MarkerElements */ = {
+			isa = PBXGroup;
+			children = (
+				2C7813911E755EAC00851188 /* MarkerIcon.swift */,
+				2C7813931E755EB700851188 /* MarkerInfo.swift */,
+			);
+			name = MarkerElements;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -308,8 +423,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */,
+				2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */,
+				2C7813891E7544C000851188 /* dialog_close.wav in Resources */,
 				2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */,
 				5249B1BE1E7463E30048249D /* GoogleService-Info.plist in Resources */,
+				2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */,
+				2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */,
+				2C7813881E7544C000851188 /* confirm.wav in Resources */,
 				2C3119A21E670A5F00FF6334 /* Assets.xcassets in Resources */,
 				2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */,
 			);
@@ -398,6 +519,17 @@
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
+				2C78138C1E7559EE00851188 /* CheckpointView.swift in Sources */,
+				2C7333D91E711C7700EDE1D8 /* BottomBanner.swift in Sources */,
+				2C11E62B1E7457D900468F42 /* BasicAlertController.swift in Sources */,
+				2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */,
+				2C7813921E755EAC00851188 /* MarkerIcon.swift in Sources */,
+				2C7333D71E711C6000EDE1D8 /* TopBanner.swift in Sources */,
+				2C7333DF1E716CB900EDE1D8 /* InfoPanel.swift in Sources */,
+				2C7333DB1E711C8F00EDE1D8 /* BasicAlert.swift in Sources */,
+				2C78138E1E755AC100851188 /* BasicMarker.swift in Sources */,
+				2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */,
+				2C7813941E755EB700851188 /* MarkerInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

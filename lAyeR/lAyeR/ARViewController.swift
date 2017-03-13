@@ -72,32 +72,40 @@ class ARViewController: UIViewController {
     private func addCheckPointCards() {
         // FOR TESTING PURPOSE
         
-        let sampleCard = UIView()
-        sampleCard.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-        sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-        sampleCard.backgroundColor = UIColor.orange
-        sampleCard.alpha = sampleCardAlpha
+//        let sampleCard = UIView()
+//        sampleCard.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+//        sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+//        sampleCard.backgroundColor = UIColor.orange
+//        sampleCard.alpha = sampleCardAlpha
+        let size = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        let origin = CGPoint(x: (view.bounds.width - size.width) / 2,
+                             y: (view.bounds.height - size.height) / 2)
+        let frame = CGRect(origin: origin, size: size)
+        let sampleCard = CheckpointView(frame: frame, name: "PGP", distance: 0)
         checkPointCards.append((CheckPoint(1.2909, 103.7813, "PGP", 4), sampleCard))
         
-        let sampleCard2 = UIView()
-        sampleCard2.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-        sampleCard2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-        sampleCard2.backgroundColor = UIColor.blue
-        sampleCard2.alpha = sampleCardAlpha
+//        let sampleCard2 = UIView()
+//        sampleCard2.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+//        sampleCard2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+//        sampleCard2.backgroundColor = UIColor.blue
+//        sampleCard2.alpha = sampleCardAlpha
+        let sampleCard2 = CheckpointView(frame: frame, name: "CP2", distance: 0)
         checkPointCards.append((CheckPoint(1.2923, 103.7799, "CP2", 3), sampleCard2))
         
-        let sampleCard3 = UIView()
-        sampleCard3.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-        sampleCard3.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-        sampleCard3.backgroundColor = UIColor.yellow
-        sampleCard3.alpha = sampleCardAlpha
+//        let sampleCard3 = UIView()
+//        sampleCard3.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+//        sampleCard3.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+//        sampleCard3.backgroundColor = UIColor.yellow
+//        sampleCard3.alpha = sampleCardAlpha
+        let sampleCard3 = CheckpointView(frame: frame, name: "CP1", distance: 0)
         checkPointCards.append((CheckPoint(1.2937, 103.7769, "CP1", 2), sampleCard3))
         
-        let sampleCard4 = UIView()
-        sampleCard4.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-        sampleCard4.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-        sampleCard4.backgroundColor = UIColor.green
-        sampleCard4.alpha = sampleCardAlpha
+//        let sampleCard4 = UIView()
+//        sampleCard4.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
+//        sampleCard4.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+//        sampleCard4.backgroundColor = UIColor.green
+//        sampleCard4.alpha = sampleCardAlpha
+        let sampleCard4 = CheckpointView(frame: frame, name: "Biz link", distance: 0)
         checkPointCards.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
         
         for (_, card) in checkPointCards {

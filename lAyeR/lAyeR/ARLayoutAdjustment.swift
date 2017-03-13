@@ -34,7 +34,7 @@ struct ARLayoutAdjustment {
         let horzRotationTransform = CATransform3DMakeRotation(horzRotationAngle, 0, 1, 0)
         let yawRotationTransform = CATransform3DMakeRotation(yawRotationAngle, 0, 0, 1)
         var perspectiveTransform = CATransform3DIdentity
-        perspectiveTransform.m34 = -1 / 108
+        perspectiveTransform.m34 = -1 / 180
         
         // apply the 3 transformations in the order described above
         var transform = CATransform3DConcat(horzRotationTransform, yawRotationTransform)
