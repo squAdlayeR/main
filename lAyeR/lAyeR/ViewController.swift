@@ -20,7 +20,7 @@ class ViewController: UIViewController {
                                  y: (view.bounds.height - suggestedPopupHeight) / 2,
                                  width: suggestedPopupWidth,
                                  height: suggestedPopupHeight)
-        let newMarker = CheckpointView(frame: checkpointFrame, name: "Check Point #1", distance: 100.0, description: "test")
+        let newMarker = CheckpointView(frame: checkpointFrame, name: "Check Point #1", distance: 100.0)
         mainView.addSubview(newMarker)
     }
 

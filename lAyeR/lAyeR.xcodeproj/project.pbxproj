@@ -17,7 +17,7 @@
 		2C7333D71E711C6000EDE1D8 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D61E711C6000EDE1D8 /* TopBanner.swift */; };
 		2C7333D91E711C7700EDE1D8 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */; };
 		2C7333DB1E711C8F00EDE1D8 /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */; };
-		2C7333DD1E711E9C00EDE1D8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DC1E711E9C00EDE1D8 /* Config.swift */; };
+		2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */; };
 		2C7333DF1E716CB900EDE1D8 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */; };
 		2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */; };
 		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
@@ -57,7 +57,7 @@
 		2C7333D61E711C6000EDE1D8 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBanner.swift; sourceTree = "<group>"; };
 		2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBanner.swift; sourceTree = "<group>"; };
 		2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAlert.swift; sourceTree = "<group>"; };
-		2C7333DC1E711E9C00EDE1D8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertConfig.swift; sourceTree = "<group>"; };
 		2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanel.swift; sourceTree = "<group>"; };
 		2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		2C7333E11E71B4EA00EDE1D8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2C7333DC1E711E9C00EDE1D8 /* Config.swift */,
+				2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */,
 				2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */,
 			);
 			name = Common;
@@ -332,7 +332,7 @@
 				2C7333DF1E716CB900EDE1D8 /* InfoPanel.swift in Sources */,
 				2C7333DB1E711C8F00EDE1D8 /* BasicAlert.swift in Sources */,
 				2C78138E1E755AC100851188 /* BasicMarker.swift in Sources */,
-				2C7333DD1E711E9C00EDE1D8 /* Config.swift in Sources */,
+				2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */,
 				2C7813941E755EB700851188 /* MarkerInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

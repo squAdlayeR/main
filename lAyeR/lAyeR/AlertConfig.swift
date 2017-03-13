@@ -54,3 +54,4 @@ let suggestedPopupHeight: CGFloat = 250
 let suggestedPopupWidth: CGFloat = 300
 let suggestedMarkerHeight: CGFloat = 70
 let suggestedMarkerWidth: CGFloat = 50
+let confirmLabelText: String = "OK"
