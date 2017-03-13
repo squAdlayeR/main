@@ -77,7 +77,7 @@ class ARViewController: UIViewController {
 //        sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
 //        sampleCard.backgroundColor = UIColor.orange
 //        sampleCard.alpha = sampleCardAlpha
-        let size = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        let size = CGSize(width: suggestedMarkerWidth, height: suggestedMarkerHeight)
         let origin = CGPoint(x: (view.bounds.width - size.width) / 2,
                              y: (view.bounds.height - size.height) / 2)
         let frame = CGRect(origin: origin, size: size)
