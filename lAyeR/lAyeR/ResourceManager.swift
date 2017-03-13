@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 /**
  This is a static class that is used to manage resources in
@@ -21,6 +22,16 @@ class ResourceManager {
         let image = UIImage(named: imageName)
         let imageView = UIImageView(image: image)
         return imageView
+    }
+    
+    /// Plays a sound with specified sound name
+    /// - Parameter soundName: the name of the sound
+    static func playSound(with soundName: String) {
+        if let soundURL = Bundle.main.url(forResource: soundName, withExtension: soundExtension) {
+            var mySound: SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
+            AudioServicesPlaySystemSound(mySound);
+        }
     }
     
 }

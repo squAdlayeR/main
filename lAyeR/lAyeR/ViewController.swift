@@ -39,8 +39,13 @@ class ViewController: UIViewController {
         let newAlertController = BasicAlertController(title: "Welcome", frame: frame)
         newAlertController.addViewToAlert(newLable)
         newAlertController.addButtonToAlert(button1)
-        newAlertController.presentAlert(within: mainView)
+//        newAlertController.presentAlert(within: mainView)
         testController = newAlertController
+        
+        let markerFrame = CGRect(x: view.bounds.width / 2 - 25, y: view.bounds.height / 2 - 35, width: 50, height: 70)
+        let testIcon = ResourceManager.getImageView(by: "marker.png")
+        let newMarker = BasicMarker(frame: markerFrame, icon: testIcon)
+        mainView.addSubview(newMarker)
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,11 +54,11 @@ class ViewController: UIViewController {
     }
 
     @IBAction func openClicked(_ sender: Any) {
-        testController?.presentAlert(within: mainView)
+//        testController?.presentAlert(within: mainView)
     }
 
     @IBAction func closePressed(_ sender: Any) {
-        testController?.closeAlert()
+//        testController?.closeAlert()
     }
     
     func confirmAction() {

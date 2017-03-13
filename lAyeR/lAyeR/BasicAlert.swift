@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 /**
  An alert class that is to hold a basic alert in the application
@@ -108,6 +109,7 @@ extension BasicAlert {
     /// opens the alert
     func open() {
         self.alpha = 0.3
+        ResourceManager.playSound(with: openSound)
         UIView.animate(withDuration: 0.15, animations: {
             self.transform = CGAffineTransform(scaleX: 1, y: 1)
             self.alpha = 1
@@ -138,6 +140,7 @@ extension BasicAlert {
     
     /// closes the alert
     func close() {
+        ResourceManager.playSound(with: closeSound)
         UIView.animate(withDuration: 0.15, animations: {
             self.transform = CGAffineTransform(scaleX: 0.1, y: 1)
             self.alpha = 0

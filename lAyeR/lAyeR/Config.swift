@@ -25,6 +25,11 @@ let topBannerImage: String = "banner.png"
 let bottomBannerImage: String = "banner.png"
 let infoPanelImage: String = "panelInfo.png"
 
+/// Sounds
+let soundExtension = "wav"
+let openSound = "confirm"
+let closeSound = "dialog_close"
+
 /// Title
 let titleFontColor: UIColor = UIColor.white
 let titleFontName: String = "HomenajeMod-Bold"
@@ -36,4 +41,8 @@ let titlePlaceHolder: String = "Place holder"
 let buttonFontName: String = "HomenajeMod-Regular"
 let buttonFontSize: CGFloat = 20
 
-
+/// Markers
+let markerIconPaddingPercent: CGFloat = 0.2
+let markerLabelPaddingPercent: CGFloat = 0.1
+let markerDistanceUnit = "m"
+let markerGapPercent: CGFloat = 0.05
