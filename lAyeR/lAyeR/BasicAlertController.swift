@@ -65,6 +65,12 @@ extension BasicAlertController {
         alert.addButton(button)
     }
     
+    /// Sets the title of the alert
+    /// - Paramter title: the title of the alert
+    func setTitle(_ title: String) {
+        alert.setTitle(title)
+    }
+    
     /// Presents the alert inside a specified view
     /// - Parameter view: the view that will be holding the alert
     func presentAlert(within view: UIView) {

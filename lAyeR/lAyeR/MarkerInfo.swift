@@ -20,10 +20,6 @@ class MarkerInfo: UIView {
     /// 1. before it is set, check whether it is greater than 0
     /// 2. after it is set, change the corresponding label to display
     var distance: CGFloat = 0 {
-        willSet {
-            guard newValue >= 0 else { return }
-        }
-        
         didSet {
             self.label.text = String(format: markerDistanceFilter, distance) + markerDistanceUnit
         }

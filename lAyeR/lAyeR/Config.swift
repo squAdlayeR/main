@@ -44,7 +44,13 @@ let buttonFontSize: CGFloat = 20
 /// Markers
 let markerIconPaddingPercent: CGFloat = 0.2
 let markerLabelPaddingPercent: CGFloat = 0.1
-let markerDistanceUnit = "m"
+let markerDistanceUnit: String = "m"
 let markerGapPercent: CGFloat = 0.05
-let markerIconName = "marker.png"
-let markerDistanceFilter = "%.0f"
+let markerIconName: String = "marker.png"
+let markerDistanceFilter: String = "%.0f"
+
+/// Checkpoint view
+let suggestedPopupHeight: CGFloat = 250
+let suggestedPopupWidth: CGFloat = 300
+let suggestedMarkerHeight: CGFloat = 70
+let suggestedMarkerWidth: CGFloat = 50
