@@ -9,16 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AlamofireObjectMapper.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>ObjectMapper.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-lAyeR.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2F5622F3B18DF497981AB58C6D1FC72F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>47CC17607027182604DDFFA4FDD9EB74</key>
+		<key>0EA85FD1CF61B85FE9B608ADABAD2234</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9502FB01641FBABB78522037E882757B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
