@@ -31,7 +31,6 @@ class BasicAlert: UIView {
     var infoPanel: InfoPanel!
     var topBanner: TopBanner!
     private(set) var title: String?
-    private var modifiable = true
     
     /// Initialized the alert
     /// - Parameters:
@@ -52,7 +51,7 @@ class BasicAlert: UIView {
     
     /// Creates a new top banner
     private func initTopBanner() {
-        let newTopBanner = TopBanner(alert: self, title: title)
+        let newTopBanner = TopBanner(alert: self)
         topBanner = newTopBanner
     }
     
@@ -70,28 +69,21 @@ class BasicAlert: UIView {
     
     /// Prepares the alert for display
     func prepareDisplay() {
-        guard modifiable else { return }
-        topBanner.prepareDisplay()
-        bottomBanner.prepareDisplay()
-        infoPanel.prepareDisplay()
         self.addSubview(infoPanel)
         self.addSubview(topBanner)
         self.addSubview(bottomBanner)
         self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         self.alpha = 0
-        modifiable = false
     }
     
     /// Inserts a view as the display view into the info panel
-    func addView(_ view: UIView) {
-        guard modifiable else { return }
+    func setView(_ view: UIView) {
         infoPanel.innerView = view
     }
     
     /// Adds a button into the info the bottom banner
     func addButton(_ button: UIButton) {
-        guard modifiable else { return }
-        bottomBanner.buttons.append(button)
+        bottomBanner.buttonsView.addArrangedSubview(button)
     }
     
     required init?(coder aDecoder: NSCoder) {

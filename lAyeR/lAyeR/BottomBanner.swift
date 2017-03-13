@@ -14,8 +14,7 @@ import UIKit
  */
 class BottomBanner: UIView {
 
-    var buttonsView: UIStackView?
-    var buttons = [UIButton]()
+    var buttonsView: UIStackView!
     private(set) var alert: BasicAlert!
     
     /// Initialization
@@ -25,10 +24,11 @@ class BottomBanner: UIView {
                                     width: alert.frame.width,
                                     height: bottomBannerHeight)
         super.init(frame: bottomBannerFrame)
+        prepareDisplay()
     }
     
     /// Load related elements and prepare for display
-    func prepareDisplay() {
+    private func prepareDisplay() {
         initBackgroundImage()
         initButtons()
     }
@@ -42,7 +42,7 @@ class BottomBanner: UIView {
     
     /// Initializes the buttons of the alert with specified buttons
     private func initButtons() {
-        let newButtonsView = makeNewButtonsView(with: buttons)
+        let newButtonsView = makeNewButtonsView()
         buttonsView = newButtonsView
         self.addSubview(buttonsView!)
     }
@@ -50,8 +50,8 @@ class BottomBanner: UIView {
     /// Makes a stack view for buttons to display
     /// - Parameter buttons: the buttons that to be displayed
     /// - Returns: the stackview that holds all the buttons
-    private func makeNewButtonsView(with buttons: [UIButton]) -> UIStackView {
-        let buttonStackView = UIStackView(arrangedSubviews: buttons)
+    private func makeNewButtonsView() -> UIStackView {
+        let buttonStackView = UIStackView()
         let stackViewFrame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
         buttonStackView.frame = stackViewFrame
         buttonStackView.axis = .horizontal

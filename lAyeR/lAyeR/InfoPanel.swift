@@ -16,8 +16,12 @@ import UIKit
 class InfoPanel: UIView {
 
     var innerView: UIView? {
-        willSet { removeCurrentInnerView() }
-        didSet { setInnerView() }
+        willSet {
+            innerView?.removeFromSuperview()
+        }
+        didSet {
+            setInnerView()
+        }
     }
     
     private(set) var alert: BasicAlert!
@@ -49,11 +53,10 @@ class InfoPanel: UIView {
     /// Sets the inner view of the info panel
     /// - Parameter innerView: the inner view of the info panel
     private func setInnerView() {
-        guard let innerView = innerView else { return }
-        innerView.frame = innerViewFrame
-        innerView.alpha = 1
-        self.innerView = innerView
-        self.addSubview(innerView)
+        guard innerView != nil else { return }
+        innerView!.frame = innerViewFrame
+        innerView!.alpha = 0
+        self.addSubview(innerView!)
     }
     
     /// Removes the current inner view
@@ -70,7 +73,12 @@ class InfoPanel: UIView {
     
     /// The frame of the inner view
     private var innerViewFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        return CGRect(x: 0, y: 0, width: self.frame.width, height: innerViewHeight)
+    }
+    
+    /// Calculates the height of the inner panel
+    private var innerViewHeight: CGFloat {
+        return alert.frame.height - alert.topBanner.frame.height - alert.bottomBanner.frame.height
     }
 
     required init?(coder aDecoder: NSCoder) {

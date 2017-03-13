@@ -55,7 +55,7 @@ extension BasicAlertController {
     /// - Parameter view: the view that is to be displayed in
     ///     info panel
     func addViewToAlert(_ view: UIView) {
-        alert.addView(view)
+        alert.setView(view)
     }
     
     /// Adds a button into the alert

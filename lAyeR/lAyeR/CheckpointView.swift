@@ -13,8 +13,12 @@ class CheckpointView: UIView {
     var marker: BasicMarker!
     var alertController: BasicAlertController!
     
-    init(frame: CGRect, name: String) {
-        <#code#>
+//    init(frame: CGRect, name: String) {
+//        <#code#>
+//    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }
