@@ -30,11 +30,14 @@ class CheckpointView: UIView {
     ///     - description: description of the check point
     init(frame: CGRect, name: String, distance: Double) {
         super.init(frame: frame)
-        let markerFrame = CGRect(x: 0, y: 0, width: fraem.width, height: frame.height)
-        let alertFrame = CGRect(x: (frame.width - suggestedPopupWidth) / 2,
-                                y: (frame.height - suggestedPopupHeight) / 2,
-                                width: suggestedPopupWidth,
-                                height: suggestedPopupHeight)
+        let markerFrame = CGRect(x: (frame.width - suggestedMarkerWidth) / 2,
+                                 y: (frame.height - suggestedMarkerHeight) / 2,
+                                 width: suggestedMarkerWidth,
+                                 height: suggestedMarkerHeight)
+        let alertFrame = CGRect(x: 0,
+                                y: 0,
+                                width: frame.width,
+                                height: frame.height)
         initMarker(with: markerFrame, distance: CGFloat(distance))
         initAlert(with: alertFrame, name: name)
         prepareDisplay()
@@ -94,7 +97,6 @@ class CheckpointView: UIView {
         UIView.animate(withDuration: 0.2, animations: {
             self.marker.alpha = 0
         })
-        self.frame = largeFrame
     }
     
     /// Closes the popup
@@ -103,23 +105,5 @@ class CheckpointView: UIView {
         UIView.animate(withDuration: 0.2, animations: {
             self.marker.alpha = 1
         })
-        self.frame = smallFrame
     }
-    
-    /// Calculate the small frame of the check point view
-    private var smallFrame: CGRect {
-        let currentFrame = self.frame
-        currentFrame.size.width = suggestedMarkerWidth
-        currentFrame.size.height = suggestedPopupHeight
-        return currentFrame
-    }
-    
-    /// Calculates the large frame of the check point view
-    private var largeFrame: CGRect {
-        let currentFrame = self.frame
-        currentFrame.size.width = suggestedPopupWidth
-        currentFrame.size.height = suggestedPopupHeight
-        return currentFrame
-    }
-
 }
