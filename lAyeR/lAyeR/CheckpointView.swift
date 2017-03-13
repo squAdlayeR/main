@@ -10,9 +10,11 @@ import UIKit
 
 class CheckpointView: UIView {
 
-    var marker: CheckpointView!
+    var marker: BasicMarker!
     var alertController: BasicAlertController!
     
-    
+    init(frame: CGRect, name: String) {
+        <#code#>
+    }
 
 }

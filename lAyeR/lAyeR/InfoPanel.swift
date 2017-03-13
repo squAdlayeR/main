@@ -15,7 +15,11 @@ import UIKit
  */
 class InfoPanel: UIView {
 
-    var innerView: UIView?
+    var innerView: UIView? {
+        willSet { removeCurrentInnerView() }
+        didSet { setInnerView() }
+    }
+    
     private(set) var alert: BasicAlert!
     
     /// Initializes the info panel
@@ -25,12 +29,13 @@ class InfoPanel: UIView {
                                     width: alert.frame.width,
                                     height: alert.frame.height - topBannerHeight - bottomBannerHeight)
         super.init(frame: infoPanelFrame)
+        prepareDisplay()
     }
     
     /// Load related elements and prepare for display
-    func prepareDisplay() {
+    private func prepareDisplay() {
         initBackgroundImage()
-        initInnerView()
+        setInnerView()
         self.transform = CGAffineTransform(scaleX: 1, y: 0.2)
     }
     
@@ -41,14 +46,21 @@ class InfoPanel: UIView {
         self.addSubview(backgroundImage)
     }
     
-    /// Initializes the inner view of the info panel
+    /// Sets the inner view of the info panel
     /// - Parameter innerView: the inner view of the info panel
-    private func initInnerView() {
+    private func setInnerView() {
         guard let innerView = innerView else { return }
         innerView.frame = innerViewFrame
         innerView.alpha = 1
         self.innerView = innerView
         self.addSubview(innerView)
+    }
+    
+    /// Removes the current inner view
+    private func removeCurrentInnerView() {
+        guard let innerView = innerView else { return }
+        innerView.removeFromSuperview()
+        self.innerView = nil
     }
     
     /// The frame of the background image

@@ -16,24 +16,26 @@ import UIKit
  */
 class TopBanner: UIView {
     
-    var titleLabel: UILabel?
-    private(set) var title: String = titlePlaceHolder
+    var titleLabel: UILabel!
+    var title: String = titlePlaceHolder {
+        didSet {
+            titleLabel.text = title
+        }
+    }
     private(set) var alert: BasicAlert!
     
     /// Initialization
-    init(alert: BasicAlert, title: String?) {
+    init(alert: BasicAlert) {
         self.alert = alert
         let topBannerFrame = CGRect(x: 0, y: alert.frame.height / 2 - topBannerHeight,
                                     width: alert.frame.width,
                                     height: topBannerHeight)
         super.init(frame: topBannerFrame)
-        if let title = title {
-            self.title = title
-        }
+        prepareDisplay()
     }
     
     /// Load related elements and prepare for display
-    func prepareDisplay() {
+    private func prepareDisplay() {
         initBackgroundImage()
         initTitle()
     }
@@ -48,7 +50,7 @@ class TopBanner: UIView {
     /// Initializes title label of the top banner
     private func initTitle() {
         titleLabel = makeNewTitleLable()
-        self.addSubview(titleLabel!)
+        self.addSubview(titleLabel)
     }
     
     /// Makes a new title lable according to the new title and config
