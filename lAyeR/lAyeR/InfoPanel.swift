@@ -11,7 +11,7 @@ import UIKit
 /**
  A class that is used to hold the information panel.
  An information panel might have an inner view which could be
- passed as an parameter during initialization
+ passed as an parameter and be set in the panel
  */
 class InfoPanel: UIView {
 
@@ -40,7 +40,6 @@ class InfoPanel: UIView {
     private func prepareDisplay() {
         initBackgroundImage()
         setInnerView()
-        self.transform = CGAffineTransform(scaleX: 1, y: 0.2)
     }
     
     /// Initializes the background image
@@ -55,7 +54,6 @@ class InfoPanel: UIView {
     private func setInnerView() {
         guard innerView != nil else { return }
         innerView!.frame = innerViewFrame
-        innerView!.alpha = 0
         self.addSubview(innerView!)
     }
     

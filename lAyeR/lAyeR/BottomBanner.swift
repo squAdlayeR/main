@@ -57,7 +57,6 @@ class BottomBanner: UIView {
         buttonStackView.axis = .horizontal
         buttonStackView.alignment = .fill
         buttonStackView.distribution = .fillEqually
-        buttonStackView.alpha = 0
         return buttonStackView
     }
     

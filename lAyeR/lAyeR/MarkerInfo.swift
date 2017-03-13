@@ -25,7 +25,7 @@ class MarkerInfo: UIView {
         }
         
         didSet {
-            self.label.text = String(format: "%.0f", distance) + markerDistanceUnit
+            self.label.text = String(format: markerDistanceFilter, distance) + markerDistanceUnit
         }
     }
     
@@ -59,7 +59,7 @@ class MarkerInfo: UIView {
     private func initLable() {
         let newLabel = UILabel()
         newLabel.frame = labelFrame
-        newLabel.text = String(format: "%.0f", distance) + markerDistanceUnit
+        newLabel.text = String(format: markerDistanceFilter, distance) + markerDistanceUnit
         newLabel.font = UIFont(name: buttonFontName,
                                size: self.frame.height * (1 - markerLabelPaddingPercent * 2))
         newLabel.textColor = titleFontColor

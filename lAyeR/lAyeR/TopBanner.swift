@@ -12,7 +12,7 @@ import UIKit
  A class that is used to hold the top banner.
  A top banner might have:
  1. A title
- 2. An icon
+ 2. An icon (not implemented yet)
  */
 class TopBanner: UIView {
     

@@ -23,8 +23,9 @@ class BasicAlertController {
     /// Initializes the alert controller
     init(title: String, frame: CGRect) {
         let sanitizedFrame = sanitize(frame: frame)
-        let newBaiscAlert = BasicAlert(frame: sanitizedFrame, title: title)
+        let newBaiscAlert = BasicAlert(frame: sanitizedFrame)
         alert = newBaiscAlert
+        alert.setTitle(title)
     }
     
     /// Sanitizes the frame. The main thing is to check
@@ -67,7 +68,6 @@ extension BasicAlertController {
     /// Presents the alert inside a specified view
     /// - Parameter view: the view that will be holding the alert
     func presentAlert(within view: UIView) {
-        alert.prepareDisplay()
         view.addSubview(alert)
         alert.open()
     }

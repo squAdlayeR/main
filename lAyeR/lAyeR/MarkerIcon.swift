@@ -10,22 +10,28 @@ import UIKit
 
 /**
  A class that is to hold the icon of the marker
- - Note: being different from alert, the marker icon cannot be changed after
-    initialization. That is to say, during initialization of the marker, icon
-    should always be provided
+ - Note: the marker icon cannot be changed after initialization. During initialization, the
+    marker icon is default a "marker"
  */
 class MarkerIcon: UIView {
     
-    private(set) var icon: UIImageView!
+    var icon: UIImageView = ResourceManager.getImageView(by: markerIconName) {
+        willSet {
+            icon.removeFromSuperview()
+        }
+        didSet {
+            setIcon()
+        }
+    }
+    
     private(set) var marker: BasicMarker
 
     /// Initilaization
     /// - Parameters:
     ///     - marker: the marker that the icon belongs to
     ///     - icon: the icon inside the marker
-    init(marker: BasicMarker, icon: UIImageView) {
+    init(marker: BasicMarker) {
         self.marker = marker
-        self.icon = icon
         let frame = CGRect(x: 0, y: 0,
                            width: marker.frame.width,
                            height: marker.frame.width)
@@ -38,7 +44,7 @@ class MarkerIcon: UIView {
     /// 2. prepares the icon inside the icon view
     private func prepareDisplay() {
         initBackgroundImage()
-        initIcon()
+        setIcon()
     }
     
     /// Initializes the background image
@@ -48,8 +54,8 @@ class MarkerIcon: UIView {
         self.addSubview(backgroundIamge)
     }
     
-    /// Initializes the icon
-    private func initIcon() {
+    /// Sets the icon
+    private func setIcon() {
         icon.frame = iconFrame
         self.addSubview(icon)
     }

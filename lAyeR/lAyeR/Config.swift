@@ -46,3 +46,5 @@ let markerIconPaddingPercent: CGFloat = 0.2
 let markerLabelPaddingPercent: CGFloat = 0.1
 let markerDistanceUnit = "m"
 let markerGapPercent: CGFloat = 0.05
+let markerIconName = "marker.png"
+let markerDistanceFilter = "%.0f"

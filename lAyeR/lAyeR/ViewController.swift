@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         
         let markerFrame = CGRect(x: view.bounds.width / 2 - 25, y: view.bounds.height / 2 - 35, width: 50, height: 70)
         let testIcon = ResourceManager.getImageView(by: "marker.png")
-        let newMarker = BasicMarker(frame: markerFrame, icon: testIcon)
+        let newMarker = BasicMarker(frame: markerFrame)
         mainView.addSubview(newMarker)
     }
 
@@ -58,6 +58,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func closePressed(_ sender: Any) {
+        let test = UILabel()
+        test.text = "aaaaaaa"
+        testController?.addViewToAlert(test)
 //        testController?.closeAlert()
     }
     

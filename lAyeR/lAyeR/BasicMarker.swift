@@ -20,23 +20,23 @@ class BasicMarker: UIView {
     /// - Parameters:
     ///     - frame: the frame of the marker
     ///     - icon: the icon of the marker
-    init(frame: CGRect, icon: UIImageView) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        initializeElements(with: icon)
+        initializeElements()
         prepareDisplay()
     }
     
     /// Initializes the marker elements
     /// - Parameter icon: the icon image of the marker
-    private func initializeElements(with icon: UIImageView) {
-        initIcon(with: icon)
+    private func initializeElements() {
+        initIcon()
         initInfo()
     }
     
     /// Initializes the icon of the marker
     /// - Parameter iconImage: the icon image
-    private func initIcon(with iconImage: UIImageView) {
-        let newIcon = MarkerIcon(marker: self, icon: iconImage)
+    private func initIcon() {
+        let newIcon = MarkerIcon(marker: self)
         self.icon = newIcon
     }
     
@@ -51,6 +51,18 @@ class BasicMarker: UIView {
     private func prepareDisplay() {
         self.addSubview(self.icon)
         self.addSubview(self.info)
+    }
+    
+    /// Sets the distance displayed on the marker
+    /// - Parameter distance: the distance to be displayed
+    func setDistance(_ distance: CGFloat) {
+        self.info.distance = distance
+    }
+    
+    /// Sets the icon image displayed on the marker
+    /// - Parameter iconImage: the icon image to be displayed
+    func setIconImage(_ iconImage: UIImageView) {
+        self.icon.icon = iconImage
     }
     
     required init?(coder aDecoder: NSCoder) {

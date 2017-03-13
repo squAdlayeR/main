@@ -16,30 +16,25 @@ import AVFoundation
  2. bottom banner, which is used to hold buttons for interaction
  3. info panel, which is used to display infomation
  
- To use alert, should give a title first. Feel free to add info
- panel view and buttons before `prepareDisplay` is called.
- 
- - Note: 
-    1. remember to call `prepareDisplay` in order to display
-    the alert
-    2. Once `prepareDisplay` is called, the alert is no longer
-    modifiable
+ To use alert, feel free to add info panel view, buttons and 
+ alert title using functions provided:
+ 1. setView
+ 2. addButton
+ 3. setTitle
  */
 class BasicAlert: UIView {
     
     var bottomBanner: BottomBanner!
     var infoPanel: InfoPanel!
     var topBanner: TopBanner!
-    private(set) var title: String?
+
     
     /// Initialized the alert
-    /// - Parameters:
-    ///     - frame: the frame of the alert
-    ///     - title: the title of the alert, which is optional
-    init(frame: CGRect, title: String?) {
-        self.title = title
+    /// - Parameter frame: the frame of the alert
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initElements()
+        prepareDisplay()
     }
     
     /// Initializes banners and info panel
@@ -68,12 +63,10 @@ class BasicAlert: UIView {
     }
     
     /// Prepares the alert for display
-    func prepareDisplay() {
+    private func prepareDisplay() {
         self.addSubview(infoPanel)
         self.addSubview(topBanner)
         self.addSubview(bottomBanner)
-        self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        self.alpha = 0
     }
     
     /// Inserts a view as the display view into the info panel
@@ -84,6 +77,11 @@ class BasicAlert: UIView {
     /// Adds a button into the info the bottom banner
     func addButton(_ button: UIButton) {
         bottomBanner.buttonsView.addArrangedSubview(button)
+    }
+    
+    /// Sets the title of the alert
+    func setTitle(_ title: String) {
+        topBanner.title = title
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -100,7 +98,7 @@ extension BasicAlert {
     
     /// opens the alert
     func open() {
-        self.alpha = 0.3
+        prepareOpen()
         ResourceManager.playSound(with: openSound)
         UIView.animate(withDuration: 0.15, animations: {
             self.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -108,6 +106,17 @@ extension BasicAlert {
         }, completion: { isFinished in
             self.openBanners()
         })
+    }
+    
+    /// Sets all elements to the transformation before animation
+    private func prepareOpen() {
+        self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        self.alpha = 0.3
+        self.topBanner.close()
+        self.bottomBanner.hideButtons()
+        self.bottomBanner.close()
+        self.infoPanel.hideInfo()
+        self.infoPanel.close()
     }
     
     /// opens the banners and info panel
@@ -137,12 +146,6 @@ extension BasicAlert {
             self.transform = CGAffineTransform(scaleX: 0.1, y: 1)
             self.alpha = 0
         }, completion: { isFinished in
-            self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            self.topBanner.close()
-            self.bottomBanner.hideButtons()
-            self.bottomBanner.close()
-            self.infoPanel.hideInfo()
-            self.infoPanel.close()
             self.removeFromSuperview()
         })
     }
