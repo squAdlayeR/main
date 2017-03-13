@@ -8,16 +8,24 @@
 
 import Foundation
 import CoreLocation
+import ObjectMapper
 
-class POI {
+class POI: GeoPoint {
     // to be implemented
     private(set) var name: String?
     private(set) var vicinity: String?
     private(set) var types: [String] = []
-    private(set) var location: CLLocation
     
-    init(_ location: CLLocation) {
-        self.location = location
+    override init(_ latitude: Double, _ longitude: Double) {
+        super.init(latitude, longitude)
+    }
+    
+    required init?(map: Map) {
+        super.init(map: map)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     func setName(_ name: String) {

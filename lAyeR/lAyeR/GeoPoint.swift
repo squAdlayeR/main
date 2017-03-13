@@ -8,37 +8,50 @@
 
 import Foundation
 import CoreLocation
+import ObjectMapper
 
-class GeoPoint: NSCoding {
+class GeoPoint: NSCoding, Mappable {
     
-    private(set) var location: CLLocation
+    private(set) var latitude: Double
+    private(set) var longitude: Double
     
-    init(_ location: CLLocation) {
-        self.location = location
+    init(_ latitude: Double, _ longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
     required init?(coder aDecoder: NSCoder) {
-        let latitude = aDecoder.decodeDouble(forKey: "lat")
-        let longitude = aDecoder.decodeDouble(forKey: "lng")
-        self.location = CLLocation(latitude: latitude,
-                                   longitude: longitude)
+        self.latitude = aDecoder.decodeDouble(forKey: "latitude")
+        self.longitude = aDecoder.decodeDouble(forKey: "longitude")
     }
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.location.coordinate.latitude, forKey: "lat")
-        aCoder.encode(self.location.coordinate.longitude, forKey: "lng")
-        aCoder.encode(self.location.altitude, forKey: "alt")
-        aCoder.encode(self.location.timestamp, forKey: "timeStamp")
+        aCoder.encode(self.latitude, forKey: "latitude")
+        aCoder.encode(self.longitude, forKey: "longitude")
+    }
+    
+    required init?(map: Map) {
+        guard let latitude = map.JSON["latitude"] as? Double,
+            let longitude = map.JSON["longitude"] as? Double else {
+                return nil
+        }
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    func mapping(map: Map) {
+        latitude <- map["latitude"]
+        longitude <- map["longitude"]
     }
     
     /// east is positive, west is negative
     func getLongtitudeInRadian() -> Double {
-        return location.coordinate.longitude * (M_PI/180)
+        return longitude * (M_PI/180)
     }
     
     /// north is positive, south is negative
     func getLatitudeInRadian() -> Double {
-        return location.coordinate.latitude * (M_PI/180)
+        return latitude * (M_PI/180)
     }
 
 }

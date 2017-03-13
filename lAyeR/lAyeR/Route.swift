@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import ObjectMapper
 
-class Route: NSCoding {
+class Route: NSCoding, Mappable {
     
     /// Stores check points on the route.
     private(set) var name: String
@@ -19,14 +20,30 @@ class Route: NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.name = aDecoder.decodeObject(forKey: "routeName") as? String ?? ""
-        self.checkPoints = aDecoder.decodeObject(forKey: "checkPoints") as?
-        [CheckPoint] ?? []
+        guard let name = aDecoder.decodeObject(forKey: "routeName") as? String, let checkPoints = aDecoder.decodeObject(forKey: "checkPoints") as? [CheckPoint] else {
+            return nil
+        }
+        self.name = name
+        self.checkPoints = checkPoints
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: "routeName")
         aCoder.encode(checkPoints, forKey: "checkPoints")
+    }
+    
+    required init?(map: Map) {
+        guard let name = map.JSON["name"] as? String,
+            let checkPoints = map.JSON["checkPoints"] as? [CheckPoint] else {
+                return nil
+        }
+        self.name = name
+        self.checkPoints = checkPoints
+    }
+    
+    func mapping(map: Map) {
+        name <- map["name"]
+        checkPoints <- map["checkPoints"]
     }
     
     /// Returns the number of check points on the route.
