@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 struct ARLayoutAdjustment {
-    let xOffset: CGFloat
-    let yOffset: CGFloat
-    let yawRotationAngle: CGFloat
-    let horzRotationAngle: CGFloat
+    private let xOffset: CGFloat
+    private let yOffset: CGFloat
+    private let yawRotationAngle: CGFloat
+    private let horzRotationAngle: CGFloat
     
     func apply(to view: UIView, within superView: UIView) {
         view.transform = CGAffineTransform(rotationAngle: CGFloat(yawRotationAngle))
