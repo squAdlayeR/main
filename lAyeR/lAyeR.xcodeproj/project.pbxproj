@@ -7,27 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C11E62B1E7457D900468F42 /* BasicAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C11E62A1E7457D900468F42 /* BasicAlertController.swift */; };
 		2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199A1E670A5F00FF6334 /* AppDelegate.swift */; };
 		2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199C1E670A5F00FF6334 /* ViewController.swift */; };
 		2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C31199E1E670A5F00FF6334 /* Main.storyboard */; };
 		2C3119A21E670A5F00FF6334 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A11E670A5F00FF6334 /* Assets.xcassets */; };
 		2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */; };
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
-		2C7333D71E711C6000EDE1D8 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D61E711C6000EDE1D8 /* TopBanner.swift */; };
-		2C7333D91E711C7700EDE1D8 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */; };
-		2C7333DB1E711C8F00EDE1D8 /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */; };
 		2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */; };
-		2C7333DF1E716CB900EDE1D8 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */; };
 		2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */; };
 		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
 		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
 		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
 		2C7813891E7544C000851188 /* dialog_close.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813871E7544C000851188 /* dialog_close.wav */; };
 		2C78138C1E7559EE00851188 /* CheckpointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138B1E7559EE00851188 /* CheckpointView.swift */; };
-		2C78138E1E755AC100851188 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138D1E755AC100851188 /* BasicMarker.swift */; };
-		2C7813921E755EAC00851188 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7813911E755EAC00851188 /* MarkerIcon.swift */; };
-		2C7813941E755EB700851188 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7813931E755EB700851188 /* MarkerInfo.swift */; };
 		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
 		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
 		5249B1A31E7263300048249D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A21E7263300048249D /* MapViewController.swift */; };
@@ -45,6 +37,14 @@
 		5249B1C31E746CC70048249D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C21E746CC70048249D /* AppConfig.swift */; };
 		5249B1C51E74D8070048249D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C41E74D8070048249D /* Parser.swift */; };
 		5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1F11E750B9C0048249D /* lAyeR.xcdatamodeld */; };
+		9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */; };
+		9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */; };
+		9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F61E800AFB0043DDB6 /* TopBanner.swift */; };
+		9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FA1E800B080043DDB6 /* BasicAlert.swift */; };
+		9D1498FD1E800B080043DDB6 /* BasicAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FB1E800B080043DDB6 /* BasicAlertController.swift */; };
+		9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */; };
+		9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */; };
+		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
 		A28540471E70DD5000CF51B7 /* ARCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* ARCalculator.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
 		A285404B1E71C4A200CF51B7 /* ARLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */; };
@@ -65,7 +65,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2C11E62A1E7457D900468F42 /* BasicAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAlertController.swift; sourceTree = "<group>"; };
 		2C3119971E670A5F00FF6334 /* lAyeR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lAyeR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C31199A1E670A5F00FF6334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C31199C1E670A5F00FF6334 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -76,20 +75,13 @@
 		2C3119AB1E670A5F00FF6334 /* lAyeRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lAyeRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lAyeRTests.swift; sourceTree = "<group>"; };
 		2C3119B11E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2C7333D61E711C6000EDE1D8 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBanner.swift; sourceTree = "<group>"; };
-		2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBanner.swift; sourceTree = "<group>"; };
-		2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAlert.swift; sourceTree = "<group>"; };
 		2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertConfig.swift; sourceTree = "<group>"; };
-		2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanel.swift; sourceTree = "<group>"; };
 		2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
 		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
 		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
 		2C7813871E7544C000851188 /* dialog_close.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dialog_close.wav; sourceTree = "<group>"; };
 		2C78138B1E7559EE00851188 /* CheckpointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointView.swift; sourceTree = "<group>"; };
-		2C78138D1E755AC100851188 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicMarker.swift; sourceTree = "<group>"; };
-		2C7813911E755EAC00851188 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerIcon.swift; sourceTree = "<group>"; };
-		2C7813931E755EB700851188 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerInfo.swift; sourceTree = "<group>"; };
 		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
 		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
 		5249B1A21E7263300048249D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +99,14 @@
 		5249B1C41E74D8070048249D /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		5249B1F21E750B9C0048249D /* lAyeR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lAyeR.xcdatamodel; sourceTree = "<group>"; };
 		59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/BottomBanner.swift; sourceTree = "<group>"; };
+		9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPanel.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/InfoPanel.swift; sourceTree = "<group>"; };
+		9D1498F61E800AFB0043DDB6 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/TopBanner.swift; sourceTree = "<group>"; };
+		9D1498FA1E800B080043DDB6 /* BasicAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicAlert.swift; path = ViewComponents/BasicComponents/BasicAlert/BasicAlert.swift; sourceTree = "<group>"; };
+		9D1498FB1E800B080043DDB6 /* BasicAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicAlertController.swift; path = ViewComponents/BasicComponents/BasicAlert/BasicAlertController.swift; sourceTree = "<group>"; };
+		9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerIcon.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerIcon.swift; sourceTree = "<group>"; };
+		9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfo.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerInfo.swift; sourceTree = "<group>"; };
+		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* ARCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCalculator.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
 		A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARLayoutAdjustment.swift; sourceTree = "<group>"; };
@@ -194,8 +194,8 @@
 			isa = PBXGroup;
 			children = (
 				2C7333E01E71B48700EDE1D8 /* AlertElements */,
-				2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */,
-				2C11E62A1E7457D900468F42 /* BasicAlertController.swift */,
+				9D1498FA1E800B080043DDB6 /* BasicAlert.swift */,
+				9D1498FB1E800B080043DDB6 /* BasicAlertController.swift */,
 			);
 			name = BasicAlert;
 			sourceTree = "<group>";
@@ -203,9 +203,9 @@
 		2C7333E01E71B48700EDE1D8 /* AlertElements */ = {
 			isa = PBXGroup;
 			children = (
-				2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */,
-				2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */,
-				2C7333D61E711C6000EDE1D8 /* TopBanner.swift */,
+				9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */,
+				9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */,
+				9D1498F61E800AFB0043DDB6 /* TopBanner.swift */,
 			);
 			name = AlertElements;
 			sourceTree = "<group>";
@@ -251,7 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				2C7813901E755E7D00851188 /* MarkerElements */,
-				2C78138D1E755AC100851188 /* BasicMarker.swift */,
+				9D1499021E800B250043DDB6 /* BasicMarker.swift */,
 			);
 			name = BasicMarker;
 			sourceTree = "<group>";
@@ -259,8 +259,8 @@
 		2C7813901E755E7D00851188 /* MarkerElements */ = {
 			isa = PBXGroup;
 			children = (
-				2C7813911E755EAC00851188 /* MarkerIcon.swift */,
-				2C7813931E755EB700851188 /* MarkerInfo.swift */,
+				9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */,
+				9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */,
 			);
 			name = MarkerElements;
 			sourceTree = "<group>";
@@ -529,9 +529,15 @@
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
 				5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */,
+				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
+				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
+				9D1498FD1E800B080043DDB6 /* BasicAlertController.swift in Sources */,
+				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
+				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
+				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
@@ -542,18 +548,12 @@
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */,
+				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
+				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
 				2C78138C1E7559EE00851188 /* CheckpointView.swift in Sources */,
-				2C7333D91E711C7700EDE1D8 /* BottomBanner.swift in Sources */,
-				2C11E62B1E7457D900468F42 /* BasicAlertController.swift in Sources */,
 				2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */,
-				2C7813921E755EAC00851188 /* MarkerIcon.swift in Sources */,
-				2C7333D71E711C6000EDE1D8 /* TopBanner.swift in Sources */,
-				2C7333DF1E716CB900EDE1D8 /* InfoPanel.swift in Sources */,
-				2C7333DB1E711C8F00EDE1D8 /* BasicAlert.swift in Sources */,
-				2C78138E1E755AC100851188 /* BasicMarker.swift in Sources */,
 				2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */,
-				2C7813941E755EB700851188 /* MarkerInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
