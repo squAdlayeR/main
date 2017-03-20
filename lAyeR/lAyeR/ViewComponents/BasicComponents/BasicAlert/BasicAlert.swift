@@ -140,6 +140,10 @@ extension BasicAlert {
     }
     
     /// closes the alert
+    /// - Parameter inCompletion: the function that is going to
+    ///     be executed after the animation is completed
+    /// - Note: the function need to add @escaping since inCompletion
+    ///     may refer to some functions that has reference to `self`
     func close(inCompletion: @escaping () -> Void) {
         ResourceManager.playSound(with: closeSound)
         UIView.animate(withDuration: 0.15, animations: {

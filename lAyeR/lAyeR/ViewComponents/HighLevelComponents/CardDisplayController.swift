@@ -10,7 +10,12 @@ import UIKit
 
 protocol CardDisplayController {
 
-    var center: CGPoint! { get set }
     var superView: UIView! { get set }
+    var markerCard: BasicMarker! { get set }
+    var popupController: BasicAlertController! { get set }
+    
+    func adjustWhenOutOfView(_ isOutOfView: Bool)
+    func applyAdjustment(_ adjustment: ARLayoutAdjustment)
+    func update(_ distance: Double)
     
 }

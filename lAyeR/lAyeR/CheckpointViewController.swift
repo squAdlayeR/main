@@ -19,24 +19,26 @@ import UIKit
  */
 class CheckpointViewController: NSObject, CardDisplayController {
 
-    var marker: BasicMarker!
-    var alertController: BasicAlertController!
+    // The marker of the checkpoint
+    var markerCard: BasicMarker!
     
+    // The popup controller of the checkpoint
+    var popupController: BasicAlertController!
+    
+    // The superview in which the marker and the alert will be
+    // displayed
     var superView: UIView!
     
-    var center: CGPoint! {
-        didSet {
-            marker.center = center
-            alertController.alert.center = center
-        }
-    }
+    // Specifies the center of the checkpoint card
+    var center: CGPoint!
     
     /// Initialization
     /// - Parameters:
-    ///     - frame: the frame of the POPUP
+    ///     - center: the center of the popup & marker card
     ///     - name: name of the checkpoint
     ///     - distance: distance to that check point
-    ///     - description: description of the check point
+    ///     - superView: the super view in which the marker card & popup will
+    ///         be displayed
     init(center: CGPoint, name: String, distance: Double, superView: UIView) {
         super.init()
         self.center = center
@@ -53,26 +55,25 @@ class CheckpointViewController: NSObject, CardDisplayController {
     private func initMarker(with distance: CGFloat) {
         let newMarker = BasicMarker(frame: markerFrame)
         newMarker.setDistance(distance)
-        self.marker = newMarker
+        self.markerCard = newMarker
         addMarkerGesture()
     }
     
     /// Adds a single tap gesture recognizor to the marker
     private func addMarkerGesture() {
         let markerIsPressed = UITapGestureRecognizer(target: self, action: #selector(openPopup))
-        marker.addGestureRecognizer(markerIsPressed)
+        markerCard.addGestureRecognizer(markerIsPressed)
     }
     
-    /// Initializes the alert with its frame and name
+    /// Initializes the alert with its name
     /// - Parameters:
-    ///     - frame: the frame of the popup in the check point view
     ///     - name: the name of the check point
     private func initAlert(with name: String) {
         let newAlertController = BasicAlertController(title: name, frame: popupFrame)
         let closeButton = createCloseButton()
         newAlertController.addButtonToAlert(closeButton)
         newAlertController.setTitle(name)
-        self.alertController = newAlertController
+        self.popupController = newAlertController
     }
     
     /// Creates a close button
@@ -87,19 +88,45 @@ class CheckpointViewController: NSObject, CardDisplayController {
     
     /// Prepares the check point view for display
     private func prepareDisplay() {
-        superView.addSubview(marker)
+        superView.addSubview(markerCard)
+    }
+    
+    /// Adjusts the view of according to whether it is out of range
+    /// - Parameter isOutOfView: represents whether the view is out of range
+    func adjustWhenOutOfView(_ isOutOfView: Bool) {
+        markerCard.isHidden = isOutOfView
+        popupController.alertView.isHidden = isOutOfView
+    }
+    
+    /// Applies view adjustment to the marker and popup when neccessary.
+    /// - Parameter adjustment: the corresponding adjustment
+    func applyAdjustment(_ adjustment: ARLayoutAdjustment) {
+        adjustment.apply(to: markerCard, within: superView)
+        adjustment.apply(to: popupController.alertView, within: superView)
+    }
+    
+    /// Updates the distance that will be displayed on marker card
+    /// - Parameter distance: thte distance that will be displayed
+    func update(_ distance: Double) {
+        markerCard.setDistance(CGFloat(distance))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Calculates the frame of the marker
+    /// - Note: the frame is defined by suggested maker height/width, which are
+    ///     defined in config
     private var markerFrame: CGRect {
         let originX = center.x - suggestedMarkerWidth / 2
         let originY = center.y - suggestedMarkerHeight / 2
         return CGRect(x: originX, y: originY, width: suggestedMarkerWidth, height: suggestedMarkerHeight)
     }
     
+    /// Calculates the frame of the popup
+    /// - Note: the frame is defined by suggested popup height/width, which are
+    ///     defined in config
     private var popupFrame: CGRect {
         let originX = center.x - suggestedPopupWidth / 2
         let originY = center.y - suggestedPopupHeight / 2
@@ -108,17 +135,17 @@ class CheckpointViewController: NSObject, CardDisplayController {
     
     /// Opens the popup
     func openPopup() {
-        alertController.presentAlert(within: superView)
+        popupController.presentAlert(within: superView)
         UIView.animate(withDuration: 0.2, animations: {
-            self.marker.alpha = 0
+            self.markerCard.alpha = 0
         })
     }
     
     /// Closes the popup
     func closePopup() {
-        alertController.closeAlert()
+        popupController.closeAlert()
         UIView.animate(withDuration: 0.2, animations: {
-            self.marker.alpha = 1
+            self.markerCard.alpha = 1
         })
     }
     

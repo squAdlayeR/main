@@ -15,6 +15,12 @@ import UIKit
  2. adds a view to an alert
  3. adds buttons to an alert
  4. present/close an alert in a specified view
+ 
+ - Note: this controller explicitly assigns the alert to
+    an alertView. This is to ensure the transformation will
+    work properly. We only allow the animation being executed
+    inside the alertView, which will not be interrupted by the
+    transformation performed by the `ARLayoutAdjustment`
  */
 class BasicAlertController {
     
@@ -23,22 +29,47 @@ class BasicAlertController {
     
     /// Initializes the alert controller
     init(title: String, frame: CGRect) {
-        let sanitizedFrame = sanitize(frame: frame)
-        let newBaiscAlert = BasicAlert(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        initializeAlertView(with: frame)
+        initializeBasicAlert(with: title)
+        prepareDisplay()
+    }
+    
+    /// Initializes the alert view that will be used to hold
+    /// the alert popup
+    /// - Parameter frame: the frame of the alert view
+    private func initializeAlertView(with frame: CGRect) {
+        let sanitizedFrame = sanitize(frame)
         let newAlertView = UIView(frame: sanitizedFrame)
-        alert = newBaiscAlert
-        alert.setTitle(title)
-        alert.layer.borderColor = UIColor.yellow.cgColor
-        alert.layer.borderWidth = 2.0
         alertView = newAlertView
+    }
+    
+    /// Initializes the basic alert popup that will be shown
+    /// in the view
+    /// - Parameter title: the title of the basic alert
+    private func initializeBasicAlert(with title: String) {
+        let newBasicAlert = createBaiscAlert(with: title)
+        alert = newBasicAlert
+    }
+    
+    /// Creates an alert with specified title
+    /// - Parameter title: the title of the alert
+    /// - Returns: a new basic alert
+    private func createBaiscAlert(with title: String) -> BasicAlert {
+        let newBasicAlert = BasicAlert(frame: alertFrame)
+        newBasicAlert.setTitle(title)
+        return newBasicAlert
+    }
+    
+    /// Adds the alert into the alert view for display
+    private func prepareDisplay() {
         alertView.addSubview(alert)
     }
     
     /// Sanitizes the frame. The main thing is to check
-    /// Whether the height has exeeded the bounds
+    /// Whether the height has exeeded the designed bounds
     /// - Parameter frame: the frame to be sanitized
     /// - Returns: the sanitized frame
-    private func sanitize(frame: CGRect) -> CGRect {
+    private func sanitize(_ frame: CGRect) -> CGRect {
         var frameHeight = frame.height
         if frameHeight < minAlertHeight {
             frameHeight = minAlertHeight
@@ -48,6 +79,13 @@ class BasicAlertController {
         }
         return CGRect(x: frame.origin.x, y: frame.origin.y,
                       width: frame.width, height: frameHeight)
+    }
+    
+    /// Calcualtes the frame of the alert in the view.
+    /// - Returns: a frame of the same size as the view and 
+    /// the origin is (0, 0)
+    private var alertFrame: CGRect {
+        return CGRect(x: 0, y: 0, width: alertView.frame.width, height: alertView.frame.height)
     }
 
 }
@@ -69,10 +107,6 @@ extension BasicAlertController {
     /// - Parameter button: the button that is to be used
     func addButtonToAlert(_ button: UIButton) {
         alert.addButton(button)
-    }
-    
-    func setAlertCenter(_ center: CGPoint) {
-        alert.center = center
     }
     
     /// Sets the title of the alert
