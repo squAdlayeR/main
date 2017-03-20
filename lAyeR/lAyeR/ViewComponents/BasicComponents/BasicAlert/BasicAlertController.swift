@@ -19,13 +19,19 @@ import UIKit
 class BasicAlertController {
     
     private(set) var alert: BasicAlert!
+    private(set) var alertView: UIView!
     
     /// Initializes the alert controller
     init(title: String, frame: CGRect) {
         let sanitizedFrame = sanitize(frame: frame)
-        let newBaiscAlert = BasicAlert(frame: sanitizedFrame)
+        let newBaiscAlert = BasicAlert(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        let newAlertView = UIView(frame: sanitizedFrame)
         alert = newBaiscAlert
         alert.setTitle(title)
+        alert.layer.borderColor = UIColor.yellow.cgColor
+        alert.layer.borderWidth = 2.0
+        alertView = newAlertView
+        alertView.addSubview(alert)
     }
     
     /// Sanitizes the frame. The main thing is to check
@@ -65,6 +71,10 @@ extension BasicAlertController {
         alert.addButton(button)
     }
     
+    func setAlertCenter(_ center: CGPoint) {
+        alert.center = center
+    }
+    
     /// Sets the title of the alert
     /// - Paramter title: the title of the alert
     func setTitle(_ title: String) {
@@ -74,13 +84,13 @@ extension BasicAlertController {
     /// Presents the alert inside a specified view
     /// - Parameter view: the view that will be holding the alert
     func presentAlert(within view: UIView) {
-        view.addSubview(alert)
+        view.addSubview(alertView)
         alert.open()
     }
     
     /// Closes the alert
     func closeAlert() {
-        alert.close()
+        alert.close(inCompletion: { self.alertView.removeFromSuperview() })
     }
     
 }

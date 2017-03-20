@@ -19,7 +19,7 @@
 		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
 		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
 		2C7813891E7544C000851188 /* dialog_close.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813871E7544C000851188 /* dialog_close.wav */; };
-		2C78138C1E7559EE00851188 /* CheckpointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138B1E7559EE00851188 /* CheckpointView.swift */; };
+		2C78138C1E7559EE00851188 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138B1E7559EE00851188 /* CheckpointViewController.swift */; };
 		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
 		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
 		5249B1A31E7263300048249D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A21E7263300048249D /* MapViewController.swift */; };
@@ -45,6 +45,7 @@
 		9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */; };
 		9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */; };
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
+		9D1499051E8014960043DDB6 /* CardDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499041E8014960043DDB6 /* CardDisplayController.swift */; };
 		A28540471E70DD5000CF51B7 /* ARCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* ARCalculator.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
 		A285404B1E71C4A200CF51B7 /* ARLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */; };
@@ -81,7 +82,7 @@
 		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
 		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
 		2C7813871E7544C000851188 /* dialog_close.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dialog_close.wav; sourceTree = "<group>"; };
-		2C78138B1E7559EE00851188 /* CheckpointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointView.swift; sourceTree = "<group>"; };
+		2C78138B1E7559EE00851188 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointViewController.swift; sourceTree = "<group>"; };
 		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
 		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
 		5249B1A21E7263300048249D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +108,7 @@
 		9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerIcon.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerIcon.swift; sourceTree = "<group>"; };
 		9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfo.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerInfo.swift; sourceTree = "<group>"; };
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
+		9D1499041E8014960043DDB6 /* CardDisplayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardDisplayController.swift; path = ViewComponents/HighLevelComponents/CardDisplayController.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* ARCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCalculator.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
 		A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARLayoutAdjustment.swift; sourceTree = "<group>"; };
@@ -242,7 +244,7 @@
 		2C78138A1E7559C200851188 /* CheckPoint */ = {
 			isa = PBXGroup;
 			children = (
-				2C78138B1E7559EE00851188 /* CheckpointView.swift */,
+				2C78138B1E7559EE00851188 /* CheckpointViewController.swift */,
 			);
 			name = CheckPoint;
 			sourceTree = "<group>";
@@ -318,6 +320,7 @@
 		9D1498F31E8008030043DDB6 /* HighLevelComponents */ = {
 			isa = PBXGroup;
 			children = (
+				9D1499041E8014960043DDB6 /* CardDisplayController.swift */,
 				2C78138A1E7559C200851188 /* CheckPoint */,
 			);
 			name = HighLevelComponents;
@@ -533,6 +536,7 @@
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
 				9D1498FD1E800B080043DDB6 /* BasicAlertController.swift in Sources */,
+				9D1499051E8014960043DDB6 /* CardDisplayController.swift in Sources */,
 				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
@@ -551,7 +555,7 @@
 				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
-				2C78138C1E7559EE00851188 /* CheckpointView.swift in Sources */,
+				2C78138C1E7559EE00851188 /* CheckpointViewController.swift in Sources */,
 				2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */,
 				2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */,
 			);

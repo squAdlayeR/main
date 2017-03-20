@@ -30,6 +30,7 @@ class TopBanner: UIView {
         let topBannerFrame = CGRect(x: 0, y: alert.frame.height / 2 - topBannerHeight,
                                     width: alert.frame.width,
                                     height: topBannerHeight)
+        print(alert.frame.height)
         super.init(frame: topBannerFrame)
         prepareDisplay()
     }

@@ -14,7 +14,7 @@ import UIKit
 
 class ARViewController: UIViewController {
     var cameraView: UIView!
-    private var checkPointCards: [(CheckPoint, CheckpointView)] = []
+    private var checkPointCards: [(CheckPoint, CheckpointViewController)] = []
     
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -77,11 +77,7 @@ class ARViewController: UIViewController {
 //        sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
 //        sampleCard.backgroundColor = UIColor.orange
 //        sampleCard.alpha = sampleCardAlpha
-        let size = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
-        let origin = CGPoint(x: (view.bounds.width - size.width) / 2,
-                             y: (view.bounds.height - size.height) / 2)
-        let frame = CGRect(origin: origin, size: size)
-        let sampleCard = CheckpointView(frame: frame, name: "PGP", distance: 0)
+        let sampleCard = CheckpointViewController(center: view.center, name: "PGP", distance: 0, superView: view)
         checkPointCards.append((CheckPoint(1.2909, 103.7813, "PGP", 4), sampleCard))
         
 //        let sampleCard2 = UIView()
@@ -89,7 +85,7 @@ class ARViewController: UIViewController {
 //        sampleCard2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
 //        sampleCard2.backgroundColor = UIColor.blue
 //        sampleCard2.alpha = sampleCardAlpha
-        let sampleCard2 = CheckpointView(frame: frame, name: "CP2", distance: 0)
+        let sampleCard2 = CheckpointViewController(center: view.center, name: "CP2", distance: 0, superView: view)
         checkPointCards.append((CheckPoint(1.2923, 103.7799, "CP2", 3), sampleCard2))
         
 //        let sampleCard3 = UIView()
@@ -97,7 +93,7 @@ class ARViewController: UIViewController {
 //        sampleCard3.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
 //        sampleCard3.backgroundColor = UIColor.yellow
 //        sampleCard3.alpha = sampleCardAlpha
-        let sampleCard3 = CheckpointView(frame: frame, name: "CP1", distance: 0)
+        let sampleCard3 = CheckpointViewController(center: view.center, name: "CP1", distance: 0, superView: view)
         checkPointCards.append((CheckPoint(1.2937, 103.7769, "CP1", 2), sampleCard3))
         
 //        let sampleCard4 = UIView()
@@ -105,12 +101,12 @@ class ARViewController: UIViewController {
 //        sampleCard4.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
 //        sampleCard4.backgroundColor = UIColor.green
 //        sampleCard4.alpha = sampleCardAlpha
-        let sampleCard4 = CheckpointView(frame: frame, name: "Biz link", distance: 0)
+        let sampleCard4 = CheckpointViewController(center: view.center, name: "Biz link", distance: 0, superView: view)
         checkPointCards.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
         
-        for (_, card) in checkPointCards {
-            view.addSubview(card)
-        }
+//        for (_, card) in checkPointCards {
+//            view.addSubview(card)
+//        }
     }
     
     /**
@@ -136,8 +132,11 @@ class ARViewController: UIViewController {
                     if horzAngle > M_PI / 2 || horzAngle < -M_PI / 2 {
                         isOutOfView = true
                     }
-                    checkPointCard.isHidden = isOutOfView
-                    layoutAdjustment.apply(to: checkPointCard, within: self.view)
+                    // TODO: refector this part
+                    checkPointCard.marker.isHidden = isOutOfView
+                    checkPointCard.alertController.alertView.isHidden = isOutOfView
+                    layoutAdjustment.apply(to: checkPointCard.marker, within: self.view)
+                    layoutAdjustment.apply(to: checkPointCard.alertController.alertView, within: self.view)
                     
                     let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
                     checkPointCard.marker.setDistance(CGFloat(distance))

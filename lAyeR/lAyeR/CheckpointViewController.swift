@@ -17,10 +17,19 @@ import UIKit
     checkpoints, only name and a short description will be 
     displayed
  */
-class CheckpointView: UIView {
+class CheckpointViewController: NSObject, CardDisplayController {
 
     var marker: BasicMarker!
     var alertController: BasicAlertController!
+    
+    var superView: UIView!
+    
+    var center: CGPoint! {
+        didSet {
+            marker.center = center
+            alertController.alert.center = center
+        }
+    }
     
     /// Initialization
     /// - Parameters:
@@ -28,18 +37,12 @@ class CheckpointView: UIView {
     ///     - name: name of the checkpoint
     ///     - distance: distance to that check point
     ///     - description: description of the check point
-    init(frame: CGRect, name: String, distance: Double) {
-        super.init(frame: frame)
-        let markerFrame = CGRect(x: (frame.width - suggestedMarkerWidth) / 2,
-                                 y: (frame.height - suggestedMarkerHeight) / 2,
-                                 width: suggestedMarkerWidth,
-                                 height: suggestedMarkerHeight)
-        let alertFrame = CGRect(x: 0,
-                                y: 0,
-                                width: frame.width,
-                                height: frame.height)
-        initMarker(with: markerFrame, distance: CGFloat(distance))
-        initAlert(with: alertFrame, name: name)
+    init(center: CGPoint, name: String, distance: Double, superView: UIView) {
+        super.init()
+        self.center = center
+        self.superView = superView
+        initMarker(with: CGFloat(distance))
+        initAlert(with: name)
         prepareDisplay()
     }
     
@@ -47,8 +50,8 @@ class CheckpointView: UIView {
     /// - Parameters:
     ///     - frame: the frame of the marker in the check point view
     ///     - distance: the distance to that check point
-    private func initMarker(with frame: CGRect, distance: CGFloat) {
-        let newMarker = BasicMarker(frame: frame)
+    private func initMarker(with distance: CGFloat) {
+        let newMarker = BasicMarker(frame: markerFrame)
         newMarker.setDistance(distance)
         self.marker = newMarker
         addMarkerGesture()
@@ -64,8 +67,8 @@ class CheckpointView: UIView {
     /// - Parameters:
     ///     - frame: the frame of the popup in the check point view
     ///     - name: the name of the check point
-    private func initAlert(with frame: CGRect, name: String) {
-        let newAlertController = BasicAlertController(title: name, frame: frame)
+    private func initAlert(with name: String) {
+        let newAlertController = BasicAlertController(title: name, frame: popupFrame)
         let closeButton = createCloseButton()
         newAlertController.addButtonToAlert(closeButton)
         newAlertController.setTitle(name)
@@ -84,16 +87,28 @@ class CheckpointView: UIView {
     
     /// Prepares the check point view for display
     private func prepareDisplay() {
-        self.addSubview(marker)
+        superView.addSubview(marker)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private var markerFrame: CGRect {
+        let originX = center.x - suggestedMarkerWidth / 2
+        let originY = center.y - suggestedMarkerHeight / 2
+        return CGRect(x: originX, y: originY, width: suggestedMarkerWidth, height: suggestedMarkerHeight)
+    }
+    
+    private var popupFrame: CGRect {
+        let originX = center.x - suggestedPopupWidth / 2
+        let originY = center.y - suggestedPopupHeight / 2
+        return CGRect(x: originX, y: originY, width: suggestedPopupWidth, height: suggestedPopupHeight)
+    }
+    
     /// Opens the popup
     func openPopup() {
-        alertController.presentAlert(within: self)
+        alertController.presentAlert(within: superView)
         UIView.animate(withDuration: 0.2, animations: {
             self.marker.alpha = 0
         })
@@ -106,4 +121,5 @@ class CheckpointView: UIView {
             self.marker.alpha = 1
         })
     }
+    
 }

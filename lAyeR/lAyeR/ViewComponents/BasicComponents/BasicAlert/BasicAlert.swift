@@ -140,13 +140,13 @@ extension BasicAlert {
     }
     
     /// closes the alert
-    func close() {
+    func close(inCompletion: @escaping () -> Void) {
         ResourceManager.playSound(with: closeSound)
         UIView.animate(withDuration: 0.15, animations: {
             self.transform = CGAffineTransform(scaleX: 0.1, y: 1)
             self.alpha = 0
         }, completion: { isFinished in
-            self.removeFromSuperview()
+            inCompletion()
         })
     }
     
