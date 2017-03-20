@@ -14,6 +14,22 @@
 		2C3119A21E670A5F00FF6334 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A11E670A5F00FF6334 /* Assets.xcassets */; };
 		2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */; };
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
+		2C7333D71E711C6000EDE1D8 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D61E711C6000EDE1D8 /* TopBanner.swift */; };
+		2C7333D91E711C7700EDE1D8 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */; };
+		2C7333DB1E711C8F00EDE1D8 /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */; };
+		2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */; };
+		2C7333DF1E716CB900EDE1D8 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */; };
+		2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */; };
+		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
+		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
+		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
+		2C7813891E7544C000851188 /* dialog_close.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813871E7544C000851188 /* dialog_close.wav */; };
+		2C78138C1E7559EE00851188 /* CheckpointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138B1E7559EE00851188 /* CheckpointView.swift */; };
+		2C78138E1E755AC100851188 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138D1E755AC100851188 /* BasicMarker.swift */; };
+		2C7813921E755EAC00851188 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7813911E755EAC00851188 /* MarkerIcon.swift */; };
+		2C7813941E755EB700851188 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7813931E755EB700851188 /* MarkerInfo.swift */; };
+		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
+		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
 		5249B1A31E7263300048249D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A21E7263300048249D /* MapViewController.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
@@ -36,22 +52,6 @@
 		A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */; };
 		A2AF0AD11E76C2FB00B4478C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */; };
 		B4EEF9CDCE1F28C23A26F902 /* Pods_lAyeR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */; };
-		2C7333D71E711C6000EDE1D8 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D61E711C6000EDE1D8 /* TopBanner.swift */; };
-		2C7333D91E711C7700EDE1D8 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */; };
-		2C7333DB1E711C8F00EDE1D8 /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */; };
-		2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */; };
-		2C7333DF1E716CB900EDE1D8 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */; };
-		2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */; };
-		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
-		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
-		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
-		2C7813891E7544C000851188 /* dialog_close.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813871E7544C000851188 /* dialog_close.wav */; };
-		2C78138C1E7559EE00851188 /* CheckpointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138B1E7559EE00851188 /* CheckpointView.swift */; };
-		2C78138E1E755AC100851188 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138D1E755AC100851188 /* BasicMarker.swift */; };
-		2C7813921E755EAC00851188 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7813911E755EAC00851188 /* MarkerIcon.swift */; };
-		2C7813941E755EB700851188 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7813931E755EB700851188 /* MarkerInfo.swift */; };
-		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
-		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +76,22 @@
 		2C3119AB1E670A5F00FF6334 /* lAyeRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lAyeRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lAyeRTests.swift; sourceTree = "<group>"; };
 		2C3119B11E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C7333D61E711C6000EDE1D8 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBanner.swift; sourceTree = "<group>"; };
+		2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBanner.swift; sourceTree = "<group>"; };
+		2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAlert.swift; sourceTree = "<group>"; };
+		2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertConfig.swift; sourceTree = "<group>"; };
+		2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanel.swift; sourceTree = "<group>"; };
+		2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
+		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
+		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
+		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
+		2C7813871E7544C000851188 /* dialog_close.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dialog_close.wav; sourceTree = "<group>"; };
+		2C78138B1E7559EE00851188 /* CheckpointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointView.swift; sourceTree = "<group>"; };
+		2C78138D1E755AC100851188 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicMarker.swift; sourceTree = "<group>"; };
+		2C7813911E755EAC00851188 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerIcon.swift; sourceTree = "<group>"; };
+		2C7813931E755EB700851188 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerInfo.swift; sourceTree = "<group>"; };
+		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
+		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
 		5249B1A21E7263300048249D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		5249B1A71E7264000048249D /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
@@ -99,22 +115,6 @@
 		A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
 		F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.release.xcconfig"; sourceTree = "<group>"; };
-		2C7333D61E711C6000EDE1D8 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBanner.swift; sourceTree = "<group>"; };
-		2C7333D81E711C7700EDE1D8 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBanner.swift; sourceTree = "<group>"; };
-		2C7333DA1E711C8F00EDE1D8 /* BasicAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAlert.swift; sourceTree = "<group>"; };
-		2C7333DC1E711E9C00EDE1D8 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertConfig.swift; sourceTree = "<group>"; };
-		2C7333DE1E716CB900EDE1D8 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanel.swift; sourceTree = "<group>"; };
-		2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
-		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
-		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
-		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
-		2C7813871E7544C000851188 /* dialog_close.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dialog_close.wav; sourceTree = "<group>"; };
-		2C78138B1E7559EE00851188 /* CheckpointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointView.swift; sourceTree = "<group>"; };
-		2C78138D1E755AC100851188 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicMarker.swift; sourceTree = "<group>"; };
-		2C7813911E755EAC00851188 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerIcon.swift; sourceTree = "<group>"; };
-		2C7813931E755EB700851188 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerInfo.swift; sourceTree = "<group>"; };
-		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
-		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +159,7 @@
 		2C3119991E670A5F00FF6334 /* lAyeR */ = {
 			isa = PBXGroup;
 			children = (
+				9D1498F11E8007DC0043DDB6 /* ViewComponents */,
 				A2AF0AB81E70101000B4478C /* ARRenderer */,
 				5249B1BA1E7450190048249D /* WebQuery */,
 				5249B1B31E72AF770048249D /* LocalStorage */,
@@ -166,9 +167,6 @@
 				2C7813851E7544B100851188 /* Sounds */,
 				2C7333E61E71BA8E00EDE1D8 /* Fonts */,
 				2C7333E11E71B4EA00EDE1D8 /* Common */,
-				2C7333D51E711C3900EDE1D8 /* BasicAlert */,
-				2C78138F1E755E6600851188 /* BasicMarker */,
-				2C78138A1E7559C200851188 /* CheckPoint */,
 				2C31199A1E670A5F00FF6334 /* AppDelegate.swift */,
 				2C31199C1E670A5F00FF6334 /* ViewController.swift */,
 				2C31199E1E670A5F00FF6334 /* Main.storyboard */,
@@ -190,75 +188,6 @@
 				2C3119B11E670A5F00FF6334 /* Info.plist */,
 			);
 			path = lAyeRTests;
-			sourceTree = "<group>";
-		};
-		5249B1A41E7263A30048249D /* RouteDesigner */ = {
-			isa = PBXGroup;
-			children = (
-				A2AF0AD21E76C5BE00B4478C /* testing files */,
-				5249B1AD1E7264790048249D /* UserConfig.swift */,
-				5249B1A71E7264000048249D /* GeoPoint.swift */,
-				5249B1A91E72641C0048249D /* CheckPoint.swift */,
-				5249B1B11E7264AB0048249D /* POI.swift */,
-				5249B1A51E7263C40048249D /* Route.swift */,
-				5249B1B61E72FC660048249D /* GeoUtil.swift */,
-				A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */,
-			);
-			name = RouteDesigner;
-			sourceTree = "<group>";
-		};
-		5249B1B31E72AF770048249D /* LocalStorage */ = {
-			isa = PBXGroup;
-			children = (
-				5249B1B41E72B3A30048249D /* LocalStorageManager.swift */,
-			);
-			name = LocalStorage;
-			sourceTree = "<group>";
-		};
-		5249B1BA1E7450190048249D /* WebQuery */ = {
-			isa = PBXGroup;
-			children = (
-				5249B1BB1E7450380048249D /* QueryManager.swift */,
-				5249B1C41E74D8070048249D /* Parser.swift */,
-			);
-			name = WebQuery;
-			sourceTree = "<group>";
-		};
-		A2AF0AB81E70101000B4478C /* ARRenderer */ = {
-			isa = PBXGroup;
-			children = (
-				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
-				A28540461E70DD5000CF51B7 /* ARCalculator.swift */,
-				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
-				A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */,
-			);
-			name = ARRenderer;
-			sourceTree = "<group>";
-		};
-		A2AF0AD21E76C5BE00B4478C /* testing files */ = {
-			isa = PBXGroup;
-			children = (
-				5249B1A21E7263300048249D /* MapViewController.swift */,
-				5249B1B81E73009F0048249D /* MapViewDelegate.swift */,
-			);
-			name = "testing files";
-			sourceTree = "<group>";
-		};
-		BE7D7EB2BE9C50EE8088A2AE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */,
-				F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		FED6868487D29D53B260A46F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		2C7333D51E711C3900EDE1D8 /* BasicAlert */ = {
@@ -334,6 +263,101 @@
 				2C7813931E755EB700851188 /* MarkerInfo.swift */,
 			);
 			name = MarkerElements;
+			sourceTree = "<group>";
+		};
+		5249B1A41E7263A30048249D /* RouteDesigner */ = {
+			isa = PBXGroup;
+			children = (
+				A2AF0AD21E76C5BE00B4478C /* testing files */,
+				5249B1AD1E7264790048249D /* UserConfig.swift */,
+				5249B1A71E7264000048249D /* GeoPoint.swift */,
+				5249B1A91E72641C0048249D /* CheckPoint.swift */,
+				5249B1B11E7264AB0048249D /* POI.swift */,
+				5249B1A51E7263C40048249D /* Route.swift */,
+				5249B1B61E72FC660048249D /* GeoUtil.swift */,
+				A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */,
+			);
+			name = RouteDesigner;
+			sourceTree = "<group>";
+		};
+		5249B1B31E72AF770048249D /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				5249B1B41E72B3A30048249D /* LocalStorageManager.swift */,
+			);
+			name = LocalStorage;
+			sourceTree = "<group>";
+		};
+		5249B1BA1E7450190048249D /* WebQuery */ = {
+			isa = PBXGroup;
+			children = (
+				5249B1BB1E7450380048249D /* QueryManager.swift */,
+				5249B1C41E74D8070048249D /* Parser.swift */,
+			);
+			name = WebQuery;
+			sourceTree = "<group>";
+		};
+		9D1498F11E8007DC0043DDB6 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				9D1498F21E8007F70043DDB6 /* BasicComponents */,
+				9D1498F31E8008030043DDB6 /* HighLevelComponents */,
+			);
+			name = ViewComponents;
+			sourceTree = "<group>";
+		};
+		9D1498F21E8007F70043DDB6 /* BasicComponents */ = {
+			isa = PBXGroup;
+			children = (
+				2C7333D51E711C3900EDE1D8 /* BasicAlert */,
+				2C78138F1E755E6600851188 /* BasicMarker */,
+			);
+			name = BasicComponents;
+			sourceTree = "<group>";
+		};
+		9D1498F31E8008030043DDB6 /* HighLevelComponents */ = {
+			isa = PBXGroup;
+			children = (
+				2C78138A1E7559C200851188 /* CheckPoint */,
+			);
+			name = HighLevelComponents;
+			sourceTree = "<group>";
+		};
+		A2AF0AB81E70101000B4478C /* ARRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
+				A28540461E70DD5000CF51B7 /* ARCalculator.swift */,
+				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
+				A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */,
+			);
+			name = ARRenderer;
+			sourceTree = "<group>";
+		};
+		A2AF0AD21E76C5BE00B4478C /* testing files */ = {
+			isa = PBXGroup;
+			children = (
+				5249B1A21E7263300048249D /* MapViewController.swift */,
+				5249B1B81E73009F0048249D /* MapViewDelegate.swift */,
+			);
+			name = "testing files";
+			sourceTree = "<group>";
+		};
+		BE7D7EB2BE9C50EE8088A2AE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */,
+				F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FED6868487D29D53B260A46F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
