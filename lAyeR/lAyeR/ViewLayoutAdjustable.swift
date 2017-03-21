@@ -1,21 +1,41 @@
 //
-//  ARLayoutAdjustment.swift
+//  ViewLayoutAdjustable.swift
 //  lAyeR
 //
-//  Created by luoyuyang on 09/03/17.
+//  Created by luoyuyang on 21/03/17.
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-struct ARLayoutAdjustment {
-    let xOffset: CGFloat
-    let yOffset: CGFloat
-    let yawRotationAngle: CGFloat
-    let horzRotationAngle: CGFloat
-    
-    func apply(to view: UIView, within superView: UIView) {
+protocol ViewLayoutAdjustable {
+    func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment);
+}
+
+
+extension UIView: ViewLayoutAdjustable {
+    func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment) {
+        
+        guard let superView = self.superview else {
+            return
+        }
+        
+        let view = self
+        
+        if adjustment.isOutOfView {
+            view.isHidden = true
+            return
+        } else {
+            view.isHidden = false
+        }
+        
+        let xOffset = adjustment.xOffset
+        let yOffset = adjustment.yOffset
+        let yawRotationAngle = adjustment.yawRotationAngle
+        let horzRotationAngle = adjustment.horzRotationAngle
+        
+        
         view.transform = CGAffineTransform(rotationAngle: CGFloat(yawRotationAngle))
         view.center.x = superView.bounds.width / 2 + xOffset
         view.center.y = superView.bounds.height / 2 + yOffset
@@ -39,8 +59,7 @@ struct ARLayoutAdjustment {
         // apply the 3 transformations in the order described above
         var transform = CATransform3DConcat(horzRotationTransform, yawRotationTransform)
         transform = CATransform3DConcat(transform, perspectiveTransform)
-
+        
         view.layer.transform = transform
     }
 }
-

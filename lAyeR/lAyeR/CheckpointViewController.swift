@@ -17,7 +17,7 @@ import UIKit
     checkpoints, only name and a short description will be 
     displayed
  */
-class CheckpointViewController: NSObject, CardDisplayController {
+class CheckpointViewController: NSObject, ViewLayoutAdjustable {
 
     // The marker of the checkpoint
     var markerCard: BasicMarker!
@@ -91,18 +91,11 @@ class CheckpointViewController: NSObject, CardDisplayController {
         superView.addSubview(markerCard)
     }
     
-    /// Adjusts the view of according to whether it is out of range
-    /// - Parameter isOutOfView: represents whether the view is out of range
-    func adjustWhenOutOfView(_ isOutOfView: Bool) {
-        markerCard.isHidden = isOutOfView
-        popupController.alertView.isHidden = isOutOfView
-    }
-    
     /// Applies view adjustment to the marker and popup when neccessary.
     /// - Parameter adjustment: the corresponding adjustment
-    func applyAdjustment(_ adjustment: ARLayoutAdjustment) {
-        adjustment.apply(to: markerCard, within: superView)
-        adjustment.apply(to: popupController.alertView, within: superView)
+    func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment) {
+        markerCard.applyViewAdjustment(adjustment)
+        popupController.alertView.applyViewAdjustment(adjustment)
     }
     
     /// Updates the distance that will be displayed on marker card

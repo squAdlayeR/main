@@ -14,7 +14,7 @@ import UIKit
 
 class ARViewController: UIViewController {
     var cameraView: UIView!
-    private var checkPointCards: [(CheckPoint, CardDisplayController)] = []
+    private var checkPointCards: [(CheckPoint, CheckpointViewController)] = []
     
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -35,8 +35,6 @@ class ARViewController: UIViewController {
     
     
     // for testing get current location
-//    let locationManager: CLLocationManager = CLLocationManager()
-//    var mapViewDelegate: MapViewDelegate = MapViewDelegate()
     let locationManager = LocationManager()
     
     
@@ -45,14 +43,6 @@ class ARViewController: UIViewController {
         addCameraView()
         addCheckPointCards()
         setupAVCapture()
-        
-        // for getting the current location
-//        locationManager.delegate = mapViewDelegate
-//        locationManager.requestAlwaysAuthorization()
-//        locationManager.requestWhenInUseAuthorization()
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.startUpdatingLocation()
-        
         
         startObservingDeviceMotion()
     }
@@ -127,15 +117,8 @@ class ARViewController: UIViewController {
                     let arCalculator = ARCalculator(motion: data, azimuth: azimuth, superView: self.view)
                     let layoutAdjustment = arCalculator.calculateARLayoutAdjustment()
                     
-                    let horzAngle = arCalculator.calculateHorzAngle()
-                    var isOutOfView = false
-                    if horzAngle > M_PI / 2 || horzAngle < -M_PI / 2 {
-                        isOutOfView = true
-                    }
                     let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
-                    // TODO: refector this part
-                    checkPointCard.adjustWhenOutOfView(isOutOfView)
-                    checkPointCard.applyAdjustment(layoutAdjustment)
+                    checkPointCard.applyViewAdjustment(layoutAdjustment)
                     checkPointCard.update(distance)
                 }
             })

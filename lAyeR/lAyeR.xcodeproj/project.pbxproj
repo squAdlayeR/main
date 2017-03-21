@@ -45,10 +45,10 @@
 		9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */; };
 		9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */; };
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
-		9D1499051E8014960043DDB6 /* CardDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499041E8014960043DDB6 /* CardDisplayController.swift */; };
+		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A28540471E70DD5000CF51B7 /* ARCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* ARCalculator.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
-		A285404B1E71C4A200CF51B7 /* ARLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */; };
+		A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */; };
 		A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AB91E70103800B4478C /* ARViewController.swift */; };
 		A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */; };
 		A2AF0AD11E76C2FB00B4478C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */; };
@@ -108,10 +108,10 @@
 		9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerIcon.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerIcon.swift; sourceTree = "<group>"; };
 		9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfo.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerInfo.swift; sourceTree = "<group>"; };
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
-		9D1499041E8014960043DDB6 /* CardDisplayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardDisplayController.swift; path = ViewComponents/HighLevelComponents/CardDisplayController.swift; sourceTree = "<group>"; };
+		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* ARCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCalculator.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
-		A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARLayoutAdjustment.swift; sourceTree = "<group>"; };
+		A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewLayoutAdjustment.swift; sourceTree = "<group>"; };
 		A2AF0AB91E70103800B4478C /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3DTests.swift; sourceTree = "<group>"; };
 		A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -241,14 +241,6 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
-		2C78138A1E7559C200851188 /* CheckPoint */ = {
-			isa = PBXGroup;
-			children = (
-				2C78138B1E7559EE00851188 /* CheckpointViewController.swift */,
-			);
-			name = CheckPoint;
-			sourceTree = "<group>";
-		};
 		2C78138F1E755E6600851188 /* BasicMarker */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,8 +312,7 @@
 		9D1498F31E8008030043DDB6 /* HighLevelComponents */ = {
 			isa = PBXGroup;
 			children = (
-				9D1499041E8014960043DDB6 /* CardDisplayController.swift */,
-				2C78138A1E7559C200851188 /* CheckPoint */,
+				2C78138B1E7559EE00851188 /* CheckpointViewController.swift */,
 			);
 			name = HighLevelComponents;
 			sourceTree = "<group>";
@@ -332,7 +323,8 @@
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
 				A28540461E70DD5000CF51B7 /* ARCalculator.swift */,
 				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
-				A285404A1E71C4A200CF51B7 /* ARLayoutAdjustment.swift */,
+				A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */,
+				A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */,
 			);
 			name = ARRenderer;
 			sourceTree = "<group>";
@@ -528,7 +520,7 @@
 			files = (
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
 				A28540471E70DD5000CF51B7 /* ARCalculator.swift in Sources */,
-				A285404B1E71C4A200CF51B7 /* ARLayoutAdjustment.swift in Sources */,
+				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
 				5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */,
@@ -536,12 +528,12 @@
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
 				9D1498FD1E800B080043DDB6 /* BasicAlertController.swift in Sources */,
-				9D1499051E8014960043DDB6 /* CardDisplayController.swift in Sources */,
 				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
+				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,

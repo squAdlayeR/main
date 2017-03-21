@@ -20,7 +20,7 @@ import UIKit
     an alertView. This is to ensure the transformation will
     work properly. We only allow the animation being executed
     inside the alertView, which will not be interrupted by the
-    transformation performed by the `ARLayoutAdjustment`
+    transformation performed by the `ARViewLayoutAdjustment`
  */
 class BasicAlertController {
     

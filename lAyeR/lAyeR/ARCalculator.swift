@@ -24,7 +24,7 @@ struct ARCalculator {
         self.superView = superView
     }
     
-    func calculateARLayoutAdjustment() -> ARLayoutAdjustment {
+    func calculateARLayoutAdjustment() -> ARViewLayoutAdjustment {
         let yawAngle = calculateYawAngle()
         let horzAngle = calculateHorzAngle()
         let verticalAngle = calculateVerticalAngle()
@@ -39,15 +39,22 @@ struct ARCalculator {
         
         // positive x direction is rigth
         let horzOffset = CGFloat(sin(horzAngle)) * visionWidth
+
         // positive y direction is down
         let verticalOffset = CGFloat(-sin(verticalAngle)) * visionHeight
         
         let xOffset = CGFloat(horzOffset) * CGFloat(yawCos) - CGFloat(verticalOffset) * CGFloat(yawSin)
         let yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
+        
+        var isOutOfView = false
+        if horzAngle > M_PI / 2 || horzAngle < -M_PI / 2 {
+            isOutOfView = true
+        }
 
-        return ARLayoutAdjustment(xOffset: xOffset, yOffset: yOffset,
+        return ARViewLayoutAdjustment(xOffset: xOffset, yOffset: yOffset,
                                   yawRotationAngle: -(CGFloat)(yawAngle),
-                                  horzRotationAngle: -(CGFloat)(horzAngle))
+                                  horzRotationAngle: -(CGFloat)(horzAngle),
+                                  isOutOfView: isOutOfView)
     }
     
     /**
