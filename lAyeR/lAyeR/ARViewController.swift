@@ -16,6 +16,8 @@ class ARViewController: UIViewController {
     var cameraView: UIView!
     private var checkPointCards: [(CheckPoint, CheckpointViewController)] = []
     
+    private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
+    
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
     var videoDataOutputQueue: DispatchQueue!
@@ -26,17 +28,16 @@ class ARViewController: UIViewController {
     var done = false
     
     // for AR effect
-    let motionManager = CMMotionManager()
+    let motionManager = DeviceMotionManager.getInstance()
+    
+    // for testing get current location
+    let locationManager = LocationManager()
     
     // setting constants
     let sampleCardWidth = 108
     let sampleCardHeight = 108
     let sampleCardAlpha: CGFloat = 0.48
-    
-    
-    // for testing get current location
-    let locationManager = LocationManager()
-    
+    let framePerSecond = 60
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,41 +63,17 @@ class ARViewController: UIViewController {
     private func addCheckPointCards() {
         // FOR TESTING PURPOSE
         
-//        let sampleCard = UIView()
-//        sampleCard.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-//        sampleCard.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-//        sampleCard.backgroundColor = UIColor.orange
-//        sampleCard.alpha = sampleCardAlpha
         let sampleCard = CheckpointViewController(center: view.center, name: "PGP", distance: 0, superView: view)
         checkPointCards.append((CheckPoint(1.2909, 103.7813, "PGP", 4), sampleCard))
         
-//        let sampleCard2 = UIView()
-//        sampleCard2.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-//        sampleCard2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-//        sampleCard2.backgroundColor = UIColor.blue
-//        sampleCard2.alpha = sampleCardAlpha
         let sampleCard2 = CheckpointViewController(center: view.center, name: "CP2", distance: 0, superView: view)
         checkPointCards.append((CheckPoint(1.2923, 103.7799, "CP2", 3), sampleCard2))
         
-//        let sampleCard3 = UIView()
-//        sampleCard3.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-//        sampleCard3.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-//        sampleCard3.backgroundColor = UIColor.yellow
-//        sampleCard3.alpha = sampleCardAlpha
         let sampleCard3 = CheckpointViewController(center: view.center, name: "CP1", distance: 0, superView: view)
         checkPointCards.append((CheckPoint(1.2937, 103.7769, "CP1", 2), sampleCard3))
         
-//        let sampleCard4 = UIView()
-//        sampleCard4.bounds.size = CGSize(width: sampleCardWidth, height: sampleCardHeight)
-//        sampleCard4.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-//        sampleCard4.backgroundColor = UIColor.green
-//        sampleCard4.alpha = sampleCardAlpha
         let sampleCard4 = CheckpointViewController(center: view.center, name: "Biz link", distance: 0, superView: view)
         checkPointCards.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
-        
-//        for (_, card) in checkPointCards {
-//            view.addSubview(card)
-//        }
     }
     
     /**
@@ -104,24 +81,21 @@ class ARViewController: UIViewController {
      and update the view accordingly
      */
     private func startObservingDeviceMotion() {
-        if motionManager.isDeviceMotionAvailable && !motionManager.isDeviceMotionActive {
-            motionManager.startDeviceMotionUpdates(using: .xTrueNorthZVertical, to: .main, withHandler: { [unowned self] (data, error) in
-                guard let data = data else {
-                    return
-                }
+        displayLink.add(to: .current, forMode: .defaultRunLoopMode)
+        displayLink.preferredFramesPerSecond = framePerSecond
 
-                // update position and orientation of checkPointCards
-                for (checkPoint, checkPointCard) in self.checkPointCards {
-                    let userPoint = self.locationManager.getUserPoint()
-                    let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
-                    let arCalculator = ARCalculator(motion: data, azimuth: azimuth, superView: self.view)
-                    let layoutAdjustment = arCalculator.calculateARLayoutAdjustment()
-                    
-                    let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
-                    checkPointCard.applyViewAdjustment(layoutAdjustment)
-                    checkPointCard.update(distance)
-                }
-            })
+    }
+    
+    @objc private func updateLoop() {
+        // update position and orientation of checkPointCards
+        for (checkPoint, checkPointCard) in self.checkPointCards {
+            let userPoint = self.locationManager.getUserPoint()
+            let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
+            let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager, azimuth: azimuth, superView: self.view)
+
+            let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
+            checkPointCard.applyViewAdjustment(layoutAdjustment)
+            checkPointCard.update(distance)
         }
     }
 }

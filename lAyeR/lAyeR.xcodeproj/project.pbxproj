@@ -46,7 +46,7 @@
 		9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */; };
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
-		A28540471E70DD5000CF51B7 /* ARCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* ARCalculator.swift */; };
+		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
 		A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */; };
 		A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AB91E70103800B4478C /* ARViewController.swift */; };
@@ -109,7 +109,7 @@
 		9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfo.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerInfo.swift; sourceTree = "<group>"; };
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
-		A28540461E70DD5000CF51B7 /* ARCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCalculator.swift; sourceTree = "<group>"; };
+		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
 		A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewLayoutAdjustment.swift; sourceTree = "<group>"; };
 		A2AF0AB91E70103800B4478C /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
@@ -321,7 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
-				A28540461E70DD5000CF51B7 /* ARCalculator.swift */,
+				A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */,
 				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
 				A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */,
 				A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */,
@@ -519,7 +519,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
-				A28540471E70DD5000CF51B7 /* ARCalculator.swift in Sources */,
+				A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
