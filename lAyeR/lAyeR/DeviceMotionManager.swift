@@ -14,9 +14,12 @@ class DeviceMotionManager {
     private static var deviceMotionManager: DeviceMotionManager?
     
     private let cmMotionManager = CMMotionManager()
-    private var motion: CMDeviceMotion = CMDeviceMotion()
+    private var motion: CMDeviceMotion?
     private var rotationMatrix: CMRotationMatrix {
-        return motion.attitude.rotationMatrix
+        if let deviceMotion = motion {
+            return deviceMotion.attitude.rotationMatrix
+        }
+        return CMRotationMatrix()
     }
     
     static func getInstance() -> DeviceMotionManager {
