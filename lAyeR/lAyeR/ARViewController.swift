@@ -31,7 +31,7 @@ class ARViewController: UIViewController {
     let motionManager = DeviceMotionManager.getInstance()
     
     // for testing get current location
-    let locationManager = LocationManager()
+    let geoManager = GeoManager.getInstance()
     
     // setting constants
     let sampleCardWidth = 108
@@ -44,7 +44,6 @@ class ARViewController: UIViewController {
         addCameraView()
         addCheckPointCards()
         setupAVCapture()
-        
         startObservingDeviceMotion()
     }
     
@@ -89,7 +88,7 @@ class ARViewController: UIViewController {
     @objc private func updateLoop() {
         // update position and orientation of checkPointCards
         for (checkPoint, checkPointCard) in self.checkPointCards {
-            let userPoint = self.locationManager.getUserPoint()
+            let userPoint = self.geoManager.getUpdatedUserLocation()
             let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
             let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager, azimuth: azimuth, superView: self.view)
 

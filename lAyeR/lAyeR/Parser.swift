@@ -13,9 +13,9 @@ import ObjectMapper
 class Parser {
     
     /// Parses poi search request.
-    static func parsePOISearchRequest(_ radius: Double, _ type: String, _ location: CLLocation) -> String {
+    static func parsePOISearchRequest(_ radius: Double, _ type: String, _ location: GeoPoint) -> String {
         let searchBase = AppConfig.mapQueryBaseURL
-        let locationToken = "location=" + location.coordinate.latitude.description + "," + location.coordinate.longitude.description
+        let locationToken = "location=" + location.latitude.description + "," + location.longitude.description
         let radiusToken = "&radius=" + radius.description
         let typeToken = "&type=" + type.description
         let keyToken = "&key=" + AppConfig.apiKey
@@ -40,8 +40,6 @@ class Parser {
             let latitude = location["lat"] as? Double,
             let longitude = location["lng"] as? Double
         else { return nil }
-        let poiLocation = CLLocation(latitude: latitude,
-                                  longitude: longitude)
         let poi = POI(latitude, longitude)
         if let name = jsonPOI["name"] as? String {
             poi.setName(name)

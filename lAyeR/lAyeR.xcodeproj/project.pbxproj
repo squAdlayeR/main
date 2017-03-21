@@ -51,7 +51,7 @@
 		A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */; };
 		A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AB91E70103800B4478C /* ARViewController.swift */; };
 		A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */; };
-		A2AF0AD11E76C2FB00B4478C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */; };
+		A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */; };
 		B4EEF9CDCE1F28C23A26F902 /* Pods_lAyeR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */; };
 /* End PBXBuildFile section */
 
@@ -114,7 +114,7 @@
 		A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewLayoutAdjustment.swift; sourceTree = "<group>"; };
 		A2AF0AB91E70103800B4478C /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3DTests.swift; sourceTree = "<group>"; };
-		A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoManager.swift; sourceTree = "<group>"; };
 		C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
 		F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,7 +269,7 @@
 				5249B1B11E7264AB0048249D /* POI.swift */,
 				5249B1A51E7263C40048249D /* Route.swift */,
 				5249B1B61E72FC660048249D /* GeoUtil.swift */,
-				A2AF0AD01E76C2FB00B4478C /* LocationManager.swift */,
+				A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */,
 			);
 			name = RouteDesigner;
 			sourceTree = "<group>";
@@ -537,7 +537,7 @@
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
-				A2AF0AD11E76C2FB00B4478C /* LocationManager.swift in Sources */,
+				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
 				5249B1A31E7263300048249D /* MapViewController.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
