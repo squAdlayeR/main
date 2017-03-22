@@ -64,16 +64,16 @@ class ARViewController: UIViewController {
         // FOR TESTING PURPOSE
         
         let sampleCard = CheckpointViewController(center: view.center, name: "PGP", distance: 0, superView: view)
-        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP", 4), sampleCard))
+        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP"), sampleCard))
         
         let sampleCard2 = CheckpointViewController(center: view.center, name: "CP2", distance: 0, superView: view)
-        checkpointCardPairs.append((CheckPoint(1.2923, 103.7799, "CP2", 3), sampleCard2))
+        checkpointCardPairs.append((CheckPoint(1.2923, 103.7799, "CP2"), sampleCard2))
         
         let sampleCard3 = CheckpointViewController(center: view.center, name: "CP1", distance: 0, superView: view)
-        checkpointCardPairs.append((CheckPoint(1.2937, 103.7769, "CP1", 2), sampleCard3))
+        checkpointCardPairs.append((CheckPoint(1.2937, 103.7769, "CP1"), sampleCard3))
         
         let sampleCard4 = CheckpointViewController(center: view.center, name: "Biz link", distance: 0, superView: view)
-        checkpointCardPairs.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
+        checkpointCardPairs.append((CheckPoint(1.2936, 103.7753, "Biz link"), sampleCard4))
     }
     
     private func updatePOI() {

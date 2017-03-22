@@ -81,11 +81,10 @@ class Parser {
     static func parseJSONToCheckPoint(_ jsonCheckPoint: [String: Any]) -> CheckPoint? {
         guard let name = jsonCheckPoint["name"] as? String,
             let lat = jsonCheckPoint["latitude"] as? Double,
-            let lng = jsonCheckPoint["longitude"] as? Double,
-            let id = jsonCheckPoint["index"] as? Int else {
+            let lng = jsonCheckPoint["longitude"] as? Double else {
                return nil
         }
-        return CheckPoint(lat, lng, name, id)
+        return CheckPoint(lat, lng, name)
         //return CheckPoint(JSON: jsonCheckPoint)
     }
     
