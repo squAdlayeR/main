@@ -32,7 +32,7 @@ let closeSound = "dialog_close"
 
 /// Title
 let titleFontColor: UIColor = UIColor.white
-let titleFontName: String = "HomenajeMod-Bold"
+let titleFontName: String = "HomenajeMod-Regular"
 let titleFontSize: CGFloat = 30
 let titlePadding: CGFloat = 30
 let titlePlaceHolder: String = "Place holder"
@@ -50,8 +50,11 @@ let markerIconName: String = "marker.png"
 let markerDistanceFilter: String = "%.0f"
 
 /// Checkpoint view
+let confirmLabelText: String = "OK"
+let checkpointTitle: String = "Checkpoint"
+let checkpointSubtitle: String = "Detailed information."
+
 let suggestedPopupHeight: CGFloat = 250
 let suggestedPopupWidth: CGFloat = 300
 let suggestedMarkerHeight: CGFloat = 70
 let suggestedMarkerWidth: CGFloat = 50
-let confirmLabelText: String = "OK"

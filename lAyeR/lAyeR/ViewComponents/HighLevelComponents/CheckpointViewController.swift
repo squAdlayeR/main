@@ -72,7 +72,7 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         let newAlertController = BasicAlertController(title: name, frame: popupFrame)
         let closeButton = createCloseButton()
         newAlertController.addButtonToAlert(closeButton)
-        newAlertController.setTitle(name)
+        newAlertController.setTitle(checkpointTitle)
         self.popupController = newAlertController
     }
     
