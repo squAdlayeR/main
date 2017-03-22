@@ -142,4 +142,8 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         })
     }
     
+    func removeFromSuperview() {
+        markerCard.removeFromSuperview()
+        popupController.closeAlert()
+    }
 }

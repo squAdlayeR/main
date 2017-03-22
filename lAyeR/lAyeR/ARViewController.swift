@@ -15,6 +15,7 @@ import UIKit
 class ARViewController: UIViewController {
     var cameraView: UIView!
     private var checkPointCards: [(CheckPoint, CheckpointViewController)] = []
+    private var poiCards: [(POI, CheckpointViewController)] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
     
@@ -75,6 +76,26 @@ class ARViewController: UIViewController {
         checkPointCards.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
     }
     
+    private func updatePOI() {
+        // update poi card list when the change of the user location exceed the threshod
+        guard let pois = geoManager.getUpdatedNearbyPOIs() else {
+            return
+        }
+        
+        for (_, poiCard) in poiCards {
+            poiCard.removeFromSuperview()
+        }
+        poiCards.removeAll()
+        
+        for poi in pois {
+            guard let name = poi.name else {
+                break
+            }
+            let poiCard = CheckpointViewController(center: view.center, name: name, distance: 0, superView: view)
+            poiCards.append((poi, poiCard))
+        }
+    }
+    
     /**
      After this method is called, the system will monitor the device motion,
      and update the view accordingly
@@ -86,15 +107,27 @@ class ARViewController: UIViewController {
     }
     
     @objc private func updateLoop() {
+        updatePOI()
+        let userPoint = geoManager.getUserPoint()
+
         // update position and orientation of checkPointCards
         for (checkPoint, checkPointCard) in self.checkPointCards {
-            let userPoint = self.geoManager.getUpdatedUserLocation()
             let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
-            let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager, azimuth: azimuth, superView: self.view)
-
             let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
+            
+            let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager, azimuth: azimuth, superView: self.view)
             checkPointCard.applyViewAdjustment(layoutAdjustment)
             checkPointCard.update(distance)
+        }
+        
+        // update position and orientation of poiCards
+        for (poi, poiCard) in self.poiCards {
+            let azimuth = GeoUtil.getAzimuth(between: userPoint, poi)
+            let distance = GeoUtil.getCoordinateDistance(userPoint, poi)
+            
+            let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager, azimuth: azimuth, superView: self.view)
+            poiCard.applyViewAdjustment(layoutAdjustment)
+            poiCard.update(distance)
         }
     }
 }

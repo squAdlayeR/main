@@ -17,8 +17,10 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
     
     private static var instance: GeoManager?
     private let locationManager: CLLocationManager = CLLocationManager()
+    
     private var userLocation: CLLocation!
     private var pois: [POI] = []
+    private var poiUpdated = false
     
     static func getInstance() -> GeoManager {
         if instance == nil {
@@ -41,29 +43,40 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         userLocation = locations.last
         
         /// TODO: Change after implement application settings
-        let url = Parser.parsePOISearchRequest(500, "food", getUpdatedUserLocation())
-        Alamofire.request(url).responseJSON { response in
+        let userPoint = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+        let url = Parser.parsePOISearchRequest(500, "food", userPoint)
+        Alamofire.request(url).responseJSON { [unowned self] response in
             if let json = response.result.value as? [String: Any] {
                 self.pois = Parser.parseJSONToPOIs(json)
+                
+                self.poiUpdated = true
             }
         }
     }
     
-    func getUpdatedUserLocation() -> GeoPoint {
+    func getUserPoint() -> GeoPoint {
         guard let userLocation = userLocation else {
             return GeoPoint(0, 0)
         }
-        return GeoPoint(userLocation.coordinate.latitude,
-                        userLocation.coordinate.longitude)
+        return GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
     }
     
-    func getNearbyPOIs(around geoPoint: GeoPoint) -> [POI] {
-        return pois
+    func getUpdatedNearbyPOIs() -> [POI]? {
+        if (poiUpdated) {
+            poiUpdated = false
+            return pois
+        }
+        return nil
     }
+    
+    
+    
+    
+    
     
     /// TODO: Change after implement application settings.
-    func getPOIS(around geoPoint: GeoPoint, complete: @escaping (_ results: [POI]) -> Void) {
-        let url = Parser.parsePOISearchRequest(500, "food", getUpdatedUserLocation())
+    func getNearbyPOIS(around geoPoint: GeoPoint, complete: @escaping (_ results: [POI]) -> Void) {
+        let url = Parser.parsePOISearchRequest(500, "food", geoPoint)
         Alamofire.request(url).responseJSON { response in
             if let json = response.result.value as? [String: Any] {
                 let results = Parser.parseJSONToPOIs(json)
@@ -71,5 +84,10 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
             }
         }
     }
-    
 }
+
+
+
+
+
+
