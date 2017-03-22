@@ -34,7 +34,7 @@ let closeSound = "dialog_close"
 let titleFontColor: UIColor = UIColor.white
 let titleFontName: String = "HomenajeMod-Bold"
 let titleFontSize: CGFloat = 30
-let titlePaddingTop: CGFloat = 30
+let titlePadding: CGFloat = 30
 let titlePlaceHolder: String = "Place holder"
 
 /// Buttons

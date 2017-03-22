@@ -72,7 +72,7 @@ class TopBanner: UIView {
     
     /// Calculates a relatively suitable title label frame
     private var titleFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        return CGRect(x: titlePadding, y: 0, width: self.frame.width - 2 * titlePadding, height: self.frame.height)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -111,7 +111,7 @@ extension BasicAlert {
     /// Sets all elements to the transformation before animation
     private func prepareOpen() {
         self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        self.alpha = 0.3
+        self.alpha = 0
         self.topBanner.close()
         self.bottomBanner.hideButtons()
         self.bottomBanner.close()
