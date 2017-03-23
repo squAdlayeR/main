@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 class DeviceMotionManager {
-    private static var deviceMotionManager: DeviceMotionManager?
+    private static var instance: DeviceMotionManager?
     
     private let cmMotionManager = CMMotionManager()
     private var motion: CMDeviceMotion?
@@ -23,10 +23,10 @@ class DeviceMotionManager {
     }
     
     static func getInstance() -> DeviceMotionManager {
-        if deviceMotionManager == nil {
-            deviceMotionManager = DeviceMotionManager()
+        if instance == nil {
+            instance = DeviceMotionManager()
         }
-        return deviceMotionManager!
+        return instance!
     }
     
     

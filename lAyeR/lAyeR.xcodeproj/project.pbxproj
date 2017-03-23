@@ -48,6 +48,8 @@
 		A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */; };
 		A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFB81E839BD600394531 /* TriangleView.swift */; };
 		A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFBC1E83AB7500394531 /* Setting.swift */; };
+		A21BBFBF1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */; };
+		A21BBFC11E83FE3700394531 /* ManagerClassSingletonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
@@ -114,6 +116,8 @@
 		A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController.swift; sourceTree = "<group>"; };
 		A21BBFB81E839BD600394531 /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		A21BBFBC1E83AB7500394531 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustmentTests.swift; sourceTree = "<group>"; };
+		A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerClassSingletonTests.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 			children = (
 				2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */,
 				A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */,
+				A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */,
+				A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */,
 				2C3119B11E670A5F00FF6334 /* Info.plist */,
 			);
 			path = lAyeRTests;
@@ -561,7 +567,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A21BBFC11E83FE3700394531 /* ManagerClassSingletonTests.swift in Sources */,
 				2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */,
+				A21BBFBF1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift in Sources */,
 				A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
