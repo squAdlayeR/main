@@ -15,10 +15,15 @@ import UIKit
  */
 
 /// Basic
+let contentFontSize: CGFloat = 16
+let bottomBannerHeight: CGFloat = 80
+let defaultFont: String = "HomenajeMod-Regular"
+let defaultFontBold: String = "HomenajeMod-Bold"
+let defaultFontSize: CGFloat = 14
+let labelFontSize: CGFloat = 20
 let maxAlertHeight: CGFloat = 500
 let minAlertHeight: CGFloat = 250
 let topBannerHeight: CGFloat = 60
-let bottomBannerHeight: CGFloat = 80
 
 /// BackgroundImage
 let topBannerImage: String = "banner.png"
@@ -58,3 +63,10 @@ let suggestedPopupHeight: CGFloat = 250
 let suggestedPopupWidth: CGFloat = 300
 let suggestedMarkerHeight: CGFloat = 70
 let suggestedMarkerWidth: CGFloat = 50
+
+/// Informative view
+let infoPanelTitleFontColor: UIColor = UIColor.gray
+let infoPanelTitleHeight: CGFloat = 20
+let innerViewSidePadding: CGFloat = 20
+let innerViewStackMargin: CGFloat = 10
+let titleText: String = "Detailed infomation"

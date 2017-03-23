@@ -108,6 +108,10 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         markerCard.setDistance(CGFloat(distance))
     }
     
+    /// Adds a text content into the inner view of the alert.
+    /// - Parameters:
+    ///     - label: the label of the text content
+    ///     - conetent: the text of the content 
     func addText(with label: String, and content: String) {
         if let innerView = popupController.alert.infoPanel.innerView as? InformativeInnerView {
             let infoBlock = InfoBlock(label: label,
