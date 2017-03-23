@@ -14,7 +14,7 @@ import UIKit
 
 class ARViewController: UIViewController {
     var cameraView: UIView!
-    private var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
+    var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
     private var currentPoiCardPairs: [(POI, CheckpointViewController)] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))

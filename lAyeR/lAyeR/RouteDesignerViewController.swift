@@ -443,6 +443,22 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         print("Tapped at coordinate: " + String(coordinate.latitude) + " "
             + String(coordinate.longitude))
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Setting.routeDesignerToARSegueIdentifier {
+            guard let arViewController = segue.destination as? ARViewController else {
+                return
+            }
+            for marker in markers {
+                guard let checkpoint = marker.userData as? CheckPoint else {
+                    break
+                }
+                let checkpointCard = CheckpointViewController(center: CGPoint.zero, name: checkpoint.name,
+                                                              distance: 0, superView: arViewController.view)
+                arViewController.checkpointCardPairs.append((checkpoint, checkpointCard))
+            }
+        }
+    }
 }
 
 extension RouteDesignerViewController: UITextFieldDelegate {
