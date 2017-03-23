@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>use camera for ar view</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Always need the location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Show your location on the map</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SAOUI-Regular.otf</string>
+		<string>SAOUI-Bold.otf</string>
+		<string>HomenajeMod-Regular.otf</string>
+		<string>HomenajeMod-Bold.otf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -41,9 +54,6 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>
