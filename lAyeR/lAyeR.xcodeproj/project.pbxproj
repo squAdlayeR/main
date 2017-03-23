@@ -46,6 +46,8 @@
 		9D2938DF1E82B6F00054A9F7 /* CheckpointInnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2938DE1E82B6F00054A9F7 /* CheckpointInnerView.swift */; };
 		9D6B80981E82ACE700210203 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80971E82ACE700210203 /* CheckpointViewController.swift */; };
 		9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* AlertConfig.swift */; };
+		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
+		9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
@@ -110,6 +112,8 @@
 		9D2938DE1E82B6F00054A9F7 /* CheckpointInnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointInnerView.swift; path = ViewComponents/HighLevelComponents/CheckPoint/CheckpointInnerView.swift; sourceTree = "<group>"; };
 		9D6B80971E82ACE700210203 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointViewController.swift; path = ViewComponents/HighLevelComponents/CheckpointViewController.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertConfig.swift; path = ViewComponents/AlertConfig.swift; sourceTree = "<group>"; };
+		9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoBlock.swift; path = ViewComponents/BasicComponents/InnerViews/InfoBlock.swift; sourceTree = "<group>"; };
+		9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformativeInnerView.swift; path = ViewComponents/BasicComponents/InnerViews/InformativeInnerView.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 		9D1498F21E8007F70043DDB6 /* BasicComponents */ = {
 			isa = PBXGroup;
 			children = (
+				9DFB5B9B1E8426E200724B6E /* InnerViews */,
 				2C7333D51E711C3900EDE1D8 /* BasicAlert */,
 				2C78138F1E755E6600851188 /* BasicMarker */,
 			);
@@ -326,6 +331,15 @@
 				9D2938DE1E82B6F00054A9F7 /* CheckpointInnerView.swift */,
 			);
 			name = CheckPoint;
+			sourceTree = "<group>";
+		};
+		9DFB5B9B1E8426E200724B6E /* InnerViews */ = {
+			isa = PBXGroup;
+			children = (
+				9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */,
+				9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */,
+			);
+			name = InnerViews;
 			sourceTree = "<group>";
 		};
 		A2AF0AB81E70101000B4478C /* ARRenderer */ = {
@@ -530,6 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D6B80981E82ACE700210203 /* CheckpointViewController.swift in Sources */,
+				9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */,
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
 				A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
@@ -544,6 +559,7 @@
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
+				9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
