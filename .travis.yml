@@ -10,4 +10,4 @@ osx_image: xcode6.4
 xcode_sdk: iphonesimulator
 
 script:
-- xctool clean build test -workspace lAyeR.xcworkspace -scheme lAyeRTests
+- xctool clean build test -workspace /lAyeR.xcworkspace -scheme lAyeRTests
