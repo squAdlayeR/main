@@ -73,6 +73,10 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         let closeButton = createCloseButton()
         newAlertController.addButtonToAlert(closeButton)
         newAlertController.setTitle(checkpointTitle)
+        let alertWidth = newAlertController.alert.infoPanel.bounds.width
+        let alertHeight = newAlertController.alert.infoPanel.bounds.height
+        newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
+                                                               height: alertHeight))
         self.popupController = newAlertController
     }
     
@@ -102,6 +106,15 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
     /// - Parameter distance: thte distance that will be displayed
     func update(_ distance: Double) {
         markerCard.setDistance(CGFloat(distance))
+    }
+    
+    func addText(with label: String, and content: String) {
+        if let innerView = popupController.alert.infoPanel.innerView as? InformativeInnerView {
+            let infoBlock = InfoBlock(label: label,
+                                      content: content,
+                                      width: innerView.bounds.width - 40)
+            innerView.insertSubInfo(infoBlock)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -26,7 +26,7 @@ class InformativeInnerView: UIView {
     }
     
     private func initializeContent() {
-        scrollView.frame = self.bounds.insetBy(dx: 20, dy: 10)
+        scrollView.frame = self.bounds.insetBy(dx: 20, dy: 0)
         innerViewStack.frame = CGRect(x: 0, y: 0,
                                       width: scrollView.bounds.width,
                                       height: scrollView.bounds.height)
