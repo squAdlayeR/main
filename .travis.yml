@@ -10,4 +10,4 @@ osx_image: xcode8.1
 xcode_sdk: iphonesimulator
 
 script:
-- xcodebuild clean build test -workspace lAyeR/lAyeR.xcworkspace -scheme lAyeRTests
+- xcodebuild clean build test -workspace lAyeR/lAyeR.xcworkspace -scheme lAyeRTests -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0'
