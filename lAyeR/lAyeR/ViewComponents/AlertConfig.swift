@@ -15,12 +15,12 @@ import UIKit
  */
 
 /// Basic
-let contentFontSize: CGFloat = 16
 let bottomBannerHeight: CGFloat = 80
 let defaultFont: String = "HomenajeMod-Regular"
 let defaultFontBold: String = "HomenajeMod-Bold"
+let defaultFontColor: UIColor = UIColor.white
 let defaultFontSize: CGFloat = 14
-let labelFontSize: CGFloat = 20
+let labelFontSize: CGFloat = 18
 let maxAlertHeight: CGFloat = 500
 let minAlertHeight: CGFloat = 250
 let topBannerHeight: CGFloat = 60
@@ -31,9 +31,9 @@ let bottomBannerImage: String = "banner.png"
 let infoPanelImage: String = "panelInfo.png"
 
 /// Sounds
-let soundExtension = "wav"
-let openSound = "confirm"
 let closeSound = "dialog_close"
+let openSound = "confirm"
+let soundExtension = "wav"
 
 /// Title
 let titleFontColor: UIColor = UIColor.white
@@ -47,18 +47,17 @@ let buttonFontName: String = "HomenajeMod-Regular"
 let buttonFontSize: CGFloat = 20
 
 /// Markers
-let markerIconPaddingPercent: CGFloat = 0.2
-let markerLabelPaddingPercent: CGFloat = 0.1
+let markerDistanceFilter: String = "%.0f"
 let markerDistanceUnit: String = "m"
 let markerGapPercent: CGFloat = 0.05
 let markerIconName: String = "marker.png"
-let markerDistanceFilter: String = "%.0f"
+let markerIconPaddingPercent: CGFloat = 0.2
+let markerLabelPaddingPercent: CGFloat = 0.1
 
 /// Checkpoint view
-let confirmLabelText: String = "OK"
-let checkpointTitle: String = "Checkpoint"
 let checkpointSubtitle: String = "Detailed information."
-
+let checkpointTitle: String = "Checkpoint"
+let confirmLabelText: String = "OK"
 let suggestedPopupHeight: CGFloat = 250
 let suggestedPopupWidth: CGFloat = 300
 let suggestedMarkerHeight: CGFloat = 70
