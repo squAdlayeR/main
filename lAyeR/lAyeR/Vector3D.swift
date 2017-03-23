@@ -41,6 +41,9 @@ struct Vector3D {
     
     /// - Returns: the length of the projection of this vector on the input vector "v"
     func projectionLength(on v: Vector3D) -> Double {
+        if (v.length == 0) {
+            return 0
+        }
         return self * v / v.length
     }
 }
