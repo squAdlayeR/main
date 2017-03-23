@@ -46,6 +46,9 @@
 		9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */; };
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
 		A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */; };
+		A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFB61E839BD600394531 /* MarkerPopupView.swift */; };
+		A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */; };
+		A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFB81E839BD600394531 /* TriangleView.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
@@ -110,6 +113,9 @@
 		9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfo.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerInfo.swift; sourceTree = "<group>"; };
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
 		A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_CameraBackgroundExtension.swift; sourceTree = "<group>"; };
+		A21BBFB61E839BD600394531 /* MarkerPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerPopupView.swift; sourceTree = "<group>"; };
+		A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController.swift; sourceTree = "<group>"; };
+		A21BBFB81E839BD600394531 /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
@@ -264,6 +270,9 @@
 		5249B1A41E7263A30048249D /* RouteDesigner */ = {
 			isa = PBXGroup;
 			children = (
+				A21BBFB61E839BD600394531 /* MarkerPopupView.swift */,
+				A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */,
+				A21BBFB81E839BD600394531 /* TriangleView.swift */,
 				A2AF0AD21E76C5BE00B4478C /* testing files */,
 				5249B1AD1E7264790048249D /* UserConfig.swift */,
 				5249B1A71E7264000048249D /* GeoPoint.swift */,
@@ -526,6 +535,7 @@
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
+				A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */,
 				5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */,
 				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
@@ -534,6 +544,7 @@
 				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
+				A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
@@ -553,6 +564,7 @@
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
 				2C78138C1E7559EE00851188 /* CheckpointViewController.swift in Sources */,
 				2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */,
+				A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */,
 				2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
