@@ -335,11 +335,11 @@
 			isa = PBXGroup;
 			children = (
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
+				A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */,
 				A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */,
 				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
 				A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */,
 				A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */,
-				A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */,
 			);
 			name = ARRenderer;
 			sourceTree = "<group>";

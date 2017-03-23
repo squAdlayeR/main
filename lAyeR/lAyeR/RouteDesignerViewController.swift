@@ -444,6 +444,7 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
             + String(coordinate.longitude))
     }
     
+    // ---------------- back and forth segue --------------------//
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Setting.routeDesignerToARSegueIdentifier {
             guard let arViewController = segue.destination as? ARViewController else {
@@ -457,8 +458,11 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
                                                               distance: 0, superView: arViewController.view)
                 arViewController.checkpointCardPairs.append((checkpoint, checkpointCard))
             }
+            //TODO: force update the POI in ARView
         }
     }
+    
+    @IBAction func unwindSegueToRouteDesigner(segue: UIStoryboardSegue) {}
 }
 
 extension RouteDesignerViewController: UITextFieldDelegate {

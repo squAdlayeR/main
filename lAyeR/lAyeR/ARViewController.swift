@@ -57,7 +57,7 @@ class ARViewController: UIViewController {
     private func addCameraView() {
         cameraView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         cameraView.contentMode = .scaleAspectFit
-        view.addSubview(cameraView)
+        view.insertSubview(cameraView, at: 0)
     }
     
     private func addCheckPointCards() {
