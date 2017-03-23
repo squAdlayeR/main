@@ -22,7 +22,6 @@
 		2C78138C1E7559EE00851188 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C78138B1E7559EE00851188 /* CheckpointViewController.swift */; };
 		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
 		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
-		5249B1A31E7263300048249D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A21E7263300048249D /* MapViewController.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
 		5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A91E72641C0048249D /* CheckPoint.swift */; };
@@ -30,7 +29,6 @@
 		5249B1B21E7264AB0048249D /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B11E7264AB0048249D /* POI.swift */; };
 		5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B41E72B3A30048249D /* LocalStorageManager.swift */; };
 		5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B61E72FC660048249D /* GeoUtil.swift */; };
-		5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B81E73009F0048249D /* MapViewDelegate.swift */; };
 		5249B1BC1E7450380048249D /* QueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1BB1E7450380048249D /* QueryManager.swift */; };
 		5249B1BE1E7463E30048249D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5249B1BD1E7463E30048249D /* GoogleService-Info.plist */; };
 		5249B1BF1E7463E30048249D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5249B1BD1E7463E30048249D /* GoogleService-Info.plist */; };
@@ -90,7 +88,6 @@
 		2C78138B1E7559EE00851188 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointViewController.swift; sourceTree = "<group>"; };
 		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
 		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
-		5249B1A21E7263300048249D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		5249B1A71E7264000048249D /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
 		5249B1A91E72641C0048249D /* CheckPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
@@ -98,7 +95,6 @@
 		5249B1B11E7264AB0048249D /* POI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
 		5249B1B41E72B3A30048249D /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		5249B1B61E72FC660048249D /* GeoUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtil.swift; sourceTree = "<group>"; };
-		5249B1B81E73009F0048249D /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		5249B1BB1E7450380048249D /* QueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryManager.swift; sourceTree = "<group>"; };
 		5249B1BD1E7463E30048249D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5249B1C21E746CC70048249D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
@@ -276,7 +272,6 @@
 				A21BBFB61E839BD600394531 /* MarkerPopupView.swift */,
 				A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */,
 				A21BBFB81E839BD600394531 /* TriangleView.swift */,
-				A2AF0AD21E76C5BE00B4478C /* testing files */,
 				5249B1AD1E7264790048249D /* UserConfig.swift */,
 				5249B1A71E7264000048249D /* GeoPoint.swift */,
 				5249B1A91E72641C0048249D /* CheckPoint.swift */,
@@ -342,15 +337,6 @@
 				A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */,
 			);
 			name = ARRenderer;
-			sourceTree = "<group>";
-		};
-		A2AF0AD21E76C5BE00B4478C /* testing files */ = {
-			isa = PBXGroup;
-			children = (
-				5249B1A21E7263300048249D /* MapViewController.swift */,
-				5249B1B81E73009F0048249D /* MapViewDelegate.swift */,
-			);
-			name = "testing files";
 			sourceTree = "<group>";
 		};
 		BE7D7EB2BE9C50EE8088A2AE /* Pods */ = {
@@ -539,7 +525,6 @@
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
 				A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */,
-				5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */,
 				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
@@ -556,7 +541,6 @@
 				A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
-				5249B1A31E7263300048249D /* MapViewController.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,

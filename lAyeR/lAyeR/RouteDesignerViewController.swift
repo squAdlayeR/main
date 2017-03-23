@@ -4,11 +4,6 @@ import GooglePlaces
 
 class RouteDesignerViewController: UIViewController {
     
-    // GOOGLE PLACES AUTOCOMPLETE
-    // var resultsViewController: GMSAutocompleteResultsViewController?
-    // var searchController: UISearchController?
-    // var resultView: UITextView?
-    
     // For tapped marker
     var tappedMarker = GMSMarker()
     var infoWindow = MarkerPopupView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
@@ -60,24 +55,6 @@ class RouteDesignerViewController: UIViewController {
         mapView.isHidden = true
         searchBar.returnKeyType = UIReturnKeyType.done
         searchBar.delegate = self
-        
-        // GOOGLE PLACES AUTOCOMPLETE
-        // resultsViewController = GMSAutocompleteResultsViewController()
-        // resultsViewController?.delegate = self
-        //
-        // searchController = UISearchController(searchResultsController: resultsViewController)
-        // searchController?.searchResultsUpdater = resultsViewController
-        //
-        // let subView = UIView(frame: CGRect(x: 0, y: 65.0, width: 350.0, height: 45.0))
-        //
-        // subView.addSubview((searchController?.searchBar)!)
-        // view.addSubview(subView)
-        // searchController?.searchBar.sizeToFit()
-        // searchController?.hidesNavigationBarDuringPresentation = false
-        //
-        // // When UISearchController presents the results view, present it in
-        // // this view controller, not one further up the chain.
-        // definesPresentationContext = true
     }
     
     func oneFunc(_ status: String, _ success: Bool) {}
@@ -99,7 +76,6 @@ class RouteDesignerViewController: UIViewController {
                         directionsURLString += "|" + waypoint
                     }
                 }
-                print(directionsURLString)
                 directionsURLString = directionsURLString.addingPercentEscapes(using: String.Encoding.utf8)!
                 let directionsURL = NSURL(string: directionsURLString)
                 DispatchQueue.main.async( execute: { () -> Void in
@@ -311,8 +287,6 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location: CLLocation = locations.last!
         
-        print("Location: \(location)")
-        
         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
                                               longitude: location.coordinate.longitude,
                                               zoom: zoomLevel)
@@ -475,29 +449,3 @@ extension RouteDesignerViewController: UITextFieldDelegate {
     }
 }
 
-// GOOGLE PLACES AUTOCOMPLETE
-// extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
-//    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
-//                           didAutocompleteWith place: GMSPlace) {
-//        searchController?.isActive = false
-//        // Do something with the selected place.
-//        print("Place name: \(place.name)")
-//        print("Place address: \(place.formattedAddress)")
-//        print("Place attributions: \(place.attributions)")
-//    }
-//
-//    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
-//                           didFailAutocompleteWithError error: Error){
-//        // TODO: handle the error.
-//        print("Error: ", error.localizedDescription)
-//    }
-//
-//    // Turn the network activity indicator on and off again.
-//    func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//    }
-//
-//    func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//    }
-// }

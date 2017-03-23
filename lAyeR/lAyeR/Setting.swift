@@ -10,4 +10,5 @@ import Foundation
 
 class Setting {
     static let routeDesignerToARSegueIdentifier = "RouteDesignerToARSegue"
+    static let nearbyPOIsUpdatedNotificationName = "nearbyPOIsUpdatedNotification"
 }
