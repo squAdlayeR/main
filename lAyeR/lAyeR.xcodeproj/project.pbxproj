@@ -13,7 +13,6 @@
 		2C3119A21E670A5F00FF6334 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A11E670A5F00FF6334 /* Assets.xcassets */; };
 		2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */; };
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
-		2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */; };
 		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
 		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
 		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
@@ -43,6 +42,7 @@
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
 		9D6B80981E82ACE700210203 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80971E82ACE700210203 /* CheckpointViewController.swift */; };
 		9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* AlertConfig.swift */; };
+		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
 		9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */; };
 		A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */; };
@@ -81,7 +81,6 @@
 		2C3119AB1E670A5F00FF6334 /* lAyeRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lAyeRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lAyeRTests.swift; sourceTree = "<group>"; };
 		2C3119B11E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
 		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
 		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
@@ -111,6 +110,7 @@
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
 		9D6B80971E82ACE700210203 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointViewController.swift; path = ViewComponents/HighLevelComponents/CheckpointViewController.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertConfig.swift; path = ViewComponents/AlertConfig.swift; sourceTree = "<group>"; };
+		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoBlock.swift; path = ViewComponents/BasicComponents/InnerViews/InfoBlock.swift; sourceTree = "<group>"; };
 		9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformativeInnerView.swift; path = ViewComponents/BasicComponents/InnerViews/InformativeInnerView.swift; sourceTree = "<group>"; };
 		A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_CameraBackgroundExtension.swift; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 		2C7333E11E71B4EA00EDE1D8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2C7333E21E71B50600EDE1D8 /* ResourceManager.swift */,
+				9D7DACF61E8513E000592EB5 /* ResourceManager.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -562,6 +562,7 @@
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
+				9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
 				A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
@@ -575,12 +576,8 @@
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
 				9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */,
-				2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */,
-				2C78138C1E7559EE00851188 /* CheckpointViewController.swift in Sources */,
 				A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */,
-				2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */,
 				A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */,
-				2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
