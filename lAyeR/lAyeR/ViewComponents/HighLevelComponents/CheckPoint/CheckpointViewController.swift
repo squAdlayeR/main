@@ -72,7 +72,6 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         let newAlertController = BasicAlertController(title: checkpointTitle, frame: popupFrame)
         let closeButton = createCloseButton()
         newAlertController.addButtonToAlert(closeButton)
-//        newAlertController.setTitle(checkpointTitle)
         let alertWidth = newAlertController.alert.infoPanel.bounds.width
         let alertHeight = newAlertController.alert.infoPanel.bounds.height
         newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
