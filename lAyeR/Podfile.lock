@@ -13,7 +13,7 @@ PODS:
   - ObjectMapper (2.2.4)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 4.0)
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
@@ -26,6 +26,6 @@ SPEC CHECKSUMS:
   GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
   ObjectMapper: 81d0e5d7c57129e3e93f29a04bdf9669542b37d2
 
-PODFILE CHECKSUM: 34d2f6a260f5db87c2257ea0af85a918a3541471
+PODFILE CHECKSUM: 37e7ad73cb58c03b66055842c5df3cec6aafdb8b
 
 COCOAPODS: 1.1.1
