@@ -14,8 +14,8 @@ import UIKit
 
 class ARViewController: UIViewController {
     var cameraView: UIView!
-    private var checkPointCards: [(CheckPoint, CheckpointViewController)] = []
-    private var poiCards: [(POI, CheckpointViewController)] = []
+    private var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
+    private var currentPoiCardPairs: [(POI, CheckpointViewController)] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
     
@@ -66,22 +66,24 @@ class ARViewController: UIViewController {
         let sampleCard = CheckpointViewController(center: view.center, name: "PGP", distance: 0, superView: view)
         sampleCard.addText(with: "name", and: "Prince Geroges' Park")
         sampleCard.addText(with: "description", and: "Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
-        checkPointCards.append((CheckPoint(1.2909, 103.7813, "PGP", 4), sampleCard))
+        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP", 4), sampleCard))
         
         let sampleCard2 = CheckpointViewController(center: view.center, name: "CP2", distance: 0, superView: view)
         sampleCard2.addText(with: "name", and: "Checkpoint 2")
         sampleCard2.addText(with: "description", and: "It is near Prince Georges's Park terminal. You can see some small villas on your both sides and a bus stop as well. You can just follow you way and soon you will be arriving the left most side of PGP residences.")
-        checkPointCards.append((CheckPoint(1.2923, 103.7799, "CP2", 3), sampleCard2))
+        // can set blur mode using below code
+        // sampleCard2.setBlurEffect(true)
+        checkpointCardPairs.append((CheckPoint(1.2923, 103.7799, "CP2", 3), sampleCard2))
         
         let sampleCard3 = CheckpointViewController(center: view.center, name: "CP1", distance: 0, superView: view)
-        checkPointCards.append((CheckPoint(1.2937, 103.7769, "CP1", 2), sampleCard3))
+        checkpointCardPairs.append((CheckPoint(1.2937, 103.7769, "CP1", 2), sampleCard3))
         sampleCard3.addText(with: "name", and: "Checkpoint 1")
         sampleCard3.addText(with: "description", and: "This checkpoint is neat to a construction area. There will be a bus stop.")
         
         let sampleCard4 = CheckpointViewController(center: view.center, name: "Biz link", distance: 0, superView: view)
         sampleCard4.addText(with: "name", and: "Biz link")
         sampleCard4.addText(with: "description", and: "Biz link is under the biz canteen. You will be seeing a bus stop there. Usually D2 will stop here. If you go walk back you can tak A2 to PGP. If you want to walk forward, just turn right and follow the road.")
-        checkPointCards.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
+        checkpointCardPairs.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
     }
     
     private func updatePOI() {
@@ -89,19 +91,30 @@ class ARViewController: UIViewController {
         guard let pois = geoManager.getUpdatedNearbyPOIs() else {
             return
         }
-        
-        for (_, poiCard) in poiCards {
-            poiCard.removeFromSuperview()
-        }
-        poiCards.removeAll()
-        
-        for poi in pois {
-            guard let name = poi.name else {
-                break
+
+        var newPOICardPairs: [(POI, CheckpointViewController)] = []
+
+        for poiCardPair in currentPoiCardPairs {
+            let previousPoi = poiCardPair.0
+            let poiCard = poiCardPair.1
+            if pois.contains(where: { $0.name == previousPoi.name }) {
+                newPOICardPairs.append(poiCardPair)
+            } else {
+                poiCard.removeFromSuperview()
             }
-            let poiCard = CheckpointViewController(center: view.center, name: name, distance: 0, superView: view)
-            poiCards.append((poi, poiCard))
         }
+        
+        for newPoi in pois {
+            if !newPOICardPairs.contains(where: { $0.0.name == newPoi.name }) {
+                guard let name = newPoi.name else {
+                    break
+                }
+                let poiCard = CheckpointViewController(center: view.center, name: name, distance: 0, superView: view)
+                newPOICardPairs.append((newPoi, poiCard))
+            }
+        }
+        
+        currentPoiCardPairs = newPOICardPairs
     }
     
     /**
@@ -119,7 +132,7 @@ class ARViewController: UIViewController {
         let userPoint = geoManager.getUserPoint()
 
         // update position and orientation of checkPointCards
-        for (checkPoint, checkPointCard) in self.checkPointCards {
+        for (checkPoint, checkPointCard) in self.checkpointCardPairs {
             let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
             let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
             
@@ -129,7 +142,7 @@ class ARViewController: UIViewController {
         }
         
         // update position and orientation of poiCards
-        for (poi, poiCard) in self.poiCards {
+        for (poi, poiCard) in self.currentPoiCardPairs {
             let azimuth = GeoUtil.getAzimuth(between: userPoint, poi)
             let distance = GeoUtil.getCoordinateDistance(userPoint, poi)
             
@@ -139,70 +152,6 @@ class ARViewController: UIViewController {
         }
     }
 }
-
-
-extension ARViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func setupAVCapture() {
-        session.sessionPreset = AVCaptureSessionPreset640x480
-        guard let device = AVCaptureDevice
-            .defaultDevice(withDeviceType: .builtInWideAngleCamera,
-                           mediaType: AVMediaTypeVideo,
-                           position: .back) else{
-                            return
-        }
-        captureDevice = device
-        beginSession()
-        done = true
-    }
-    
-    func beginSession() {
-        var deviceInput: AVCaptureDeviceInput?
-        do {
-            deviceInput = try AVCaptureDeviceInput(device: captureDevice)
-        } catch let error {
-            deviceInput = nil
-            print("error: \(error.localizedDescription)")
-        }
-        if self.session.canAddInput(deviceInput) {
-            self.session.addInput(deviceInput)
-        }
-        
-        videoDataOutput = AVCaptureVideoDataOutput()
-        videoDataOutput.alwaysDiscardsLateVideoFrames = true
-        videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
-        videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-        if session.canAddOutput(videoDataOutput) {
-            session.addOutput(videoDataOutput)
-        }
-        videoDataOutput.connection(withMediaType: AVMediaTypeVideo).isEnabled = true
-        
-        cameraViewLayer = AVCaptureVideoPreviewLayer(session: session)
-        cameraViewLayer.videoGravity = AVLayerVideoGravityResizeAspect
-        
-        let rootLayer = cameraView.layer
-        rootLayer.masksToBounds = true
-        cameraViewLayer.frame = rootLayer.bounds
-        rootLayer.addSublayer(cameraViewLayer)
-        session.startRunning()
-    }
-    
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
-        currentFrame = convertImageFromCMSampleBufferRef(sampleBuffer)
-    }
-    
-    // clean up AVCapture
-    func stopCamera(){
-        session.stopRunning()
-        done = false
-    }
-    
-    func convertImageFromCMSampleBufferRef(_ sampleBuffer:CMSampleBuffer) -> CIImage {
-        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
-        let ciImage = CIImage(cvImageBuffer: pixelBuffer)
-        return ciImage
-    }
-}
-
 
 
 

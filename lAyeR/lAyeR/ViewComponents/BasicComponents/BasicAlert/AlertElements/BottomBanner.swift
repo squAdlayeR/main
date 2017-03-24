@@ -14,8 +14,31 @@ import UIKit
  */
 class BottomBanner: UIView {
 
+    // The view of buttons
     var buttonsView: UIStackView!
+    
+    // The alert that this banner belongs to
     private(set) var alert: BasicAlert!
+    
+    // The background image of the banner
+    private var backgroundImageView: UIImageView!
+    
+    // The blur effect
+    private var blurEffectView: UIVisualEffectView!
+    
+    // Sets blur mode. If it is true, blur view should
+    // be shown.
+    var blurMode: Bool = false {
+        didSet {
+            if blurMode {
+                backgroundImageView.isHidden = true
+                blurEffectView.isHidden = false
+                return
+            }
+            backgroundImageView.isHidden = false
+            blurEffectView.isHidden = true
+        }
+    }
     
     /// Initialization
     init(alert: BasicAlert) {
@@ -30,6 +53,7 @@ class BottomBanner: UIView {
     /// Load related elements and prepare for display
     private func prepareDisplay() {
         initBackgroundImage()
+        initBlurEffect()
         initButtons()
     }
 
@@ -37,7 +61,17 @@ class BottomBanner: UIView {
     private func initBackgroundImage() {
         let backgroundImage = ResourceManager.getImageView(by: bottomBannerImage)
         backgroundImage.frame = imageFrame
-        self.addSubview(backgroundImage)
+        backgroundImageView = backgroundImage
+        self.addSubview(backgroundImageView)
+    }
+    
+    /// Initializes blur effect
+    private func initBlurEffect() {
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurEffect.frame = imageFrame
+        blurEffectView = blurEffect
+        self.addSubview(blurEffectView)
+        blurEffectView.isHidden = true
     }
     
     /// Initializes the buttons of the alert with specified buttons

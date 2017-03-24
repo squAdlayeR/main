@@ -159,8 +159,17 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         })
     }
     
+    /// Removes the current checkpoint card from its super view
     func removeFromSuperview() {
         markerCard.removeFromSuperview()
         popupController.closeAlert()
     }
+    
+    /// Sets/unsets the blur effect
+    /// - Parameter isBlurMode: corresponding blur mode
+    func setBlurEffect(_ isBlurMode: Bool) {
+        markerCard.blurMode = isBlurMode
+        popupController.setBlurEffect(isBlurMode)
+    }
+    
 }
