@@ -1,0 +1,13 @@
+language: swift
+
+# branches:
+#  only:
+#  - master
+
+xcode_workspace: lAyeR.xcworkspace
+xcode_scheme: lAyeR
+osx_image: xcode8.1
+xcode_sdk: iphonesimulator
+
+script:
+- xcodebuild clean build test -workspace lAyeR/lAyeR.xcworkspace -scheme lAyeR -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.1'
