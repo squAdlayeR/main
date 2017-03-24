@@ -1,5 +1,5 @@
 //
-//  poiViewController.swift
+//  PoiViewController.swift
 //  lAyeR
 //
 //  Created by Yang Zhuohan on 24/3/17.
@@ -8,42 +8,34 @@
 
 import UIKit
 
-class PoiViewController: NSObject, ViewLayoutAdjustable {
-
-    // The marker of the checkpoint
-    var markerCard: BasicMarker!
-    
-    // The popup controller of the checkpoint
-    var popupController: BasicAlertController!
-    
-    // The superview in which the marker and the alert will be
-    // displayed
-    var superView: UIView!
-    
-    // Specifies the center of the checkpoint card
-    var center: CGPoint!
+class PoiViewController: CardViewController {
     
     init(center: CGPoint, distance: Double, type: String, superView: UIView) {
-        super.init()
-        self.center = center
-        self.superView = superView
-        initMarker(with: CGFloat(distance))
-        initAlert()
-        prepareDisplay()
+        super.init(center: center, distance: distance, superView: superView)
+        initializeCardTitle()
+        initializeCardButtons()
+        initializeCardIcon(with: type)
     }
     
-    /// Initializes the alert with its name
-    /// - Parameters:
-    ///     - name: the name of the check point
-    private func initAlert() {
-        let newAlertController = BasicAlertController(title: checkpointTitle, frame: popupFrame)
+    private func initializeCardIcon(with type: String) {
+        if iconSet.contains(type) {
+            let icon = ResourceManager.getImageView(by: type + imageExtension)
+            self.markerCard.setIconImage(icon)
+            return
+        }
+        let icon = ResourceManager.getImageView(by: otherIconType + imageExtension)
+        self.markerCard.setIconImage(icon)
+    }
+    
+    private func initializeCardTitle() {
+        self.popupController.setTitle(poiTitle)
+    }
+    
+    private func initializeCardButtons() {
         let closeButton = createCloseButton()
-        newAlertController.addButtonToAlert(closeButton)
-        let alertWidth = newAlertController.alert.infoPanel.bounds.width
-        let alertHeight = newAlertController.alert.infoPanel.bounds.height
-        newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
-                                                               height: alertHeight))
-        self.popupController = newAlertController
+        let directButton = createDirectButton()
+        self.popupController.addButtonToAlert(closeButton)
+        self.popupController.addButtonToAlert(directButton)
     }
     
     /// Creates a close button
@@ -56,99 +48,51 @@ class PoiViewController: NSObject, ViewLayoutAdjustable {
         return newButton
     }
     
-    /// Prepares the check point view for display
-    private func prepareDisplay() {
-        superView.addSubview(markerCard)
+    /// Creates a direct button
+    /// - Returns: a direct button that would pass desired destination (a poi) to 
+    ///     route designer
+    private func createDirectButton() -> UIButton {
+        let newButton = UIButton()
+        newButton.setTitle(directLabelText, for: .normal)
+        newButton.titleLabel?.font = UIFont(name: buttonFontName, size: buttonFontSize)
+        // TODO: add action here
+        return newButton
     }
     
-    /// Initializes the marker with specified frame and distance
-    /// - Parameters:
-    ///     - frame: the frame of the marker in the check point view
-    ///     - distance: the distance to that check point
-    private func initMarker(with distance: CGFloat) {
-        let newMarker = BasicMarker(frame: markerFrame)
-        newMarker.setDistance(distance)
-        self.markerCard = newMarker
-        addMarkerGesture()
-    }
-    
-    /// Adds a single tap gesture recognizor to the marker
-    private func addMarkerGesture() {
-        let markerIsPressed = UITapGestureRecognizer(target: self, action: #selector(openPopup))
-        markerCard.addGestureRecognizer(markerIsPressed)
-    }
+}
 
-    /// Applies view adjustment to the marker and popup when neccessary.
-    /// - Parameter adjustment: the corresponding adjustment
-    func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment) {
-        markerCard.applyViewAdjustment(adjustment)
-        popupController.alertView.applyViewAdjustment(adjustment)
+/**
+ An extension that is used to define interactions of this class
+ towards the outer elements
+ */
+extension PoiViewController {
+    
+    func setPoiName(_ name: String) {
+        self.popupController.addText(with: nameLabel, and: name)
     }
     
-    /// Updates the distance that will be displayed on marker card
-    /// - Parameter distance: thte distance that will be displayed
-    func update(_ distance: Double) {
-        markerCard.setDistance(CGFloat(distance))
+    func setPoiDescription(_ description: String) {
+        self.popupController.addText(with: descriptionLabel, and: description)
     }
     
-    /// Adds a text content into the inner view of the alert.
-    /// - Parameters:
-    ///     - label: the label of the text content
-    ///     - conetent: the text of the content
-    func addText(with label: String, and content: String) {
-        if let innerView = popupController.alert.infoPanel.innerView as? InformativeInnerView {
-            let infoBlock = InfoBlock(label: label,
-                                      content: content,
-                                      width: innerView.bounds.width - 40)
-            innerView.insertSubInfo(infoBlock)
-        }
+    func setPoiAddress(_ address: String) {
+        self.popupController.addText(with: poiAddressLabel, and: address)
     }
     
-    /// Calculates the frame of the marker
-    /// - Note: the frame is defined by suggested maker height/width, which are
-    ///     defined in config
-    private var markerFrame: CGRect {
-        let originX = center.x - suggestedMarkerWidth / 2
-        let originY = center.y - suggestedMarkerHeight / 2
-        return CGRect(x: originX, y: originY, width: suggestedMarkerWidth, height: suggestedMarkerHeight)
+    func setPoiContact(_ contact: String) {
+        self.popupController.addText(with: poiContactLabel, and: contact)
     }
     
-    /// Calculates the frame of the popup
-    /// - Note: the frame is defined by suggested popup height/width, which are
-    ///     defined in config
-    private var popupFrame: CGRect {
-        let originX = center.x - suggestedPopupWidth / 2
-        let originY = center.y - suggestedPopupHeight / 2
-        return CGRect(x: originX, y: originY, width: suggestedPopupWidth, height: suggestedPopupHeight)
+    func setPoiWebsite(_ website: String) {
+        self.popupController.addText(with: poiWebsiteLabel, and: website)
     }
     
-    /// Opens the popup
-    func openPopup() {
-        popupController.presentAlert(within: superView)
-        UIView.animate(withDuration: 0.2, animations: {
-            self.markerCard.alpha = 0
-        })
+    func setPoiRating(_ rating: String) {
+        self.popupController.addText(with: poiRatingLabel, and: rating)
     }
     
-    /// Closes the popup
-    func closePopup() {
-        popupController.closeAlert()
-        UIView.animate(withDuration: 0.2, animations: {
-            self.markerCard.alpha = 1
-        })
-    }
-    
-    /// Removes the current checkpoint card from its super view
-    func removeFromSuperview() {
-        markerCard.removeFromSuperview()
-        popupController.closeAlert()
-    }
-    
-    /// Sets/unsets the blur effect
-    /// - Parameter isBlurMode: corresponding blur mode
-    func setBlurEffect(_ isBlurMode: Bool) {
-        markerCard.blurMode = isBlurMode
-        popupController.setBlurEffect(isBlurMode)
+    func setPoiOpenStatus(_ status: String) {
+        self.popupController.addText(with: poiOpenStatusLabel, and: status)
     }
     
 }

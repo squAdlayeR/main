@@ -17,3 +17,6 @@ var iconSet: Set = ["atm",
                     "restaurant",
                     "store",
                     "university"]
+var otherIconType: String = "others"
+var imageExtension: String = ".png"
+
