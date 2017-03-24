@@ -5,17 +5,18 @@
 //  Created by Victoria Duan on 2017/3/10.
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
-import Foundation
-import CoreLocation
+
 import ObjectMapper
 
 class CheckPoint: GeoPoint {
     
-    var name: String
+    private(set) var name: String = ""
+    private(set) var description: String = ""
     
     init(_ latitude: Double, _ longitude: Double,
-         _ name: String) {
+         _ name: String, _ description: String = "") {
         self.name = name
+        self.description = description
         super.init(latitude, longitude)
     }
     
@@ -38,12 +39,14 @@ class CheckPoint: GeoPoint {
             return nil
         }
         self.name = name
+        self.description = map.JSON["description"] as? String ?? ""
         super.init(map: map)
     }
     
     override func mapping(map: Map) {
         super.mapping(map: map)
         name <- map["name"]
+        description <- map["description"]
     }
     
 }

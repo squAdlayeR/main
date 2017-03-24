@@ -34,6 +34,7 @@
 		5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1F11E750B9C0048249D /* lAyeR.xcdatamodeld */; };
 		52D379681E8530FA005ED912 /* GeoPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379661E8530FA005ED912 /* GeoPointTests.swift */; };
 		52D379691E8530FA005ED912 /* GeoUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379671E8530FA005ED912 /* GeoUtilTests.swift */; };
+		52D3796B1E8533CC005ED912 /* CheckPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3796A1E8533CC005ED912 /* CheckPointTests.swift */; };
 		9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */; };
 		9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */; };
 		9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F61E800AFB0043DDB6 /* TopBanner.swift */; };
@@ -103,6 +104,7 @@
 		5249B1F21E750B9C0048249D /* lAyeR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lAyeR.xcdatamodel; sourceTree = "<group>"; };
 		52D379661E8530FA005ED912 /* GeoPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPointTests.swift; sourceTree = "<group>"; };
 		52D379671E8530FA005ED912 /* GeoUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtilTests.swift; sourceTree = "<group>"; };
+		52D3796A1E8533CC005ED912 /* CheckPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPointTests.swift; sourceTree = "<group>"; };
 		59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/BottomBanner.swift; sourceTree = "<group>"; };
 		9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPanel.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/InfoPanel.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				52D379671E8530FA005ED912 /* GeoUtilTests.swift */,
 				2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */,
 				A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */,
+				52D3796A1E8533CC005ED912 /* CheckPointTests.swift */,
 				2C3119B11E670A5F00FF6334 /* Info.plist */,
 			);
 			path = lAyeRTests;
@@ -593,6 +596,7 @@
 			files = (
 				2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */,
 				52D379691E8530FA005ED912 /* GeoUtilTests.swift in Sources */,
+				52D3796B1E8533CC005ED912 /* CheckPointTests.swift in Sources */,
 				A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */,
 				52D379681E8530FA005ED912 /* GeoPointTests.swift in Sources */,
 			);
