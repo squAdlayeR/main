@@ -33,22 +33,21 @@ class CheckPoint: GeoPoint {
       //  super.init(coder: aDecoder)
    // }
     
-    //required init?(map: Map) {
-        //guard let name = map.JSON["name"] as? String else {
-        //    return nil
-        //}
-        //self.name = name
-       // super.init(map: map)
-   // }
+    required init?(map: Map) {
+        guard let name = map.JSON["name"] as? String else {
+            return nil
+        }
+        self.name = name
+        super.init(map: map)
+    }
     
-   // override func mapping(map: Map) {
-        //super.mapping(map: map)
-        //name <- map["name"]
-    //}
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        name <- map["name"]
+    }
     
 }
 
-extension CheckPoint: Equatable {}
 
 func ==(lhs: CheckPoint, rhs: CheckPoint) -> Bool {
     let areEqual = lhs.name == rhs.name &&
