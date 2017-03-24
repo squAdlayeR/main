@@ -20,9 +20,9 @@ class POI: GeoPoint {
         super.init(latitude, longitude)
     }
     
-    //required init?(map: Map) {
-        //super.init(map: map)
-    //}
+    required init?(map: Map) {
+        super.init(map: map)
+    }
     
     //required init?(coder aDecoder: NSCoder) {
        // super.init(coder: aDecoder)
