@@ -42,8 +42,9 @@
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
 		9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* AlertConfig.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
-		9D7DACFA1E85467300592EB5 /* poiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF91E85467300592EB5 /* poiViewController.swift */; };
+		9D7DACFA1E85467300592EB5 /* PoiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF91E85467300592EB5 /* PoiViewController.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointViewController.swift */; };
+		9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFF1E855CC800592EB5 /* Constants.swift */; };
 		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
 		9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */; };
 		A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */; };
@@ -111,8 +112,9 @@
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertConfig.swift; path = ViewComponents/AlertConfig.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
-		9D7DACF91E85467300592EB5 /* poiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = poiViewController.swift; path = ViewComponents/HighLevelComponents/POI/poiViewController.swift; sourceTree = "<group>"; };
+		9D7DACF91E85467300592EB5 /* PoiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiViewController.swift; path = ViewComponents/HighLevelComponents/POI/PoiViewController.swift; sourceTree = "<group>"; };
 		9D7DACFB1E8546AB00592EB5 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointViewController.swift; path = ViewComponents/HighLevelComponents/CheckPoint/CheckpointViewController.swift; sourceTree = "<group>"; };
+		9D7DACFF1E855CC800592EB5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoBlock.swift; path = ViewComponents/BasicComponents/InnerViews/InfoBlock.swift; sourceTree = "<group>"; };
 		9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformativeInnerView.swift; path = ViewComponents/BasicComponents/InnerViews/InformativeInnerView.swift; sourceTree = "<group>"; };
 		A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_CameraBackgroundExtension.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				9D7DACF61E8513E000592EB5 /* ResourceManager.swift */,
+				9D7DACFF1E855CC800592EB5 /* Constants.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -345,7 +348,7 @@
 		9D7DACF81E85461C00592EB5 /* POI */ = {
 			isa = PBXGroup;
 			children = (
-				9D7DACF91E85467300592EB5 /* poiViewController.swift */,
+				9D7DACF91E85467300592EB5 /* PoiViewController.swift */,
 			);
 			name = POI;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
+				9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */,
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
 				9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
@@ -579,7 +583,7 @@
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
-				9D7DACFA1E85467300592EB5 /* poiViewController.swift in Sources */,
+				9D7DACFA1E85467300592EB5 /* PoiViewController.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
