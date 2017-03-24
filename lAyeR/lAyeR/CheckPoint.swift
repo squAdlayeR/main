@@ -19,32 +19,32 @@ class CheckPoint: GeoPoint {
         super.init(latitude, longitude)
     }
     
-    override func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "name")
-        aCoder.encode(index, forKey: "index")
-        super.encode(with: aCoder)
-    }
+   // override func encode(with aCoder: NSCoder) {
+     //   aCoder.encode(name, forKey: "name")
+      //  aCoder.encode(index, forKey: "index")
+      //  super.encode(with: aCoder)
+   // }
     
-    required init?(coder aDecoder: NSCoder) {
-        guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
-            return nil
-        }
-        self.name = name
-        super.init(coder: aDecoder)
-    }
+   // required init?(coder aDecoder: NSCoder) {
+      //  guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
+      //      return nil
+      //  }
+      //  self.name = name
+      //  super.init(coder: aDecoder)
+   // }
     
-    required init?(map: Map) {
-        guard let name = map.JSON["name"] as? String else {
-            return nil
-        }
-        self.name = name
-        super.init(map: map)
-    }
+    //required init?(map: Map) {
+        //guard let name = map.JSON["name"] as? String else {
+        //    return nil
+        //}
+        //self.name = name
+       // super.init(map: map)
+   // }
     
-    override func mapping(map: Map) {
-        super.mapping(map: map)
-        name <- map["name"]
-    }
+   // override func mapping(map: Map) {
+        //super.mapping(map: map)
+        //name <- map["name"]
+    //}
     
 }
 
