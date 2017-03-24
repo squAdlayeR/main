@@ -93,7 +93,7 @@ class BasicMarker: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: coder)
+        super.init(coder: aDecoder)
     }
 
 }

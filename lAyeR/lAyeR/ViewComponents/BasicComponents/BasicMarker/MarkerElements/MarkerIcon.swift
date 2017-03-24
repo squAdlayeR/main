@@ -26,7 +26,7 @@ class MarkerIcon: UIView {
     }
     
     // The marker that this marker icon is attached to
-    private(set) var marker: BasicMarker
+    private(set) var marker: BasicMarker!
     
     // The background image of the banner
     private var backgroundImageView: UIImageView!

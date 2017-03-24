@@ -60,12 +60,12 @@ class ARViewController: UIViewController {
     private func addCheckPointCards() {
         // FOR TESTING PURPOSE
 
-        let sampleCard = CheckpointViewController(center: view.center, name: "PGP Residence", distance: 0, superView: view)
-        sampleCard.addText(with: "name", and: "Prince Geroges' Park")
+        let sampleCard = CheckpointViewController(center: view.center, distance: 0, superView: view)
+        sampleCard.addText(with: "name", and: "Prince Geroges' Park Residences")
         sampleCard.addText(with: "description", and: "Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
         checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP Residence"), sampleCard))
         // can set blur mode using below code
-        // sampleCard.setBlurEffect(true)
+        sampleCard.setBlurEffect(true)
     }
     
     private func monitorNearbyPOIsUpdate() {
@@ -94,7 +94,10 @@ class ARViewController: UIViewController {
                 guard let name = newPoi.name else {
                     break
                 }
-                let poiCard = CheckpointViewController(center: view.center, name: name, distance: 0, superView: view)
+                let poiCard = CheckpointViewController(center: view.center, distance: 0, superView: view)
+                poiCard.addText(with: "name", and: name)
+                poiCard.addText(with: "description", and: "To be specified...")
+                poiCard.popupController.setTitle("Place of Interests")
                 newPOICardPairs.append((newPoi, poiCard))
             }
         }

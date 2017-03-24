@@ -39,12 +39,12 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
     ///     - distance: distance to that check point
     ///     - superView: the super view in which the marker card & popup will
     ///         be displayed
-    init(center: CGPoint, name: String, distance: Double, superView: UIView) {
+    init(center: CGPoint, distance: Double, superView: UIView) {
         super.init()
         self.center = center
         self.superView = superView
         initMarker(with: CGFloat(distance))
-        initAlert(with: name)
+        initAlert()
         prepareDisplay()
     }
     
@@ -68,11 +68,11 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
     /// Initializes the alert with its name
     /// - Parameters:
     ///     - name: the name of the check point
-    private func initAlert(with name: String) {
-        let newAlertController = BasicAlertController(title: name, frame: popupFrame)
+    private func initAlert() {
+        let newAlertController = BasicAlertController(title: checkpointTitle, frame: popupFrame)
         let closeButton = createCloseButton()
         newAlertController.addButtonToAlert(closeButton)
-        newAlertController.setTitle(checkpointTitle)
+//        newAlertController.setTitle(checkpointTitle)
         let alertWidth = newAlertController.alert.infoPanel.bounds.width
         let alertHeight = newAlertController.alert.infoPanel.bounds.height
         newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
