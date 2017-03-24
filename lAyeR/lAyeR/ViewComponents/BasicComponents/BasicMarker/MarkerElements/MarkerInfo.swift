@@ -13,8 +13,31 @@ import UIKit
  */
 class MarkerInfo: UIView {
 
+    // The label that is used to display text
     private(set) var label: UILabel!
+    
+    // The marker that this info label is attached to
     private(set) var marker: BasicMarker!
+    
+    // The background image of the banner
+    private var backgroundImageView: UIImageView!
+    
+    // The blur effect
+    private var blurEffectView: UIVisualEffectView!
+    
+    // Sets blur mode. If it is true, blur view should
+    // be shown.
+    var blurMode: Bool = false {
+        didSet {
+            if blurMode {
+                backgroundImageView.isHidden = true
+                blurEffectView.isHidden = false
+                return
+            }
+            backgroundImageView.isHidden = false
+            blurEffectView.isHidden = true
+        }
+    }
     
     /// distance is able to change along the way. 
     /// 1. before it is set, check whether it is greater than 0
@@ -41,6 +64,7 @@ class MarkerInfo: UIView {
     /// 2. sets the label in the info panel
     private func prepareDisplay() {
         initBackgroundImage()
+        initBlurEffect()
         initLable()
     }
     
@@ -48,7 +72,17 @@ class MarkerInfo: UIView {
     private func initBackgroundImage() {
         let backgroundImage = ResourceManager.getImageView(by: bottomBannerImage)
         backgroundImage.frame = labelFrame
-        self.addSubview(backgroundImage)
+        backgroundImageView = backgroundImage
+        self.addSubview(backgroundImageView)
+    }
+    
+    /// Initializes the blur view
+    private func initBlurEffect() {
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurEffect.frame = labelFrame
+        blurEffectView = blurEffect
+        self.addSubview(blurEffectView)
+        blurEffectView.isHidden = true
     }
     
     /// Initializes label
@@ -70,7 +104,6 @@ class MarkerInfo: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
     

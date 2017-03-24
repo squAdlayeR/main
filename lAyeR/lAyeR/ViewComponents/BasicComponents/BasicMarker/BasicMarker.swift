@@ -13,8 +13,22 @@ import UIKit
  */
 class BasicMarker: UIView {
     
+    // The icon of the marker
     private(set) var icon: MarkerIcon!
+    
+    // The info of the marker. Usually will be displaying distances
     private(set) var info: MarkerInfo!
+    
+    // Specifies the blur mode of the alert
+    var blurMode: Bool = false {
+        didSet {
+            if blurMode {
+                setSubviewsBlurMode(true)
+                return
+            }
+            setSubviewsBlurMode(false)
+        }
+    }
 
     /// Initialization
     /// - Parameters:
@@ -64,15 +78,22 @@ class BasicMarker: UIView {
     func setIconImage(_ iconImage: UIImageView) {
         self.icon.icon = iconImage
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
-        super.init(coder: aDecoder)
+
+    /// Sets the blur mode of the sub elements
+    /// - Parameter isBlurMode: corresponding blur mode that will
+    ///     be set
+    private func setSubviewsBlurMode(_ isBlurMode: Bool) {
+        icon.blurMode = isBlurMode
+        info.blurMode = isBlurMode
     }
     
     /// Calculates the gap of between maker icon and marker label
     var markerGap: CGFloat {
         return self.frame.height * markerGapPercent
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
 }

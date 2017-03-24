@@ -16,18 +16,43 @@ import UIKit
  */
 class TopBanner: UIView {
     
+    // The title label of the top banner
     var titleLabel: UILabel!
+    
+    // The title text of the top banner
     var title: String = titlePlaceHolder {
         didSet {
             titleLabel.text = title
         }
     }
+    
+    // The alert that this top banner is attached to
     private(set) var alert: BasicAlert!
+    
+    // The background image of the banner
+    private var backgroundImageView: UIImageView!
+    
+    // The blur effect
+    private var blurEffectView: UIVisualEffectView!
+    
+    // Sets blur mode. If it is true, blur view should
+    // be shown.
+    var blurMode: Bool = false {
+        didSet {
+            if blurMode {
+                backgroundImageView.isHidden = true
+                blurEffectView.isHidden = false
+                return
+            }
+            backgroundImageView.isHidden = false
+            blurEffectView.isHidden = true
+        }
+    }
     
     /// Initialization
     init(alert: BasicAlert) {
         self.alert = alert
-        let topBannerFrame = CGRect(x: 0, y: alert.frame.height / 2 - topBannerHeight,
+        let topBannerFrame = CGRect(x: 0, y: alert.frame.height / 2 - topBannerHeight + 0.1,
                                     width: alert.frame.width,
                                     height: topBannerHeight)
         super.init(frame: topBannerFrame)
@@ -37,6 +62,7 @@ class TopBanner: UIView {
     /// Load related elements and prepare for display
     private func prepareDisplay() {
         initBackgroundImage()
+        initBlurEffect()
         initTitle()
     }
     
@@ -44,7 +70,17 @@ class TopBanner: UIView {
     private func initBackgroundImage() {
         let backgroundImage = ResourceManager.getImageView(by: topBannerImage)
         backgroundImage.frame = imageFrame
-        self.addSubview(backgroundImage)
+        backgroundImageView = backgroundImage
+        self.addSubview(backgroundImageView)
+    }
+    
+    /// Initializes blur effect
+    private func initBlurEffect() {
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurEffect.frame = imageFrame
+        blurEffectView = blurEffect
+        self.addSubview(blurEffectView)
+        blurEffectView.isHidden = true
     }
     
     /// Initializes title label of the top banner
@@ -72,11 +108,10 @@ class TopBanner: UIView {
     
     /// Calculates a relatively suitable title label frame
     private var titleFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        return CGRect(x: titlePadding, y: 0, width: self.frame.width - 2 * titlePadding, height: self.frame.height)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
 

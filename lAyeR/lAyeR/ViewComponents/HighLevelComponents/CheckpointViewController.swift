@@ -39,12 +39,12 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
     ///     - distance: distance to that check point
     ///     - superView: the super view in which the marker card & popup will
     ///         be displayed
-    init(center: CGPoint, name: String, distance: Double, superView: UIView) {
+    init(center: CGPoint, distance: Double, superView: UIView) {
         super.init()
         self.center = center
         self.superView = superView
         initMarker(with: CGFloat(distance))
-        initAlert(with: name)
+        initAlert()
         prepareDisplay()
     }
     
@@ -68,11 +68,15 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
     /// Initializes the alert with its name
     /// - Parameters:
     ///     - name: the name of the check point
-    private func initAlert(with name: String) {
-        let newAlertController = BasicAlertController(title: name, frame: popupFrame)
+    private func initAlert() {
+        let newAlertController = BasicAlertController(title: checkpointTitle, frame: popupFrame)
         let closeButton = createCloseButton()
         newAlertController.addButtonToAlert(closeButton)
-        newAlertController.setTitle(name)
+//        newAlertController.setTitle(checkpointTitle)
+        let alertWidth = newAlertController.alert.infoPanel.bounds.width
+        let alertHeight = newAlertController.alert.infoPanel.bounds.height
+        newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
+                                                               height: alertHeight))
         self.popupController = newAlertController
     }
     
@@ -104,10 +108,18 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         markerCard.setDistance(CGFloat(distance))
     }
     
-    //required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
-        //super.init(coder: aDecoder)
-    //}
+    /// Adds a text content into the inner view of the alert.
+    /// - Parameters:
+    ///     - label: the label of the text content
+    ///     - conetent: the text of the content 
+    func addText(with label: String, and content: String) {
+        if let innerView = popupController.alert.infoPanel.innerView as? InformativeInnerView {
+            let infoBlock = InfoBlock(label: label,
+                                      content: content,
+                                      width: innerView.bounds.width - 40)
+            innerView.insertSubInfo(infoBlock)
+        }
+    }
     
     /// Calculates the frame of the marker
     /// - Note: the frame is defined by suggested maker height/width, which are
@@ -143,8 +155,17 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         })
     }
     
+    /// Removes the current checkpoint card from its super view
     func removeFromSuperview() {
         markerCard.removeFromSuperview()
         popupController.closeAlert()
     }
+    
+    /// Sets/unsets the blur effect
+    /// - Parameter isBlurMode: corresponding blur mode
+    func setBlurEffect(_ isBlurMode: Bool) {
+        markerCard.blurMode = isBlurMode
+        popupController.setBlurEffect(isBlurMode)
+    }
+    
 }

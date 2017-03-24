@@ -24,9 +24,27 @@ import AVFoundation
  */
 class BasicAlert: UIView {
     
+    // The bottom banner of the alert. it will be holding interactive
+    // buttons
     var bottomBanner: BottomBanner!
+    
+    // The info panel of the alert. it will be displaying detailed
+    // information
     var infoPanel: InfoPanel!
+    
+    // The top banner of the alert. it will be displaying title
     var topBanner: TopBanner!
+    
+    // Specifies the blur mode of the alert
+    var blurMode: Bool = false {
+        didSet {
+            if blurMode {
+                setSubviewsBlurMode(true)
+                return
+            }
+            setSubviewsBlurMode(false)
+        }
+    }
 
     
     /// Initialized the alert
@@ -84,8 +102,15 @@ class BasicAlert: UIView {
         topBanner.title = title
     }
     
+    /// Sets the blur mode of subview to specified blur mode
+    /// - Parameter isBlurMode: specifies the blur mode
+    private func setSubviewsBlurMode(_ isBlurMode: Bool) {
+        topBanner.blurMode = isBlurMode
+        infoPanel.blurMode = isBlurMode
+        bottomBanner.blurMode = isBlurMode
+    }
+    
     required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
 
@@ -112,7 +137,7 @@ extension BasicAlert {
     /// Sets all elements to the transformation before animation
     private func prepareOpen() {
         self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        self.alpha = 0.3
+        self.alpha = 0
         self.topBanner.close()
         self.bottomBanner.hideButtons()
         self.bottomBanner.close()

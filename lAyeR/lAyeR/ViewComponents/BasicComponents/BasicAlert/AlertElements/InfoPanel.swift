@@ -15,6 +15,7 @@ import UIKit
  */
 class InfoPanel: UIView {
 
+    // The inner view of the info panel
     var innerView: UIView? {
         willSet {
             innerView?.removeFromSuperview()
@@ -24,7 +25,28 @@ class InfoPanel: UIView {
         }
     }
     
+    // The alert that this panel is attached to
     private(set) var alert: BasicAlert!
+    
+    // The background image of the banner
+    private var backgroundImageView: UIImageView!
+    
+    // The blur effect
+    private var blurEffectView: UIVisualEffectView!
+    
+    // Sets blur mode. If it is true, blur view should
+    // be shown.
+    var blurMode: Bool = false {
+        didSet {
+            if blurMode {
+                backgroundImageView.isHidden = true
+                blurEffectView.isHidden = false
+                return
+            }
+            backgroundImageView.isHidden = false
+            blurEffectView.isHidden = true
+        }
+    }
     
     /// Initializes the info panel
     init(alert: BasicAlert) {
@@ -39,6 +61,7 @@ class InfoPanel: UIView {
     /// Load related elements and prepare for display
     private func prepareDisplay() {
         initBackgroundImage()
+        initBlurEffect()
         setInnerView()
     }
     
@@ -46,7 +69,17 @@ class InfoPanel: UIView {
     private func initBackgroundImage() {
         let backgroundImage = ResourceManager.getImageView(by: infoPanelImage)
         backgroundImage.frame = imageFrame
-        self.addSubview(backgroundImage)
+        backgroundImageView = backgroundImage
+        self.addSubview(backgroundImageView)
+    }
+    
+    /// Initializes blur effect
+    private func initBlurEffect() {
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        blurEffect.frame = imageFrame
+        blurEffectView = blurEffect
+        self.addSubview(blurEffectView)
+        blurEffectView.isHidden = true
     }
     
     /// Sets the inner view of the info panel
@@ -80,7 +113,6 @@ class InfoPanel: UIView {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
     
