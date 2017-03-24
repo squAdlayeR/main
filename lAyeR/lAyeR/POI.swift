@@ -24,9 +24,9 @@ class POI: GeoPoint {
         //super.init(map: map)
     //}
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    //required init?(coder aDecoder: NSCoder) {
+       // super.init(coder: aDecoder)
+    //}
     
     func setName(_ name: String) {
         self.name = name

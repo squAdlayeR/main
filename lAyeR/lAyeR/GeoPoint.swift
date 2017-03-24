@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import ObjectMapper
 
-class GeoPoint: NSCoding {//, Mappable {
+class GeoPoint {//: NSCoding {//, Mappable {
     
     private(set) var latitude: Double
     private(set) var longitude: Double
@@ -20,15 +20,15 @@ class GeoPoint: NSCoding {//, Mappable {
         self.longitude = longitude
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        self.latitude = aDecoder.decodeDouble(forKey: "latitude")
-        self.longitude = aDecoder.decodeDouble(forKey: "longitude")
-    }
+    //required init?(coder aDecoder: NSCoder) {
+      //  self.latitude = aDecoder.decodeDouble(forKey: "latitude")
+        //self.longitude = aDecoder.decodeDouble(forKey: "longitude")
+    //}
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.latitude, forKey: "latitude")
-        aCoder.encode(self.longitude, forKey: "longitude")
-    }
+    //func encode(with aCoder: NSCoder) {
+       // aCoder.encode(self.latitude, forKey: "latitude")
+       // aCoder.encode(self.longitude, forKey: "longitude")
+    //}
     
     //required init?(map: Map) {
         //guard let latitude = map.JSON["latitude"] as? Double,
