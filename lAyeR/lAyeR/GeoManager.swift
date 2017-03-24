@@ -14,14 +14,15 @@ import GooglePlaces
 import GoogleMaps
 
 class GeoManager: NSObject, CLLocationManagerDelegate {
+    private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
+        Setting.nearbyPOIsUpdatedNotificationName)
     
     private static var instance: GeoManager?
     private let locationManager: CLLocationManager = CLLocationManager()
     
-    private var userLocation: CLLocation!
+    private var userPoint: GeoPoint = GeoPoint(0, 0)
     private var pois: [POI] = []
-    private var poiUpdated = false
-    
+
     static func getInstance() -> GeoManager {
         if instance == nil {
             instance = GeoManager()
@@ -40,33 +41,31 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        userLocation = locations.last
+        guard let userLocation = locations.last else {
+            return
+        }
+        userPoint = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+        
         
         /// TODO: Change after implement application settings
-        let userPoint = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         let url = Parser.parsePOISearchRequest(500, "food", userPoint)
         Alamofire.request(url).responseJSON { [unowned self] response in
             if let json = response.result.value as? [String: Any] {
+                
                 self.pois = Parser.parseJSONToPOIs(json)
                 
-                self.poiUpdated = true
+                NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName,
+                                                object: nil)
             }
         }
     }
     
-    func getUserPoint() -> GeoPoint {
-        guard let userLocation = userLocation else {
-            return GeoPoint(0, 0)
-        }
-        return GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+    func getLastUpdatedUserPoint() -> GeoPoint {
+        return userPoint
     }
     
-    func getUpdatedNearbyPOIs() -> [POI]? {
-        if (poiUpdated) {
-            poiUpdated = false
-            return pois
-        }
-        return nil
+    func getLastUpdatedNearbyPOIs() -> [POI] {
+        return pois
     }
     
     

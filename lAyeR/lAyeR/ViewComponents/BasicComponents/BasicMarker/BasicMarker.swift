@@ -78,7 +78,7 @@ class BasicMarker: UIView {
     func setIconImage(_ iconImage: UIImageView) {
         self.icon.icon = iconImage
     }
-    
+
     /// Sets the blur mode of the sub elements
     /// - Parameter isBlurMode: corresponding blur mode that will
     ///     be set

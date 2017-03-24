@@ -11,6 +11,12 @@ import Foundation
 import UIKit
 
 extension ARViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    override func viewDidAppear(_ animated: Bool) {
+        if !done {
+            session.startRunning()
+        }
+    }
+    
     func setupAVCapture() {
         session.sessionPreset = AVCaptureSessionPreset640x480
         guard let device = AVCaptureDevice

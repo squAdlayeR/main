@@ -13,11 +13,14 @@ import MapKit
 import UIKit
 
 class ARViewController: UIViewController {
-    var cameraView: UIView!
-    private var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
-    private var currentPoiCardPairs: [(POI, CheckpointViewController)] = []
     
-    private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
+    // setting constants
+    let sampleCardWidth = 108
+    let sampleCardHeight = 108
+    let sampleCardAlpha: CGFloat = 0.48
+    let framePerSecond = 60
+    private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
+        Setting.nearbyPOIsUpdatedNotificationName)
     
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -28,83 +31,65 @@ class ARViewController: UIViewController {
     var currentFrame: CIImage!
     var done = false
     
-    // for AR effect
+    var cameraView: UIView!
+    var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
+    private var currentPoiCardPairs: [(POI, CheckpointViewController)] = []
+    
+    private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
+
     let motionManager = DeviceMotionManager.getInstance()
-    
-    // for testing get current location
     let geoManager = GeoManager.getInstance()
-    
-    // setting constants
-    let sampleCardWidth = 108
-    let sampleCardHeight = 108
-    let sampleCardAlpha: CGFloat = 0.48
-    let framePerSecond = 60
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addCameraView()
         addCheckPointCards()
         setupAVCapture()
+        monitorNearbyPOIsUpdate()
         startObservingDeviceMotion()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if !done {
-            session.startRunning()
-        }
+        displayLastUpdatedPOIs()
     }
     
     private func addCameraView() {
         cameraView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         cameraView.contentMode = .scaleAspectFit
-        view.addSubview(cameraView)
+        view.insertSubview(cameraView, at: 0)
     }
     
     private func addCheckPointCards() {
         // FOR TESTING PURPOSE
-        
-        let sampleCard = CheckpointViewController(center: view.center, name: "PGP", distance: 0, superView: view)
+
+        let sampleCard = CheckpointViewController(center: view.center, name: "PGP Residence", distance: 0, superView: view)
         sampleCard.addText(with: "name", and: "Prince Geroges' Park")
         sampleCard.addText(with: "description", and: "Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
-        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP", 4), sampleCard))
-        
-        let sampleCard2 = CheckpointViewController(center: view.center, name: "CP2", distance: 0, superView: view)
-        sampleCard2.addText(with: "name", and: "Checkpoint 2")
-        sampleCard2.addText(with: "description", and: "It is near Prince Georges's Park terminal. You can see some small villas on your both sides and a bus stop as well. You can just follow you way and soon you will be arriving the left most side of PGP residences.")
+        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP Residence"), sampleCard))
         // can set blur mode using below code
-        // sampleCard2.setBlurEffect(true)
-        checkpointCardPairs.append((CheckPoint(1.2923, 103.7799, "CP2", 3), sampleCard2))
-        
-        let sampleCard3 = CheckpointViewController(center: view.center, name: "CP1", distance: 0, superView: view)
-        checkpointCardPairs.append((CheckPoint(1.2937, 103.7769, "CP1", 2), sampleCard3))
-        sampleCard3.addText(with: "name", and: "Checkpoint 1")
-        sampleCard3.addText(with: "description", and: "This checkpoint is neat to a construction area. There will be a bus stop.")
-        
-        let sampleCard4 = CheckpointViewController(center: view.center, name: "Biz link", distance: 0, superView: view)
-        sampleCard4.addText(with: "name", and: "Biz link")
-        sampleCard4.addText(with: "description", and: "Biz link is under the biz canteen. You will be seeing a bus stop there. Usually D2 will stop here. If you go walk back you can tak A2 to PGP. If you want to walk forward, just turn right and follow the road.")
-        checkpointCardPairs.append((CheckPoint(1.2936, 103.7753, "Biz link", 1), sampleCard4))
+        // sampleCard.setBlurEffect(true)
     }
     
-    private func updatePOI() {
-        // update poi card list when the change of the user location exceed the threshod
-        guard let pois = geoManager.getUpdatedNearbyPOIs() else {
-            return
-        }
-
+    private func monitorNearbyPOIsUpdate() {
+        NotificationCenter.default.addObserver(forName: nearbyPOIsUpdatedNotificationName, object: nil, queue: nil,
+                                               using: { [unowned self] _ in
+            self.displayLastUpdatedPOIs()
+        })
+    }
+    
+    private func displayLastUpdatedPOIs() {
+        let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
         var newPOICardPairs: [(POI, CheckpointViewController)] = []
 
         for poiCardPair in currentPoiCardPairs {
             let previousPoi = poiCardPair.0
             let poiCard = poiCardPair.1
-            if pois.contains(where: { $0.name == previousPoi.name }) {
+            if lastUpdatedPOIs.contains(where: { $0.name == previousPoi.name }) {
                 newPOICardPairs.append(poiCardPair)
             } else {
                 poiCard.removeFromSuperview()
             }
         }
         
-        for newPoi in pois {
+        for newPoi in lastUpdatedPOIs {
             if !newPOICardPairs.contains(where: { $0.0.name == newPoi.name }) {
                 guard let name = newPoi.name else {
                     break
@@ -124,12 +109,10 @@ class ARViewController: UIViewController {
     private func startObservingDeviceMotion() {
         displayLink.add(to: .current, forMode: .defaultRunLoopMode)
         displayLink.preferredFramesPerSecond = framePerSecond
-
     }
     
     @objc private func updateLoop() {
-        updatePOI()
-        let userPoint = geoManager.getUserPoint()
+        let userPoint = geoManager.getLastUpdatedUserPoint()
 
         // update position and orientation of checkPointCards
         for (checkPoint, checkPointCard) in self.checkpointCardPairs {

@@ -20,7 +20,6 @@
 		2C7813891E7544C000851188 /* dialog_close.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813871E7544C000851188 /* dialog_close.wav */; };
 		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
 		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
-		5249B1A31E7263300048249D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A21E7263300048249D /* MapViewController.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
 		5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A91E72641C0048249D /* CheckPoint.swift */; };
@@ -28,7 +27,6 @@
 		5249B1B21E7264AB0048249D /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B11E7264AB0048249D /* POI.swift */; };
 		5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B41E72B3A30048249D /* LocalStorageManager.swift */; };
 		5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B61E72FC660048249D /* GeoUtil.swift */; };
-		5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B81E73009F0048249D /* MapViewDelegate.swift */; };
 		5249B1BC1E7450380048249D /* QueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1BB1E7450380048249D /* QueryManager.swift */; };
 		5249B1BE1E7463E30048249D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5249B1BD1E7463E30048249D /* GoogleService-Info.plist */; };
 		5249B1BF1E7463E30048249D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5249B1BD1E7463E30048249D /* GoogleService-Info.plist */; };
@@ -48,6 +46,10 @@
 		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
 		9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */; };
 		A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */; };
+		A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFB61E839BD600394531 /* MarkerPopupView.swift */; };
+		A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */; };
+		A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFB81E839BD600394531 /* TriangleView.swift */; };
+		A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFBC1E83AB7500394531 /* Setting.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
@@ -86,7 +88,6 @@
 		2C7813871E7544C000851188 /* dialog_close.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dialog_close.wav; sourceTree = "<group>"; };
 		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
 		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
-		5249B1A21E7263300048249D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		5249B1A71E7264000048249D /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
 		5249B1A91E72641C0048249D /* CheckPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
@@ -94,7 +95,6 @@
 		5249B1B11E7264AB0048249D /* POI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
 		5249B1B41E72B3A30048249D /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		5249B1B61E72FC660048249D /* GeoUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtil.swift; sourceTree = "<group>"; };
-		5249B1B81E73009F0048249D /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		5249B1BB1E7450380048249D /* QueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryManager.swift; sourceTree = "<group>"; };
 		5249B1BD1E7463E30048249D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5249B1C21E746CC70048249D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
@@ -114,6 +114,10 @@
 		9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoBlock.swift; path = ViewComponents/BasicComponents/InnerViews/InfoBlock.swift; sourceTree = "<group>"; };
 		9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformativeInnerView.swift; path = ViewComponents/BasicComponents/InnerViews/InformativeInnerView.swift; sourceTree = "<group>"; };
 		A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_CameraBackgroundExtension.swift; sourceTree = "<group>"; };
+		A21BBFB61E839BD600394531 /* MarkerPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerPopupView.swift; sourceTree = "<group>"; };
+		A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController.swift; sourceTree = "<group>"; };
+		A21BBFB81E839BD600394531 /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
+		A21BBFBC1E83AB7500394531 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 		2C3119991E670A5F00FF6334 /* lAyeR */ = {
 			isa = PBXGroup;
 			children = (
+				A21BBFBC1E83AB7500394531 /* Setting.swift */,
 				9D1498F11E8007DC0043DDB6 /* ViewComponents */,
 				A2AF0AB81E70101000B4478C /* ARRenderer */,
 				5249B1BA1E7450190048249D /* WebQuery */,
@@ -267,7 +272,9 @@
 		5249B1A41E7263A30048249D /* RouteDesigner */ = {
 			isa = PBXGroup;
 			children = (
-				A2AF0AD21E76C5BE00B4478C /* testing files */,
+				A21BBFB61E839BD600394531 /* MarkerPopupView.swift */,
+				A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */,
+				A21BBFB81E839BD600394531 /* TriangleView.swift */,
 				5249B1AD1E7264790048249D /* UserConfig.swift */,
 				5249B1A71E7264000048249D /* GeoPoint.swift */,
 				5249B1A91E72641C0048249D /* CheckPoint.swift */,
@@ -345,22 +352,13 @@
 			isa = PBXGroup;
 			children = (
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
+				A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */,
 				A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */,
 				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
 				A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */,
 				A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */,
-				A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */,
 			);
 			name = ARRenderer;
-			sourceTree = "<group>";
-		};
-		A2AF0AD21E76C5BE00B4478C /* testing files */ = {
-			isa = PBXGroup;
-			children = (
-				5249B1A21E7263300048249D /* MapViewController.swift */,
-				5249B1B81E73009F0048249D /* MapViewDelegate.swift */,
-			);
-			name = "testing files";
 			sourceTree = "<group>";
 		};
 		BE7D7EB2BE9C50EE8088A2AE /* Pods */ = {
@@ -550,7 +548,7 @@
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
-				5249B1B91E73009F0048249D /* MapViewDelegate.swift in Sources */,
+				A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */,
 				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
@@ -558,6 +556,7 @@
 				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
+				A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
@@ -567,7 +566,6 @@
 				A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
-				5249B1A31E7263300048249D /* MapViewController.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
@@ -578,6 +576,11 @@
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
 				9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */,
 				2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */,
+				2C78138C1E7559EE00851188 /* CheckpointViewController.swift in Sources */,
+				A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */,
+				2C7333E31E71B50600EDE1D8 /* ResourceManager.swift in Sources */,
+				A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */,
+				2C7333DD1E711E9C00EDE1D8 /* AlertConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,7 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -704,7 +707,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -717,9 +720,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Y8UK968H5B;
 				INFOPLIST_FILE = lAyeR/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -731,9 +736,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Y8UK968H5B;
 				INFOPLIST_FILE = lAyeR/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
