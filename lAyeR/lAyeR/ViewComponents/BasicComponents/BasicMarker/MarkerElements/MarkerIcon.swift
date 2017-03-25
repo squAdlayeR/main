@@ -15,6 +15,7 @@ import UIKit
  */
 class MarkerIcon: UIView {
     
+    // The icon that will be displayed on the marker
     var icon: UIImageView = ResourceManager.getImageView(by: markerIconName) {
         willSet {
             icon.removeFromSuperview()
@@ -24,7 +25,28 @@ class MarkerIcon: UIView {
         }
     }
     
-    private(set) var marker: BasicMarker
+    // The marker that this marker icon is attached to
+    private(set) var marker: BasicMarker!
+    
+    // The background image of the banner
+    private var backgroundImageView: UIImageView!
+    
+    // The blur effect
+    private var blurEffectView: UIVisualEffectView!
+    
+    // Sets blur mode. If it is true, blur view should
+    // be shown.
+    var blurMode: Bool = false {
+        didSet {
+            if blurMode {
+                backgroundImageView.isHidden = true
+                blurEffectView.isHidden = false
+                return
+            }
+            backgroundImageView.isHidden = false
+            blurEffectView.isHidden = true
+        }
+    }
 
     /// Initilaization
     /// - Parameters:
@@ -44,6 +66,7 @@ class MarkerIcon: UIView {
     /// 2. prepares the icon inside the icon view
     private func prepareDisplay() {
         initBackgroundImage()
+        initBlurEffect()
         setIcon()
     }
     
@@ -51,7 +74,17 @@ class MarkerIcon: UIView {
     private func initBackgroundImage() {
         let backgroundIamge = ResourceManager.getImageView(by: topBannerImage)
         backgroundIamge.frame = backgroundFrame
-        self.addSubview(backgroundIamge)
+        backgroundImageView = backgroundIamge
+        self.addSubview(backgroundImageView)
+    }
+    
+    /// Initializes the blur effect
+    private func initBlurEffect() {
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurEffect.frame = backgroundFrame
+        blurEffectView = blurEffect
+        self.addSubview(blurEffectView)
+        blurEffectView.isHidden = true
     }
     
     /// Sets the icon
@@ -74,7 +107,7 @@ class MarkerIcon: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
 
 }

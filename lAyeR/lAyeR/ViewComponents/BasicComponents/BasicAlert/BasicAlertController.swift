@@ -110,9 +110,16 @@ extension BasicAlertController {
     }
     
     /// Sets the title of the alert
-    /// - Paramter title: the title of the alert
+    /// - Parameter title: the title of the alert
     func setTitle(_ title: String) {
         alert.setTitle(title)
+    }
+    
+    /// Sets the blur effect of the popup
+    /// - Parameter openBlurEffect: determines whether the blur effect
+    ///     is opened or not.
+    func setBlurEffect(_ openBlurEffect: Bool) {
+        alert.blurMode = openBlurEffect
     }
     
     /// Presents the alert inside a specified view

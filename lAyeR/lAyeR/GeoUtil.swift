@@ -23,11 +23,6 @@ class GeoUtil {
         return location1.distance(from: location2)
     }
     
-    /// Returns the altitude difference between two points in meters.
-//    static func getAltitudeDifference(_ geoPoint1: GeoPoint, _ geoPoint2: GeoPoint) -> Double {
-//        return geoPoint1.location.altitude - geoPoint2.location.altitude
-//    }
-    
     /// Returns the azimuth between two points with respect to the first
     /// point in radians.
     static func getAzimuth(between geoPoint1: GeoPoint, _ geoPoint2: GeoPoint) -> Double {
@@ -48,12 +43,14 @@ class GeoUtil {
         return atan2(longtitudeDistance, latitudeDistance)
     }
     
-    /// Returns the altitude angle between two points in radians.
-//    static func getAltitudeAngleInRadian(_ geoPoint1: GeoPoint, _ geoPoint2: GeoPoint) -> Double {
-//        let coordinateDistance = getCoordinateDistance(geoPoint1, geoPoint2)
-//        let altitudeDistance = getAltitudeDifference(geoPoint2, geoPoint1)
-//        return atan2(altitudeDistance, coordinateDistance)
-//    }
+    /// Returns true if the given latitude is valid.
+    static func isValidLatitude(_ lat: Double) -> Bool {
+        return -90 <= lat && lat <= 90
+    }
     
+    /// Returns true if the given longitude is valid.
+    static func isValidLongitude(_ lng: Double) -> Bool {
+        return -180 <= lng && lng <= 180
+    }
 }
 
