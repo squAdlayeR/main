@@ -8,6 +8,10 @@
 
 import UIKit
 
+/**
+ A super class that is used to represent a card that will display
+ place icon and information
+ */
 class CardViewController: NSObject {
 
     // The marker of the card
