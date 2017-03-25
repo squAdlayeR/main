@@ -33,7 +33,7 @@ class ARViewController: UIViewController {
     
     var cameraView: UIView!
     var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
-    private var currentPoiCardPairs: [(POI, CheckpointViewController)] = []
+    private var currentPoiCardPairs: [(POI, PoiViewController)] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
 
@@ -77,7 +77,7 @@ class ARViewController: UIViewController {
     
     private func displayLastUpdatedPOIs() {
         let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
-        var newPOICardPairs: [(POI, CheckpointViewController)] = []
+        var newPOICardPairs: [(POI, PoiViewController)] = []
 
         for poiCardPair in currentPoiCardPairs {
             let previousPoi = poiCardPair.0
@@ -94,10 +94,10 @@ class ARViewController: UIViewController {
                 guard let name = newPoi.name else {
                     break
                 }
-                let poiCard = CheckpointViewController(center: view.center, distance: 0, superView: view)
-                poiCard.setCheckpointName(name)
-                poiCard.setCheckpointDescription("To be specified...")
-                poiCard.popupController.setTitle("Place of Interests")
+                let poiCard = PoiViewController(center: view.center, distance: 0, type: "library", superView: view)
+                poiCard.setPoiName(name)
+                poiCard.setPoiDescription("To be specified...")
+                poiCard.setPoiAddress(newPoi.vicinity!)
                 newPOICardPairs.append((newPoi, poiCard))
             }
         }
