@@ -12,6 +12,11 @@ import XCTest
 
 class Vector3DTests: XCTestCase {
     
+    func testVectorLength() {
+        let v = Vector3D(x: 1, y: -1, z: 1)
+        XCTAssertEqual(v.length, sqrt(3))
+    }
+    
     func testOppositeVector() {
         let v = Vector3D(x: 1, y: 2, z: 3)
         let oppositeV = -v
@@ -33,11 +38,62 @@ class Vector3DTests: XCTestCase {
                        "The opposite-direction vector of \(v) is incorrect!")
     }
     
+    func testNormalDotProduct() {
+        let v1 = Vector3D(x: 1, y: 2, z: 3)
+        let v2 = Vector3D(x: 3, y: 2, z: 1)
+        XCTAssertEqual(v1 * v2, 10,
+                       "The dot product is incorrect!")
+
+    }
+    
     func testDotProductWithZeroVector() {
         let zero = Vector3D(x: 0, y: 0, z: 0)
         let v = Vector3D(x: 1, y: 3, z: 9)
         XCTAssertEqual(zero * v, 0,
                        "The dot product with zero vector is incorrect!")
+    }
+    
+    func testDotProductWithPerpendicularVector() {
+        let x = Vector3D(x: 1, y: 0, z: 0)
+        let y = Vector3D(x: 0, y: 1, z: 0)
+        let z = Vector3D(x: 0, y: 0, z: 1)
+        XCTAssertEqual(x * y, 0,
+                       "The dot product between 2 perpendicular vectors is not 0!")
+
+        XCTAssertEqual(y * z, 0,
+                       "The dot product between 2 perpendicular vectors is not 0!")
+
+        XCTAssertEqual(x * z, 0,
+                       "The dot product between 2 perpendicular vectors is not 0!")
+
+    }
+    
+    func testNormalProjectionLength() {
+        let v1 = Vector3D(x: 1, y: 1, z: 1)
+        let v2 = Vector3D(x: 1, y: 1, z: 0)
+        print(v1.projectionLength(on: v2))
+        XCTAssertEqualWithAccuracy(v1.projectionLength(on: v2), sqrt(2), accuracy: 1e-8)
+    }
+    
+    func testProjectionLengthOnZeroVector() {
+        let zero = Vector3D(x: 0, y: 0, z: 0)
+        let v = Vector3D(x: 1, y: 3, z: 9)
+        XCTAssertEqual(v.projectionLength(on: zero), 0)
+    }
+    
+    func testProjectionOfZero() {
+        let zero = Vector3D(x: 0, y: 0, z: 0)
+        let v = Vector3D(x: 1, y: 3, z: 9)
+        XCTAssertEqual(zero.projectionLength(on: v), 0)
+    }
+    
+    func testProjectionLengthOnPerpendicularVector() {
+        let x = Vector3D(x: 1, y: 0, z: 0)
+        let y = Vector3D(x: 0, y: 1, z: 0)
+        let z = Vector3D(x: 0, y: 0, z: 1)
+        XCTAssertEqual(x.projectionLength(on: y), 0)
+        XCTAssertEqual(y.projectionLength(on: z), 0)
+        XCTAssertEqual(x.projectionLength(on: z), 0)
     }
 }
 
