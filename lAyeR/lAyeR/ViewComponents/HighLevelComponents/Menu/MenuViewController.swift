@@ -76,7 +76,7 @@ extension MenuViewController {
     ///     be present in
     private func updateMenuCenter(inside superView: UIView) {
         let centerY = superView.center.y
-        let centerX = superView.bounds.width * 0.1
+        let centerX = superView.bounds.width * menuLeftPaddingPercent
         menuView.center = CGPoint(x: centerX, y: centerY)
     }
     

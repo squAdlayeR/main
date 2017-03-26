@@ -39,9 +39,10 @@ class MenuButtonView: UIView {
     /// Initializes the icon on the button
     private func initIcon(with iconName: String) {
         let iconImage = UIImageView(image: UIImage(named: iconName))
-        iconImage.frame = CGRect(x: self.bounds.width * 0.2, y: self.bounds.height * 0.2,
-                                 width: self.bounds.width * 0.6,
-                                 height: self.bounds.height * 0.6)
+        iconImage.frame = CGRect(x: self.bounds.width * menuButtonIconPaddingPercent,
+                                 y: self.bounds.height * menuButtonIconPaddingPercent,
+                                 width: self.bounds.width * (1 - 2 * menuButtonIconPaddingPercent),
+                                 height: self.bounds.height * (1 - 2 * menuButtonIconPaddingPercent))
         self.addSubview(iconImage)
     }
     

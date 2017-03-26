@@ -44,7 +44,7 @@ class MenuView: UIView {
     private func stackButtonView(_ button: UIView) {
         if let lastButton = self.subviews.last {
             let newFrame = CGRect(x: button.frame.origin.x,
-                                  y: lastButton.frame.origin.y + lastButton.bounds.height + 10,
+                                  y: lastButton.frame.origin.y + lastButton.bounds.height + buttonGap,
                                   width: button.bounds.width,
                                   height: button.bounds.height)
             button.frame = newFrame
@@ -69,8 +69,10 @@ class MenuView: UIView {
     func open() {
         preprocess()
         for (index, button) in self.subviews.reversed().enumerated() {
-            UIView.animate(withDuration: 0.8, delay: 0.05 * Double(index),
-                           usingSpringWithDamping: 0.8, initialSpringVelocity: 0, animations: {
+            UIView.animate(withDuration: menuAnimatingDuration,
+                           delay: menuButtonAnimationDelay * Double(index),
+                           usingSpringWithDamping: menuSpringCoefficient,
+                           initialSpringVelocity: 0, animations: {
                 button.alpha = 1
                 button.transform = CGAffineTransform(translationX: 0, y: 0)
             })
@@ -92,8 +94,10 @@ class MenuView: UIView {
     ///     be called after the animation is finished
     func close(inCompletion: @escaping () -> Void) {
         for (index, button) in self.subviews.enumerated() {
-            UIView.animate(withDuration: 0.8, delay: 0.05 * Double(index),
-                           usingSpringWithDamping: 0.8, initialSpringVelocity: 0, animations: {
+            UIView.animate(withDuration: menuAnimatingDuration,
+                           delay: menuButtonAnimationDelay * Double(index),
+                           usingSpringWithDamping: menuSpringCoefficient,
+                           initialSpringVelocity: 0, animations: {
                 button.alpha = 0
                 button.transform = CGAffineTransform(translationX: 0, y: -self.menuHeight)
             }, completion: { isFinished in
