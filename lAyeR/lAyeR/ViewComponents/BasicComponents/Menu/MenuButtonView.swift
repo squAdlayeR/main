@@ -29,7 +29,7 @@ class MenuButtonView: UIView {
     
     /// Initializes the background of the buttons
     private func initBackground() {
-        let backgroundImage = UIImageView(image: UIImage(named: "menuButton.png"))
+        let backgroundImage = UIImageView(image: UIImage(named: menuButtonBackgroundImage))
         backgroundImage.frame = CGRect(x: 0, y: 0,
                                        width: self.bounds.width,
                                        height: self.bounds.height)

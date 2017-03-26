@@ -81,3 +81,4 @@ let mapIconName: String = "map.png"
 let profileIconName: String = "profile.png"
 let settingsIconName: String = "settings.png"
 let menuButtonRaidus: CGFloat = 50
+let menuButtonBackgroundImage = "menuButton.png"
