@@ -91,9 +91,9 @@ class Vector3DTests: XCTestCase {
         let x = Vector3D(x: 1, y: 0, z: 0)
         let y = Vector3D(x: 0, y: 1, z: 0)
         let z = Vector3D(x: 0, y: 0, z: 1)
-        XCTAssertEqual(x * y, 0)
-        XCTAssertEqual(y * z, 0)
-        XCTAssertEqual(x * z, 0)
+        XCTAssertEqual(x.projectionLength(on: y), 0)
+        XCTAssertEqual(y.projectionLength(on: z), 0)
+        XCTAssertEqual(x.projectionLength(on: z), 0)
     }
 }
 
