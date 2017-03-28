@@ -43,8 +43,11 @@
 		9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */; };
 		9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */; };
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
+		9D19700E1E87FE7800C1DAA1 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */; };
+		9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700D1E87FE7800C1DAA1 /* MenuView.swift */; };
+		9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */; };
 		9D6B80981E82ACE700210203 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80971E82ACE700210203 /* CheckpointViewController.swift */; };
-		9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* AlertConfig.swift */; };
+		9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
 		9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */; };
@@ -116,8 +119,11 @@
 		9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerIcon.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerIcon.swift; sourceTree = "<group>"; };
 		9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfo.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerInfo.swift; sourceTree = "<group>"; };
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
+		9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuButtonView.swift; path = ViewComponents/BasicComponents/Menu/MenuButtonView.swift; sourceTree = "<group>"; };
+		9D19700D1E87FE7800C1DAA1 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = ViewComponents/BasicComponents/Menu/MenuView.swift; sourceTree = "<group>"; };
+		9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = ViewComponents/HighLevelComponents/Menu/MenuViewController.swift; sourceTree = "<group>"; };
 		9D6B80971E82ACE700210203 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointViewController.swift; path = ViewComponents/HighLevelComponents/CheckpointViewController.swift; sourceTree = "<group>"; };
-		9D6B80991E82AD0900210203 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertConfig.swift; path = ViewComponents/AlertConfig.swift; sourceTree = "<group>"; };
+		9D6B80991E82AD0900210203 /* UIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIConfig.swift; path = ViewComponents/UIConfig.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoBlock.swift; path = ViewComponents/BasicComponents/InnerViews/InfoBlock.swift; sourceTree = "<group>"; };
 		9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformativeInnerView.swift; path = ViewComponents/BasicComponents/InnerViews/InformativeInnerView.swift; sourceTree = "<group>"; };
@@ -321,7 +327,7 @@
 		9D1498F11E8007DC0043DDB6 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
-				9D6B80991E82AD0900210203 /* AlertConfig.swift */,
+				9D6B80991E82AD0900210203 /* UIConfig.swift */,
 				9D1498F21E8007F70043DDB6 /* BasicComponents */,
 				9D1498F31E8008030043DDB6 /* HighLevelComponents */,
 			);
@@ -331,6 +337,7 @@
 		9D1498F21E8007F70043DDB6 /* BasicComponents */ = {
 			isa = PBXGroup;
 			children = (
+				9D19700B1E87FE6700C1DAA1 /* Menu */,
 				9DFB5B9B1E8426E200724B6E /* InnerViews */,
 				2C7333D51E711C3900EDE1D8 /* BasicAlert */,
 				2C78138F1E755E6600851188 /* BasicMarker */,
@@ -341,9 +348,27 @@
 		9D1498F31E8008030043DDB6 /* HighLevelComponents */ = {
 			isa = PBXGroup;
 			children = (
+				9D1970101E87FE7F00C1DAA1 /* Menu */,
 				9D2938DC1E82B6720054A9F7 /* CheckPoint */,
 			);
 			name = HighLevelComponents;
+			sourceTree = "<group>";
+		};
+		9D19700B1E87FE6700C1DAA1 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */,
+				9D19700D1E87FE7800C1DAA1 /* MenuView.swift */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		9D1970101E87FE7F00C1DAA1 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 		9D2938DC1E82B6720054A9F7 /* CheckPoint */ = {
@@ -563,10 +588,12 @@
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
+				9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */,
 				A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */,
 				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
+				9D19700E1E87FE7800C1DAA1 /* MenuButtonView.swift in Sources */,
 				9D1498FD1E800B080043DDB6 /* BasicAlertController.swift in Sources */,
 				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
@@ -585,12 +612,13 @@
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
+				9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */,
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */,
 				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
-				9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */,
+				9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */,
 				A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */,
 				A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */,
 			);
