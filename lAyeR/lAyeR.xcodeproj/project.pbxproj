@@ -72,7 +72,6 @@
 		A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */; };
 		A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */; };
 		B4EEF9CDCE1F28C23A26F902 /* Pods_lAyeR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */; };
-		F289346DD4FD0B30F78652C4 /* Pods_lAyeR_lAyeRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1351773AD8B908D9E31B7C2 /* Pods_lAyeR_lAyeRTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,7 +173,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F289346DD4FD0B30F78652C4 /* Pods_lAyeR_lAyeRTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
