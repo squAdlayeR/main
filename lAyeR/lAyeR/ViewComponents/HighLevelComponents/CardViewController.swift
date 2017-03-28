@@ -1,42 +1,36 @@
 //
-//  CheckpointView.swift
+//  CardViewController.swift
 //  lAyeR
 //
-//  Created by Yang Zhuohan on 3/12/17.
+//  Created by Yang Zhuohan on 24/3/17.
 //  Copyright © 2017 nus.cs3217.layer. All rights reserved.
 //
 
 import UIKit
 
 /**
- Note: this class is specifically used for check point marker.
- Main functionality:
- 1. displayes a marker with a specified frame
- 2. clicking on the marker will show an popup, which displays
-    infomation about the marker. To be more specific, for 
-    checkpoints, only name and a short description will be 
-    displayed
+ A super class that is used to represent a card that will display
+ place icon and information
  */
-class CheckpointViewController: NSObject, ViewLayoutAdjustable {
+class CardViewController: NSObject {
 
-    // The marker of the checkpoint
+    // The marker of the card
     var markerCard: BasicMarker!
     
-    // The popup controller of the checkpoint
+    // The popup controller of the card
     var popupController: BasicAlertController!
     
-    // The superview in which the marker and the alert will be
+    // The superview in which the marker and the popup will be
     // displayed
     var superView: UIView!
     
-    // Specifies the center of the checkpoint card
+    // Specifies the center of the card
     var center: CGPoint!
     
     /// Initialization
     /// - Parameters:
     ///     - center: the center of the popup & marker card
-    ///     - name: name of the checkpoint
-    ///     - distance: distance to that check point
+    ///     - distance: distance to that place that the card is representing
     ///     - superView: the super view in which the marker card & popup will
     ///         be displayed
     init(center: CGPoint, distance: Double, superView: UIView) {
@@ -50,8 +44,8 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
     
     /// Initializes the marker with specified frame and distance
     /// - Parameters:
-    ///     - frame: the frame of the marker in the check point view
-    ///     - distance: the distance to that check point
+    ///     - frame: the frame of the marker in the card view
+    ///     - distance: the distance to that place
     private func initMarker(with distance: CGFloat) {
         let newMarker = BasicMarker(frame: markerFrame)
         newMarker.setDistance(distance)
@@ -65,14 +59,11 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         markerCard.addGestureRecognizer(markerIsPressed)
     }
     
-    /// Initializes the alert with its name
+    /// Initializes the popup with its name
     /// - Parameters:
     ///     - name: the name of the check point
     private func initAlert() {
-        let newAlertController = BasicAlertController(title: checkpointTitle, frame: popupFrame)
-        let closeButton = createCloseButton()
-        newAlertController.addButtonToAlert(closeButton)
-//        newAlertController.setTitle(checkpointTitle)
+        let newAlertController = BasicAlertController(title: defaultTitle, frame: popupFrame)
         let alertWidth = newAlertController.alert.infoPanel.bounds.width
         let alertHeight = newAlertController.alert.infoPanel.bounds.height
         newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
@@ -80,45 +71,9 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         self.popupController = newAlertController
     }
     
-    /// Creates a close button
-    /// - Returns: a close button which will close the popup if it is clicked
-    private func createCloseButton() -> UIButton {
-        let newButton = UIButton()
-        newButton.setTitle(confirmLabelText, for: .normal)
-        newButton.titleLabel?.font = UIFont(name: buttonFontName, size: buttonFontSize)
-        newButton.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
-        return newButton
-    }
-    
-    /// Prepares the check point view for display
+    /// Prepares the card view for display
     private func prepareDisplay() {
         superView.addSubview(markerCard)
-    }
-    
-    /// Applies view adjustment to the marker and popup when neccessary.
-    /// - Parameter adjustment: the corresponding adjustment
-    func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment) {
-        markerCard.applyViewAdjustment(adjustment)
-        popupController.alertView.applyViewAdjustment(adjustment)
-    }
-    
-    /// Updates the distance that will be displayed on marker card
-    /// - Parameter distance: thte distance that will be displayed
-    func update(_ distance: Double) {
-        markerCard.setDistance(CGFloat(distance))
-    }
-    
-    /// Adds a text content into the inner view of the alert.
-    /// - Parameters:
-    ///     - label: the label of the text content
-    ///     - conetent: the text of the content 
-    func addText(with label: String, and content: String) {
-        if let innerView = popupController.alert.infoPanel.innerView as? InformativeInnerView {
-            let infoBlock = InfoBlock(label: label,
-                                      content: content,
-                                      width: innerView.bounds.width - 40)
-            innerView.insertSubInfo(infoBlock)
-        }
     }
     
     /// Calculates the frame of the marker
@@ -139,6 +94,13 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         return CGRect(x: originX, y: originY, width: suggestedPopupWidth, height: suggestedPopupHeight)
     }
     
+}
+
+/**
+ An extension that is used to define interactions
+ */
+extension CardViewController {
+    
     /// Opens the popup
     func openPopup() {
         popupController.presentAlert(within: superView)
@@ -155,10 +117,10 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
         })
     }
     
-    /// Removes the current checkpoint card from its super view
-    func removeFromSuperview() {
-        markerCard.removeFromSuperview()
-        popupController.closeAlert()
+    /// Updates the distance that will be displayed on marker card
+    /// - Parameter distance: thte distance that will be displayed
+    func update(_ distance: Double) {
+        markerCard.setDistance(CGFloat(distance))
     }
     
     /// Sets/unsets the blur effect
@@ -166,6 +128,27 @@ class CheckpointViewController: NSObject, ViewLayoutAdjustable {
     func setBlurEffect(_ isBlurMode: Bool) {
         markerCard.blurMode = isBlurMode
         popupController.setBlurEffect(isBlurMode)
+    }
+    
+}
+
+/**
+ An extension that is to specify that this controller conforms `View-
+ LayoutAdjustable`
+ */
+extension CardViewController: ViewLayoutAdjustable {
+    
+    /// Applies view adjustment to the marker and popup when neccessary.
+    /// - Parameter adjustment: the corresponding adjustment
+    func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment) {
+        markerCard.applyViewAdjustment(adjustment)
+        popupController.alertView.applyViewAdjustment(adjustment)
+    }
+    
+    /// Removes the current checkpoint card from its super view
+    func removeFromSuperview() {
+        markerCard.removeFromSuperview()
+        popupController.closeAlert()
     }
     
 }

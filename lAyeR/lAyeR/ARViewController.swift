@@ -33,7 +33,7 @@ class ARViewController: UIViewController {
     
     var cameraView: UIView!
     var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
-    private var currentPoiCardPairs: [(POI, CheckpointViewController)] = []
+    private var currentPoiCardPairs: [(POI, PoiViewController)] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
 
@@ -63,8 +63,8 @@ class ARViewController: UIViewController {
         // FOR TESTING PURPOSE
 
         let sampleCard = CheckpointViewController(center: view.center, distance: 0, superView: view)
-        sampleCard.addText(with: "name", and: "Prince Geroges' Park Residences")
-        sampleCard.addText(with: "description", and: "Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
+        sampleCard.setCheckpointName("Prince Geroges' Park Residences")
+        sampleCard.setCheckpointDescription("Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
         checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP Residence"), sampleCard))
         // can set blur mode using below code
         sampleCard.setBlurEffect(true)
@@ -79,7 +79,7 @@ class ARViewController: UIViewController {
     
     private func displayLastUpdatedPOIs() {
         let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
-        var newPOICardPairs: [(POI, CheckpointViewController)] = []
+        var newPOICardPairs: [(POI, PoiViewController)] = []
 
         for poiCardPair in currentPoiCardPairs {
             let previousPoi = poiCardPair.0
@@ -96,10 +96,10 @@ class ARViewController: UIViewController {
                 guard let name = newPoi.name else {
                     break
                 }
-                let poiCard = CheckpointViewController(center: view.center, distance: 0, superView: view)
-                poiCard.addText(with: "name", and: name)
-                poiCard.addText(with: "description", and: "To be specified...")
-                poiCard.popupController.setTitle("Place of Interests")
+                let poiCard = PoiViewController(center: view.center, distance: 0, type: "library", superView: view)
+                poiCard.setPoiName(name)
+                poiCard.setPoiDescription("To be specified...")
+                poiCard.setPoiAddress(newPoi.vicinity!)
                 newPOICardPairs.append((newPoi, poiCard))
             }
         }
