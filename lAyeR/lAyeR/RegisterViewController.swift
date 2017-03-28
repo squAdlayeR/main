@@ -26,11 +26,11 @@ class RegisterViewController: UIViewController {
         let passwordConfirm = passwordConfirmField.text ?? ""
         guard !email.characters.isEmpty && !password.characters.isEmpty
             && !passwordConfirm.characters.isEmpty else {
-                showSignupErrorAlert(message: "Please fill all fields.")
+                showErrorAlert(message: "Please fill all fields.")
                 return
         }
         guard password == passwordConfirm else {
-            showSignupErrorAlert(message: "Passwords not match!")
+            showErrorAlert(message: "Passwords not match!")
             return
         }
         FIRAuth.auth()?.createUser(withEmail: email, password: password) {
@@ -39,24 +39,26 @@ class RegisterViewController: UIViewController {
                 if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
                     switch errCode {
                     case .errorCodeEmailAlreadyInUse:
-                        self.showSignupErrorAlert(message: "Email already in use.")
+                        self.showErrorAlert(message: "Email already in use.")
                         return
                     case .errorCodeInvalidEmail:
-                        self.showSignupErrorAlert(message: "Invalid email!")
+                        self.showErrorAlert(message: "Invalid email!")
                         return
                     default:
-                        self.showSignupErrorAlert(message: "Network error.")
+                        self.showErrorAlert(message: "Network error.")
                         return
                     }
                 }
             }
             //print(user?.email)
             guard let user = user else { return }
-            FIRDatabase.database().reference().child("users").child(user.uid).setValue(["username": "Test"])
+            let newUserInfo = User(uid: user.uid, email: email, password: password).userInfo
+            FIRDatabase.database().reference().child("users").child(user.uid).setValue(newUserInfo)
+            self.performSegue(withIdentifier: "registerToAR", sender: nil)
         }
     }
     
-    func showSignupErrorAlert(message: String) {
+    func showErrorAlert(message: String) {
         let alert = UIAlertController(title: "Oops", message: message, preferredStyle: UIAlertControllerStyle.alert)
         let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(action)
