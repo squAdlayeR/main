@@ -25,6 +25,10 @@ let maxAlertHeight: CGFloat = 500
 let minAlertHeight: CGFloat = 250
 let topBannerHeight: CGFloat = 60
 
+/// Labels
+let nameLabel: String = "name"
+let descriptionLabel: String = "description"
+
 /// BackgroundImage
 let topBannerImage: String = "banner.png"
 let bottomBannerImage: String = "banner.png"
@@ -36,6 +40,7 @@ let openSound = "confirm"
 let soundExtension = "wav"
 
 /// Title
+let defaultTitle: String = "Placeholder"
 let titleFontColor: UIColor = UIColor.white
 let titleFontName: String = "HomenajeMod-Regular"
 let titleFontSize: CGFloat = 30
@@ -62,6 +67,15 @@ let suggestedPopupHeight: CGFloat = 250
 let suggestedPopupWidth: CGFloat = 300
 let suggestedMarkerHeight: CGFloat = 70
 let suggestedMarkerWidth: CGFloat = 50
+
+/// POI View
+let directLabelText: String = "Direct"
+let poiTitle = "Point of Interests"
+let poiAddressLabel = "address"
+let poiContactLabel = "contact"
+let poiWebsiteLabel = "website"
+let poiRatingLabel = "rating"
+let poiOpenStatusLabel = "now open"
 
 /// Informative view
 let infoPanelTitleFontColor: UIColor = UIColor.gray
