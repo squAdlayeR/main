@@ -34,6 +34,7 @@
 		5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1F11E750B9C0048249D /* lAyeR.xcdatamodeld */; };
 		52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938BFE1E860D8000EB8F81 /* LoginViewController.swift */; };
 		52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938C001E860D9000EB8F81 /* RegisterViewController.swift */; };
+		52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
 		52D379681E8530FA005ED912 /* GeoPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379661E8530FA005ED912 /* GeoPointTests.swift */; };
 		52D379691E8530FA005ED912 /* GeoUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379671E8530FA005ED912 /* GeoUtilTests.swift */; };
 		52D3796B1E8533CC005ED912 /* CheckPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3796A1E8533CC005ED912 /* CheckPointTests.swift */; };
@@ -49,7 +50,6 @@
 		9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700D1E87FE7800C1DAA1 /* MenuView.swift */; };
 		9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */; };
 		9D6B80981E82ACE700210203 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80971E82ACE700210203 /* CheckpointViewController.swift */; };
-		9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
 		9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */; };
@@ -651,6 +651,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */,
 				9D6B80981E82ACE700210203 /* CheckpointViewController.swift in Sources */,
 				9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */,
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
@@ -689,9 +690,7 @@
 				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
-				9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */,
 				52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */,
-				9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */,
 				A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */,
 				A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */,
 			);
