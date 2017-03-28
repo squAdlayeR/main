@@ -70,7 +70,7 @@ struct ARViewLayoutAdjustment {
     }
     
     
-    /// tranform an angle in the range from -2PI to 2PI to the equivalent one in the range from -PI to PI
+    /// tranform an angle in the range from -2PI to 2PI to the equivalent one in the range from -PI to PI, both included
     private func angleWithinMinusPiToPi(_ angle: Double) -> Double {
         if angle > M_PI {
             return angle - 2 * M_PI

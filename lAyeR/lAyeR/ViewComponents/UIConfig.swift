@@ -69,3 +69,16 @@ let infoPanelTitleHeight: CGFloat = 20
 let innerViewSidePadding: CGFloat = 20
 let innerViewStackMargin: CGFloat = 10
 let titleText: String = "Detailed infomation"
+
+/// Menu view
+let menuButtonIconPaddingPercent: CGFloat = 0.2
+let buttonGap: CGFloat = 10
+let menuAnimatingDuration: TimeInterval = 0.8
+let menuButtonAnimationDelay: TimeInterval = 0.05
+let menuSpringCoefficient: CGFloat = 0.8
+let menuLeftPaddingPercent: CGFloat = 0.15
+let mapIconName: String = "map.png"
+let profileIconName: String = "profile.png"
+let settingsIconName: String = "settings.png"
+let menuButtonRaidus: CGFloat = 50
+let menuButtonBackgroundImage = "menuButton.png"
