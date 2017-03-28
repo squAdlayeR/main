@@ -67,10 +67,6 @@
 		A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */; };
 		A296456D1E8AC682006D0997 /* RealmLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A296456C1E8AC682006D0997 /* RealmLocalStorageManager.swift */; };
 		A29645701E8AC6BA006D0997 /* LocalStorageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A296456F1E8AC6BA006D0997 /* LocalStorageManagerProtocol.swift */; };
-		A29645731E8AC73E006D0997 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A29645711E8AC73E006D0997 /* Realm.framework */; };
-		A29645741E8AC73E006D0997 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A29645711E8AC73E006D0997 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A29645751E8AC73E006D0997 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A29645721E8AC73E006D0997 /* RealmSwift.framework */; };
-		A29645761E8AC73E006D0997 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A29645721E8AC73E006D0997 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AB91E70103800B4478C /* ARViewController.swift */; };
 		A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */; };
 		A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */; };
@@ -94,8 +90,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A29645761E8AC73E006D0997 /* RealmSwift.framework in Embed Frameworks */,
-				A29645741E8AC73E006D0997 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,9 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A29645731E8AC73E006D0997 /* Realm.framework in Frameworks */,
 				B4EEF9CDCE1F28C23A26F902 /* Pods_lAyeR.framework in Frameworks */,
-				A29645751E8AC73E006D0997 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
