@@ -39,6 +39,10 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
     public func removeRoute(_ route: Route) {
         realmDelete(RealmRoute(route))
     }
+    
+    public func getRouteByName(_ name: String) -> Route? {
+        return realm.objects(RealmRoute.self).filter("name == \(name)").first?.get()
+    }
 }
 
 /**
@@ -54,6 +58,20 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
  We define the following "duplicate" model, only for Realm storage purpose
  */
 
+class RealmGeoPoint: Object {
+    dynamic var latitude: Double = 0
+    dynamic var longitude: Double = 0
+    
+    convenience init(_ geoPoint: GeoPoint) {
+        self.init()
+        latitude = geoPoint.latitude
+        longitude = geoPoint.longitude
+    }
+    
+    func get() -> GeoPoint {
+        return GeoPoint(latitude, longitude)
+    }
+}
 
 class RealmRoute: Object {
     dynamic private var name: String = ""
@@ -64,9 +82,17 @@ class RealmRoute: Object {
         name = route.name
         checkPoints = route.checkPoints.map { return RealmCheckPoint($0) }
     }
+    
+    func get() -> Route {
+        let returnRoute = Route.init(name)
+        for point in checkPoints {
+            returnRoute.append(point.get())
+        }
+        return returnRoute
+    }
 }
 
-class RealmCheckPoint: Object {
+class RealmCheckPoint: RealmGeoPoint {
     dynamic private var name: String = ""
     dynamic private var desc: String = ""
     
@@ -74,6 +100,12 @@ class RealmCheckPoint: Object {
         self.init()
         name = checkpoint.name
         desc = checkpoint.description
+        latitude = checkpoint.latitude
+        longitude = checkpoint.longitude
+    }
+    
+    override func get() -> CheckPoint {
+        return CheckPoint(latitude, longitude, name, description)
     }
 }
 
