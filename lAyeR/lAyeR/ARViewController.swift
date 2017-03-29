@@ -19,6 +19,7 @@ class ARViewController: UIViewController {
     let sampleCardHeight = 108
     let sampleCardAlpha: CGFloat = 0.48
     let framePerSecond = 60
+    var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
         Setting.nearbyPOIsUpdatedNotificationName)
     
@@ -47,6 +48,7 @@ class ARViewController: UIViewController {
         addCameraView()
         addCheckPointCards()
         setupAVCapture()
+        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         monitorNearbyPOIsUpdate()
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
@@ -120,23 +122,25 @@ class ARViewController: UIViewController {
         let userPoint = geoManager.getLastUpdatedUserPoint()
 
         // update position and orientation of checkPointCards
-        for (checkPoint, checkPointCard) in self.checkpointCardPairs {
+        for (checkPoint, checkPointCard) in checkpointCardPairs {
             let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
             let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
             
             let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager,
-                                                          distance: distance, azimuth: azimuth, superView: self.view)
+                                                          distance: distance, azimuth: azimuth,
+                                                          superView: view, fov: fov)
             checkPointCard.applyViewAdjustment(layoutAdjustment)
             checkPointCard.update(distance)
         }
         
         // update position and orientation of poiCards
-        for (poi, poiCard) in self.currentPoiCardPairs {
+        for (poi, poiCard) in currentPoiCardPairs {
             let azimuth = GeoUtil.getAzimuth(between: userPoint, poi)
             let distance = GeoUtil.getCoordinateDistance(userPoint, poi)
             
             let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager,
-                                                          distance: distance, azimuth: azimuth, superView: self.view)
+                                                          distance: distance, azimuth: azimuth,
+                                                          superView: view, fov: fov)
             poiCard.applyViewAdjustment(layoutAdjustment)
             poiCard.update(distance)
         }

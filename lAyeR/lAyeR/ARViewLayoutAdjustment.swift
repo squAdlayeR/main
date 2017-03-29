@@ -17,14 +17,17 @@ struct ARViewLayoutAdjustment {
     var isOutOfView = false
     
     let superView: UIView
+    let fov: Double  //  "fov" stands for field of view (angle in radian)
     
     let deviceMotionManager: DeviceMotionManager
     let azimuth: Double
     
-    init(deviceMotionManager: DeviceMotionManager, distance: Double, azimuth: Double, superView: UIView) {
+    init(deviceMotionManager: DeviceMotionManager, distance: Double, azimuth: Double,
+         superView: UIView, fov: Double) {
         self.deviceMotionManager = deviceMotionManager
         self.azimuth = azimuth
         self.superView = superView
+        self.fov = fov
         calculateParameters()
     }
     
@@ -42,7 +45,7 @@ struct ARViewLayoutAdjustment {
         let visionHeight = superViewWidth * CGFloat(abs(yawSin)) + superViewHeight * CGFloat(abs(yawCos))
         
         // positive x direction is rigth
-        let horzOffset = CGFloat(sin(horzAngle)) * visionWidth
+        let horzOffset = CGFloat(horzAngle / fov) * visionWidth
         
         // positive y direction is down
         let verticalOffset = CGFloat(-sin(verticalAngle)) * visionHeight
