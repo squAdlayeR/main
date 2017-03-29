@@ -58,7 +58,9 @@ extension UIView: ViewLayoutAdjustable {
         perspectiveTransform.m34 = -1 / 600
         
         // apply the 3 transformations in the order described above
-        var transform = CATransform3DConcat(horzRotationTransform, yawRotationTransform)
+        var transform = CATransform3DIdentity
+        transform = CATransform3DConcat(transform, horzRotationTransform)
+        transform = CATransform3DConcat(transform, yawRotationTransform)
         transform = CATransform3DConcat(transform, perspectiveTransform)
         
         view.layer.transform = transform
