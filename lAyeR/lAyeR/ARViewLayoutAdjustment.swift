@@ -14,13 +14,12 @@ struct ARViewLayoutAdjustment {
     var yOffset: CGFloat = 0
     var yawRotationAngle: CGFloat = 0
     var horzRotationAngle: CGFloat = 0
-    var isOutOfView = false
     
-    let superView: UIView
-    let fov: Double  //  "fov" stands for field of view (angle in radian)
+    private let superView: UIView
+    private let fov: Double  //  "fov" stands for field of view (angle in radian)
     
-    let deviceMotionManager: DeviceMotionManager
-    let azimuth: Double
+    private let deviceMotionManager: DeviceMotionManager
+    private let azimuth: Double
     
     init(deviceMotionManager: DeviceMotionManager, distance: Double, azimuth: Double,
          superView: UIView, fov: Double) {
@@ -52,11 +51,6 @@ struct ARViewLayoutAdjustment {
         
         xOffset = CGFloat(horzOffset) * CGFloat(yawCos) - CGFloat(verticalOffset) * CGFloat(yawSin)
         yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
-        
-        isOutOfView = false
-        if horzAngle > M_PI / 2 || horzAngle < -M_PI / 2 {
-            isOutOfView = true
-        }
         
         yawRotationAngle = -(CGFloat)(yawAngle)
         horzRotationAngle = -(CGFloat)(horzAngle)

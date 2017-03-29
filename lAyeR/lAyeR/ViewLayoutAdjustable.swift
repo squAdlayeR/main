@@ -22,13 +22,6 @@ extension UIView: ViewLayoutAdjustable {
         }
         
         let view = self
-        
-        if adjustment.isOutOfView {
-            view.isHidden = true
-            return
-        } else {
-            view.isHidden = false
-        }
 
         let yawRotationAngle = adjustment.yawRotationAngle
         let horzRotationAngle = adjustment.horzRotationAngle
