@@ -43,11 +43,9 @@
 		9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */; };
 		9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */; };
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
-		9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* AlertConfig.swift */; };
 		9D19700E1E87FE7800C1DAA1 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */; };
 		9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700D1E87FE7800C1DAA1 /* MenuView.swift */; };
 		9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */; };
-		9D6B80981E82ACE700210203 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80971E82ACE700210203 /* CheckpointViewController.swift */; };
 		9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointViewController.swift */; };
@@ -64,6 +62,7 @@
 		A21BBFBF1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */; };
 		A21BBFC11E83FE3700394531 /* ManagerClassSingletonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
+		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
 		A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */; };
@@ -124,11 +123,9 @@
 		9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerIcon.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerIcon.swift; sourceTree = "<group>"; };
 		9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfo.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerInfo.swift; sourceTree = "<group>"; };
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
-		9D6B80991E82AD0900210203 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertConfig.swift; path = ViewComponents/AlertConfig.swift; sourceTree = "<group>"; };
 		9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuButtonView.swift; path = ViewComponents/BasicComponents/Menu/MenuButtonView.swift; sourceTree = "<group>"; };
 		9D19700D1E87FE7800C1DAA1 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = ViewComponents/BasicComponents/Menu/MenuView.swift; sourceTree = "<group>"; };
 		9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = ViewComponents/HighLevelComponents/Menu/MenuViewController.swift; sourceTree = "<group>"; };
-		9D6B80971E82ACE700210203 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointViewController.swift; path = ViewComponents/HighLevelComponents/CheckpointViewController.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* UIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIConfig.swift; path = ViewComponents/UIConfig.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		9D7DACFB1E8546AB00592EB5 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointViewController.swift; path = ViewComponents/HighLevelComponents/CheckPoint/CheckpointViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +142,7 @@
 		A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustmentTests.swift; sourceTree = "<group>"; };
 		A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerClassSingletonTests.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
+		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
 		A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewLayoutAdjustment.swift; sourceTree = "<group>"; };
@@ -413,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
+				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
 				A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */,
 				A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */,
 				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
@@ -628,6 +627,7 @@
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
 				9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
+				A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */,
 				A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */,
 				9DE1FD7D1E856F3B0006C009 /* PoiViewController.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,

@@ -21,7 +21,7 @@ struct ARViewLayoutAdjustment {
     let deviceMotionManager: DeviceMotionManager
     let azimuth: Double
     
-    init(deviceMotionManager: DeviceMotionManager, azimuth: Double, superView: UIView) {
+    init(deviceMotionManager: DeviceMotionManager, distance: Double, azimuth: Double, superView: UIView) {
         self.deviceMotionManager = deviceMotionManager
         self.azimuth = azimuth
         self.superView = superView
