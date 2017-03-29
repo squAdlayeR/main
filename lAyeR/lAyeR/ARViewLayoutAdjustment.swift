@@ -64,11 +64,10 @@ struct ARViewLayoutAdjustment {
      positive direction: roll left
      range: -pi ~ pi
      */
-    func getHorzAngle() -> Double {
+    private func getHorzAngle() -> Double {
         // the positive direction of azimuth is right, which is the opposite of rollAngle
         return angleWithinMinusPiToPi(deviceMotionManager.getHorzAngleRelToNorth() + azimuth)
     }
-    
     
     /// tranform an angle in the range from -2PI to 2PI to the equivalent one in the range from -PI to PI, both included
     private func angleWithinMinusPiToPi(_ angle: Double) -> Double {
