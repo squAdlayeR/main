@@ -34,6 +34,7 @@ class InputTextFeild: UITextField {
         self.backgroundColor = UIColor.clear
         self.font = UIFont(name: defaultFont, size: inputFieldFontSize)
         self.textColor = defaultFontColor
+        self.keyboardAppearance = .dark
     }
     
     /// Specifies the padding of the text in the text field
