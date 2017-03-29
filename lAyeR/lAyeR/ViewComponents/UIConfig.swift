@@ -24,6 +24,7 @@ let labelFontSize: CGFloat = 18
 let maxAlertHeight: CGFloat = 500
 let minAlertHeight: CGFloat = 250
 let topBannerHeight: CGFloat = 60
+let defaultBorderWidth: CGFloat = 1
 
 /// Labels
 let nameLabel: String = "name"
@@ -96,3 +97,6 @@ let profileIconName: String = "profile.png"
 let settingsIconName: String = "settings.png"
 let menuButtonRaidus: CGFloat = 50
 let menuButtonBackgroundImage = "menuButton.png"
+
+/// Input view
+let inputFieldFontSize: CGFloat = 26
