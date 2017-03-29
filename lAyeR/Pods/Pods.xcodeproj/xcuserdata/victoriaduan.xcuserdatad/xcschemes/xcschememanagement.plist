@@ -24,12 +24,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-lAyeR-lAyeRTests.xcscheme</key>
+		<key>Pods-lAyeR.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-lAyeR.xcscheme</key>
+		<key>Pods-lAyeRTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -72,17 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C53E4B68340C4C622E26A166A1DCBD9B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>CC0F5DB961FB12268CFCE92AF398B9A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>CD6C9FB6B052E1CF663F8A56041EA163</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9EA9FBC5C8807370492E6B54FDB2F69</key>
 		<dict>
 			<key>primary</key>
 			<true/>

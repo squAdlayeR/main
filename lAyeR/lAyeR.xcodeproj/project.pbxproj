@@ -19,6 +19,7 @@
 		2C7813891E7544C000851188 /* dialog_close.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813871E7544C000851188 /* dialog_close.wav */; };
 		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
 		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
+		3BD75161425275397FA682C2 /* Pods_lAyeRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7616BEF7E8B29AFA5D147815 /* Pods_lAyeRTests.framework */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
 		5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A91E72641C0048249D /* CheckPoint.swift */; };
@@ -131,6 +132,7 @@
 		52D379671E8530FA005ED912 /* GeoUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtilTests.swift; sourceTree = "<group>"; };
 		52D3796A1E8533CC005ED912 /* CheckPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPointTests.swift; sourceTree = "<group>"; };
 		72EF10EBB88704FD23448492 /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7616BEF7E8B29AFA5D147815 /* Pods_lAyeRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/BottomBanner.swift; sourceTree = "<group>"; };
 		9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPanel.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/InfoPanel.swift; sourceTree = "<group>"; };
 		9D1498F61E800AFB0043DDB6 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/TopBanner.swift; sourceTree = "<group>"; };
@@ -169,7 +171,9 @@
 		A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3DTests.swift; sourceTree = "<group>"; };
 		A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoManager.swift; sourceTree = "<group>"; };
 		A626EBBEFF20342D9695071F /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR_lAyeRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB7A481D43D7B4A526C458E0 /* Pods-lAyeRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeRTests/Pods-lAyeRTests.release.xcconfig"; sourceTree = "<group>"; };
 		B60F6B187C7B988244741F04 /* Pods-lAyeR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.release.xcconfig"; sourceTree = "<group>"; };
+		DF1952C3696DBD5E2C5B6FCC /* Pods-lAyeRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeRTests/Pods-lAyeRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F05D7FF232180060BD087266 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BD75161425275397FA682C2 /* Pods_lAyeRTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +204,8 @@
 				B60F6B187C7B988244741F04 /* Pods-lAyeR.release.xcconfig */,
 				F05D7FF232180060BD087266 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */,
 				3ED3D9D38B1EAD32F3ED5614 /* Pods-lAyeR-lAyeRTests.release.xcconfig */,
+				DF1952C3696DBD5E2C5B6FCC /* Pods-lAyeRTests.debug.xcconfig */,
+				AB7A481D43D7B4A526C458E0 /* Pods-lAyeRTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -468,6 +475,7 @@
 				A29645781E8AC74B006D0997 /* RealmFrameworks */,
 				72EF10EBB88704FD23448492 /* Pods_lAyeR.framework */,
 				A626EBBEFF20342D9695071F /* Pods_lAyeR_lAyeRTests.framework */,
+				7616BEF7E8B29AFA5D147815 /* Pods_lAyeRTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -659,7 +667,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeRTests/Pods-lAyeRTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F1F254AB9F37F77114200E53 /* [CP] Embed Pods Frameworks */ = {
@@ -674,7 +682,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeRTests/Pods-lAyeRTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -911,7 +919,7 @@
 		};
 		2C3119B81E670A5F00FF6334 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F05D7FF232180060BD087266 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */;
+			baseConfigurationReference = DF1952C3696DBD5E2C5B6FCC /* Pods-lAyeRTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -926,7 +934,7 @@
 		};
 		2C3119B91E670A5F00FF6334 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3ED3D9D38B1EAD32F3ED5614 /* Pods-lAyeR-lAyeRTests.release.xcconfig */;
+			baseConfigurationReference = AB7A481D43D7B4A526C458E0 /* Pods-lAyeRTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
