@@ -100,3 +100,4 @@ let menuButtonBackgroundImage = "menuButton.png"
 
 /// Input view
 let inputFieldFontSize: CGFloat = 26
+let inputFieldHight: CGFloat = 60

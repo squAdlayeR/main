@@ -48,6 +48,11 @@ class LoginViewController: UIViewController {
         setupText()
         setupFormInput()
         setupButtons()
+        setCloseKeyboardAction()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     /// Sets up the camera view for background image
@@ -106,7 +111,7 @@ class LoginViewController: UIViewController {
     ///     - placeHolder: the place holder of the text field
     /// - Returns: a well defined / styled input text field
     private func createTextField(with sample: UITextField, and placeHolder: String) -> InputTextFeild {
-        let inputSize = CGSize(width: sample.bounds.width, height: 60)
+        let inputSize = CGSize(width: sample.bounds.width, height: inputFieldHight)
         let newTextFeild = InputTextFeild(placeHolder: placeHolder, size: inputSize)
         newTextFeild.center = sample.center
         return newTextFeild
@@ -139,9 +144,21 @@ class LoginViewController: UIViewController {
  */
 extension LoginViewController: UITextFieldDelegate {
     
+    /// Defines when return is clicked, keyboard should be hidden
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
+        closeKeyboard()
         return true
+    }
+    
+    /// Defines the action that when other places is clicked, keyboard should be dismissed
+    func setCloseKeyboardAction() {
+        let closeGesture = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
+        view.addGestureRecognizer(closeGesture)
+    }
+    
+    /// Dismisses the keyboard
+    func closeKeyboard() {
+        view.endEditing(true)
     }
     
 }
@@ -167,6 +184,10 @@ extension LoginViewController {
             }
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
         }
+    }
+    
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
+        
     }
     
     /// Handles the error brought from the data service

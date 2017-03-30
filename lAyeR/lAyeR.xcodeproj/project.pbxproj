@@ -548,7 +548,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = nus.cs3217.layer;
 				TargetAttributes = {
 					2C3119961E670A5E00FF6334 = {
