@@ -14,6 +14,7 @@ struct ARViewLayoutAdjustment {
     var yPosition: CGFloat = 0
     var yawRotationAngle: CGFloat = 0
     var horzRotationAngle: CGFloat = 0
+    var pushBackDistance: CGFloat = 0
     
     private let superView: UIView
     private let fov: Double  //  "fov" stands for field of view (angle in radian)
@@ -59,6 +60,8 @@ struct ARViewLayoutAdjustment {
         
         yawRotationAngle = -(CGFloat)(yawAngle)
         horzRotationAngle = -(CGFloat)(horzAngle)
+        
+        pushBackDistance = CGFloat(distance)
     }
     
     /**

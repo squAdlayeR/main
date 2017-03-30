@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
 class Setting {
     static let routeDesignerToARSegueIdentifier = "RouteDesignerToARSegue"
     static let nearbyPOIsUpdatedNotificationName = "nearbyPOIsUpdatedNotification"
+    
+    static let projectionPlaneDistance: CGFloat = 600
 }
