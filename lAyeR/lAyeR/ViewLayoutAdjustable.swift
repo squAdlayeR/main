@@ -17,17 +17,14 @@ protocol ViewLayoutAdjustable {
 
 extension UIView: ViewLayoutAdjustable {
     func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment) {
-        guard let superView = self.superview else {
-            return
-        }
-        
+
         let view = self
 
         let yawRotationAngle = adjustment.yawRotationAngle
         let horzRotationAngle = adjustment.horzRotationAngle
         
-        view.center.x = superView.bounds.width / 2 + adjustment.xOffset
-        view.center.y = superView.bounds.height / 2 + adjustment.yOffset
+        view.center.x = adjustment.xPosition
+        view.center.y = adjustment.yPosition
         
         // set z position for the layer to solve the following problem:
         // when rotate, the further half of the layer will disappear

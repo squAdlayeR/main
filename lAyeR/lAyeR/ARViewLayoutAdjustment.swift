@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 struct ARViewLayoutAdjustment {
-    var xOffset: CGFloat = 0
-    var yOffset: CGFloat = 0
+    var xPosition: CGFloat = 0
+    var yPosition: CGFloat = 0
     var yawRotationAngle: CGFloat = 0
     var horzRotationAngle: CGFloat = 0
     
@@ -19,11 +19,13 @@ struct ARViewLayoutAdjustment {
     private let fov: Double  //  "fov" stands for field of view (angle in radian)
     
     private let deviceMotionManager: DeviceMotionManager
+    private let distance: Double
     private let azimuth: Double
     
     init(deviceMotionManager: DeviceMotionManager, distance: Double, azimuth: Double,
          superView: UIView, fov: Double) {
         self.deviceMotionManager = deviceMotionManager
+        self.distance = distance
         self.azimuth = azimuth
         self.superView = superView
         self.fov = fov
@@ -49,8 +51,11 @@ struct ARViewLayoutAdjustment {
         // positive y direction is down
         let verticalOffset = CGFloat(-sin(verticalAngle)) * visionHeight
         
-        xOffset = CGFloat(horzOffset) * CGFloat(yawCos) - CGFloat(verticalOffset) * CGFloat(yawSin)
-        yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
+        let xOffset = CGFloat(horzOffset) * CGFloat(yawCos) - CGFloat(verticalOffset) * CGFloat(yawSin)
+        let yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
+        
+        xPosition = superView.bounds.width / 2 + xOffset
+        yPosition = superView.bounds.height / 2 + yOffset
         
         yawRotationAngle = -(CGFloat)(yawAngle)
         horzRotationAngle = -(CGFloat)(horzAngle)
@@ -76,4 +81,16 @@ struct ARViewLayoutAdjustment {
         return angle
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
