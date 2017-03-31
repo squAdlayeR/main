@@ -13,7 +13,7 @@ class Route: NSCoding, Mappable {
     
     /// Stores check points on the route.
     private(set) var name: String
-    private(set) var checkPoints: [CheckPoint] = []
+    private var checkPoints: [CheckPoint] = []
     
     init(_ name: String) {
         self.name = name
@@ -80,4 +80,5 @@ class Route: NSCoding, Mappable {
     func remove(_ checkPoint: CheckPoint) {
         // see if really needed later.
     }
+
 }
