@@ -56,10 +56,10 @@
             </objects>
             <point key="canvasLocation" x="-458" y="452"/>
         </scene>
-        <!--View Controller-->
+        <!--User Profile View Controller-->
         <scene sceneID="sWZ-Yd-EIo">
             <objects>
-                <viewController id="zxE-ce-dRU" sceneMemberID="viewController">
+                <viewController id="zxE-ce-dRU" customClass="UserProfileViewController" customModule="lAyeR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e5W-N9-86r"/>
                         <viewControllerLayoutGuide type="bottom" id="fEq-Wu-YRR"/>
@@ -91,7 +91,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="routeListCell" id="1qr-Gj-SkB">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="routeListCell" id="1qr-Gj-SkB" customClass="RouteListCell" customModule="lAyeR" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="148"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1qr-Gj-SkB" id="RhL-vr-Xf9">
@@ -118,6 +118,11 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="backgroundImage" destination="WfS-ph-vxd" id="rUC-02-fDE"/>
+                                            <outlet property="routeDescription" destination="pZj-JJ-eHr" id="Qo3-Kq-U0l"/>
+                                            <outlet property="routeName" destination="rm5-n7-U0P" id="jgg-o1-kcU"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
