@@ -23,8 +23,8 @@ struct ARViewLayoutAdjustment {
     private let azimuth: Double
     
     var pushBackDistance: CGFloat {
-        if (distance > Setting.distanceBound) {
-            return CGFloat(Setting.distanceBound)
+        if (CGFloat(distance) > Setting.maxPushBackDistance) {
+            return Setting.maxPushBackDistance
         } else {
             return CGFloat(distance)
         }

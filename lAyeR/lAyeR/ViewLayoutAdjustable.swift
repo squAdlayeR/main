@@ -31,7 +31,7 @@ extension UIView: ViewLayoutAdjustable {
         let halfWidth = view.bounds.width / 2
         let halfHeight = view.bounds.height / 2
         let diagonalLength = sqrt(halfWidth * halfWidth + halfHeight * halfHeight)
-        view.layer.zPosition = diagonalLength + adjustment.pushBackDistance * 2
+        view.layer.zPosition = diagonalLength + CGFloat(Setting.maxSearchDistance) - adjustment.pushBackDistance
         
         // define the matrices for the following 3 transformation:
         // 1. rotation around the veritical line

@@ -15,5 +15,6 @@ class Setting {
     
     static let projectionPlaneDistance: CGFloat = 600
     
-    static let distanceBound: Double = 380
+    static let maxPushBackDistance: CGFloat = 380
+    static let maxSearchDistance: Double = 800
 }
