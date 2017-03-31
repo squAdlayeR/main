@@ -19,6 +19,14 @@ class Route: NSCoding, Mappable {
         self.name = name
     }
     
+    static var testRoute: Route {
+        let test = Route("Test")
+        test.append(CheckPoint(1,1,"1"))
+        test.append(CheckPoint(1,2,"2"))
+        test.append(CheckPoint(1,3,"3"))
+        return test
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         guard let name = aDecoder.decodeObject(forKey: "routeName") as? String, let checkPoints = aDecoder.decodeObject(forKey: "checkPoints") as? [CheckPoint] else {
             return nil
