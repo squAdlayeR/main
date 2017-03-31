@@ -32,6 +32,13 @@
 		5249B1C31E746CC70048249D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C21E746CC70048249D /* AppConfig.swift */; };
 		5249B1C51E74D8070048249D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C41E74D8070048249D /* Parser.swift */; };
 		5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1F11E750B9C0048249D /* lAyeR.xcdatamodeld */; };
+		52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938BFE1E860D8000EB8F81 /* LoginViewController.swift */; };
+		52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938C001E860D9000EB8F81 /* RegisterViewController.swift */; };
+		52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
+		52BD496F1E8A802D00B4B750 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD496E1E8A802D00B4B750 /* User.swift */; };
+		52BD49721E8A8D0000B4B750 /* DataServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD49711E8A8D0000B4B750 /* DataServiceManager.swift */; };
+		52BD49741E8A8DC000B4B750 /* UserAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD49731E8A8DC000B4B750 /* UserAuthenticator.swift */; };
+		52BD49761E8A8DFA00B4B750 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD49751E8A8DFA00B4B750 /* DatabaseManager.swift */; };
 		52D379681E8530FA005ED912 /* GeoPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379661E8530FA005ED912 /* GeoPointTests.swift */; };
 		52D379691E8530FA005ED912 /* GeoUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379671E8530FA005ED912 /* GeoUtilTests.swift */; };
 		52D3796B1E8533CC005ED912 /* CheckPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3796A1E8533CC005ED912 /* CheckPointTests.swift */; };
@@ -43,12 +50,11 @@
 		9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */; };
 		9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */; };
 		9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1499021E800B250043DDB6 /* BasicMarker.swift */; };
-		9D6B809A1E82AD0900210203 /* AlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* AlertConfig.swift */; };
 		9D19700E1E87FE7800C1DAA1 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */; };
 		9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700D1E87FE7800C1DAA1 /* MenuView.swift */; };
 		9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */; };
-		9D6B80981E82ACE700210203 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80971E82ACE700210203 /* CheckpointViewController.swift */; };
-		9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
+		9D5693451E8BE66300052F68 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693441E8BE66300052F68 /* CameraViewController.swift */; };
+		9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693461E8BE66E00052F68 /* InputTextFeild.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointViewController.swift */; };
 		9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFF1E855CC800592EB5 /* Constants.swift */; };
@@ -100,6 +106,7 @@
 		2C7813871E7544C000851188 /* dialog_close.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dialog_close.wav; sourceTree = "<group>"; };
 		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
 		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
+		3729F61BC8697E4035E5948D /* Pods-lAyeR-lAyeRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.release.xcconfig"; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		5249B1A71E7264000048249D /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
 		5249B1A91E72641C0048249D /* CheckPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
@@ -112,10 +119,18 @@
 		5249B1C21E746CC70048249D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		5249B1C41E74D8070048249D /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		5249B1F21E750B9C0048249D /* lAyeR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lAyeR.xcdatamodel; sourceTree = "<group>"; };
+		52938BFE1E860D8000EB8F81 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		52938C001E860D9000EB8F81 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		52B229EE1E8E392600B9F97F /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_lAyeR_lAyeRTests.framework; path = "../../Library/Developer/Xcode/DerivedData/lAyeR-djnudskkashkccdgvjwlignsgcgu/Build/Products/Debug-iphonesimulator/Pods_lAyeR_lAyeRTests.framework"; sourceTree = "<group>"; };
+		52BD496E1E8A802D00B4B750 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		52BD49711E8A8D0000B4B750 /* DataServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceManager.swift; sourceTree = "<group>"; };
+		52BD49731E8A8DC000B4B750 /* UserAuthenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthenticator.swift; sourceTree = "<group>"; };
+		52BD49751E8A8DFA00B4B750 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		52D379661E8530FA005ED912 /* GeoPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPointTests.swift; sourceTree = "<group>"; };
 		52D379671E8530FA005ED912 /* GeoUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtilTests.swift; sourceTree = "<group>"; };
 		52D3796A1E8533CC005ED912 /* CheckPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPointTests.swift; sourceTree = "<group>"; };
 		59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A523DFB3F070AFCD61151E7 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/BottomBanner.swift; sourceTree = "<group>"; };
 		9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPanel.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/InfoPanel.swift; sourceTree = "<group>"; };
 		9D1498F61E800AFB0043DDB6 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/TopBanner.swift; sourceTree = "<group>"; };
@@ -124,11 +139,11 @@
 		9D1498FE1E800B1D0043DDB6 /* MarkerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerIcon.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerIcon.swift; sourceTree = "<group>"; };
 		9D1498FF1E800B1D0043DDB6 /* MarkerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarkerInfo.swift; path = ViewComponents/BasicComponents/BasicMarker/MarkerElements/MarkerInfo.swift; sourceTree = "<group>"; };
 		9D1499021E800B250043DDB6 /* BasicMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarker.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarker.swift; sourceTree = "<group>"; };
-		9D6B80991E82AD0900210203 /* AlertConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertConfig.swift; path = ViewComponents/AlertConfig.swift; sourceTree = "<group>"; };
 		9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuButtonView.swift; path = ViewComponents/BasicComponents/Menu/MenuButtonView.swift; sourceTree = "<group>"; };
 		9D19700D1E87FE7800C1DAA1 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = ViewComponents/BasicComponents/Menu/MenuView.swift; sourceTree = "<group>"; };
 		9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = ViewComponents/HighLevelComponents/Menu/MenuViewController.swift; sourceTree = "<group>"; };
-		9D6B80971E82ACE700210203 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointViewController.swift; path = ViewComponents/HighLevelComponents/CheckpointViewController.swift; sourceTree = "<group>"; };
+		9D5693441E8BE66300052F68 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraViewController.swift; path = ViewComponents/BasicComponents/CameraView/CameraViewController.swift; sourceTree = "<group>"; };
+		9D5693461E8BE66E00052F68 /* InputTextFeild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputTextFeild.swift; path = ViewComponents/BasicComponents/Misc/InputTextFeild.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* UIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIConfig.swift; path = ViewComponents/UIConfig.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		9D7DACFB1E8546AB00592EB5 /* CheckpointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointViewController.swift; path = ViewComponents/HighLevelComponents/CheckPoint/CheckpointViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +166,7 @@
 		A2AF0AB91E70103800B4478C /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3DTests.swift; sourceTree = "<group>"; };
 		A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoManager.swift; sourceTree = "<group>"; };
+		B1351773AD8B908D9E31B7C2 /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR_lAyeRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
 		F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,6 +213,8 @@
 		2C3119991E670A5F00FF6334 /* lAyeR */ = {
 			isa = PBXGroup;
 			children = (
+				52BD49701E8A8CE800B4B750 /* DataService */,
+				52938BFD1E860D6900EB8F81 /* LoginRegister */,
 				A21BBFBC1E83AB7500394531 /* Setting.swift */,
 				9D1498F11E8007DC0043DDB6 /* ViewComponents */,
 				A2AF0AB81E70101000B4478C /* ARRenderer */,
@@ -335,6 +353,26 @@
 			name = WebQuery;
 			sourceTree = "<group>";
 		};
+		52938BFD1E860D6900EB8F81 /* LoginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				52938BFE1E860D8000EB8F81 /* LoginViewController.swift */,
+				52938C001E860D9000EB8F81 /* RegisterViewController.swift */,
+				52BD496E1E8A802D00B4B750 /* User.swift */,
+			);
+			name = LoginRegister;
+			sourceTree = "<group>";
+		};
+		52BD49701E8A8CE800B4B750 /* DataService */ = {
+			isa = PBXGroup;
+			children = (
+				52BD49711E8A8D0000B4B750 /* DataServiceManager.swift */,
+				52BD49731E8A8DC000B4B750 /* UserAuthenticator.swift */,
+				52BD49751E8A8DFA00B4B750 /* DatabaseManager.swift */,
+			);
+			name = DataService;
+			sourceTree = "<group>";
+		};
 		9D1498F11E8007DC0043DDB6 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +386,8 @@
 		9D1498F21E8007F70043DDB6 /* BasicComponents */ = {
 			isa = PBXGroup;
 			children = (
+				9D5693431E8BE65500052F68 /* Misc */,
+				9D5693421E8BE64900052F68 /* CameraView */,
 				9D19700B1E87FE6700C1DAA1 /* Menu */,
 				9DFB5B9B1E8426E200724B6E /* InnerViews */,
 				2C7333D51E711C3900EDE1D8 /* BasicAlert */,
@@ -392,6 +432,22 @@
 			name = CheckPoint;
 			sourceTree = "<group>";
 		};
+		9D5693421E8BE64900052F68 /* CameraView */ = {
+			isa = PBXGroup;
+			children = (
+				9D5693441E8BE66300052F68 /* CameraViewController.swift */,
+			);
+			name = CameraView;
+			sourceTree = "<group>";
+		};
+		9D5693431E8BE65500052F68 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				9D5693461E8BE66E00052F68 /* InputTextFeild.swift */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
 		9D7DACF81E85461C00592EB5 /* POI */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +483,8 @@
 			children = (
 				C94CAC6C8AF3B2D60B250CC2 /* Pods-lAyeR.debug.xcconfig */,
 				F8C609A23D3405090FA05E82 /* Pods-lAyeR.release.xcconfig */,
+				6A523DFB3F070AFCD61151E7 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */,
+				3729F61BC8697E4035E5948D /* Pods-lAyeR-lAyeRTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -434,7 +492,9 @@
 		FED6868487D29D53B260A46F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				52B229EE1E8E392600B9F97F /* Pods_lAyeR_lAyeRTests.framework */,
 				59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */,
+				B1351773AD8B908D9E31B7C2 /* Pods_lAyeR_lAyeRTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -466,9 +526,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C3119B71E670A5F00FF6334 /* Build configuration list for PBXNativeTarget "lAyeRTests" */;
 			buildPhases = (
+				CCD16E559E0D11808CDCB7D9 /* [CP] Check Pods Manifest.lock */,
 				2C3119A71E670A5F00FF6334 /* Sources */,
 				2C3119A81E670A5F00FF6334 /* Frameworks */,
 				2C3119A91E670A5F00FF6334 /* Resources */,
+				F7608336D3B4D7B17F359DB1 /* [CP] Embed Pods Frameworks */,
+				7A75E89C97CFD5A27A18C04C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -487,7 +550,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = nus.cs3217.layer;
 				TargetAttributes = {
 					2C3119961E670A5E00FF6334 = {
@@ -565,6 +628,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7A75E89C97CFD5A27A18C04C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7C3C9FDA4A030AA5B0173295 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -595,6 +673,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CCD16E559E0D11808CDCB7D9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F7608336D3B4D7B17F359DB1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -602,11 +710,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */,
 				9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */,
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
 				A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */,
+				52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
+				9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
 				9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */,
 				A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */,
@@ -629,6 +740,7 @@
 				9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
 				A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */,
+				52BD49761E8A8DFA00B4B750 /* DatabaseManager.swift in Sources */,
 				9DE1FD7D1E856F3B0006C009 /* PoiViewController.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
@@ -640,11 +752,15 @@
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */,
 				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
+				9D5693451E8BE66300052F68 /* CameraViewController.swift in Sources */,
+				52BD49721E8A8D0000B4B750 /* DataServiceManager.swift in Sources */,
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
-				9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */,
+				52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */,
 				A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */,
+				52BD49741E8A8DC000B4B750 /* UserAuthenticator.swift in Sources */,
 				A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */,
+				52BD496F1E8A802D00B4B750 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -819,29 +935,31 @@
 		};
 		2C3119B81E670A5F00FF6334 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A523DFB3F070AFCD61151E7 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/lAyeR.app/lAyeR";
 				INFOPLIST_FILE = lAyeRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeRTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lAyeR.app/lAyeR";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
 		};
 		2C3119B91E670A5F00FF6334 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3729F61BC8697E4035E5948D /* Pods-lAyeR-lAyeRTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/lAyeR.app/lAyeR";
 				INFOPLIST_FILE = lAyeRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeRTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lAyeR.app/lAyeR";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
 		};
