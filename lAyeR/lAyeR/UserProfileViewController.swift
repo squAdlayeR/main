@@ -64,6 +64,8 @@ class UserProfileViewController: UIViewController {
 
 }
 
+/**
+ */
 extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
