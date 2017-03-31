@@ -14,7 +14,6 @@ struct ARViewLayoutAdjustment {
     var yPosition: CGFloat = 0
     var yawRotationAngle: CGFloat = 0
     var horzRotationAngle: CGFloat = 0
-    var pushBackDistance: CGFloat = 0
     
     private let superView: UIView
     private let fov: Double  //  "fov" stands for field of view (angle in radian)
@@ -22,6 +21,23 @@ struct ARViewLayoutAdjustment {
     private let deviceMotionManager: DeviceMotionManager
     private let distance: Double
     private let azimuth: Double
+    
+    var pushBackDistance: CGFloat {
+        if (distance > Setting.distanceBound) {
+            return CGFloat(Setting.distanceBound)
+        } else {
+            return CGFloat(distance)
+        }
+    }
+    
+    var perspectiveYPosition: CGFloat {
+        let projectionPlaneDistance = Setting.projectionPlaneDistance
+        let projectionPlaneToTargeDistance = CGFloat(distance)
+        let eyeYPositioin = superView.bounds.height * 0.38
+        let range = superView.bounds.height * 0.18
+        let declineOffset = projectionPlaneDistance / (projectionPlaneDistance + projectionPlaneToTargeDistance) * range
+        return eyeYPositioin + declineOffset
+    }
     
     init(deviceMotionManager: DeviceMotionManager, distance: Double, azimuth: Double,
          superView: UIView, fov: Double) {
@@ -56,12 +72,10 @@ struct ARViewLayoutAdjustment {
         let yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
         
         xPosition = superView.bounds.width / 2 + xOffset
-        yPosition = superView.bounds.height / 2 + yOffset
+        yPosition = perspectiveYPosition + yOffset
         
         yawRotationAngle = -(CGFloat)(yawAngle)
         horzRotationAngle = -(CGFloat)(horzAngle)
-        
-        pushBackDistance = CGFloat(distance)
     }
     
     /**

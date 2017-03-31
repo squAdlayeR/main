@@ -14,4 +14,6 @@ class Setting {
     static let nearbyPOIsUpdatedNotificationName = "nearbyPOIsUpdatedNotification"
     
     static let projectionPlaneDistance: CGFloat = 600
+    
+    static let distanceBound: Double = 380
 }
