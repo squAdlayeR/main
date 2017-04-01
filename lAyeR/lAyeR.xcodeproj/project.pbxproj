@@ -32,6 +32,7 @@
 		5249B1C31E746CC70048249D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C21E746CC70048249D /* AppConfig.swift */; };
 		5249B1C51E74D8070048249D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C41E74D8070048249D /* Parser.swift */; };
 		5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1F11E750B9C0048249D /* lAyeR.xcdatamodeld */; };
+		52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52830F261E8F4567009DFD02 /* UserProfile.swift */; };
 		52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938BFE1E860D8000EB8F81 /* LoginViewController.swift */; };
 		52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938C001E860D9000EB8F81 /* RegisterViewController.swift */; };
 		52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
@@ -55,13 +56,11 @@
 		9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */; };
 		9D5693451E8BE66300052F68 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693441E8BE66300052F68 /* CameraViewController.swift */; };
 		9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693461E8BE66E00052F68 /* InputTextFeild.swift */; };
-		9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointViewController.swift */; };
 		9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFF1E855CC800592EB5 /* Constants.swift */; };
 		9D7DAD021E85635500592EB5 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DAD011E85635500592EB5 /* CardViewController.swift */; };
 		9DAFF1F81E8E942600D09C11 /* RouteListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */; };
-		9DAFF1FB1E8E944600D09C11 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1FA1E8E944600D09C11 /* CameraViewController.swift */; };
 		9DAFF1FE1E8E945D00D09C11 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */; };
 		9DE1FD7D1E856F3B0006C009 /* PoiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE1FD7C1E856F3B0006C009 /* PoiViewController.swift */; };
 		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
@@ -123,6 +122,7 @@
 		5249B1C21E746CC70048249D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		5249B1C41E74D8070048249D /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		5249B1F21E750B9C0048249D /* lAyeR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lAyeR.xcdatamodel; sourceTree = "<group>"; };
+		52830F261E8F4567009DFD02 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		52938BFE1E860D8000EB8F81 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		52938C001E860D9000EB8F81 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		52B229EE1E8E392600B9F97F /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_lAyeR_lAyeRTests.framework; path = "../../Library/Developer/Xcode/DerivedData/lAyeR-djnudskkashkccdgvjwlignsgcgu/Build/Products/Debug-iphonesimulator/Pods_lAyeR_lAyeRTests.framework"; sourceTree = "<group>"; };
@@ -486,6 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */,
+				52830F261E8F4567009DFD02 /* UserProfile.swift */,
 			);
 			name = UserProfile;
 			sourceTree = "<group>";
@@ -589,11 +590,12 @@
 				TargetAttributes = {
 					2C3119961E670A5E00FF6334 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = TJS2THFN85;
+						DevelopmentTeam = Y8UK968H5B;
 						ProvisioningStyle = Automatic;
 					};
 					2C3119AA1E670A5F00FF6334 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Y8UK968H5B;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2C3119961E670A5E00FF6334;
 					};
@@ -771,9 +773,9 @@
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
 				9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */,
+				52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */,
 				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
 				9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */,
-				9DAFF1FB1E8E944600D09C11 /* CameraViewController.swift in Sources */,
 				9DAFF1FE1E8E945D00D09C11 /* UserProfileViewController.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,
 				A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */,
@@ -944,11 +946,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TJS2THFN85;
+				DEVELOPMENT_TEAM = Y8UK968H5B;
 				INFOPLIST_FILE = lAyeR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.bill.lAyeR;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -960,11 +962,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TJS2THFN85;
+				DEVELOPMENT_TEAM = Y8UK968H5B;
 				INFOPLIST_FILE = lAyeR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.bill.lAyeR;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -976,6 +978,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/lAyeR.app/lAyeR";
+				DEVELOPMENT_TEAM = Y8UK968H5B;
 				INFOPLIST_FILE = lAyeRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeRTests;
@@ -991,6 +994,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/lAyeR.app/lAyeR";
+				DEVELOPMENT_TEAM = Y8UK968H5B;
 				INFOPLIST_FILE = lAyeRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeRTests;
