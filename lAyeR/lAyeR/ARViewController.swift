@@ -33,8 +33,8 @@ class ARViewController: UIViewController {
     var done = false
     
     var cameraView: UIView!
-    var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
-    private var currentPoiCardPairs: [(POI, PoiViewController)] = []
+    var checkpointCardPairs: [(CheckPoint, CheckpointCard)] = []
+    private var currentPoiCardPairs: [(POI, PoiCard)] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
 
@@ -64,7 +64,7 @@ class ARViewController: UIViewController {
     private func addCheckPointCards() {
         // FOR TESTING PURPOSE
 
-        let sampleCard = CheckpointViewController(center: view.center, distance: 0, superView: view)
+        let sampleCard = CheckpointCard(center: view.center, distance: 0, superView: view)
         sampleCard.setCheckpointName("Prince Geroges' Park Residences")
         sampleCard.setCheckpointDescription("Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
         checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP Residence"), sampleCard))
@@ -81,7 +81,7 @@ class ARViewController: UIViewController {
     
     private func displayLastUpdatedPOIs() {
         let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
-        var newPOICardPairs: [(POI, PoiViewController)] = []
+        var newPOICardPairs: [(POI, PoiCard)] = []
 
         for poiCardPair in currentPoiCardPairs {
             let previousPoi = poiCardPair.0
@@ -98,7 +98,7 @@ class ARViewController: UIViewController {
                 guard let name = newPoi.name else {
                     break
                 }
-                let poiCard = PoiViewController(center: view.center, distance: 0, type: "library", superView: view)
+                let poiCard = PoiCard(center: view.center, distance: 0, type: "library", superView: view)
                 poiCard.setPoiName(name)
                 poiCard.setPoiDescription("To be specified...")
                 poiCard.setPoiAddress(newPoi.vicinity!)

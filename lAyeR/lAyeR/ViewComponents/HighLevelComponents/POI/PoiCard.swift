@@ -1,5 +1,5 @@
 //
-//  PoiViewController.swift
+//  PoiCard.swift
 //  lAyeR
 //
 //  Created by Yang Zhuohan on 24/3/17.
@@ -23,7 +23,7 @@ import UIKit
  - rating
  - open status
  */
-class PoiViewController: CardViewController {
+class PoiCard: Card {
     
     /// Initializes the poi view controller
     /// - Parameters:
@@ -92,7 +92,7 @@ class PoiViewController: CardViewController {
  An extension that is used to define interactions of this class
  towards the outer elements
  */
-extension PoiViewController {
+extension PoiCard {
     
     /// Sets the name of poi
     /// - Parameter name: the name of the poi

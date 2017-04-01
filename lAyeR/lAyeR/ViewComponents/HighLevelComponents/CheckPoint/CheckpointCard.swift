@@ -17,7 +17,7 @@ import UIKit
     checkpoints, only name and a short description will be 
     displayed
  */
-class CheckpointViewController: CardViewController {
+class CheckpointCard: Card {
     
     /// Initialization
     /// - Parameters:
@@ -57,7 +57,7 @@ class CheckpointViewController: CardViewController {
  An extension that is used to define interactions of this class
  towards the outer elements
  */
-extension CheckpointViewController {
+extension CheckpointCard {
     
     /// Sets the name of the check point
     /// - Parameter name: the name of the check point
