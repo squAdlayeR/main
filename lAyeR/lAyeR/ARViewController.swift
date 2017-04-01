@@ -33,8 +33,8 @@ class ARViewController: UIViewController {
     var done = false
     
     var cameraView: UIView!
-    var checkpointCardPairs: [(CheckPoint, CheckpointCard)] = []
-    private var currentPoiCardPairs: [(POI, PoiCard)] = []
+    var checkpointCardControllers: [CheckpointCardController] = []
+    private var currentPoiCardControllers: [PoiCardController] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
 
@@ -67,7 +67,8 @@ class ARViewController: UIViewController {
         let sampleCard = CheckpointCard(center: view.center, distance: 0, superView: view)
         sampleCard.setCheckpointName("Prince Geroges' Park Residences")
         sampleCard.setCheckpointDescription("Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
-        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP Residence"), sampleCard))
+        checkpointCardControllers.append(CheckpointCardController(checkpoint: CheckPoint(1.2909, 103.7813, "PGP Residence"),
+                                                                  card: sampleCard))
         // can set blur mode using below code
         sampleCard.setBlurEffect(true)
     }
@@ -81,20 +82,16 @@ class ARViewController: UIViewController {
     
     private func displayLastUpdatedPOIs() {
         let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
-        var newPOICardPairs: [(POI, PoiCard)] = []
+        var newPOICardControllers: [PoiCardController] = []
 
-        for poiCardPair in currentPoiCardPairs {
-            let previousPoi = poiCardPair.0
-            let poiCard = poiCardPair.1
-            if lastUpdatedPOIs.contains(where: { $0.name == previousPoi.name }) {
-                newPOICardPairs.append(poiCardPair)
-            } else {
-                poiCard.removeFromSuperview()
+        for poiCardController in currentPoiCardControllers {
+            if lastUpdatedPOIs.contains(where: { $0.name == poiCardController.poiName }) {
+                newPOICardControllers.append(poiCardController)
             }
         }
         
         for newPoi in lastUpdatedPOIs {
-            if !newPOICardPairs.contains(where: { $0.0.name == newPoi.name }) {
+            if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
                 guard let name = newPoi.name else {
                     break
                 }
@@ -102,11 +99,11 @@ class ARViewController: UIViewController {
                 poiCard.setPoiName(name)
                 poiCard.setPoiDescription("To be specified...")
                 poiCard.setPoiAddress(newPoi.vicinity!)
-                newPOICardPairs.append((newPoi, poiCard))
+                newPOICardControllers.append(PoiCardController(poi: newPoi, card: poiCard))
             }
         }
         
-        currentPoiCardPairs = newPOICardPairs
+        currentPoiCardControllers = newPOICardControllers
     }
     
     /**
@@ -121,28 +118,14 @@ class ARViewController: UIViewController {
     @objc private func updateLoop() {
         let userPoint = geoManager.getLastUpdatedUserPoint()
 
-        // update position and orientation of checkPointCards
-        for (checkPoint, checkPointCard) in checkpointCardPairs {
-            let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
-            let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
-            
-            let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager,
-                                                          distance: distance, azimuth: azimuth,
-                                                          superView: view, fov: fov)
-            checkPointCard.applyViewAdjustment(layoutAdjustment)
-            checkPointCard.update(distance)
+        for checkPointCardController in checkpointCardControllers {
+            checkPointCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
+                                                superView: view, fov: fov)
         }
         
-        // update position and orientation of poiCards
-        for (poi, poiCard) in currentPoiCardPairs {
-            let azimuth = GeoUtil.getAzimuth(between: userPoint, poi)
-            let distance = GeoUtil.getCoordinateDistance(userPoint, poi)
-            
-            let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager,
-                                                          distance: distance, azimuth: azimuth,
-                                                          superView: view, fov: fov)
-            poiCard.applyViewAdjustment(layoutAdjustment)
-            poiCard.update(distance)
+        for poiCardController in currentPoiCardControllers {
+            poiCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
+                                         superView: view, fov: fov)
         }
     }  
 }

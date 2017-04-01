@@ -432,7 +432,8 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
                                                     distance: 0, superView: arViewController.view)
                 checkpointCard.setCheckpointName(checkpoint.name)
                 checkpointCard.setCheckpointDescription("To be specified...")
-                arViewController.checkpointCardPairs.append((checkpoint, checkpointCard))
+                arViewController.checkpointCardControllers.append(CheckpointCardController(checkpoint: checkpoint,
+                                                                                           card: checkpointCard))
             }
             //TODO: force update the POI in ARView
         }

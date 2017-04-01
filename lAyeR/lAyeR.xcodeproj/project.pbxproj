@@ -61,6 +61,8 @@
 		A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFBC1E83AB7500394531 /* Setting.swift */; };
 		A21BBFBF1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */; };
 		A21BBFC11E83FE3700394531 /* ManagerClassSingletonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */; };
+		A238E0721E8FA7A900BA10DC /* CheckpointCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */; };
+		A238E0741E8FAC7000BA10DC /* PoiCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238E0731E8FAC7000BA10DC /* PoiCardController.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -141,6 +143,8 @@
 		A21BBFBC1E83AB7500394531 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustmentTests.swift; sourceTree = "<group>"; };
 		A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerClassSingletonTests.swift; sourceTree = "<group>"; };
+		A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointCardController.swift; sourceTree = "<group>"; };
+		A238E0731E8FAC7000BA10DC /* PoiCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoiCardController.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -407,15 +411,33 @@
 			name = InnerViews;
 			sourceTree = "<group>";
 		};
-		A2AF0AB81E70101000B4478C /* ARRenderer */ = {
+		A238E06F1E8FA73E00BA10DC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */,
+				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
+				A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A238E0701E8FA75B00BA10DC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
 				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
 				A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */,
-				A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */,
-				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
-				A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */,
+				A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */,
+				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A2AF0AB81E70101000B4478C /* ARRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				A238E0701E8FA75B00BA10DC /* Controllers */,
+				A238E06F1E8FA73E00BA10DC /* Models */,
 				A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */,
 			);
 			name = ARRenderer;
@@ -608,6 +630,8 @@
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */,
 				9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */,
+				A238E0721E8FA7A900BA10DC /* CheckpointCardController.swift in Sources */,
+				A238E0741E8FAC7000BA10DC /* PoiCardController.swift in Sources */,
 				A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */,
 				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
