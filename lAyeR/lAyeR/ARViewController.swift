@@ -84,12 +84,15 @@ class ARViewController: UIViewController {
         let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
         var newPOICardControllers: [PoiCardController] = []
 
+        // keep the previous POI and corresponding card that also appears in the updated POI list
+        // discard the obsolete POIs and remove corresponding card that does no appear in the updated list
         for poiCardController in currentPoiCardControllers {
             if lastUpdatedPOIs.contains(where: { $0.name == poiCardController.poiName }) {
                 newPOICardControllers.append(poiCardController)
             }
         }
         
+        // add the new POI and create corresponding card that appears in the updated list but not the previous list
         for newPoi in lastUpdatedPOIs {
             if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
                 guard let name = newPoi.name else {
