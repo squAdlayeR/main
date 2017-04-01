@@ -52,5 +52,13 @@ class GeoUtil {
     static func isValidLongitude(_ lng: Double) -> Bool {
         return -180 <= lng && lng <= 180
     }
+    
+    static func isWithinRange(_ point: GeoPoint, _ topLeft: GeoPoint, _ bottomRight: GeoPoint) -> Bool {
+        let withinLatitude = point.latitude <= topLeft.latitude && point.latitude >= bottomRight.latitude
+        if topLeft.longitude > bottomRight.longitude {
+            return (point.longitude > topLeft.longitude || point.longitude < bottomRight.longitude) && withinLatitude
+        }
+        return point.longitude > topLeft.longitude && point.longitude < bottomRight.longitude && withinLatitude
+    }
 }
 

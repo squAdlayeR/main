@@ -65,7 +65,42 @@ class DatabaseManager {
         }
     }
     
-    func getRoutes(withName routeName: String, completion: @escaping (_ routes: [Route]) -> ()) {
-        
+    /// Queries routes with name
+    func getRoutes(withName name: String, completion: @escaping (_ routes: [Route]) -> ()) {
+        FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value as? [String: [String: Any]] else {
+                    return
+            }
+            var routes: [Route] = []
+            for result in value.values {
+                guard let route = Route(JSON: result) else { continue }
+                if route.name.contains(name) {
+                    routes.append(route)
+                }
+            }
+            completion(routes)
+        }) { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    /// Queries routes in range
+    func getRoutes(topLeft: GeoPoint, bottomRight: GeoPoint, completion: @escaping (_ routes: [Route]) -> ()) {
+        FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value as? [String: [String: Any]] else {
+                return
+            }
+            var routes: [Route] = []
+            for result in value.values {
+                guard let route = Route(JSON: result) else { continue }
+                //if //route.name.contains(name) {
+                if GeoUtil.isWithinRange(route.source!, topLeft, bottomRight) || GeoUtil.isWithinRange(route.destination!, topLeft, bottomRight) {
+                    routes.append(route)
+                }
+            }
+            completion(routes)
+        }) { error in
+            print(error.localizedDescription)
+        }
     }
 }

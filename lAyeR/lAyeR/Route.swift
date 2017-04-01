@@ -76,5 +76,9 @@ class Route: Mappable {
     func remove(_ checkPoint: CheckPoint) {
         // see if really needed later.
     }
-
+    
+    /// Route specification
+    private func _checkRep() -> Bool {
+        return checkPoints.count >= 2
+    }
 }

@@ -207,13 +207,6 @@ extension RegisterViewController {
         }
     }
     
-    func jumpToUserProfile(profile: UserProfile) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let p = storyBoard.instantiateViewController(withIdentifier: "userProfile") as? UserProfileViewController else { return }
-        p.userProfile = profile
-        present(p, animated: true, completion: nil)
-    }
-    
     /// Handles registeration error.
     /// - Parameter error: the error from user registeration
     func handleSignUpError(error: Error) {
