@@ -67,10 +67,15 @@ class ARViewController: UIViewController {
         let sampleCard = CheckpointCard(center: view.center, distance: 0, superView: view)
         sampleCard.setCheckpointName("Prince Geroges' Park Residences")
         sampleCard.setCheckpointDescription("Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
-        checkpointCardControllers.append(CheckpointCardController(checkpoint: CheckPoint(1.2909, 103.7813, "PGP Residence"),
-                                                                  card: sampleCard))
+        
         // can set blur mode using below code
         sampleCard.setBlurEffect(true)
+        
+        let sampleCardController = CheckpointCardController(checkpoint: CheckPoint(1.2909, 103.7813, "PGP Residence"),
+                                                            card: sampleCard)
+        sampleCardController.setSelected(true)
+        checkpointCardControllers.append(sampleCardController)
+        
     }
     
     private func monitorNearbyPOIsUpdate() {

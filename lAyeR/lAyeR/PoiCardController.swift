@@ -21,6 +21,7 @@ class PoiCardController {
         self.card = card
     }
     
+    
     // update position and orientation of card
     // update the distance shown on the card
     func updateCard(userPoint: GeoPoint, motionManager: DeviceMotionManager,
@@ -35,9 +36,11 @@ class PoiCardController {
         card.update(distance)
     }
     
+    
     func removeCard() {
         card.removeFromSuperview()
     }
+    
     
     deinit {
         removeCard()
