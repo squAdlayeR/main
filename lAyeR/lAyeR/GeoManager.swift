@@ -67,12 +67,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
     func getLastUpdatedNearbyPOIs() -> [POI] {
         return pois
     }
-    
-    
-    
-    
-    
-    
+
     /// TODO: Change after implement application settings.
     func getNearbyPOIS(around geoPoint: GeoPoint, complete: @escaping (_ results: [POI]) -> Void) {
         let url = Parser.parsePOISearchRequest(500, "food", geoPoint)

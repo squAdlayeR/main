@@ -20,6 +20,10 @@ class UserAuthenticator {
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: completion)
     }
     
+    func sendEmailVerification(completion: FIRSendEmailVerificationCallback?) {
+        FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: completion)
+    }
+    
     func signOut() {
         do {
             try FIRAuth.auth()?.signOut()

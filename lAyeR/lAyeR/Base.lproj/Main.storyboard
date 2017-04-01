@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zxE-ce-dRU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KG1-mK-LJP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -50,6 +50,9 @@
                             <constraint firstAttribute="bottom" secondItem="MqP-OP-bws" secondAttribute="bottom" constant="20" symbolic="YES" id="TXH-7b-mD1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="zxE-ce-dRU" kind="show" identifier="arToUserProfile" id="sEd-v1-Uut"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y8o-ag-LPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="zyk-qY-AvE" userLabel="Exit" sceneMemberID="exit"/>
@@ -248,7 +251,7 @@
         <!--User Profile View Controller-->
         <scene sceneID="sWZ-Yd-EIo">
             <objects>
-                <viewController id="zxE-ce-dRU" customClass="UserProfileViewController" customModule="lAyeR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userProfile" id="zxE-ce-dRU" customClass="UserProfileViewController" customModule="lAyeR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e5W-N9-86r"/>
                         <viewControllerLayoutGuide type="bottom" id="fEq-Wu-YRR"/>

@@ -9,11 +9,12 @@
 import Foundation
 import ObjectMapper
 
-class Route: NSCoding, Mappable {
+class Route: Mappable {
     
     /// Stores check points on the route.
     private(set) var name: String
-    private var checkPoints: [CheckPoint] = []
+    private(set) var checkPoints: [CheckPoint] = []
+    //private(set) var distance: Double = 0
     
     init(_ name: String) {
         self.name = name
@@ -25,19 +26,6 @@ class Route: NSCoding, Mappable {
         test.append(CheckPoint(1,2,"2"))
         test.append(CheckPoint(1,3,"3"))
         return test
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        guard let name = aDecoder.decodeObject(forKey: "routeName") as? String, let checkPoints = aDecoder.decodeObject(forKey: "checkPoints") as? [CheckPoint] else {
-            return nil
-        }
-        self.name = name
-        self.checkPoints = checkPoints
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "routeName")
-        aCoder.encode(checkPoints, forKey: "checkPoints")
     }
     
     required init?(map: Map) {

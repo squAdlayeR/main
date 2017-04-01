@@ -201,9 +201,17 @@ extension RegisterViewController {
                 return
             }
             let newUser = User(uid: uid, email: email, password: password)
-            self.dataService.addUserToDatabase(user: newUser)
+            let profile = UserProfile(user: newUser)
+            self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
             self.performSegue(withIdentifier: "registerToAR", sender: nil)
         }
+    }
+    
+    func jumpToUserProfile(profile: UserProfile) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let p = storyBoard.instantiateViewController(withIdentifier: "userProfile") as? UserProfileViewController else { return }
+        p.userProfile = profile
+        present(p, animated: true, completion: nil)
     }
     
     /// Handles registeration error.

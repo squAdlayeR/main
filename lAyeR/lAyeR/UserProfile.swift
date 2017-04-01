@@ -14,6 +14,7 @@ class UserProfile: Mappable {
     private(set) var username: String = "lAyeRuser"
     private(set) var email: String
     private(set) var avatarRef: String = "profilePlaceholder.png"
+    private(set) var designedRoutes: [String] = []
     
     init(user: User) {
         self.email = user.email
@@ -28,11 +29,13 @@ class UserProfile: Mappable {
         self.username = username
         self.email = email
         self.avatarRef = avatarRef
+        self.designedRoutes = map.JSON["designedRoutes"] as? [String] ?? []
     }
     
     func mapping(map: Map) {
         username <- map["username"]
         email <- map["email"]
         avatarRef <- map["avatarRef"]
+        designedRoutes <- map["designedRoutes"]
     }
 }

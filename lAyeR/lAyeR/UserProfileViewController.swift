@@ -20,12 +20,13 @@ import UIKit
 class UserProfileViewController: UIViewController {
 
     // Just for testing perpose. You can modify this as you wish
-    let routeData = [["Walk from pgp to science", "21 March, 2017", "test.png"],
-                    ["Walk from pgp to biz", "20 March, 2017", "test2.png"],
-                    ["Walk from biz to computing", "20 March, 2017", "test3.png"],
-                    ["Walk from computing to clb", "19 March 2017", "test4.png"],
-                    ["Walk from computing to engining", "18 March 2017", "test2.png"]]
-    let userData = ["Yang Zhuohan", "Singapore, Singapore", ""]
+    //let routeData = [["Walk from pgp to science", "21 March, 2017", "test.png"],
+      //              ["Walk from pgp to biz", "20 March, 2017", "test2.png"],
+       //             ["Walk from biz to computing", "20 March, 2017", "test3.png"],
+       //             ["Walk from computing to clb", "19 March 2017", //"test4.png"],
+        //            ["Walk from computing to engining", "18 March 2017", "test2.png"]]
+   // let userData = ["Yang Zhuohan", "Singapore, Singapore", ""]
+    var userProfile: UserProfile?
     
     // Connects the route list view
     @IBOutlet weak var routeList: UITableView!
@@ -40,12 +41,17 @@ class UserProfileViewController: UIViewController {
     /// Defines the vibrancy effect view
     var vibrancyEffectView: UIVisualEffectView!
     
+    let dataService = DataServiceManager.instance
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        setCameraView()
-        setBlur()
-        setUserInfo()
-        setRouteList()
+        dataService.retrieveUserProfile { profile in
+            self.userProfile = profile
+            //super.viewDidLoad()
+            self.setCameraView()
+            self.setBlur()
+            self.setUserInfo()
+            self.setRouteList()
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -82,9 +88,9 @@ class UserProfileViewController: UIViewController {
         
         // TODO: magic string and magic number
         var avatarName = "profilePlaceholder.png"
-        if userData[2] != "" {
-            avatarName = userData[2]
-        }
+        //if userData[2] != "" {
+            //avatarName = userData[2]
+        //}
         avatar.image = UIImage(named: avatarName)
         avatar.layer.cornerRadius = avatar.bounds.height / 2
         avatar.layer.masksToBounds = true
@@ -93,8 +99,8 @@ class UserProfileViewController: UIViewController {
     
     /// Sets user related texts including user name and location info
     private func setUserText() {
-        userName.text = userData[0]
-        location.text = userData[1]
+        userName.text = userProfile?.username//userData[0]
+        location.text = userProfile?.email//userData[1]
         view.addSubview(userName)
         vibrancyEffectView.addSubview(location)
     }
@@ -120,7 +126,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     
     /// Returns the total number of cells in the data table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return routeData.count
+        return userProfile?.designedRoutes.count ?? 0//routeData.count
     }
     
     /// Creates cells for the table
@@ -128,9 +134,9 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         
         // TODO: Magic strings and numbers
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as! RouteListCell
-        cell.routeName.text = routeData[indexPath.item][0]
-        cell.routeDescription.text = routeData[indexPath.item][1]
-        cell.backgroundImage.image = UIImage(named: routeData[indexPath.item][2])
+        cell.routeName.text = userProfile?.designedRoutes[indexPath.item]//routeData[indexPath.item][0]
+        //cell.routeDescription.text = routeData[indexPath.item][1]
+        //cell.backgroundImage.image = UIImage(named: routeData[indexPath.item][2])
         return cell
     }
     
