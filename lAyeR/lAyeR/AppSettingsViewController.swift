@@ -21,15 +21,123 @@ class AppSettingsViewController: UIViewController {
     @IBOutlet weak var numberOfMarker: UILabel!
     @IBOutlet weak var categoriesText: UILabel!
     @IBOutlet weak var categoriesTable: UITableView!
+    @IBOutlet weak var doneButton: UIButton!
+    
+    var scrollContentView: UIScrollView!
+    private(set) var categories = [["atm", "atm.png"],
+                              ["bus station", "bus_station.png"],
+                              ["cafe", "cafe.png"],
+                              ["gym", "gym.png"],
+                              ["hospital", "hospital.png"],
+                              ["library", "library.png"],
+                              ["restaurant", "restaurant.png"],
+                              ["store", "store.png"],
+                              ["university", "university.png"],
+                              ["others", "others.png"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCategoriesTable()
+        setupScrollView()
+        addIntoScrollView()
+        loadCurrentApplicationSetting()
+    }
+    
+    private func setupScrollView() {
+        scrollContentView = UIScrollView()
+        scrollContentView.frame = view.bounds
+        scrollContentView.contentSize = CGSize(width: view.bounds.width,
+                                               height: categoriesTable.frame.origin.y + categoriesTable.frame.height)
+        view.addSubview(scrollContentView)
+    }
+    
+    private func setupCategoriesTable() {
+        categoriesTable.delegate = self
+        categoriesTable.dataSource = self
+        categoriesTable.reloadData()
+    }
+    
+    private func addIntoScrollView() {
+        addToScrollView(settingTitle)
+        addToScrollView(poiSubtitle)
+        addToScrollView(detectionRadiusText)
+        addToScrollView(radiusSlider)
+        addToScrollView(detectionRadius)
+        addToScrollView(numberOfMarkerSlider)
+        addToScrollView(numberOfMarkerText)
+        addToScrollView(numberOfMarker)
+        addToScrollView(categoriesText)
+        addToScrollView(categoriesTable)
+        addToScrollView(doneButton)
+    }
+    
+    private func addToScrollView(_ view: UIView) {
+        let originalFrame = view.frame
+        view.removeFromSuperview()
+        view.frame = originalFrame
+        scrollContentView.addSubview(view)
+    }
+    
+    private func loadCurrentApplicationSetting() {
+        loadCurrentSlider()
+        loadCurrentCategoriesTable()
+    }
+    
+    private func loadCurrentSlider() {
+        radiusSlider.value = 500
+        numberOfMarkerSlider.value = 20
+        updateSliderValueDisplay(radiusSlider, valueDisplay: detectionRadius)
+        updateSliderValueDisplay(numberOfMarkerSlider, valueDisplay: numberOfMarker)
+    }
+    
+    private func loadCurrentCategoriesTable() {
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func radiusChanged(_ slider: UISlider) {
+        updateSliderValueDisplay(slider, valueDisplay: detectionRadius)
+    }
+    
+    @IBAction func numberChanged(_ slider: UISlider) {
+        updateSliderValueDisplay(slider, valueDisplay: numberOfMarker)
+    }
+    
+    @IBAction func testAction(_ sender: Any) {
+        print("aaaaaa")
+    }
+    
+    private func updateSliderValueDisplay(_ slider: UISlider, valueDisplay: UILabel) {
+        let value = Int(slider.value)
+        valueDisplay.text = String(value)
     }
 
+}
+
+extension AppSettingsViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! POICategoriesCell
+        cell.categoryName.text = categories[indexPath.item][0]
+        cell.categoryIcon.image = UIImage(named: categories[indexPath.item][1])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        if cell?.accessoryType == .checkmark {
+            cell?.accessoryType = .none
+        } else {
+            cell?.accessoryType = .checkmark
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }

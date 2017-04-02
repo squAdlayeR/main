@@ -181,9 +181,10 @@ extension ARViewController {
     /// Creates a settings button
     /// - Returns: a menu button view
     private func createSettingsButton() -> MenuButtonView {
-        let profileButton = MenuButtonView(radius: menuButtonRaidus, iconName: settingsIconName)
-        // TODO: Add gestures
-        return profileButton
+        let settingsButton = MenuButtonView(radius: menuButtonRaidus, iconName: settingsIconName)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnSettingsButton))
+        settingsButton.addGestureRecognizer(tapGesture)
+        return settingsButton
     }
     
     /// Creates a profile button
@@ -212,6 +213,14 @@ extension ARViewController {
     /// Handles swipe up gesture, which will close menu
     func handleSwipeUpGesture(swipeGesture: UISwipeGestureRecognizer) {
         menuController.remove()
+    }
+    
+    func tapOnSettingsButton() {
+        performSegue(withIdentifier: "settingsSegue", sender: nil)
+    }
+    
+    @IBAction func backToARView(segue: UIStoryboardSegue) {
+        
     }
     
 }
