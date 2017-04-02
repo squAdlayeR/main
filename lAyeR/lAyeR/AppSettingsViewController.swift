@@ -24,6 +24,8 @@ class AppSettingsViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     
     var scrollContentView: UIScrollView!
+    var appSettingsInstance = AppSettings.getInstance()
+    
     private(set) var categories = [["atm", "atm.png"],
                               ["bus station", "bus_station.png"],
                               ["cafe", "cafe.png"],
@@ -84,14 +86,23 @@ class AppSettingsViewController: UIViewController {
     }
     
     private func loadCurrentSlider() {
-        radiusSlider.value = 500
-        numberOfMarkerSlider.value = 20
+        radiusSlider.value = Float(appSettingsInstance.radiusOfDetection)
+        numberOfMarkerSlider.value = Float(appSettingsInstance.maxNumberOfMarkers)
         updateSliderValueDisplay(radiusSlider, valueDisplay: detectionRadius)
         updateSliderValueDisplay(numberOfMarkerSlider, valueDisplay: numberOfMarker)
     }
     
     private func loadCurrentCategoriesTable() {
-        
+        for cell in categoriesTable.visibleCells {
+            guard let categoriesCell = cell as? POICategoriesCell else {
+                continue
+            }
+            if appSettingsInstance.selectedPOICategrories.contains(categoriesCell.categoryName.text!) {
+                categoriesCell.accessoryType = .checkmark
+                continue
+            }
+            categoriesCell.accessoryType = .none
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,10 +111,12 @@ class AppSettingsViewController: UIViewController {
     
     @IBAction func radiusChanged(_ slider: UISlider) {
         updateSliderValueDisplay(slider, valueDisplay: detectionRadius)
+        appSettingsInstance.updateRadiusOfDetection(with: Int(slider.value))
     }
     
     @IBAction func numberChanged(_ slider: UISlider) {
         updateSliderValueDisplay(slider, valueDisplay: numberOfMarker)
+        appSettingsInstance.updateMaxNumberOfMarkers(with: Int(slider.value))
     }
     
     @IBAction func testAction(_ sender: Any) {
@@ -126,16 +139,23 @@ extension AppSettingsViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! POICategoriesCell
         cell.categoryName.text = categories[indexPath.item][0]
-        cell.categoryIcon.image = UIImage(named: categories[indexPath.item][1])
+        let icon = UIImage(named: categories[indexPath.item][1])
+        let tintIcon = icon?.withRenderingMode(.alwaysTemplate)
+        cell.categoryIcon.image = tintIcon
+        cell.categoryIcon.tintColor = .black
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        if cell?.accessoryType == .checkmark {
-            cell?.accessoryType = .none
+        guard let cell = tableView.cellForRow(at: indexPath) as? POICategoriesCell else {
+            return
+        }
+        if cell.accessoryType == .checkmark {
+            cell.accessoryType = .none
+            appSettingsInstance.removePOICtegories(cell.categoryName.text!)
         } else {
-            cell?.accessoryType = .checkmark
+            cell.accessoryType = .checkmark
+            appSettingsInstance.addSelectedPOICategories(cell.categoryName.text!)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
