@@ -21,7 +21,7 @@
         <!--View Controller-->
         <scene sceneID="zB0-2A-QQn">
             <objects>
-                <viewController id="8CX-ET-To7" customClass="ARViewController" customModule="lAyeR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ARViewController" id="8CX-ET-To7" customClass="ARViewController" customModule="lAyeR" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7NK-DE-TEc"/>
                         <viewControllerLayoutGuide type="bottom" id="9JK-hS-rqq"/>

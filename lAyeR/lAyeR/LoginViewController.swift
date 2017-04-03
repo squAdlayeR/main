@@ -56,6 +56,8 @@ class LoginViewController: UIViewController {
         setUpFBLoginButton()
     }
     
+    
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
