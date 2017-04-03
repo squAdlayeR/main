@@ -219,6 +219,14 @@ extension ARViewController {
         menuController.remove()
     }
     
+    func tapOnSettingsButton() {
+        performSegue(withIdentifier: "settingsSegue", sender: nil)
+    }
+    
+    @IBAction func backToARView(segue: UIStoryboardSegue) {
+        
+    }
+    
 }
 
 
