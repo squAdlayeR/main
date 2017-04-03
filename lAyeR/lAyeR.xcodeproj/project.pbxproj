@@ -34,7 +34,6 @@
 		528288B21E92690C00163654 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AE1E92690C00163654 /* AppSettings.swift */; };
 		528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AF1E92690C00163654 /* AppSettingsConstants.swift */; };
 		528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B01E92690C00163654 /* AppSettingsViewController.swift */; };
-		528288B51E92690C00163654 /* POICategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B11E92690C00163654 /* POICategoriesCell.swift */; };
 		52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52830F261E8F4567009DFD02 /* UserProfile.swift */; };
 		52830F411E8FF8E7009DFD02 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3D1E8FF8E7009DFD02 /* Bolts.framework */; };
 		52830F421E8FF8E7009DFD02 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3E1E8FF8E7009DFD02 /* FBSDKCoreKit.framework */; };
@@ -65,7 +64,6 @@
 		9D19700E1E87FE7800C1DAA1 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */; };
 		9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700D1E87FE7800C1DAA1 /* MenuView.swift */; };
 		9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */; };
-		9D5693451E8BE66300052F68 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693441E8BE66300052F68 /* CameraViewController.swift */; };
 		9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693461E8BE66E00052F68 /* InputTextFeild.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointViewController.swift */; };
@@ -74,6 +72,8 @@
 		9DAFF1F81E8E942600D09C11 /* RouteListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */; };
 		9DAFF1FE1E8E945D00D09C11 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */; };
 		9DE1FD7D1E856F3B0006C009 /* PoiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE1FD7C1E856F3B0006C009 /* PoiViewController.swift */; };
+		9DE4361D1E929F8500E1A0ED /* POICategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */; };
+		9DE4361F1E92A90000E1A0ED /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4361E1E92A90000E1A0ED /* CameraViewController.swift */; };
 		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
 		9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */; };
 		A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */; };
@@ -138,7 +138,6 @@
 		528288AE1E92690C00163654 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		528288AF1E92690C00163654 /* AppSettingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsConstants.swift; sourceTree = "<group>"; };
 		528288B01E92690C00163654 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
-		528288B11E92690C00163654 /* POICategoriesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POICategoriesCell.swift; sourceTree = "<group>"; };
 		52830F261E8F4567009DFD02 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		52830F301E8FE422009DFD02 /* lAyeR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lAyeR.entitlements; sourceTree = "<group>"; };
 		52830F3D1E8FF8E7009DFD02 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Downloads/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
@@ -168,7 +167,6 @@
 		9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuButtonView.swift; path = ViewComponents/BasicComponents/Menu/MenuButtonView.swift; sourceTree = "<group>"; };
 		9D19700D1E87FE7800C1DAA1 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = ViewComponents/BasicComponents/Menu/MenuView.swift; sourceTree = "<group>"; };
 		9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = ViewComponents/HighLevelComponents/Menu/MenuViewController.swift; sourceTree = "<group>"; };
-		9D5693441E8BE66300052F68 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraViewController.swift; path = ViewComponents/BasicComponents/CameraView/CameraViewController.swift; sourceTree = "<group>"; };
 		9D5693461E8BE66E00052F68 /* InputTextFeild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputTextFeild.swift; path = ViewComponents/BasicComponents/Misc/InputTextFeild.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* UIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIConfig.swift; path = ViewComponents/UIConfig.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
@@ -176,9 +174,10 @@
 		9D7DACFF1E855CC800592EB5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9D7DAD011E85635500592EB5 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardViewController.swift; path = ViewComponents/HighLevelComponents/CardViewController.swift; sourceTree = "<group>"; };
 		9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteListCell.swift; path = ViewComponents/BasicComponents/Misc/RouteListCell.swift; sourceTree = "<group>"; };
-		9DAFF1FA1E8E944600D09C11 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraViewController.swift; path = ViewComponents/BasicComponents/CameraView/CameraViewController.swift; sourceTree = "<group>"; };
 		9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		9DE1FD7C1E856F3B0006C009 /* PoiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiViewController.swift; path = ViewComponents/HighLevelComponents/POI/PoiViewController.swift; sourceTree = "<group>"; };
+		9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = POICategoriesCell.swift; path = ViewComponents/BasicComponents/Misc/POICategoriesCell.swift; sourceTree = "<group>"; };
+		9DE4361E1E92A90000E1A0ED /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraViewController.swift; path = ViewComponents/BasicComponents/CameraView/CameraViewController.swift; sourceTree = "<group>"; };
 		9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoBlock.swift; path = ViewComponents/BasicComponents/InnerViews/InfoBlock.swift; sourceTree = "<group>"; };
 		9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformativeInnerView.swift; path = ViewComponents/BasicComponents/InnerViews/InformativeInnerView.swift; sourceTree = "<group>"; };
 		A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_CameraBackgroundExtension.swift; sourceTree = "<group>"; };
@@ -401,10 +400,10 @@
 		528288AD1E9268EB00163654 /* ApplicationSettings */ = {
 			isa = PBXGroup;
 			children = (
+				9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */,
 				528288AE1E92690C00163654 /* AppSettings.swift */,
 				528288AF1E92690C00163654 /* AppSettingsConstants.swift */,
 				528288B01E92690C00163654 /* AppSettingsViewController.swift */,
-				528288B11E92690C00163654 /* POICategoriesCell.swift */,
 			);
 			name = ApplicationSettings;
 			sourceTree = "<group>";
@@ -443,9 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				9D5693431E8BE65500052F68 /* Misc */,
-				9D5693421E8BE64900052F68 /* CameraView */,
 				9DAFF1F91E8E942A00D09C11 /* CameraView */,
-				9DAFF1F61E8E941500D09C11 /* Misc */,
 				9D19700B1E87FE6700C1DAA1 /* Menu */,
 				9DFB5B9B1E8426E200724B6E /* InnerViews */,
 				2C7333D51E711C3900EDE1D8 /* BasicAlert */,
@@ -490,18 +487,11 @@
 			name = CheckPoint;
 			sourceTree = "<group>";
 		};
-		9D5693421E8BE64900052F68 /* CameraView */ = {
-			isa = PBXGroup;
-			children = (
-				9D5693441E8BE66300052F68 /* CameraViewController.swift */,
-			);
-			name = CameraView;
-			sourceTree = "<group>";
-		};
 		9D5693431E8BE65500052F68 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
 				9D5693461E8BE66E00052F68 /* InputTextFeild.swift */,
+				9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -514,18 +504,10 @@
 			name = POI;
 			sourceTree = "<group>";
 		};
-		9DAFF1F61E8E941500D09C11 /* Misc */ = {
-			isa = PBXGroup;
-			children = (
-				9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */,
-			);
-			name = Misc;
-			sourceTree = "<group>";
-		};
 		9DAFF1F91E8E942A00D09C11 /* CameraView */ = {
 			isa = PBXGroup;
 			children = (
-				9DAFF1FA1E8E944600D09C11 /* CameraViewController.swift */,
+				9DE4361E1E92A90000E1A0ED /* CameraViewController.swift */,
 			);
 			name = CameraView;
 			sourceTree = "<group>";
@@ -806,9 +788,9 @@
 				52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */,
 				A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */,
 				9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */,
+				9DE4361D1E929F8500E1A0ED /* POICategoriesCell.swift in Sources */,
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
 				A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */,
-				528288B51E92690C00163654 /* POICategoriesCell.swift in Sources */,
 				528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */,
 				A253FB521E92892C002C6ADC /* PlistLocalStorageManager.swift in Sources */,
 				52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */,
@@ -844,6 +826,7 @@
 				A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */,
 				52BD49761E8A8DFA00B4B750 /* DatabaseManager.swift in Sources */,
 				9DE1FD7D1E856F3B0006C009 /* PoiViewController.swift in Sources */,
+				9DE4361F1E92A90000E1A0ED /* CameraViewController.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
@@ -854,7 +837,6 @@
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */,
 				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
-				9D5693451E8BE66300052F68 /* CameraViewController.swift in Sources */,
 				52BD49721E8A8D0000B4B750 /* DataServiceManager.swift in Sources */,
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
