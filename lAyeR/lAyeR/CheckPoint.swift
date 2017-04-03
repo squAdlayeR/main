@@ -12,11 +12,14 @@ class CheckPoint: GeoPoint {
     
     private(set) var name: String = ""
     private(set) var description: String = ""
+    var isControlPoint = true
     
     init(_ latitude: Double, _ longitude: Double,
-         _ name: String, _ description: String = "") {
+         _ name: String, _ isControlPoint: Bool,
+        _ description: String = "") {
         self.name = name
         self.description = description
+        self.isControlPoint = isControlPoint
         super.init(latitude, longitude)
     }
     
@@ -40,6 +43,7 @@ class CheckPoint: GeoPoint {
         }
         self.name = name
         self.description = map.JSON["description"] as? String ?? ""
+        self.isControlPoint = map.JSON["isControlPoint"] as? Bool ?? false
         super.init(map: map)
     }
     
@@ -47,6 +51,7 @@ class CheckPoint: GeoPoint {
         super.mapping(map: map)
         name <- map["name"]
         description <- map["description"]
+        isControlPoint <- map["isControlPoint"]
     }
     
 }

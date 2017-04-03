@@ -65,7 +65,7 @@ class ARViewController: UIViewController {
         let sampleCard = CheckpointViewController(center: view.center, distance: 0, superView: view)
         sampleCard.setCheckpointName("Prince Geroges' Park Residences")
         sampleCard.setCheckpointDescription("Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
-        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP Residence"), sampleCard))
+        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP Residence", true), sampleCard))
         // can set blur mode using below code
         sampleCard.setBlurEffect(true)
     }
