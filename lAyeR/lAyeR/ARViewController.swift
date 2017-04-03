@@ -182,7 +182,8 @@ extension ARViewController {
     /// - Returns: a menu button view
     private func createSettingsButton() -> MenuButtonView {
         let settingsButton = MenuButtonView(radius: 50, iconName: settingsIconName)
-        // TODO: Add gestures
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapOnSettingsButton))
+        settingsButton.addGestureRecognizer(tap)
         return settingsButton
     }
     
