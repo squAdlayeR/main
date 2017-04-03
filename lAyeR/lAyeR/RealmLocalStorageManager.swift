@@ -43,6 +43,7 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
     public func getRouteByName(_ name: String) -> Route? {
         return realm.objects(RealmRoute.self).filter("name == \(name)").first?.get()
     }
+
 }
 
 /**
