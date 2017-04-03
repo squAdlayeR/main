@@ -48,7 +48,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         
         
         /// TODO: Change after implement application settings
-        let url = Parser.parsePOISearchRequest(500, "food", userPoint)
+        let url = Parser.parsePOISearchRequest(500, ["food"], userPoint)
         Alamofire.request(url).responseJSON { [unowned self] response in
             if let json = response.result.value as? [String: Any] {
                 
@@ -70,7 +70,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
 
     /// TODO: Change after implement application settings.
     func getNearbyPOIS(around geoPoint: GeoPoint, complete: @escaping (_ results: [POI]) -> Void) {
-        let url = Parser.parsePOISearchRequest(500, "food", geoPoint)
+        let url = Parser.parsePOISearchRequest(500, ["food"], geoPoint)
         Alamofire.request(url).responseJSON { response in
             if let json = response.result.value as? [String: Any] {
                 let results = Parser.parseJSONToPOIs(json)

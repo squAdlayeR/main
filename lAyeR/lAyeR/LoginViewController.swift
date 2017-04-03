@@ -77,13 +77,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             return
         }
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        print(credential)
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             print(FBSDKAccessToken.current().userID)
             //print(FBSDKProfile.current().firstName)
-            let request = FBSDKGraphRequest(graphPath: "/me", parameters: ["fields":"id, name, email"])
-            request?.start(completionHandler: { connection, result, error in
+            //let request = FBSDKGraphRequest(graphPath: "/me", parameters: ["fields":"id, name, email"])
+            //request?.start(completionHandler: { connection, result, error in
                 //print(result)
-            })
+            //})
+            //self.handleSignInError(error: error!)
         }
     }
     
@@ -228,7 +230,7 @@ extension LoginViewController {
     
     /// Handles the error brought from the data service
     /// - Parameter error: the error from data service
-    private func handleSignInError(error: Error) {
+    func handleSignInError(error: Error) {
         guard let errCode = FIRAuthErrorCode(rawValue: error._code) else {
             return
         }
@@ -241,6 +243,18 @@ extension LoginViewController {
             return
         case .errorCodeUserNotFound:
             self.showErrorAlert(message: "User not found.")
+            return
+        case .errorCodeInvalidCredential:
+            self.showErrorAlert(message: "Invalid credential.")
+            return
+        case .errorCodeOperationNotAllowed:
+            self.showErrorAlert(message: "Operation not allowed.")
+            return
+        case .errorCodeEmailAlreadyInUse:
+            self.showErrorAlert(message: "Email already in use.")
+            return
+        case .errorCodeInternalError:
+            self.showErrorAlert(message: "wtf")
             return
         default:
             self.showErrorAlert(message: "Network error.")

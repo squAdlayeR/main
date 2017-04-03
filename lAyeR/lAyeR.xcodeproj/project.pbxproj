@@ -620,7 +620,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -977,6 +977,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = lAyeR/lAyeR.entitlements;
 				DEVELOPMENT_TEAM = Y8UK968H5B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1012,6 +1013,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = lAyeR/lAyeR.entitlements;
 				DEVELOPMENT_TEAM = Y8UK968H5B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

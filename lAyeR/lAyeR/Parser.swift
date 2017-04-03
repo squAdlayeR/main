@@ -13,11 +13,14 @@ import ObjectMapper
 class Parser {
     
     /// Parses poi search request.
-    static func parsePOISearchRequest(_ radius: Double, _ type: String, _ location: GeoPoint) -> String {
+    static func parsePOISearchRequest(_ radius: Double, _ types: [String], _ location: GeoPoint) -> String {
         let searchBase = AppConfig.mapQueryBaseURL
         let locationToken = "location=" + location.latitude.description + "," + location.longitude.description
         let radiusToken = "&radius=" + radius.description
-        let typeToken = "&type=" + type.description
+        var typeToken = "&type=" + (types.first?.description)!
+        for type in types.dropFirst() {
+            typeToken += "|" + type.description
+        }
         let keyToken = "&key=" + AppConfig.apiKey
         return searchBase + locationToken + radiusToken + typeToken + keyToken
     }
