@@ -26,17 +26,6 @@ class AppSettingsViewController: UIViewController {
     var scrollContentView: UIScrollView!
     var appSettingsInstance = AppSettings.getInstance()
     
-    private(set) var categories = [["atm", "atm.png"],
-                              ["bus station", "bus_station.png"],
-                              ["cafe", "cafe.png"],
-                              ["gym", "gym.png"],
-                              ["hospital", "hospital.png"],
-                              ["library", "library.png"],
-                              ["restaurant", "restaurant.png"],
-                              ["store", "store.png"],
-                              ["university", "university.png"],
-                              ["others", "others.png"]]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCategoriesTable()
@@ -133,13 +122,13 @@ class AppSettingsViewController: UIViewController {
 extension AppSettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return categoryDictionary.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! POICategoriesCell
-        cell.categoryName.text = categories[indexPath.item][0]
-        let icon = UIImage(named: categories[indexPath.item][1])
+        cell.categoryName.text = categoryDictionary[indexPath.item][categoryIndex]
+        let icon = UIImage(named: categoryDictionary[indexPath.item][categoryNameIndex] + imageExtension)
         let tintIcon = icon?.withRenderingMode(.alwaysTemplate)
         cell.categoryIcon.image = tintIcon
         cell.categoryIcon.tintColor = .black
