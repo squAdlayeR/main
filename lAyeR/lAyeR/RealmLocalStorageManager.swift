@@ -32,17 +32,17 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
         }
     }
     
-//    public func saveRoute(_ route: Route) {
-//        realmAdd(RealmRoute(route))
-//    }
-//    
-//    public func removeRoute(_ route: Route) {
-//        realmDelete(RealmRoute(route))
-//    }
-//    
-//    public func getRouteByName(_ name: String) -> Route? {
-//        return realm.objects(RealmRoute.self).filter("name == \(name)").first?.get()
-//    }
+    public func saveRoute(_ route: Route) {
+        realmAdd(RealmRoute(route))
+    }
+    
+    public func removeRoute(_ route: Route) {
+        realmDelete(RealmRoute(route))
+    }
+    
+    public func getRouteByName(_ name: String) -> Route? {
+        return realm.objects(RealmRoute.self).filter("name == \(name)").first?.get()
+    }
     
     // currently, only allow one user setting per device
     public func saveAppSettings() {
@@ -68,6 +68,9 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
  2. Model need to inherit from Object (Realm Object, not Swift Object)
  3. The properties of Model need to be dynamic
  4. The properties of Model must provide default value
+ 5. Realm does not support Array, Set and so on. 
+    Thus need to use Realm List instead, which the generic type of List must be subclasses of Object
+    The primitive types such as String and Integer cannot be the content of the List
  This restrictions, although will not cause much influence, and reasonable as well.
  it might reduce the flexibility when we design our app model, which should not be dependent on the storage implementation.
  Therefore, to reduce the coupling and dependency, also considering the possibility to change the storage implementation
@@ -89,24 +92,29 @@ class RealmGeoPoint: Object {
     }
 }
 
-//class RealmRoute: Object {
-//    dynamic private var name: String = ""
-//    dynamic private var checkPoints: [RealmCheckPoint] = []
-//    
-//    convenience init(_ route: Route) {
-//        self.init()
-//        name = route.name
-//        checkPoints = route.checkPoints.map { return RealmCheckPoint($0) }
-//    }
-//    
-//    func get() -> Route {
-//        let returnRoute = Route.init(name)
-//        for point in checkPoints {
-//            returnRoute.append(point.get())
-//        }
-//        return returnRoute
-//    }
-//}
+class RealmRoute: Object {
+    dynamic private var name: String = ""
+    private var checkPoints: List<RealmCheckPoint> = List<RealmCheckPoint>()
+    
+    convenience init(_ route: Route) {
+        self.init()
+        name = route.name
+        
+        let realmCheckPoints = route.checkPoints.map { return RealmCheckPoint($0) }
+        checkPoints.removeAll()
+        for realmCheckPoint in realmCheckPoints {
+            checkPoints.append(realmCheckPoint)
+        }
+    }
+    
+    func get() -> Route {
+        let returnRoute = Route.init(name)
+        for point in checkPoints {
+            returnRoute.append(point.get())
+        }
+        return returnRoute
+    }
+}
 
 class RealmCheckPoint: RealmGeoPoint {
     dynamic private var name: String = ""
@@ -145,18 +153,22 @@ class RealmAppSettings: Object {
         settings.updateMaxNumberOfMarkers(with: maxNumberOfMarkers)
         settings.updateRadiusOfDetection(with: radiusOfDetection)
         
+        // remove all categories in the current setting
         for category in settings.selectedPOICategrories {
             settings.removePOICategories(category)
         }
+        
+        // add all the new categories to the setting
         for newCategory in selectedPOICategrories {
             settings.addSelectedPOICategories(newCategory.get())
         }
     }
 }
 
-/// wrapper class of Swift String
-/// becuase Realm only supports the classes
-/// which are the subclasses of their Object class
+/**
+ RealmString is the wrapper class of Swift String class
+ This is becuase Realm List can only contains the subclasses of Object
+ */
 class RealmString: Object {
     dynamic var content: String = ""
     convenience init(_ input: String) {
