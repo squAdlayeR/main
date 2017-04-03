@@ -24,7 +24,6 @@
 		5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A91E72641C0048249D /* CheckPoint.swift */; };
 		5249B1AE1E7264790048249D /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1AD1E7264790048249D /* UserConfig.swift */; };
 		5249B1B21E7264AB0048249D /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B11E7264AB0048249D /* POI.swift */; };
-		5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B41E72B3A30048249D /* LocalStorageManager.swift */; };
 		5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1B61E72FC660048249D /* GeoUtil.swift */; };
 		5249B1BC1E7450380048249D /* QueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1BB1E7450380048249D /* QueryManager.swift */; };
 		5249B1BE1E7463E30048249D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5249B1BD1E7463E30048249D /* GoogleService-Info.plist */; };
@@ -84,6 +83,9 @@
 		A21BBFBD1E83AB7500394531 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFBC1E83AB7500394531 /* Setting.swift */; };
 		A21BBFBF1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */; };
 		A21BBFC11E83FE3700394531 /* ManagerClassSingletonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */; };
+		A253FB511E92892C002C6ADC /* LocalStorageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB4E1E92892C002C6ADC /* LocalStorageManagerProtocol.swift */; };
+		A253FB521E92892C002C6ADC /* PlistLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB4F1E92892C002C6ADC /* PlistLocalStorageManager.swift */; };
+		A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
 		A28540491E70E4DF00CF51B7 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540481E70E4DF00CF51B7 /* Vector3D.swift */; };
@@ -127,7 +129,6 @@
 		5249B1A91E72641C0048249D /* CheckPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
 		5249B1AD1E7264790048249D /* UserConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
 		5249B1B11E7264AB0048249D /* POI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
-		5249B1B41E72B3A30048249D /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		5249B1B61E72FC660048249D /* GeoUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtil.swift; sourceTree = "<group>"; };
 		5249B1BB1E7450380048249D /* QueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryManager.swift; sourceTree = "<group>"; };
 		5249B1BD1E7463E30048249D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -187,6 +188,9 @@
 		A21BBFBC1E83AB7500394531 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustmentTests.swift; sourceTree = "<group>"; };
 		A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerClassSingletonTests.swift; sourceTree = "<group>"; };
+		A253FB4E1E92892C002C6ADC /* LocalStorageManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManagerProtocol.swift; sourceTree = "<group>"; };
+		A253FB4F1E92892C002C6ADC /* PlistLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistLocalStorageManager.swift; sourceTree = "<group>"; };
+		A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmLocalStorageManager.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
 		A28540481E70E4DF00CF51B7 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3D.swift; sourceTree = "<group>"; };
@@ -378,7 +382,9 @@
 		5249B1B31E72AF770048249D /* LocalStorage */ = {
 			isa = PBXGroup;
 			children = (
-				5249B1B41E72B3A30048249D /* LocalStorageManager.swift */,
+				A253FB4E1E92892C002C6ADC /* LocalStorageManagerProtocol.swift */,
+				A253FB4F1E92892C002C6ADC /* PlistLocalStorageManager.swift */,
+				A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */,
 			);
 			name = LocalStorage;
 			sourceTree = "<group>";
@@ -798,11 +804,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */,
+				A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */,
 				9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */,
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
 				A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */,
 				528288B51E92690C00163654 /* POICategoriesCell.swift in Sources */,
 				528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */,
+				A253FB521E92892C002C6ADC /* PlistLocalStorageManager.swift in Sources */,
 				52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */,
@@ -814,6 +822,7 @@
 				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
+				A253FB511E92892C002C6ADC /* LocalStorageManagerProtocol.swift in Sources */,
 				9D19700E1E87FE7800C1DAA1 /* MenuButtonView.swift in Sources */,
 				9D1498FD1E800B080043DDB6 /* BasicAlertController.swift in Sources */,
 				9DAFF1F81E8E942600D09C11 /* RouteListCell.swift in Sources */,
@@ -829,7 +838,6 @@
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
 				9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */,
 				52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */,
-				5249B1B51E72B3A30048249D /* LocalStorageManager.swift in Sources */,
 				9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */,
 				9DAFF1FE1E8E945D00D09C11 /* UserProfileViewController.swift in Sources */,
 				5249B1A61E7263C40048249D /* Route.swift in Sources */,

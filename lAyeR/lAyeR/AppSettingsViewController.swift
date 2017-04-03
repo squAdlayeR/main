@@ -141,7 +141,7 @@ extension AppSettingsViewController: UITableViewDelegate, UITableViewDataSource 
         }
         if cell.accessoryType == .checkmark {
             cell.accessoryType = .none
-            appSettingsInstance.removePOICtegories(cell.categoryName.text!)
+            appSettingsInstance.removePOICategories(cell.categoryName.text!)
         } else {
             cell.accessoryType = .checkmark
             appSettingsInstance.addSelectedPOICategories(cell.categoryName.text!)

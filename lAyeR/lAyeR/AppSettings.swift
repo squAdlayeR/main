@@ -41,7 +41,7 @@ class AppSettings: NSObject {
         selectedPOICategrories.insert(newValue)
     }
     
-    func removePOICtegories(_ value: String) {
+    func removePOICategories(_ value: String) {
         selectedPOICategrories.remove(value)
     }
     
