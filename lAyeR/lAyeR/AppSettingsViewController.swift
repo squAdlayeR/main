@@ -70,6 +70,7 @@ class AppSettingsViewController: UIViewController {
     }
     
     private func loadCurrentApplicationSetting() {
+        RealmLocalStorageManager.getInstance().loadAppSettings()
         loadCurrentSlider()
         loadCurrentCategoriesTable()
     }
@@ -109,7 +110,7 @@ class AppSettingsViewController: UIViewController {
     }
     
     @IBAction func testAction(_ sender: Any) {
-        print("aaaaaa")
+        RealmLocalStorageManager.getInstance().saveAppSettings()
     }
     
     private func updateSliderValueDisplay(_ slider: UISlider, valueDisplay: UILabel) {
