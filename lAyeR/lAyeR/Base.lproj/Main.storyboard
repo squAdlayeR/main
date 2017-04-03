@@ -236,8 +236,8 @@
                     <navigationItem key="navigationItem" id="2c0-dS-NbK"/>
                     <connections>
                         <outlet property="FBButtonPlaceHolder" destination="cee-Hv-JuU" id="JQZ-wY-Th9"/>
-                        <outlet property="aloginButton" destination="dZy-XT-rrW" id="Dc1-Ft-U3y"/>
                         <outlet property="emailFieldSample" destination="D1e-sE-uKa" id="CkV-Xo-M7H"/>
+                        <outlet property="loginButton" destination="dZy-XT-rrW" id="63X-fy-yGG"/>
                         <outlet property="passwordFieldSample" destination="XNf-WQ-P2K" id="oOU-yc-HKa"/>
                         <outlet property="registerButton" destination="Z8W-gE-Re0" id="bmi-GM-VGl"/>
                         <outlet property="registerHint" destination="FL8-bs-lA4" id="CQo-fN-QRZ"/>
@@ -525,6 +525,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KMX-on-aIK"/>
+        <segue reference="J0J-J1-3xV"/>
     </inferredMetricsTieBreakers>
 </document>

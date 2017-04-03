@@ -87,11 +87,15 @@ class UserProfileViewController: UIViewController {
     private func setUserAvata() {
         
         // TODO: magic string and magic number
-        var avatarName = "profilePlaceholder.png"
+        let avatarName = "profilePlaceholder.png"
         //if userData[2] != "" {
             //avatarName = userData[2]
         //}
-        avatar.image = UIImage(named: avatarName)
+        if userProfile?.avatarRef != avatarName {
+            avatar.imageFromUrl(url: (userProfile?.avatarRef)!)
+        } else {
+            avatar.image = UIImage(named: avatarName)
+        }
         avatar.layer.cornerRadius = avatar.bounds.height / 2
         avatar.layer.masksToBounds = true
         view.addSubview(avatar)
@@ -140,4 +144,16 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
+}
+
+extension UIImageView {
+    public func imageFromUrl(url: String) {
+        let url = URL(string: url)
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url!)
+            DispatchQueue.main.async {
+                self.image = UIImage(data: data!)
+            }
+        }
+    }
 }
