@@ -32,17 +32,17 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
         }
     }
     
-    public func saveRoute(_ route: Route) {
-        realmAdd(RealmRoute(route))
-    }
-    
-    public func removeRoute(_ route: Route) {
-        realmDelete(RealmRoute(route))
-    }
-    
-    public func getRouteByName(_ name: String) -> Route? {
-        return realm.objects(RealmRoute.self).filter("name == \(name)").first?.get()
-    }
+//    public func saveRoute(_ route: Route) {
+//        realmAdd(RealmRoute(route))
+//    }
+//    
+//    public func removeRoute(_ route: Route) {
+//        realmDelete(RealmRoute(route))
+//    }
+//    
+//    public func getRouteByName(_ name: String) -> Route? {
+//        return realm.objects(RealmRoute.self).filter("name == \(name)").first?.get()
+//    }
     
     // currently, only allow one user setting per device
     public func saveAppSettings() {
@@ -89,24 +89,24 @@ class RealmGeoPoint: Object {
     }
 }
 
-class RealmRoute: Object {
-    dynamic private var name: String = ""
-    dynamic private var checkPoints: [RealmCheckPoint] = []
-    
-    convenience init(_ route: Route) {
-        self.init()
-        name = route.name
-        checkPoints = route.checkPoints.map { return RealmCheckPoint($0) }
-    }
-    
-    func get() -> Route {
-        let returnRoute = Route.init(name)
-        for point in checkPoints {
-            returnRoute.append(point.get())
-        }
-        return returnRoute
-    }
-}
+//class RealmRoute: Object {
+//    dynamic private var name: String = ""
+//    dynamic private var checkPoints: [RealmCheckPoint] = []
+//    
+//    convenience init(_ route: Route) {
+//        self.init()
+//        name = route.name
+//        checkPoints = route.checkPoints.map { return RealmCheckPoint($0) }
+//    }
+//    
+//    func get() -> Route {
+//        let returnRoute = Route.init(name)
+//        for point in checkPoints {
+//            returnRoute.append(point.get())
+//        }
+//        return returnRoute
+//    }
+//}
 
 class RealmCheckPoint: RealmGeoPoint {
     dynamic private var name: String = ""
@@ -126,31 +126,47 @@ class RealmCheckPoint: RealmGeoPoint {
 }
 
 class RealmAppSettings: Object {
-    private var maxNumberOfMarkers: Int = 0
-    private var radiusOfDetection: Int = 0
-    private var selectedPOICategrories: Set<String> = Set<String>()
+    dynamic private var maxNumberOfMarkers: Int = 0
+    dynamic private var radiusOfDetection: Int = 0
+    private var selectedPOICategrories: List<RealmString> = List<RealmString>()
     
     convenience init(_ settings: AppSettings) {
         self.init()
         maxNumberOfMarkers = settings.maxNumberOfMarkers
         radiusOfDetection = settings.radiusOfDetection
-        selectedPOICategrories = settings.selectedPOICategrories
+
+        for category in settings.selectedPOICategrories {
+            selectedPOICategrories.append(RealmString(category))
+        }
     }
     
     func applyToAppSettings() {
         let settings = AppSettings.getInstance()
         settings.updateMaxNumberOfMarkers(with: maxNumberOfMarkers)
         settings.updateRadiusOfDetection(with: radiusOfDetection)
+        
         for category in settings.selectedPOICategrories {
             settings.removePOICategories(category)
         }
         for newCategory in selectedPOICategrories {
-            settings.addSelectedPOICategories(newCategory)
+            settings.addSelectedPOICategories(newCategory.get())
         }
     }
 }
 
-
+/// wrapper class of Swift String
+/// becuase Realm only supports the classes
+/// which are the subclasses of their Object class
+class RealmString: Object {
+    dynamic var content: String = ""
+    convenience init(_ input: String) {
+        self.init()
+        content = input
+    }
+    func get() -> String {
+        return content
+    }
+}
 
 
 
