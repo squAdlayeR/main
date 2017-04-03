@@ -8,20 +8,24 @@
 
 import UIKit
 
+/**
+ A wrapper class that is to define the table cell in application settings
+ This cell will be containing an icon and a category name.
+ */
 class POICategoriesCell: UITableViewCell {
 
+    // Connects the category icon
     @IBOutlet weak var categoryIcon: UIImageView!
+    
+    // Connects the category name
     @IBOutlet weak var categoryName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
