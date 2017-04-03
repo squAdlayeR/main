@@ -9,5 +9,6 @@
 import Foundation
 
 protocol LocalStorageManagerProtocol {
-    
+    func saveAppSettings()
+    func loadAppSettings()
 }
