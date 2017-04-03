@@ -8,7 +8,7 @@
 
 import UIKit
 
-var iconSet: Set = ["atm",
+let iconSet: Set = ["atm",
                     "bus_station",
                     "cafe",
                     "gym",
@@ -17,7 +17,7 @@ var iconSet: Set = ["atm",
                     "restaurant",
                     "store",
                     "university"]
-var categoryDictionary = [["atm", "atm"],
+let categoryDictionary = [["atm", "atm"],
                           ["bus station", "bus_station"],
                           ["cafe", "cafe"],
                           ["gym", "gym"],
@@ -27,5 +27,6 @@ var categoryDictionary = [["atm", "atm"],
                           ["store", "store"],
                           ["university", "university"],
                           ["others", "others"]]
-var categoryIndex = 0
-var categoryNameIndex = 1
+let categoryIndex = 0
+let categoryNameIndex = 1
+let categoriesReusableIdentifier = "categoryCell"

@@ -20,6 +20,21 @@ class POICategoriesCell: UITableViewCell {
     // Connects the category name
     @IBOutlet weak var categoryName: UILabel!
     
+    /// Prepares the display of cell with specified icon name and category name
+    func prepareDisplay(with iconName: String, categoryNameText: String) {
+        categoryName.text = categoryNameText
+        prepareIcon(with: iconName)
+    }
+    
+    /// Prepares the category icon with specified icon name
+    /// - Parameter imageName: the image name of the icon
+    private func prepareIcon(with imageName: String) {
+        let icon = UIImage(named: imageName)
+        let tintIcon = icon?.withRenderingMode(.alwaysTemplate)
+        categoryIcon.image = tintIcon
+        categoryIcon.tintColor = .black
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

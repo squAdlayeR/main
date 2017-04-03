@@ -8,24 +8,45 @@
 
 import UIKit
 
+/**
+ The view controller that is defined for application settings
+ Currently the settings only include:
+ - change number of visible pois
+ - change radius of poi detection
+ - change desired display of categories
+ */
 class AppSettingsViewController: UIViewController {
-
     
+    // Connects the main title of the settings
     @IBOutlet weak var settingTitle: UILabel!
+    
+    // Connects the subtitle of `Poi settings`
     @IBOutlet weak var poiSubtitle: UILabel!
+    
+    // Connects the radius setting label, slider and number
     @IBOutlet weak var detectionRadiusText: UILabel!
     @IBOutlet weak var radiusSlider: UISlider!
     @IBOutlet weak var detectionRadius: UILabel!
+    
+    // Connects the number of visible markers, slider and number display
     @IBOutlet weak var numberOfMarkerText: UILabel!
     @IBOutlet weak var numberOfMarkerSlider: UISlider!
     @IBOutlet weak var numberOfMarker: UILabel!
+    
+    // Connects the categories label and display table
     @IBOutlet weak var categoriesText: UILabel!
     @IBOutlet weak var categoriesTable: UITableView!
+    
+    // Connects the done button
     @IBOutlet weak var doneButton: UIButton!
     
+    // Defines the scroll view
     var scrollContentView: UIScrollView!
+    
+    // Gets the app settings
     var appSettingsInstance = AppSettings.getInstance()
     
+    /// Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCategoriesTable()
@@ -34,20 +55,26 @@ class AppSettingsViewController: UIViewController {
         loadCurrentApplicationSetting()
     }
     
+    /// Sets up the sroll view for display. The scroll view
+    /// should have the same size as view
     private func setupScrollView() {
         scrollContentView = UIScrollView()
         scrollContentView.frame = view.bounds
-        scrollContentView.contentSize = CGSize(width: view.bounds.width,
-                                               height: categoriesTable.frame.origin.y + categoriesTable.frame.height)
+        let contentSize = CGSize(width: view.bounds.width,
+                                    height: categoriesTable.frame.origin.y
+                                        + categoriesTable.frame.height)
+        scrollContentView.contentSize = contentSize
         view.addSubview(scrollContentView)
     }
     
+    /// Sets up the categrories table for selection
     private func setupCategoriesTable() {
         categoriesTable.delegate = self
         categoriesTable.dataSource = self
         categoriesTable.reloadData()
     }
     
+    /// Adds the elements into scroll view one by one
     private func addIntoScrollView() {
         addToScrollView(settingTitle)
         addToScrollView(poiSubtitle)
@@ -62,6 +89,8 @@ class AppSettingsViewController: UIViewController {
         addToScrollView(doneButton)
     }
     
+    /// Adds a specific view element into the scroll view
+    /// - Parameter view: the view that will be added into the scroll view
     private func addToScrollView(_ view: UIView) {
         let originalFrame = view.frame
         view.removeFromSuperview()
@@ -69,12 +98,14 @@ class AppSettingsViewController: UIViewController {
         scrollContentView.addSubview(view)
     }
     
+    /// Loads the current application settings from storage
     private func loadCurrentApplicationSetting() {
         RealmLocalStorageManager.getInstance().loadAppSettings()
         loadCurrentSlider()
         loadCurrentCategoriesTable()
     }
     
+    /// Sets the sliders to fit the current setting data
     private func loadCurrentSlider() {
         radiusSlider.value = Float(appSettingsInstance.radiusOfDetection)
         numberOfMarkerSlider.value = Float(appSettingsInstance.maxNumberOfMarkers)
@@ -82,12 +113,12 @@ class AppSettingsViewController: UIViewController {
         updateSliderValueDisplay(numberOfMarkerSlider, valueDisplay: numberOfMarker)
     }
     
+    /// Sets the categories to fit the current setting data
     private func loadCurrentCategoriesTable() {
         for cell in categoriesTable.visibleCells {
-            guard let categoriesCell = cell as? POICategoriesCell else {
-                continue
-            }
-            if appSettingsInstance.selectedPOICategrories.contains(categoriesCell.categoryName.text!) {
+            guard let categoriesCell = cell as? POICategoriesCell else { continue }
+            let category = categoriesCell.categoryName.text!
+            if appSettingsInstance.selectedPOICategrories.contains(category) {
                 categoriesCell.accessoryType = .checkmark
                 continue
             }
@@ -95,51 +126,65 @@ class AppSettingsViewController: UIViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+    /// Defines the action that when slider for radius is changed. The number
+    /// text label should display number accordingly
     @IBAction func radiusChanged(_ slider: UISlider) {
         updateSliderValueDisplay(slider, valueDisplay: detectionRadius)
         appSettingsInstance.updateRadiusOfDetection(with: Int(slider.value))
     }
     
+    /// Defines the action that when slider for number of visible pois is changed. 
+    /// The number text label should display number accordingly
     @IBAction func numberChanged(_ slider: UISlider) {
         updateSliderValueDisplay(slider, valueDisplay: numberOfMarker)
         appSettingsInstance.updateMaxNumberOfMarkers(with: Int(slider.value))
     }
     
-    @IBAction func testAction(_ sender: Any) {
+    /// Defines the action that when `done` is clicked, the settings should be saved
+    /// and the query should be updated
+    @IBAction func doneIsPressed(_ sender: Any) {
         RealmLocalStorageManager.getInstance().saveAppSettings()
     }
     
+    /// Updates the slider values for display
+    /// - Parameters:
+    ///     - slider: the sender
+    ///     - valueDisplay: the label for value display
     private func updateSliderValueDisplay(_ slider: UISlider, valueDisplay: UILabel) {
         let value = Int(slider.value)
         valueDisplay.text = String(value)
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 
 }
 
+/**
+ An extension that is used to define categories table datasource and delegate
+ */
 extension AppSettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
+    /// Defines the number of cells in the table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categoryDictionary.count
     }
     
+    /// Defines the diplay of cells.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! POICategoriesCell
-        cell.categoryName.text = categoryDictionary[indexPath.item][categoryIndex]
-        let icon = UIImage(named: categoryDictionary[indexPath.item][categoryNameIndex] + imageExtension)
-        let tintIcon = icon?.withRenderingMode(.alwaysTemplate)
-        cell.categoryIcon.image = tintIcon
-        cell.categoryIcon.tintColor = .black
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: categoriesReusableIdentifier)
+        guard let categoryCell = cell as? POICategoriesCell else { return cell! }
+        let specificCategory = categoryDictionary[indexPath.item]
+        categoryCell.prepareDisplay(with: specificCategory[categoryNameIndex] + imageExtension,
+                                    categoryNameText: specificCategory[categoryIndex])
+        return categoryCell
     }
     
+    /// Defines the interaction when user click on certain cells. should check that cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? POICategoriesCell else {
-            return
-        }
+        guard let cell = tableView.cellForRow(at: indexPath)
+            as? POICategoriesCell else { return }
         if cell.accessoryType == .checkmark {
             cell.accessoryType = .none
             appSettingsInstance.removePOICategories(cell.categoryName.text!)
