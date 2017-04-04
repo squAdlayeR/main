@@ -19,6 +19,7 @@ class DatabaseManager {
     }
     
     func addUserProfileToDatabase(uid: String, userProfile: UserProfile) {
+        
         FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
     }
     
@@ -27,7 +28,14 @@ class DatabaseManager {
     }
     
     func addRouteToDatabase(route: Route) {
-        FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
+        
+        FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChild(route.name) {
+                print("route exists")
+                return
+            }
+            FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
+        })
     }
     
     func removeRouteFromDatabase(routeName: String) {
@@ -93,7 +101,6 @@ class DatabaseManager {
             var routes: [Route] = []
             for result in value.values {
                 guard let route = Route(JSON: result) else { continue }
-                //if //route.name.contains(name) {
                 if GeoUtil.isWithinRange(route.source!, topLeft, bottomRight) || GeoUtil.isWithinRange(route.destination!, topLeft, bottomRight) {
                     routes.append(route)
                 }

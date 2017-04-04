@@ -60,5 +60,30 @@ class GeoUtil {
         }
         return point.longitude > topLeft.longitude && point.longitude < bottomRight.longitude && withinLatitude
     }
+    
+    static func isSimilar(route1: Route, route2: Route, threshold: Double) -> Bool {
+        //var deltas: [Double] = []
+        var sum: Double = 0
+        for index in 0..<route1.checkPoints.count {
+            let pt = route1.checkPoints[index]
+            var min = DBL_MAX
+            for idx in 0..<route2.checkPoints.count - 1 {
+                let pt1 = route2.checkPoints[idx]
+                let pt2 = route2.checkPoints[idx + 1]
+                let k = (pt1.latitude - pt2.latitude)/(pt1.longitude - pt2.longitude)
+                let b = pt1.latitude - k * pt1.longitude
+                let kp = -1/k
+                let bp = pt.latitude - kp*pt.longitude
+                let nx = (bp - b)/(k - kp)
+                let ny = k*nx + b
+                let delta = getCoordinateDistance(pt, GeoPoint(ny, nx))
+                //let delta = fabs(k*pt.longitude - pt.latitude + b) / sqrt(k*k + 1)
+                min = min > delta ? delta : min
+            }
+            //deltas.append(min)
+            sum += min
+        }
+        return sum/Double(route1.checkPoints.count) <= threshold
+    }
 }
 
