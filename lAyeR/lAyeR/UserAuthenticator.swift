@@ -7,23 +7,31 @@
 //
 
 import FirebaseAuth
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class UserAuthenticator {
     
+    /// Returns an instance of UserAuthenticator.
     static let instance = UserAuthenticator()
     
+    
+    /// Creates a user with email and password authentication.
     func createUser(email: String, password: String, completion: AuthenticationCallback?) {
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: completion)
     }
     
+    /// Signs in a user with email and password authentication.
     func signInUser(email: String, password: String, completion: AuthenticationCallback?) {
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: completion)
     }
     
+    /// Sends email verification to a user registered with email.
     func sendEmailVerification(completion: FIRSendEmailVerificationCallback?) {
         FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: completion)
     }
     
+    /// Signs out a user.
     func signOut() {
         do {
             try FIRAuth.auth()?.signOut()
@@ -32,9 +40,11 @@ class UserAuthenticator {
         }
     }
     
-    var currentUserID: String? {
-        return FIRAuth.auth()?.currentUser?.uid
+    /// Returns current user.
+    var currentUser: FIRUser? {
+        return FIRAuth.auth()?.currentUser
     }
+    
 }
 
 typealias AuthenticationCallback = FIRAuthResultCallback

@@ -75,7 +75,6 @@ class ARViewController: UIViewController {
                                                             card: sampleCard)
         sampleCardController.setSelected(true)
         checkpointCardControllers.append(sampleCardController)
-        
     }
     
     private func monitorNearbyPOIsUpdate() {

@@ -17,7 +17,7 @@ import FBSDKCoreKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    var storyboard: UIStoryboard?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -25,6 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(AppConfig.apiKey)
         FIRApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main);
+        //var currentUser = PFUser.currentUser()
+        var currentUser = FIRAuth.auth()?.currentUser
+        if currentUser != nil {
+            self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController");
+        }
+        
+        //return true;
+        
         return true
     }
     

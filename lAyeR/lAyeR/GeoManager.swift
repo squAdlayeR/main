@@ -19,7 +19,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
     
     private static var instance: GeoManager?
     private let locationManager: CLLocationManager = CLLocationManager()
-    
+    private var appSettings: AppSettings = AppSettings.getInstance()
     private var userPoint: GeoPoint = GeoPoint(0, 0)
     private var pois: [POI] = []
 
@@ -48,11 +48,11 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         
         
         /// TODO: Change after implement application settings
-        let url = Parser.parsePOISearchRequest(500, ["food"], userPoint)
+        let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, appSettings.selectedPOICategrories, userPoint)
         Alamofire.request(url).responseJSON { [unowned self] response in
             if let json = response.result.value as? [String: Any] {
                 
-                self.pois = Parser.parseJSONToPOIs(json)
+                self.pois = Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers))
                 
                 NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName,
                                                 object: nil)

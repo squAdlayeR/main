@@ -190,6 +190,10 @@ extension RegisterViewController {
             showErrorAlert(message: "Passwords not match!")
             return
         }
+        guard password.characters.count > 6 else {
+            showErrorAlert(message: "Password should be longer than 6 digits!")
+            return
+        }
         dataService.createUser(email: email, password: password) {
             (user, error) in
             if let error = error {

@@ -20,6 +20,12 @@ class UserProfile: Mappable {
         self.email = user.email
     }
     
+    init(email: String, avatarRef: String, username: String) {
+        self.email = email
+        self.avatarRef = avatarRef
+        self.username = username
+    }
+    
     required init?(map: Map) {
         guard let username = map.JSON["username"] as? String,
             let email = map.JSON["email"] as? String,

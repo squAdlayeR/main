@@ -17,22 +17,11 @@ import FBSDKLoginKit
  In this controller, the main functionality is to setup 
  the view.
  */
-class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
-    /**
-     Sent to the delegate when the button was used to logout.
-     - Parameter loginButton: The button that was clicked.
-     */
-    public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("logged out")
-    }
-
+class LoginViewController: UIViewController {
     
     // Connects outlets of sample input fields
     @IBOutlet weak var emailFieldSample: UITextField!
     @IBOutlet weak var passwordFieldSample: UITextField!
-    
-    //let loginButton = FBSDKLoginButton()
-    
     
     // Connects welcome title and subtitle
     @IBOutlet weak var welcomeTitle: UILabel!
@@ -43,7 +32,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var registerHint: UILabel!
     
     // Connects buttons
-    @IBOutlet weak var aloginButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
     // Defines the view for vibrancy effect
@@ -64,30 +53,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         setupFormInput()
         setupButtons()
         setCloseKeyboardAction()
-        let loginButton = FBSDKLoginButton()
-        loginButton.delegate = self
-        loginButton.center = FBButtonPlaceHolder.center
-        loginButton.readPermissions = ["public_profile", "email", "user_friends"]
-        view.addSubview(loginButton)
+        setUpFBLoginButton()
     }
     
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-            return
-        }
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        print(credential)
-        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-            print(FBSDKAccessToken.current().userID)
-            //print(FBSDKProfile.current().firstName)
-            //let request = FBSDKGraphRequest(graphPath: "/me", parameters: ["fields":"id, name, email"])
-            //request?.start(completionHandler: { connection, result, error in
-                //print(result)
-            //})
-            //self.handleSignInError(error: error!)
-        }
-    }
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -163,9 +132,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     /// Sets up login button
     private func setupLoginButton() {
-        aloginButton.layer.cornerRadius = aloginButton.bounds.height / 2
-        aloginButton.layer.masksToBounds = true
-        view.addSubview(aloginButton)
+        loginButton.layer.cornerRadius = loginButton.bounds.height / 2
+        loginButton.layer.masksToBounds = true
+        view.addSubview(loginButton)
     }
     
     /// Sets up "sign up" button
@@ -254,7 +223,7 @@ extension LoginViewController {
             self.showErrorAlert(message: "Email already in use.")
             return
         case .errorCodeInternalError:
-            self.showErrorAlert(message: "wtf")
+            self.showErrorAlert(message: "Internal error occured.")
             return
         default:
             self.showErrorAlert(message: "Network error.")
@@ -264,11 +233,57 @@ extension LoginViewController {
     
     /// Presents alert with error message
     /// - Parameter message: the message to be diplayed on the alert.
-    private func showErrorAlert(message: String) {
+    func showErrorAlert(message: String) {
         let alert = UIAlertController(title: "Oops", message: message, preferredStyle: UIAlertControllerStyle.alert)
         let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
     
+}
+
+extension LoginViewController: FBSDKLoginButtonDelegate {
+    
+    func setUpFBLoginButton() {
+        let loginButton = FBSDKLoginButton()
+        loginButton.delegate = self
+        loginButton.center = FBButtonPlaceHolder.center
+        loginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        view.addSubview(loginButton)
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
+        if error != nil {
+            self.showErrorAlert(message: "Failed login with Facebook.")
+            return
+        }
+        guard result.declinedPermissions.isEmpty else { return }
+        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+            //loginButton.removeFromSuperview()
+            //guard let user = user else { return }
+            DispatchQueue.global().async {
+                if let error = error {
+                    self.handleSignInError(error: error)
+                    return
+                }
+                guard let user = user else { return }
+                let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
+                DispatchQueue.main.async {
+                    self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+                }
+            }
+            //let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
+            //self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+            self.performSegue(withIdentifier: "loginToAR", sender: nil)
+        }
+    }
+    
+    /**
+     Sent to the delegate when the button was used to logout.
+     - Parameter loginButton: The button that was clicked.
+     */
+    public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("logged out")
+    }
 }
