@@ -563,6 +563,7 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
     // ---------------- back segue to AR view --------------------//
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let arViewController = segue.destination as? ARViewController {
+            arViewController.checkpointCardControllers.removeAll()
             for marker in markers {
                 guard let checkpoint = marker.userData as? CheckPoint else {
                     break
@@ -574,6 +575,10 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
                 arViewController.checkpointCardControllers.append(CheckpointCardController(checkpoint: checkpoint,
                                                                                            card: checkpointCard))
             }
+            if (!markers.isEmpty) {
+                arViewController.checkpointCardControllers[0].setSelected(true)
+            }
+            
             //TODO: force update the POI in ARView
         }
     }
