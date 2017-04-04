@@ -34,6 +34,7 @@
 		528288B21E92690C00163654 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AE1E92690C00163654 /* AppSettings.swift */; };
 		528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AF1E92690C00163654 /* AppSettingsConstants.swift */; };
 		528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B01E92690C00163654 /* AppSettingsViewController.swift */; };
+		528288BA1E9355B100163654 /* PoiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B91E9355B100163654 /* PoiCard.swift */; };
 		52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52830F261E8F4567009DFD02 /* UserProfile.swift */; };
 		52830F411E8FF8E7009DFD02 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3D1E8FF8E7009DFD02 /* Bolts.framework */; };
 		52830F421E8FF8E7009DFD02 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3E1E8FF8E7009DFD02 /* FBSDKCoreKit.framework */; };
@@ -65,16 +66,12 @@
 		9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700D1E87FE7800C1DAA1 /* MenuView.swift */; };
 		9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */; };
 		9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693461E8BE66E00052F68 /* InputTextFeild.swift */; };
-		9D6B809A1E82AD0900210203 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */; };
 		9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFF1E855CC800592EB5 /* Constants.swift */; };
-		9D7DAD021E85635500592EB5 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DAD011E85635500592EB5 /* CardViewController.swift */; };
+		9D7DAD021E85635500592EB5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DAD011E85635500592EB5 /* Card.swift */; };
 		9DAFF1F81E8E942600D09C11 /* RouteListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */; };
 		9DAFF1FE1E8E945D00D09C11 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */; };
-		9D7DAD021E85635500592EB5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DAD011E85635500592EB5 /* Card.swift */; };
-		9DE1FD7D1E856F3B0006C009 /* PoiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE1FD7C1E856F3B0006C009 /* PoiCard.swift */; };
-		9DE1FD7D1E856F3B0006C009 /* PoiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE1FD7C1E856F3B0006C009 /* PoiViewController.swift */; };
 		9DE4361D1E929F8500E1A0ED /* POICategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */; };
 		9DE4361F1E92A90000E1A0ED /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4361E1E92A90000E1A0ED /* CameraViewController.swift */; };
 		9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */; };
@@ -88,10 +85,10 @@
 		A21BBFC11E83FE3700394531 /* ManagerClassSingletonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */; };
 		A238E0721E8FA7A900BA10DC /* CheckpointCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */; };
 		A238E0741E8FAC7000BA10DC /* PoiCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238E0731E8FAC7000BA10DC /* PoiCardController.swift */; };
-		A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB541E92985B002C6ADC /* ArrowView.swift */; };
 		A253FB511E92892C002C6ADC /* LocalStorageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB4E1E92892C002C6ADC /* LocalStorageManagerProtocol.swift */; };
 		A253FB521E92892C002C6ADC /* PlistLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB4F1E92892C002C6ADC /* PlistLocalStorageManager.swift */; };
 		A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */; };
+		A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB541E92985B002C6ADC /* ArrowView.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -145,6 +142,7 @@
 		528288AE1E92690C00163654 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		528288AF1E92690C00163654 /* AppSettingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsConstants.swift; sourceTree = "<group>"; };
 		528288B01E92690C00163654 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
+		528288B91E9355B100163654 /* PoiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiCard.swift; path = ViewComponents/HighLevelComponents/POI/PoiCard.swift; sourceTree = "<group>"; };
 		52830F261E8F4567009DFD02 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		52830F301E8FE422009DFD02 /* lAyeR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lAyeR.entitlements; sourceTree = "<group>"; };
 		52830F3D1E8FF8E7009DFD02 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Downloads/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
@@ -179,12 +177,9 @@
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointCard.swift; path = ViewComponents/HighLevelComponents/CheckPoint/CheckpointCard.swift; sourceTree = "<group>"; };
 		9D7DACFF1E855CC800592EB5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		9D7DAD011E85635500592EB5 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardViewController.swift; path = ViewComponents/HighLevelComponents/CardViewController.swift; sourceTree = "<group>"; };
+		9D7DAD011E85635500592EB5 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Card.swift; path = ViewComponents/HighLevelComponents/Card.swift; sourceTree = "<group>"; };
 		9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteListCell.swift; path = ViewComponents/BasicComponents/Misc/RouteListCell.swift; sourceTree = "<group>"; };
 		9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		9D7DAD011E85635500592EB5 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Card.swift; path = ViewComponents/HighLevelComponents/Card.swift; sourceTree = "<group>"; };
-		9DE1FD7C1E856F3B0006C009 /* PoiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiCard.swift; path = ViewComponents/HighLevelComponents/POI/PoiCard.swift; sourceTree = "<group>"; };
-		9DE1FD7C1E856F3B0006C009 /* PoiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiViewController.swift; path = ViewComponents/HighLevelComponents/POI/PoiViewController.swift; sourceTree = "<group>"; };
 		9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = POICategoriesCell.swift; path = ViewComponents/BasicComponents/Misc/POICategoriesCell.swift; sourceTree = "<group>"; };
 		9DE4361E1E92A90000E1A0ED /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraViewController.swift; path = ViewComponents/BasicComponents/CameraView/CameraViewController.swift; sourceTree = "<group>"; };
 		9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoBlock.swift; path = ViewComponents/BasicComponents/InnerViews/InfoBlock.swift; sourceTree = "<group>"; };
@@ -198,10 +193,10 @@
 		A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerClassSingletonTests.swift; sourceTree = "<group>"; };
 		A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointCardController.swift; sourceTree = "<group>"; };
 		A238E0731E8FAC7000BA10DC /* PoiCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoiCardController.swift; sourceTree = "<group>"; };
-		A253FB541E92985B002C6ADC /* ArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		A253FB4E1E92892C002C6ADC /* LocalStorageManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManagerProtocol.swift; sourceTree = "<group>"; };
 		A253FB4F1E92892C002C6ADC /* PlistLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistLocalStorageManager.swift; sourceTree = "<group>"; };
 		A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmLocalStorageManager.swift; sourceTree = "<group>"; };
+		A253FB541E92985B002C6ADC /* ArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -512,7 +507,7 @@
 		9D7DACF81E85461C00592EB5 /* POI */ = {
 			isa = PBXGroup;
 			children = (
-				9DE1FD7C1E856F3B0006C009 /* PoiCard.swift */,
+				528288B91E9355B100163654 /* PoiCard.swift */,
 			);
 			name = POI;
 			sourceTree = "<group>";
@@ -869,11 +864,10 @@
 				A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */,
 				A21BBFAF1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift in Sources */,
 				52BD49761E8A8DFA00B4B750 /* DatabaseManager.swift in Sources */,
-				9DE1FD7D1E856F3B0006C009 /* PoiCard.swift in Sources */,
-				9DE1FD7D1E856F3B0006C009 /* PoiViewController.swift in Sources */,
 				9DE4361F1E92A90000E1A0ED /* CameraViewController.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
+				528288BA1E9355B100163654 /* PoiCard.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,

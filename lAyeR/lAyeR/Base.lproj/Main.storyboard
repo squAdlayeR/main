@@ -498,37 +498,85 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kyk-27-5Ml">
-                                <rect key="frame" x="16" y="20" width="343" height="30"/>
+                                <rect key="frame" x="20" y="20" width="728" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJS-5c-jip">
-                                <rect key="frame" x="137" y="617" width="101" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Od7-qT-Joa">
+                                <rect key="frame" x="0.0" y="961" width="768" height="63"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ea0-Vt-fRp">
+                                        <rect key="frame" x="403" y="17" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Save"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Manual Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwG-su-dxh">
+                                        <rect key="frame" x="174" y="22" width="117" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YBg-s0-KoM">
+                                        <rect key="frame" x="117" y="17" width="51" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="toggleRouteType:" destination="BYZ-38-t0r" eventType="valueChanged" id="Tuj-EC-zGr"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Google Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEm-jI-COs">
+                                        <rect key="frame" x="8" y="21" width="113" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrI-W7-ZCw">
+                                        <rect key="frame" x="522" y="16" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Undo"/>
+                                        <connections>
+                                            <action selector="undo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L3w-Lj-1Hp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJS-5c-jip">
+                                        <rect key="frame" x="659" y="18" width="101" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="4MY-4Q-S53"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="HTT-Nt-222"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="101" id="YiE-2v-bfq"/>
+                                            <constraint firstAttribute="width" constant="101" id="nxg-0O-5v9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="28"/>
+                                        <state key="normal" title="GO AR!">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="8CX-ET-To7" kind="show" identifier="RouteDesignerToARSegue" id="KMX-on-aIK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="4MY-4Q-S53"/>
-                                    <constraint firstAttribute="width" constant="101" id="nxg-0O-5v9"/>
+                                    <constraint firstAttribute="trailing" secondItem="cJS-5c-jip" secondAttribute="trailing" constant="8" id="7lL-91-Zrr"/>
+                                    <constraint firstAttribute="bottom" secondItem="cJS-5c-jip" secondAttribute="bottom" constant="15" id="SJA-iC-jf6"/>
+                                    <constraint firstAttribute="height" constant="63" id="szC-Ur-Vib"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="28"/>
-                                <state key="normal" title="GO AR!">
-                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
-                                </state>
-                                <connections>
-                                    <segue destination="su6-gM-7Ml" kind="unwind" unwindAction="unwindSegueToARViewWithSegue:" id="qWx-CY-gw2"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kyk-27-5Ml" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="GSW-qF-Mr6"/>
                             <constraint firstItem="kyk-27-5Ml" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ND9-BQ-ON9"/>
-                            <constraint firstAttribute="bottom" secondItem="cJS-5c-jip" secondAttribute="bottom" constant="20" symbolic="YES" id="QaX-fg-Lkb"/>
-                            <constraint firstItem="cJS-5c-jip" firstAttribute="centerX" secondItem="kyk-27-5Ml" secondAttribute="centerX" id="ZEr-sO-7EF"/>
+                            <constraint firstAttribute="trailing" secondItem="Od7-qT-Joa" secondAttribute="trailing" id="YM6-EY-YFI"/>
                             <constraint firstItem="kyk-27-5Ml" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ZZf-jR-My6"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Od7-qT-Joa" secondAttribute="bottom" id="ehu-Ms-3Qi"/>
+                            <constraint firstItem="Od7-qT-Joa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lgy-fK-NhG"/>
                         </constraints>
                     </view>
                     <connections>
@@ -536,9 +584,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <exit id="su6-gM-7Ml" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-34" y="-265"/>
+            <point key="canvasLocation" x="-1227.34375" y="451.75781249999994"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
