@@ -66,6 +66,7 @@ extension MenuViewController {
         
         updateMenuCenter(inside: superView)
         superView.addSubview(menuView)
+        superView.bringSubview(toFront: menuView)
         menuView.open()
         isOpened = true
     }
