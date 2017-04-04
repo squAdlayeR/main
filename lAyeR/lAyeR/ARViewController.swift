@@ -135,7 +135,9 @@ class ARViewController: UIViewController {
             poiCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
                                          superView: view, fov: fov)
         }
-    }  
+    }
+    
+    @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}
 }
 
 
