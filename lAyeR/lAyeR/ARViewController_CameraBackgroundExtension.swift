@@ -52,7 +52,7 @@ extension ARViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         videoDataOutput.connection(withMediaType: AVMediaTypeVideo).isEnabled = true
         
         cameraViewLayer = AVCaptureVideoPreviewLayer(session: session)
-        cameraViewLayer.videoGravity = AVLayerVideoGravityResizeAspect
+        cameraViewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         
         let rootLayer = cameraView.layer
         rootLayer.masksToBounds = true

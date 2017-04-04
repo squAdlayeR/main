@@ -55,6 +55,10 @@ class ARViewController: UIViewController {
         prepareMenu()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     private func addCameraView() {
         cameraView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         cameraView.contentMode = .scaleAspectFit

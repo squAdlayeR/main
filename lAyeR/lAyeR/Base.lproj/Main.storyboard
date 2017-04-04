@@ -475,7 +475,7 @@
                                 <state key="normal" title="done"/>
                                 <connections>
                                     <action selector="doneIsPressed:" destination="ZZQ-e4-cj1" eventType="touchUpInside" id="yHJ-pr-pVY"/>
-                                    <segue destination="wzB-mb-IjU" kind="unwind" unwindAction="backToARViewWithSegue:" id="3n0-Eo-4SV"/>
+                                    <segue destination="wzB-mb-IjU" kind="unwind" unwindAction="unwindSegueToARViewWithSegue:" id="teb-8a-kDh"/>
                                 </connections>
                             </button>
                         </subviews>

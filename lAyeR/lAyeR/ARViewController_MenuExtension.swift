@@ -47,22 +47,28 @@ extension ARViewController {
     /// - Returns: a menu button view
     private func createSettingsButton() -> MenuButtonView {
         let settingsButton = MenuButtonView(radius: menuButtonRaidus, iconName: settingsIconName)
-        // TODO: Add gestures
+        let tap = UITapGestureRecognizer(target: self, action: #selector(openAppSettings))
+        settingsButton.addGestureRecognizer(tap)
         return settingsButton
     }
     
     /// Creates a profile button
     /// - Returns: a menu button view
     private func createProfileButton() -> MenuButtonView {
-        let profileButton = MenuButtonView(radius: 50, iconName: profileIconName)
-        // TODO: Add gestures
+        let profileButton = MenuButtonView(radius: menuButtonRaidus, iconName: profileIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(openUserProfile))
         profileButton.addGestureRecognizer(tap)
         return profileButton
     }
     
     func openUserProfile() {
+        menuController.remove()
         self.performSegue(withIdentifier: "arToUserProfile", sender: nil)
+    }
+    
+    func openAppSettings() {
+        menuController.remove()
+        self.performSegue(withIdentifier: "settingsSegue", sender: nil)
     }
     
     /// Prepares the gestures to call out / close menu
