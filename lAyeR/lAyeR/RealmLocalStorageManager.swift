@@ -40,7 +40,7 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
         realmDelete(RealmRoute(route))
     }
     
-    public func getRoutes(between source: GeoPoint, to destination: GeoPoint, inRange range: Double) -> [Route] {
+    public func getRoutes(between source: GeoPoint, and destination: GeoPoint, inRange range: Double) -> [Route] {
         var returnedRoutes: [Route] = []
         let realmRoutes = realm.objects(RealmRoute.self)
         for realmRoute in realmRoutes {
