@@ -46,7 +46,6 @@ class ARViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addCameraView()
-        addCheckPointCards()
         setupAVCapture()
         fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         monitorNearbyPOIsUpdate()
@@ -59,22 +58,6 @@ class ARViewController: UIViewController {
         cameraView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         cameraView.contentMode = .scaleAspectFit
         view.insertSubview(cameraView, at: 0)
-    }
-    
-    private func addCheckPointCards() {
-        // FOR TESTING PURPOSE
-
-        let sampleCard = CheckpointCard(center: view.center, distance: 0, superView: view)
-        sampleCard.setCheckpointName("Prince Geroges' Park Residences")
-        sampleCard.setCheckpointDescription("Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
-        
-        // can set blur mode using below code
-        sampleCard.setBlurEffect(true)
-        
-        let sampleCardController = CheckpointCardController(checkpoint: CheckPoint(1.2909, 103.7813, "PGP Residence"),
-                                                            card: sampleCard)
-        sampleCardController.setSelected(true)
-        checkpointCardControllers.append(sampleCardController)
     }
     
     private func monitorNearbyPOIsUpdate() {
@@ -125,9 +108,14 @@ class ARViewController: UIViewController {
     @objc private func updateLoop() {
         let userPoint = geoManager.getLastUpdatedUserPoint()
 
+        var count = 0
         for checkPointCardController in checkpointCardControllers {
+            if count == 3 {  // TODO: put this constant into AppSettings
+                break
+            }
             checkPointCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
                                                 superView: view, fov: fov)
+            count += 1
         }
         
         for poiCardController in currentPoiCardControllers {

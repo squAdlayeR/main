@@ -46,6 +46,7 @@ class CheckpointCardController {
         }
         if selected {
             superView.addSubview(arrow)
+            card.setBlurEffect(true)
         } else {
             arrow.removeFromSuperview()
         }
@@ -107,13 +108,14 @@ class CheckpointCardController {
     }
     
     
-    func removeCard() {
+    func removeCardAndArrow() {
         card.removeFromSuperview()
+        arrow.removeFromSuperview()
     }
     
     
     deinit {
-        removeCard()
+        removeCardAndArrow()
     }
 }
 
