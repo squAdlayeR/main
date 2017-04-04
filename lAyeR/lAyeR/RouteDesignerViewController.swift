@@ -568,7 +568,7 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
                 guard let checkpoint = marker.userData as? CheckPoint else {
                     break
                 }
-                let checkpointCard = CheckpointCard(center: CGPoint.zero,
+                let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // for demo only, hide out of screen
                                                     distance: 0, superView: arViewController.view)
                 checkpointCard.setCheckpointName(checkpoint.name)
                 checkpointCard.setCheckpointDescription("To be specified...")
