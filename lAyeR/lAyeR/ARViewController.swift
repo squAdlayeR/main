@@ -19,6 +19,7 @@ class ARViewController: UIViewController {
     let sampleCardHeight = 108
     let sampleCardAlpha: CGFloat = 0.48
     let framePerSecond = 60
+    var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
         Setting.nearbyPOIsUpdatedNotificationName)
     
@@ -32,8 +33,8 @@ class ARViewController: UIViewController {
     var done = false
     
     var cameraView: UIView!
-    var checkpointCardPairs: [(CheckPoint, CheckpointViewController)] = []
-    private var currentPoiCardPairs: [(POI, PoiViewController)] = []
+    var checkpointCardControllers: [CheckpointCardController] = []
+    private var currentPoiCardControllers: [PoiCardController] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
 
@@ -47,6 +48,7 @@ class ARViewController: UIViewController {
         addCameraView()
         addCheckPointCards()
         setupAVCapture()
+        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         monitorNearbyPOIsUpdate()
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
@@ -62,12 +64,18 @@ class ARViewController: UIViewController {
     private func addCheckPointCards() {
         // FOR TESTING PURPOSE
 
-        let sampleCard = CheckpointViewController(center: view.center, distance: 0, superView: view)
+        let sampleCard = CheckpointCard(center: view.center, distance: 0, superView: view)
         sampleCard.setCheckpointName("Prince Geroges' Park Residences")
         sampleCard.setCheckpointDescription("Prince George's Park Residences. One of the most famous residences in NUS, it is usually a place for foreign students to live. Most Chinese studenting are living here. This is the destination.")
-        checkpointCardPairs.append((CheckPoint(1.2909, 103.7813, "PGP Residence"), sampleCard))
+        
         // can set blur mode using below code
         sampleCard.setBlurEffect(true)
+        
+        let sampleCardController = CheckpointCardController(checkpoint: CheckPoint(1.2909, 103.7813, "PGP Residence"),
+                                                            card: sampleCard)
+        sampleCardController.setSelected(true)
+        checkpointCardControllers.append(sampleCardController)
+        
     }
     
     private func monitorNearbyPOIsUpdate() {
@@ -79,32 +87,31 @@ class ARViewController: UIViewController {
     
     private func displayLastUpdatedPOIs() {
         let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
-        var newPOICardPairs: [(POI, PoiViewController)] = []
+        var newPOICardControllers: [PoiCardController] = []
 
-        for poiCardPair in currentPoiCardPairs {
-            let previousPoi = poiCardPair.0
-            let poiCard = poiCardPair.1
-            if lastUpdatedPOIs.contains(where: { $0.name == previousPoi.name }) {
-                newPOICardPairs.append(poiCardPair)
-            } else {
-                poiCard.removeFromSuperview()
+        // keep the previous POI and corresponding card that also appears in the updated POI list
+        // discard the obsolete POIs and remove corresponding card that does no appear in the updated list
+        for poiCardController in currentPoiCardControllers {
+            if lastUpdatedPOIs.contains(where: { $0.name == poiCardController.poiName }) {
+                newPOICardControllers.append(poiCardController)
             }
         }
         
+        // add the new POI and create corresponding card that appears in the updated list but not the previous list
         for newPoi in lastUpdatedPOIs {
-            if !newPOICardPairs.contains(where: { $0.0.name == newPoi.name }) {
+            if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
                 guard let name = newPoi.name else {
                     break
                 }
-                let poiCard = PoiViewController(center: view.center, distance: 0, type: "library", superView: view)
+                let poiCard = PoiCard(center: view.center, distance: 0, type: "library", superView: view)
                 poiCard.setPoiName(name)
                 poiCard.setPoiDescription("To be specified...")
                 poiCard.setPoiAddress(newPoi.vicinity!)
-                newPOICardPairs.append((newPoi, poiCard))
+                newPOICardControllers.append(PoiCardController(poi: newPoi, card: poiCard))
             }
         }
         
-        currentPoiCardPairs = newPOICardPairs
+        currentPoiCardControllers = newPOICardControllers
     }
     
     /**
@@ -119,116 +126,17 @@ class ARViewController: UIViewController {
     @objc private func updateLoop() {
         let userPoint = geoManager.getLastUpdatedUserPoint()
 
-        // update position and orientation of checkPointCards
-        for (checkPoint, checkPointCard) in self.checkpointCardPairs {
-            let azimuth = GeoUtil.getAzimuth(between: userPoint, checkPoint)
-            let distance = GeoUtil.getCoordinateDistance(userPoint, checkPoint)
-            
-            let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager, azimuth: azimuth, superView: self.view)
-            checkPointCard.applyViewAdjustment(layoutAdjustment)
-            checkPointCard.update(distance)
+        for checkPointCardController in checkpointCardControllers {
+            checkPointCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
+                                                superView: view, fov: fov)
         }
         
-        // update position and orientation of poiCards
-        for (poi, poiCard) in self.currentPoiCardPairs {
-            let azimuth = GeoUtil.getAzimuth(between: userPoint, poi)
-            let distance = GeoUtil.getCoordinateDistance(userPoint, poi)
-            
-            let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager, azimuth: azimuth, superView: self.view)
-            poiCard.applyViewAdjustment(layoutAdjustment)
-            poiCard.update(distance)
+        for poiCardController in currentPoiCardControllers {
+            poiCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
+                                         superView: view, fov: fov)
         }
-    }
-    
-
-    
+    }  
 }
-
-/**
- An extension that is used to initialize popup menu
- */
-extension ARViewController {
-    
-    /// Prepares the menu. This includes
-    /// - prepare gestures
-    /// - prepare buttons
-    func prepareMenu() {
-        prepareMenuGestures()
-        let menuButtons = createMenuButtons()
-        menuController.addMenuButtons(menuButtons)
-    }
-    
-    /// Creates necessary buttons in the menu. This includes
-    /// - Map button that will navigate users to designer view
-    /// - profile button that will navigate users to profile view
-    /// - settings button that will naviage users to app settings view
-    /// - Returns: the corresponding buttons
-    private func createMenuButtons() -> [MenuButtonView] {
-        let mapButton = createMapButton()
-        let profileButton = createProfileButton()
-        let settingsButton = createSettingsButton()
-        return [mapButton, profileButton, settingsButton]
-    }
-    
-    /// Creates a map button
-    /// - Returns: a menu button view
-    private func createMapButton() -> MenuButtonView {
-        let mapButton = MenuButtonView(radius: menuButtonRaidus, iconName: mapIconName)
-        // TODO: Add gestures
-        return mapButton
-    }
-    
-    /// Creates a settings button
-    /// - Returns: a menu button view
-    private func createSettingsButton() -> MenuButtonView {
-        let settingsButton = MenuButtonView(radius: 50, iconName: settingsIconName)
-        // TODO: Add gestures
-        return settingsButton
-    }
-    
-    func openUserProfile() {
-        self.performSegue(withIdentifier: "arToUserProfile", sender: nil)
-    }
-    
-    /// Creates a profile button
-    /// - Returns: a menu button view
-    private func createProfileButton() -> MenuButtonView {
-        let profileButton = MenuButtonView(radius: menuButtonRaidus, iconName: profileIconName)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(openUserProfile))
-        profileButton.addGestureRecognizer(tap)
-        return profileButton
-    }
-    
-    /// Prepares the gestures to call out / close menu
-    private func prepareMenuGestures() {
-        let swipeDownAction = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDownGesture(swipeGesture:)))
-        let swipeUpAction = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeUpGesture(swipeGesture:)))
-        swipeUpAction.direction = .up
-        swipeDownAction.direction = .down
-        view.addGestureRecognizer(swipeDownAction)
-        view.addGestureRecognizer(swipeUpAction)
-    }
-    
-    /// Handles swipe down gesture, which will call out menu
-    func handleSwipeDownGesture(swipeGesture: UISwipeGestureRecognizer) {
-        menuController.present(inside: view)
-    }
-    
-    /// Handles swipe up gesture, which will close menu
-    func handleSwipeUpGesture(swipeGesture: UISwipeGestureRecognizer) {
-        menuController.remove()
-    }
-    
-    func tapOnSettingsButton() {
-        performSegue(withIdentifier: "settingsSegue", sender: nil)
-    }
-    
-    @IBAction func backToARView(segue: UIStoryboardSegue) {
-        
-    }
-    
-}
-
 
 
 

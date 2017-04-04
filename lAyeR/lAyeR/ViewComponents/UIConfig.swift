@@ -66,8 +66,8 @@ let checkpointTitle: String = "Checkpoint"
 let confirmLabelText: String = "OK"
 let suggestedPopupHeight: CGFloat = 250
 let suggestedPopupWidth: CGFloat = 300
-let suggestedMarkerHeight: CGFloat = 70
-let suggestedMarkerWidth: CGFloat = 50
+let suggestedMarkerHeight: CGFloat = 80
+let suggestedMarkerWidth: CGFloat = 60
 
 /// POI View
 let directLabelText: String = "Direct"

@@ -1,5 +1,5 @@
 //
-//  CardViewController.swift
+//  Card.swift
 //  lAyeR
 //
 //  Created by Yang Zhuohan on 24/3/17.
@@ -12,7 +12,7 @@ import UIKit
  A super class that is used to represent a card that will display
  place icon and information
  */
-class CardViewController: NSObject {
+class Card: NSObject {
 
     // The marker of the card
     var markerCard: BasicMarker!
@@ -99,7 +99,7 @@ class CardViewController: NSObject {
 /**
  An extension that is used to define interactions
  */
-extension CardViewController {
+extension Card {
     
     /// Opens the popup
     func openPopup() {
@@ -136,7 +136,7 @@ extension CardViewController {
  An extension that is to specify that this controller conforms `View-
  LayoutAdjustable`
  */
-extension CardViewController: ViewLayoutAdjustable {
+extension Card: ViewLayoutAdjustable {
     
     /// Applies view adjustment to the marker and popup when neccessary.
     /// - Parameter adjustment: the corresponding adjustment
