@@ -53,7 +53,7 @@ class ARViewController: UIViewController {
         displayLastUpdatedPOIs()
         prepareMenu()
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
