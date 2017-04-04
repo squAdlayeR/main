@@ -263,18 +263,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vz6-mu-KFg">
-                                <rect key="frame" x="37" y="65" width="94" height="94"/>
+                                <rect key="frame" x="35" y="36" width="94" height="94"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddY-IV-1hb">
-                                <rect key="frame" x="148" y="94" width="189" height="36"/>
+                                <rect key="frame" x="148" y="36" width="189" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HomenajeMod-Regular" family="HomenajeMod" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEH-w8-WWs">
-                                <rect key="frame" x="148" y="131" width="189" height="21"/>
+                                <rect key="frame" x="148" y="80" width="189" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HomenajeMod-Regular" family="HomenajeMod" pointSize="15"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -289,7 +289,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="148"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1qr-Gj-SkB" id="RhL-vr-Xf9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="147.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WfS-ph-vxd">
@@ -320,19 +320,32 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSV-vP-6tT">
+                                <rect key="frame" x="54" y="146" width="57" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HomenajeMod-Regular" family="HomenajeMod" pointSize="17"/>
+                                <state key="normal" title="Log out">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="LogOut:" destination="zxE-ce-dRU" eventType="touchUpInside" id="iA7-PQ-iD2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="avatar" destination="vz6-mu-KFg" id="d7T-NA-p0U"/>
                         <outlet property="location" destination="DEH-w8-WWs" id="ah8-u3-SL6"/>
+                        <outlet property="logoutButton" destination="gSV-vP-6tT" id="hAo-qd-oU3"/>
                         <outlet property="routeList" destination="olM-7O-Wvd" id="aBQ-oB-O0G"/>
                         <outlet property="userName" destination="ddY-IV-1hb" id="sZ8-J2-fwn"/>
+                        <segue destination="KG1-mK-LJP" kind="show" identifier="userProfileToLogin" id="Tsu-r8-y6e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dKX-7P-lyc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-439" y="1236"/>
+            <point key="canvasLocation" x="-439.19999999999999" y="1235.5322338830586"/>
         </scene>
         <!--App Settings View Controller-->
         <scene sceneID="OLt-nL-KM9">
@@ -418,7 +431,7 @@
                                         <rect key="frame" x="0.0" y="28" width="322" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W8M-rU-QKp" id="zpC-6J-JCa">
-                                            <rect key="frame" x="0.0" y="0.0" width="322" height="50.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="322" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZi-vI-iaz">

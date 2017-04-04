@@ -260,13 +260,21 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
         guard result.declinedPermissions.isEmpty else { return }
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-            if let error = error {
-                self.handleSignInError(error: error)
-                return
+            //loginButton.removeFromSuperview()
+            //guard let user = user else { return }
+            DispatchQueue.global().async {
+                if let error = error {
+                    self.handleSignInError(error: error)
+                    return
+                }
+                guard let user = user else { return }
+                let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
+                DispatchQueue.main.async {
+                    self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+                }
             }
-            guard let user = user else { return }
-            let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
-            self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+            //let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
+            //self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
         }
     }

@@ -7,11 +7,14 @@
 //
 
 import FirebaseAuth
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class UserAuthenticator {
     
     /// Returns an instance of UserAuthenticator.
     static let instance = UserAuthenticator()
+    
     
     /// Creates a user with email and password authentication.
     func createUser(email: String, password: String, completion: AuthenticationCallback?) {

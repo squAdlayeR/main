@@ -5,7 +5,8 @@
 //  Created by Yang Zhuohan on 31/3/17.
 //  Copyright © 2017 Yang Zhuohan. All rights reserved.
 //
-
+import FBSDKCoreKit
+import FBSDKLoginKit
 import UIKit
 
 /**
@@ -24,6 +25,7 @@ class UserProfileViewController: UIViewController {
       //              ["Walk from pgp to biz", "20 March, 2017", "test2.png"],
        //             ["Walk from biz to computing", "20 March, 2017", "test3.png"],
        //             ["Walk from computing to clb", "19 March 2017", //"test4.png"],
+    @IBOutlet weak var logoutButton: UIButton!
         //            ["Walk from computing to engining", "18 March 2017", "test2.png"]]
    // let userData = ["Yang Zhuohan", "Singapore, Singapore", ""]
     var userProfile: UserProfile?
@@ -44,11 +46,11 @@ class UserProfileViewController: UIViewController {
     let dataService = DataServiceManager.instance
     
     override func viewDidLoad() {
+        self.setCameraView()
+        self.setBlur()
         dataService.retrieveUserProfile { profile in
             self.userProfile = profile
             //super.viewDidLoad()
-            self.setCameraView()
-            self.setBlur()
             self.setUserInfo()
             self.setRouteList()
         }
@@ -58,6 +60,13 @@ class UserProfileViewController: UIViewController {
         return .lightContent
     }
     
+    @IBAction func LogOut(_ sender: Any) {
+        
+        dataService.signOut()
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
+    }
     /// Sets the camera view as backgound image
     private func setCameraView() {
         let cameraViewController = CameraViewController()
@@ -107,6 +116,7 @@ class UserProfileViewController: UIViewController {
         location.text = userProfile?.email//userData[1]
         view.addSubview(userName)
         vibrancyEffectView.addSubview(location)
+        view.addSubview(logoutButton)
     }
     
     /// Sets up the route list table
