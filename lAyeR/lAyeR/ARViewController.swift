@@ -21,7 +21,7 @@ class ARViewController: UIViewController {
     let framePerSecond = 60
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
-        Setting.nearbyPOIsUpdatedNotificationName)
+                                                                        Constant.nearbyPOIsUpdatedNotificationName)
     
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!

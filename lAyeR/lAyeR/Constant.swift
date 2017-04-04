@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Setting {
+class Constant {
     static let nearbyPOIsUpdatedNotificationName = "nearbyPOIsUpdatedNotification"
     
     static let projectionPlaneDistance: CGFloat = 600
@@ -17,3 +17,13 @@ class Setting {
     static let maxPushBackDistance: CGFloat = 380
     static let maxSearchDistance: Double = 800
 }
+
+
+
+
+
+
+
+
+
+

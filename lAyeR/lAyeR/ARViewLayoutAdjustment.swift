@@ -23,15 +23,15 @@ struct ARViewLayoutAdjustment {
     private let azimuth: Double
     
     var pushBackDistance: CGFloat {
-        if (CGFloat(distance) > Setting.maxPushBackDistance) {
-            return Setting.maxPushBackDistance
+        if (CGFloat(distance) > Constant.maxPushBackDistance) {
+            return Constant.maxPushBackDistance
         } else {
             return CGFloat(distance)
         }
     }
     
     var perspectiveYPosition: CGFloat {
-        let projectionPlaneDistance = Setting.projectionPlaneDistance
+        let projectionPlaneDistance = Constant.projectionPlaneDistance
         let projectionPlaneToTargeDistance = CGFloat(distance)
         let eyeYPositioin = superView.bounds.height * 0.38
         let range = superView.bounds.height * 0.28
