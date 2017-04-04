@@ -17,6 +17,8 @@ import UIKit
  */
 class AppSettingsViewController: UIViewController {
     
+    @IBOutlet weak var topbanner: UIView!
+    
     // Connects the main title of the settings
     @IBOutlet weak var settingTitle: UILabel!
     
@@ -52,6 +54,7 @@ class AppSettingsViewController: UIViewController {
         setupCategoriesTable()
         setupScrollView()
         addIntoScrollView()
+        setupTopBanner()
         loadCurrentApplicationSetting()
     }
     
@@ -76,7 +79,7 @@ class AppSettingsViewController: UIViewController {
     
     /// Adds the elements into scroll view one by one
     private func addIntoScrollView() {
-        addToScrollView(settingTitle)
+//        addToScrollView(settingTitle)
         addToScrollView(poiSubtitle)
         addToScrollView(detectionRadiusText)
         addToScrollView(radiusSlider)
@@ -86,7 +89,7 @@ class AppSettingsViewController: UIViewController {
         addToScrollView(numberOfMarker)
         addToScrollView(categoriesText)
         addToScrollView(categoriesTable)
-        addToScrollView(doneButton)
+//        addToScrollView(doneButton)
     }
     
     /// Adds a specific view element into the scroll view
@@ -96,6 +99,12 @@ class AppSettingsViewController: UIViewController {
         view.removeFromSuperview()
         view.frame = originalFrame
         scrollContentView.addSubview(view)
+    }
+    
+    private func setupTopBanner() {
+        topbanner.addSubview(doneButton)
+        topbanner.addSubview(settingTitle)
+        view.addSubview(topbanner)
     }
     
     /// Loads the current application settings from storage
