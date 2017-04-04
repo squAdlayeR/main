@@ -14,7 +14,7 @@ class CheckpointCardController {
     let card: CheckpointCard
     private var layoutAdjustment: ARViewLayoutAdjustment!
     private var selected: Bool = false
-    private var arrow: UIView!
+    private var arrow: ArrowView!
     
     private var isInsideView: Bool {
         guard let superView = card.superView else {
@@ -33,8 +33,8 @@ class CheckpointCardController {
 
     
     private func initializeArrow() {
-        arrow = UIView(frame: CGRect(x: 0, y: 0, width: 18, height: 38))
-        arrow.backgroundColor = UIColor.white
+        arrow = ArrowView()
+        arrow.setup()
     }
     
     

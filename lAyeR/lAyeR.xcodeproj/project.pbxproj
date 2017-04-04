@@ -63,6 +63,7 @@
 		A21BBFC11E83FE3700394531 /* ManagerClassSingletonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */; };
 		A238E0721E8FA7A900BA10DC /* CheckpointCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */; };
 		A238E0741E8FAC7000BA10DC /* PoiCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238E0731E8FAC7000BA10DC /* PoiCardController.swift */; };
+		A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB541E92985B002C6ADC /* ArrowView.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -145,6 +146,7 @@
 		A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerClassSingletonTests.swift; sourceTree = "<group>"; };
 		A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointCardController.swift; sourceTree = "<group>"; };
 		A238E0731E8FAC7000BA10DC /* PoiCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoiCardController.swift; sourceTree = "<group>"; };
+		A253FB541E92985B002C6ADC /* ArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -433,9 +435,18 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		A253FB561E929861002C6ADC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A253FB541E92985B002C6ADC /* ArrowView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		A2AF0AB81E70101000B4478C /* ARRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				A253FB561E929861002C6ADC /* Views */,
 				A238E0701E8FA75B00BA10DC /* Controllers */,
 				A238E06F1E8FA73E00BA10DC /* Models */,
 				A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */,
@@ -662,6 +673,7 @@
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
 				9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */,
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
+				A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */,
 				5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */,
 				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
