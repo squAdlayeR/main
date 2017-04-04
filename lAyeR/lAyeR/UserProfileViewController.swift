@@ -40,6 +40,9 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var location: UILabel!
     
+    // Connects the back button
+    @IBOutlet weak var backButton: UIButton!
+    
     /// Defines the vibrancy effect view
     var vibrancyEffectView: UIVisualEffectView!
     
@@ -48,6 +51,7 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         self.setCameraView()
         self.setBlur()
+        self.setBackButton()
         dataService.retrieveUserProfile { profile in
             self.userProfile = profile
             //super.viewDidLoad()
@@ -83,6 +87,11 @@ class UserProfileViewController: UIViewController {
         self.vibrancyEffectView = vibrancyEffect
         blurEffect.contentView.addSubview(vibrancyEffect)
         view.addSubview(blurEffect)
+    }
+    
+    /// Adds the back button into the vibrancy effect view
+    private func setBackButton() {
+        vibrancyEffectView.contentView.addSubview(backButton)
     }
     
     /// Sets up the user infomation at the top
