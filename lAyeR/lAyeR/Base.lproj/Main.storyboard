@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KG1-mK-LJP">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KG1-mK-LJP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -52,7 +52,7 @@
                     </view>
                     <connections>
                         <segue destination="ZZQ-e4-cj1" kind="presentation" identifier="settingsSegue" id="yhm-TZ-iKu"/>
-                        <segue destination="zxE-ce-dRU" kind="show" identifier="arToUserProfile" id="gmy-Fg-dkd"/>
+                        <segue destination="zxE-ce-dRU" kind="presentation" identifier="arToUserProfile" id="gmy-Fg-dkd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y8o-ag-LPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -149,7 +149,7 @@
                         <outlet property="signinButton" destination="i4j-8w-Dx4" id="eu8-gh-QwW"/>
                         <outlet property="signinHint" destination="pWf-xY-p8h" id="sRg-f6-voW"/>
                         <outlet property="subtitle" destination="ZAm-Qe-zSq" id="yfm-dN-0QV"/>
-                        <segue destination="8CX-ET-To7" kind="show" identifier="registerToAR" id="mJI-nP-dLh"/>
+                        <segue destination="8CX-ET-To7" kind="presentation" identifier="registerToAR" id="mJI-nP-dLh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvH-JS-gz6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -239,14 +239,14 @@
                     <navigationItem key="navigationItem" id="2c0-dS-NbK"/>
                     <connections>
                         <outlet property="FBButtonPlaceHolder" destination="cee-Hv-JuU" id="JQZ-wY-Th9"/>
-                        <outlet property="aloginButton" destination="dZy-XT-rrW" id="Dc1-Ft-U3y"/>
                         <outlet property="emailFieldSample" destination="D1e-sE-uKa" id="CkV-Xo-M7H"/>
+                        <outlet property="loginButton" destination="dZy-XT-rrW" id="i2A-AE-6DE"/>
                         <outlet property="passwordFieldSample" destination="XNf-WQ-P2K" id="oOU-yc-HKa"/>
                         <outlet property="registerButton" destination="Z8W-gE-Re0" id="bmi-GM-VGl"/>
                         <outlet property="registerHint" destination="FL8-bs-lA4" id="CQo-fN-QRZ"/>
                         <outlet property="subtitle" destination="LGZ-4U-ceP" id="EeS-Zc-nv3"/>
                         <outlet property="welcomeTitle" destination="ej3-7P-qHo" id="9rW-Oa-dqE"/>
-                        <segue destination="8CX-ET-To7" kind="show" identifier="loginToAR" id="J0J-J1-3xV"/>
+                        <segue destination="8CX-ET-To7" kind="presentation" identifier="loginToAR" id="J0J-J1-3xV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eFU-uS-1Uo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -266,18 +266,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vz6-mu-KFg">
-                                <rect key="frame" x="37" y="65" width="94" height="94"/>
+                                <rect key="frame" x="32" y="36" width="94" height="94"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddY-IV-1hb">
-                                <rect key="frame" x="148" y="94" width="189" height="36"/>
+                                <rect key="frame" x="148" y="36" width="189" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HomenajeMod-Regular" family="HomenajeMod" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEH-w8-WWs">
-                                <rect key="frame" x="148" y="131" width="189" height="21"/>
+                                <rect key="frame" x="148" y="109" width="189" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HomenajeMod-Regular" family="HomenajeMod" pointSize="15"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -323,14 +323,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UbS-mQ-isC">
+                                <rect key="frame" x="56" y="145" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HomenajeMod-Bold" family="HomenajeMod" pointSize="17"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" red="0.92540210489999997" green="0.92555385830000003" blue="0.92536973950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logout:" destination="zxE-ce-dRU" eventType="touchUpInside" id="eIb-1S-fnD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="avatar" destination="vz6-mu-KFg" id="d7T-NA-p0U"/>
                         <outlet property="location" destination="DEH-w8-WWs" id="ah8-u3-SL6"/>
+                        <outlet property="logoutButton" destination="UbS-mQ-isC" id="zbx-uk-Y3e"/>
                         <outlet property="routeList" destination="olM-7O-Wvd" id="aBQ-oB-O0G"/>
                         <outlet property="userName" destination="ddY-IV-1hb" id="sZ8-J2-fwn"/>
+                        <segue destination="KG1-mK-LJP" kind="presentation" identifier="userProfileToLogin" id="mFQ-Cb-EzA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dKX-7P-lyc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -529,6 +542,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mJI-nP-dLh"/>
+        <segue reference="J0J-J1-3xV"/>
     </inferredMetricsTieBreakers>
 </document>

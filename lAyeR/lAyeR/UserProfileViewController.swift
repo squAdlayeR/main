@@ -60,13 +60,13 @@ class UserProfileViewController: UIViewController {
         return .lightContent
     }
     
-    @IBAction func LogOut(_ sender: Any) {
-        
+    @IBAction func logout(_ sender: Any) {
         dataService.signOut()
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
         self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
     }
+    
     /// Sets the camera view as backgound image
     private func setCameraView() {
         let cameraViewController = CameraViewController()
