@@ -264,6 +264,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
         }
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         LoadingBadge.instance.showBadge(in: view)
+        FBSDKLoginManager().logOut()
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             DispatchQueue.global().async {
                 if let error = error {
