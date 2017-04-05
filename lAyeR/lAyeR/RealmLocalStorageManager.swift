@@ -45,10 +45,22 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
         let realmRoutes = realm.objects(RealmRoute.self)
         for realmRoute in realmRoutes {
             let route = realmRoute.get()
-            
-            if route.checkPoints.contains(where: {GeoUtil.getCoordinateDistance($0, source) < range}) &&
-                route.checkPoints.contains(where: {GeoUtil.getCoordinateDistance($0, destination) < range}) {
-                returnedRoutes.append(route)
+            var sourceIndex = -1
+            var destIndex = -1
+            for i in 0 ..< route.size {
+                if GeoUtil.getCoordinateDistance(route.checkPoints[i], source) < range {
+                    sourceIndex = i
+                } else if GeoUtil.getCoordinateDistance(route.checkPoints[i], destination) < range {
+                    destIndex = i
+                }
+            }
+            if sourceIndex >= 0 && destIndex >= 0 {
+                let section = destIndex >= sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
+                let returnRoute = Route(route.name)
+                for checkpoint in section {
+                    returnRoute.append(checkpoint)
+                }
+                returnedRoutes.append(returnRoute)
             }
         }
         return returnedRoutes

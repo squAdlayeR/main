@@ -13,5 +13,5 @@ protocol LocalStorageManagerProtocol {
     func loadAppSettings()
     
     func saveRoute(_ route: Route)
-    func getRoutes(between: GeoPoint, to: GeoPoint, inRange: Double) -> [Route]
+    func getRoutes(between: GeoPoint, and: GeoPoint, inRange: Double) -> [Route]
 }
