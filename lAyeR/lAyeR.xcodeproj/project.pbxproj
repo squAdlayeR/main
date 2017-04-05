@@ -17,6 +17,9 @@
 		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
 		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
 		2C7813891E7544C000851188 /* dialog_close.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813871E7544C000851188 /* dialog_close.wav */; };
+		2CDDE8E81E94F29D008A5115 /* DINPro-Light_13935.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CDDE8E51E94F29D008A5115 /* DINPro-Light_13935.ttf */; };
+		2CDDE8E91E94F29D008A5115 /* DINPro-Medium_13936.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CDDE8E61E94F29D008A5115 /* DINPro-Medium_13936.ttf */; };
+		2CDDE8EA1E94F29D008A5115 /* DINPro-Regular_13937.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CDDE8E71E94F29D008A5115 /* DINPro-Regular_13937.ttf */; };
 		2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */; };
 		2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
@@ -126,6 +129,9 @@
 		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
 		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
 		2C7813871E7544C000851188 /* dialog_close.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dialog_close.wav; sourceTree = "<group>"; };
+		2CDDE8E51E94F29D008A5115 /* DINPro-Light_13935.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINPro-Light_13935.ttf"; sourceTree = "<group>"; };
+		2CDDE8E61E94F29D008A5115 /* DINPro-Medium_13936.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINPro-Medium_13936.ttf"; sourceTree = "<group>"; };
+		2CDDE8E71E94F29D008A5115 /* DINPro-Regular_13937.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINPro-Regular_13937.ttf"; sourceTree = "<group>"; };
 		2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Regular.otf"; sourceTree = "<group>"; };
 		2CE2FD161E71BE0400BB83FD /* HomenajeMod-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HomenajeMod-Bold.otf"; sourceTree = "<group>"; };
 		3729F61BC8697E4035E5948D /* Pods-lAyeR-lAyeRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -336,6 +342,9 @@
 		2C7333E61E71BA8E00EDE1D8 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				2CDDE8E51E94F29D008A5115 /* DINPro-Light_13935.ttf */,
+				2CDDE8E61E94F29D008A5115 /* DINPro-Medium_13936.ttf */,
+				2CDDE8E71E94F29D008A5115 /* DINPro-Regular_13937.ttf */,
 				2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */,
 				2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */,
 				2CE2FD141E71BDF700BB83FD /* HomenajeMod-Regular.otf */,
@@ -713,13 +722,16 @@
 			files = (
 				2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */,
 				2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */,
+				2CDDE8EA1E94F29D008A5115 /* DINPro-Regular_13937.ttf in Resources */,
 				2C7813891E7544C000851188 /* dialog_close.wav in Resources */,
+				2CDDE8E81E94F29D008A5115 /* DINPro-Light_13935.ttf in Resources */,
 				2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */,
 				5249B1BE1E7463E30048249D /* GoogleService-Info.plist in Resources */,
 				2CE2FD151E71BDF700BB83FD /* HomenajeMod-Regular.otf in Resources */,
 				2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */,
 				2C7813881E7544C000851188 /* confirm.wav in Resources */,
 				2C3119A21E670A5F00FF6334 /* Assets.xcassets in Resources */,
+				2CDDE8E91E94F29D008A5115 /* DINPro-Medium_13936.ttf in Resources */,
 				2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
