@@ -32,30 +32,12 @@
                     <view key="view" contentMode="scaleToFill" id="OeL-0o-Ds9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqP-OP-bws">
-                                <rect key="frame" x="132" y="600" width="111" height="47"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="111" id="q7R-Ni-2tb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="28"/>
-                                <state key="normal" title="DESIGN">
-                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="ujX-oQ-9uQ"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="MqP-OP-bws" secondAttribute="bottom" constant="20" symbolic="YES" id="KdH-A6-S1B"/>
-                            <constraint firstItem="MqP-OP-bws" firstAttribute="centerX" secondItem="OeL-0o-Ds9" secondAttribute="centerX" id="xh8-PB-LdN"/>
-                        </constraints>
                     </view>
                     <connections>
                         <segue destination="ZZQ-e4-cj1" kind="presentation" identifier="settingsSegue" id="yhm-TZ-iKu"/>
                         <segue destination="zxE-ce-dRU" kind="presentation" identifier="arToUserProfile" id="gmy-Fg-dkd"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="arToDegisnerSegue" id="L6E-9q-XGj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y8o-ag-LPz" userLabel="First Responder" sceneMemberID="firstResponder"/>

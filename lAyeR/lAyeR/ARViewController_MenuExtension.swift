@@ -39,7 +39,8 @@ extension ARViewController {
     /// - Returns: a menu button view
     private func createMapButton() -> MenuButtonView {
         let mapButton = MenuButtonView(radius: menuButtonRaidus, iconName: mapIconName)
-        // TODO: Add gestures
+        let tap = UITapGestureRecognizer(target: self, action: #selector(openDesigner))
+        mapButton.addGestureRecognizer(tap)
         return mapButton
     }
     
@@ -69,6 +70,11 @@ extension ARViewController {
     func openAppSettings() {
         menuController.remove()
         self.performSegue(withIdentifier: "settingsSegue", sender: nil)
+    }
+    
+    func openDesigner() {
+        menuController.remove()
+        self.performSegue(withIdentifier: "arToDegisnerSegue", sender: nil)
     }
     
     /// Prepares the gestures to call out / close menu
