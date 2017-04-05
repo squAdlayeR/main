@@ -194,6 +194,7 @@ extension RegisterViewController {
             showErrorAlert(message: "Password should be longer than 6 digits!")
             return
         }
+        LoadingBadge.instance.showBadge(in: view)
         dataService.createUser(email: email, password: password) {
             (user, error) in
             if let error = error {
@@ -204,9 +205,12 @@ extension RegisterViewController {
                 self.showErrorAlert(message: "Failed to create user.")
                 return
             }
-            let newUser = User(uid: uid, email: email, password: password)
-            let profile = UserProfile(user: newUser)
-            self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
+            DispatchQueue.main.async {
+                let newUser = User(uid: uid, email: email, password: password)
+                let profile = UserProfile(user: newUser)
+                self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
+            }
+            LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "registerToAR", sender: nil)
         }
     }

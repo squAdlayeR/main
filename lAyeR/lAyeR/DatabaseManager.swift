@@ -14,10 +14,6 @@ class DatabaseManager {
     static let instance = DatabaseManager()
     private(set) var currentUserProfile: UserProfile?
     
-    func addUserToDatabase(user: User) {
-        FIRDatabase.database().reference().child("users").child(user.uid).setValue(user.toJSON())
-    }
-    
     func addUserProfileToDatabase(uid: String, userProfile: UserProfile) {
         
         FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
@@ -68,25 +64,6 @@ class DatabaseManager {
                     return
             }
             completion(route)
-        }) { error in
-            print(error.localizedDescription)
-        }
-    }
-    
-    /// Queries routes with name
-    func getRoutes(withName name: String, completion: @escaping (_ routes: [Route]) -> ()) {
-        FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? [String: [String: Any]] else {
-                    return
-            }
-            var routes: [Route] = []
-            for result in value.values {
-                guard let route = Route(JSON: result) else { continue }
-                if route.name.contains(name) {
-                    routes.append(route)
-                }
-            }
-            completion(routes)
         }) { error in
             print(error.localizedDescription)
         }
