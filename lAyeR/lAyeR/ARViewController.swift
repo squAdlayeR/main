@@ -11,6 +11,7 @@ import CoreMotion
 import Foundation
 import MapKit
 import UIKit
+import SceneKit
 
 class ARViewController: UIViewController {
     
@@ -39,6 +40,10 @@ class ARViewController: UIViewController {
     let geoManager = GeoManager.getInstance()
 
     let menuController = MenuViewController()
+    
+    // for displaying path with SceneKit
+    let cameraNode = SCNNode()
+    let scene = SCNScene()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,6 +128,8 @@ class ARViewController: UIViewController {
             poiCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
                                          superView: view, fov: fov)
         }
+        
+        updateScene()
     }
     
     @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}

@@ -91,6 +91,7 @@
 		A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */; };
 		A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB541E92985B002C6ADC /* ArrowView.swift */; };
 		A253FB591E93D2F1002C6ADC /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB581E93D2F1002C6ADC /* RealmModels.swift */; };
+		A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -201,6 +202,7 @@
 		A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmLocalStorageManager.swift; sourceTree = "<group>"; };
 		A253FB541E92985B002C6ADC /* ArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		A253FB581E93D2F1002C6ADC /* RealmModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
+		A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_SCNKitExtension.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -558,8 +560,9 @@
 			isa = PBXGroup;
 			children = (
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
-				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
 				A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */,
+				A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */,
+				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
 				A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */,
 				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
 			);
@@ -883,6 +886,7 @@
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
 				528288BA1E9355B100163654 /* PoiCard.swift in Sources */,
 				528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */,
+				A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
