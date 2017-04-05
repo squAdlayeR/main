@@ -60,8 +60,6 @@ class UserProfileViewController: UIViewController {
     
     @IBAction func logout(_ sender: Any) {
         dataService.signOut()
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
         self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
     }
     
