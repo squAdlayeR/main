@@ -19,10 +19,6 @@ class DataServiceManager {
         return userAuthenticator.currentUser?.uid
     }
     
-    func addUserToDatabase(user: User) {
-        databaseManager.addUserToDatabase(user: user)
-    }
-    
     func addUserProfileToDatabase(uid: String, profile: UserProfile) {
         databaseManager.addUserProfileToDatabase(uid: uid, userProfile: profile)
     }
@@ -45,6 +41,10 @@ class DataServiceManager {
     
     func retrieveUserProfile(completion: @escaping (_ userProfile: UserProfile) -> ()) {
         guard let uid = userAuthenticator.currentUser?.uid else { return }
+        if let userProfile = databaseManager.currentUserProfile {
+            completion(userProfile)
+            return
+        }
         databaseManager.getUserProfile(uid: uid, completion: completion)
     }
 
