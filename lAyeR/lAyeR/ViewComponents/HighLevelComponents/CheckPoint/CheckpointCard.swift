@@ -46,7 +46,7 @@ class CheckpointCard: Card {
     private func createCloseButton() -> UIButton {
         let newButton = UIButton()
         newButton.setTitle(confirmLabelText, for: .normal)
-        newButton.titleLabel?.font = UIFont(name: buttonFontName, size: buttonFontSize)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
         newButton.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
         return newButton
     }

@@ -76,7 +76,7 @@ class TopBanner: UIView {
     
     /// Initializes blur effect
     private func initBlurEffect() {
-        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         blurEffect.frame = imageFrame
         blurEffectView = blurEffect
         self.addSubview(blurEffectView)
@@ -95,7 +95,7 @@ class TopBanner: UIView {
         let newLable = UILabel()
         newLable.frame = titleFrame
         newLable.text = title
-        newLable.font = UIFont(name: titleFontName, size: titleFontSize)
+        newLable.font = UIFont(name: alterDefaultFontMedium, size: titleFontSize)
         newLable.textColor = titleFontColor
         newLable.textAlignment = NSTextAlignment.center
         return newLable

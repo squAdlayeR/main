@@ -75,7 +75,7 @@ class InfoPanel: UIView {
     
     /// Initializes blur effect
     private func initBlurEffect() {
-        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         blurEffect.frame = imageFrame
         blurEffectView = blurEffect
         self.addSubview(blurEffectView)

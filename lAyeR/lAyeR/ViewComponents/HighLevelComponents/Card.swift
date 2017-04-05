@@ -68,6 +68,7 @@ class Card: NSObject {
         let alertHeight = newAlertController.alert.infoPanel.bounds.height
         newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
                                                                height: alertHeight))
+        newAlertController.setBlurEffect(true)
         self.popupController = newAlertController
     }
     
@@ -89,9 +90,11 @@ class Card: NSObject {
     /// - Note: the frame is defined by suggested popup height/width, which are
     ///     defined in config
     private var popupFrame: CGRect {
-        let originX = center.x - suggestedPopupWidth / 2
-        let originY = center.y - suggestedPopupHeight / 2
-        return CGRect(x: originX, y: originY, width: suggestedPopupWidth, height: suggestedPopupHeight)
+        let suggestdPopupW = superView.bounds.width * 0.8 <= 500 ? superView.bounds.width * 0.8 : 500
+        let suggsetdPopupH = superView.bounds.height * 0.5 <= 800 ? superView.bounds.height * 0.5 : 800
+        let originX = center.x - suggestdPopupW / 2
+        let originY = center.y - suggsetdPopupH / 2
+        return CGRect(x: originX, y: originY, width: suggestdPopupW, height: suggsetdPopupH)
     }
     
 }
@@ -142,7 +145,7 @@ extension Card: ViewLayoutAdjustable {
     /// - Parameter adjustment: the corresponding adjustment
     func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment) {
         markerCard.applyViewAdjustment(adjustment)
-        popupController.alertView.applyViewAdjustment(adjustment)
+//        popupController.alertView.applyViewAdjustment(adjustment)
     }
     
     /// Removes the current checkpoint card from its super view

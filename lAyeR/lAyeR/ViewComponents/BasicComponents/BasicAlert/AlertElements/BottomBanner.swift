@@ -67,7 +67,7 @@ class BottomBanner: UIView {
     
     /// Initializes blur effect
     private func initBlurEffect() {
-        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         blurEffect.frame = imageFrame
         blurEffectView = blurEffect
         self.addSubview(blurEffectView)
