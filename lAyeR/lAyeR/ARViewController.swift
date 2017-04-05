@@ -15,9 +15,6 @@ import UIKit
 class ARViewController: UIViewController {
     
     // setting constants
-    let sampleCardWidth = 108
-    let sampleCardHeight = 108
-    let sampleCardAlpha: CGFloat = 0.48
     let framePerSecond = 60
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
