@@ -34,6 +34,9 @@
 		<string>SAOUI-Bold.otf</string>
 		<string>HomenajeMod-Regular.otf</string>
 		<string>HomenajeMod-Bold.otf</string>
+		<string>DINPro-Light_13935.ttf</string>
+		<string>DINPro-Medium_13936.ttf</string>
+		<string>DINPro-Regular_13937.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -55,27 +58,27 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb1843049909268365</string>
-            </array>
-        </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>1843049909268365</string>
-    <key>FacebookDisplayName</key>
-    <string>lAyeR</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>fbapi</string>
-        <string>fb-messenger-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
-    </array>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Access your album for avatar setting.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1843049909268365</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1843049909268365</string>
+	<key>FacebookDisplayName</key>
+	<string>lAyeR</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Access your album for avatar setting.</string>
 </dict>
 </plist>
