@@ -6,27 +6,23 @@ class RouteDesignerViewController: UIViewController {
     
     var manualRouteType = true
     let threshold = 35.0
+    let rangeOfQuery = 0.0
+    let currentLocationText = "Current Location"
+    let checkpointDefaultName = "Checkpoint"
     var dragMarkerIdx: Int?
     
     // For tapped marker
     var tappedMarker = GMSMarker()
     var infoWindow = MarkerPopupView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+    var usingCurrentLocationAsSource = true
     
+    @IBOutlet weak var sourceBar: UITextField!
     @IBOutlet weak var searchBar: UITextField!
-    var locationManager = CLLocationManager()
-    var myLocation: CLLocation?
-    var mapView: GMSMapView!
-    var zoomLevel: Float = 15.0
-    var checkPointNum = 1
-    var markers = [GMSMarker]()
-    var lines = [GMSPolyline]()
-    var historyOfMarkers = [[GMSMarker]]()
-    
-    let baseURLGeocode = "https://maps.googleapis.com/maps/api/geocode/json?"
-    let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
-    
+    @IBOutlet weak var googleRouteButton: UIButton!
+    @IBOutlet weak var layerRoutesButton: UIButton!
+    @IBOutlet weak var currentLocationIcon: UIImageView!
     @IBAction func undo(_ sender: UIButton) {
-        if (historyOfMarkers.count > 1) {
+        if historyOfMarkers.count > 1 {
             _ = historyOfMarkers.popLast()
             removeAllMarkersAndLines()
             for (idx, marker) in historyOfMarkers.last!.enumerated() {
@@ -35,6 +31,100 @@ class RouteDesignerViewController: UIViewController {
             }
         }
     }
+    @IBAction func save(_ sender: Any) {
+        let alert = UIAlertController(title: "Name of Route", message: "Enter a Unique Name", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.text = "From "
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
+            let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
+            if (textField.text != nil && textField.text != "") {
+                let route = Route(textField.text!)
+                let source = self.usingCurrentLocationAsSource ? self.myLocation!.coordinate : self.mySource
+                route.append(CheckPoint(source!.latitude, source!.longitude, self.checkpointDefaultName))
+                for marker in self.markers {
+                    route.append(CheckPoint(marker.position.latitude, marker.position.longitude, self.checkpointDefaultName))
+                }
+                // TODO: separate local storage and server
+                RealmLocalStorageManager.getInstance().saveRoute(route)
+                DataServiceManager.instance.addRouteToDatabase(route: route)
+                let resultAlert = UIAlertController(title: "Saved Successfully", message: "Congrats", preferredStyle: .alert)
+                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
+                self.present(resultAlert, animated: true, completion: nil)
+            } else {
+                let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to your route", preferredStyle: .alert)
+                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
+                self.present(resultAlert, animated: true, completion: nil)
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    @IBAction func search(_ sender: Any) {
+        if searchBar.text != nil && searchBar.text != "" && sourceBar.text != nil && sourceBar.text != "" {
+            if sourceBar.text! == currentLocationText && myLocation != nil {
+                usingCurrentLocationAsSource = true
+                getDirections(origin: "\(myLocation!.coordinate.latitude) \(myLocation!.coordinate.longitude)", destination: searchBar.text!, waypoints: nil, removeAllPoints: true, at: 0, completion: getLayerRoutesUponCompletionOfGoogle)
+            } else {
+                usingCurrentLocationAsSource = false
+                getDirections(origin: sourceBar.text!, destination: searchBar.text!, waypoints: nil, removeAllPoints: true, at: 0, completion: getLayerRoutesUponCompletionOfGoogle)
+            }
+        }
+    }
+    @IBAction func showGoogleRoute(_ sender: Any) {
+        removeAllMarkersAndLines()
+        for (idx, marker) in googleRouteMarkers.enumerated() {
+            let markerData = marker.userData as! CheckPoint
+            addPoint(coordinate: marker.position, isControlPoint: markerData.isControlPoint, at: idx)
+        }
+    }
+    @IBAction func showLayerRoutes(_ sender: Any) {
+        removeAllMarkersAndLines()
+        for (idx, marker) in layerRoutesMarkers[0].enumerated() {
+            let markerData = marker.userData as! CheckPoint
+            addPoint(coordinate: marker.position, isControlPoint: markerData.isControlPoint, at: idx)
+        }
+    }
+    
+    func getLayerRoutesUponCompletionOfGoogle(result: Bool) {
+        if result {
+            let sourceCoord = self.usingCurrentLocationAsSource ? self.myLocation!.coordinate : self.mySource
+            let destCoord = self.markers.last!.position
+            let layerRoutes = RealmLocalStorageManager.getInstance().getRoutes(between: GeoPoint(sourceCoord!.latitude, sourceCoord!.longitude), and: GeoPoint(destCoord.latitude, destCoord.longitude), inRange: self.rangeOfQuery)
+            for route in layerRoutes {
+                var oneMarkers = [GMSMarker]()
+                for checkpoint in route.checkPoints {
+                    let nextMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude))
+                    nextMarker.title = self.checkpointDefaultName
+                    nextMarker.userData = checkpoint
+                    oneMarkers.append(nextMarker)
+                }
+                self.layerRoutesMarkers.append(oneMarkers)
+            }
+            if self.layerRoutesMarkers.isEmpty {
+                self.layerRoutesButton.isEnabled = false
+            } else {
+                self.layerRoutesButton.isEnabled = true
+            }
+        } else {
+            self.layerRoutesButton.isEnabled = false
+        }
+    }
+    
+    var locationManager = CLLocationManager()
+    var myLocation: CLLocation?
+    var mySource: CLLocationCoordinate2D?
+    
+    var mapView: GMSMapView!
+    var zoomLevel: Float = 15.0
+    var markers = [GMSMarker]()
+    var lines = [GMSPolyline]()
+    var googleRouteMarkers = [GMSMarker]()
+    var layerRoutesMarkers = [[GMSMarker]]()
+    var historyOfMarkers = [[GMSMarker]]()
+    
+    let baseURLGeocode = "https://maps.googleapis.com/maps/api/geocode/json?"
+    let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,12 +148,17 @@ class RouteDesignerViewController: UIViewController {
         // Add the map to the view, hide it until we've got a location update.
         view.insertSubview(mapView, at: 0)
         mapView.isHidden = true
+        googleRouteButton.isEnabled = false
+        layerRoutesButton.isEnabled = false
         searchBar.returnKeyType = UIReturnKeyType.done
         searchBar.delegate = self
+        sourceBar.returnKeyType = UIReturnKeyType.done
+        sourceBar.delegate = self
         
         mapView.settings.scrollGestures = true
         mapView.settings.consumesGesturesInView = false
         addPanGesture()
+        addTapCurrentLocationGesture()
         historyOfMarkers.append(markers)
     }
     
@@ -114,7 +209,8 @@ class RouteDesignerViewController: UIViewController {
                     removeLine(at: idx)
                     removeLine(at: idx)
                     let nextMarkerData = markers[idx].userData as! CheckPoint
-                    addLine(from: myLocation!.coordinate, to: CLLocationCoordinate2DMake(nextMarkerData.latitude, nextMarkerData.longitude), at: idx)
+                    let source = usingCurrentLocationAsSource ? myLocation!.coordinate : mySource
+                    addLine(from: source!, to: CLLocationCoordinate2DMake(nextMarkerData.latitude, nextMarkerData.longitude), at: idx)
                     
                 }
             } else if idx == markers.count - 1 {
@@ -139,10 +235,21 @@ class RouteDesignerViewController: UIViewController {
         mapView.addGestureRecognizer(panGesture)
     }
     
+    func addTapCurrentLocationGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedCurrentLocation(gestureRecognizer:)))
+        currentLocationIcon.isUserInteractionEnabled = true
+        currentLocationIcon.addGestureRecognizer(tapGesture)
+    }
+    
+    func tappedCurrentLocation(gestureRecognizer: UITapGestureRecognizer) {
+        sourceBar.text = currentLocationText
+    }
+    
     func panned(gestureRecognizer: UIPanGestureRecognizer) {
+        let source = usingCurrentLocationAsSource ? myLocation!.coordinate : mySource
         if gestureRecognizer.state == UIGestureRecognizerState.began {
             let startPoint = gestureRecognizer.location(in: self.view) // CGPoint
-            var prevPoint = mapView.projection.point(for: myLocation!.coordinate)
+            var prevPoint = mapView.projection.point(for: source!)
             var lastControlPointIdx = -1
             for (idx, point) in markers.enumerated() {
                 let pointData = point.userData as! CheckPoint // Latitude and Longitude
@@ -167,7 +274,7 @@ class RouteDesignerViewController: UIViewController {
                             }
                         }
                         let startCoordinate = mapView.projection.coordinate(for: startPoint)
-                        let prevCoordinate = lastControlPointIdx == -1 ? myLocation!.coordinate : markers[lastControlPointIdx].position
+                        let prevCoordinate = lastControlPointIdx == -1 ? source! : markers[lastControlPointIdx].position
                         
                         if deleteIdx < markers.count {
                             let nextCoordinate = markers[deleteIdx].position
@@ -178,7 +285,6 @@ class RouteDesignerViewController: UIViewController {
                         addLine(from: prevCoordinate, to: startCoordinate, at: deleteIdx)
                         dragMarkerIdx = deleteIdx
                         mapView.settings.scrollGestures = false
-                        print("SIZE1: \(lines.count) | \(markers.count)")
                         return
                     }
                 }
@@ -197,7 +303,7 @@ class RouteDesignerViewController: UIViewController {
                     }
                     removeLine(at: deleteIdx)
                     let startCoordinate = mapView.projection.coordinate(for: startPoint)
-                    let prevCoordinate = lastControlPointIdx == -1 ? myLocation!.coordinate : markers[lastControlPointIdx].position
+                    let prevCoordinate = lastControlPointIdx == -1 ? source! : markers[lastControlPointIdx].position
                     let nextCoordinate = markers[deleteIdx].position
                     
                     addMarker(coordinate: startCoordinate, at: deleteIdx, isControlPoint: true)
@@ -205,7 +311,6 @@ class RouteDesignerViewController: UIViewController {
                     addLine(from: prevCoordinate, to: startCoordinate, at: deleteIdx)
                     dragMarkerIdx = deleteIdx
                     mapView.settings.scrollGestures = false
-                    print("SIZE2: \(lines.count) | \(markers.count)")
                     return
                 }
                 prevPoint = nextPoint
@@ -221,28 +326,26 @@ class RouteDesignerViewController: UIViewController {
         } else if gestureRecognizer.state == UIGestureRecognizerState.ended {
             if !manualRouteType {
                 if let dragIdx = dragMarkerIdx {
-                    let originString = dragIdx <= 0 ? "\(myLocation!.coordinate.latitude) \(myLocation!.coordinate.longitude)" : "\(markers[dragIdx-1].position.latitude) \(markers[dragIdx-1].position.longitude)"
+                    let originString = dragIdx <= 0 ? "\(source!.latitude) \(source!.longitude)" : "\(markers[dragIdx-1].position.latitude) \(markers[dragIdx-1].position.longitude)"
                     let middleString = "\(markers[dragIdx].position.latitude) \(markers[dragIdx].position.longitude)"
                     if dragIdx == markers.count - 1 {
                         removeLine(at: lines.count-1)
                         removeMarker(at: markers.count-1)
-                        getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx)
+                        getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx) { (result) -> () in
+                            print(result)
+                        }
                         return
                     }
                     let destinationString = "\(markers[dragIdx+1].position.latitude) \(markers[dragIdx+1].position.longitude)"
-                    print (destinationString)
-                    print (originString)
-                    print (middleString)
-                    // removeMarker(at: dragIdx+1)
-                    // removeLine(at: dragIdx+1)
-                    getDirections(origin: middleString, destination: destinationString, waypoints: nil, removeAllPoints: false, at: dragIdx+1)
-                    // removeMarker(at: dragIdx)
-                    // removeLine(at: dragIdx)
-                    // let waypoints = [middleString]
-                    getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx)
+                    getDirections(origin: middleString, destination: destinationString, waypoints: nil, removeAllPoints: false, at: dragIdx+1) { (result) -> () in
+                        print(result)
+                    }
+                    getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx) { (result) -> () in
+                        print(result)
+                    }
                 }
             }
-            if !mapView.settings.scrollGestures {
+            if !mapView.settings.scrollGestures && manualRouteType {
                 historyOfMarkers.append(markers)
             }
             mapView.settings.scrollGestures = true
@@ -256,13 +359,13 @@ class RouteDesignerViewController: UIViewController {
                 if dragIdx == 0 {
                     if dragIdx == markers.count - 1 {
                         removeLine(at: dragIdx)
-                        addLine(from: myLocation!.coordinate, to: currentCoordinate, at: dragIdx)
+                        addLine(from: source!, to: currentCoordinate, at: dragIdx)
                     } else {
                         removeLine(at: dragIdx)
                         removeLine(at: dragIdx)
                         let nextMarkerData = markers[dragIdx+1].userData as! CheckPoint
                         addLine(from: currentCoordinate, to: CLLocationCoordinate2DMake(nextMarkerData.latitude, nextMarkerData.longitude), at: dragIdx)
-                        addLine(from: myLocation!.coordinate, to: currentCoordinate, at: dragIdx)
+                        addLine(from: source!, to: currentCoordinate, at: dragIdx)
                     }
                 } else if dragIdx == markers.count - 1 {
                     removeLine(at: dragIdx)
@@ -291,7 +394,7 @@ class RouteDesignerViewController: UIViewController {
         manualRouteType = !manualRouteType
     }
     
-    func getDirections(origin: String!, destination: String!, waypoints: Array<String>?, removeAllPoints: Bool, at markersIdx: Int) {
+    func getDirections(origin: String!, destination: String!, waypoints: Array<String>?, removeAllPoints: Bool, at markersIdx: Int, completion: @escaping (_ result: Bool)->()) {
         
         if let originLocation = origin {
             if let destinationLocation = destination {
@@ -322,9 +425,7 @@ class RouteDesignerViewController: UIViewController {
                             let route = overviewPolyline["points"] as! String
                             
                             let path: GMSPath = GMSPath(fromEncodedPath: route)!
-                            print (path.count())
                             for idx in 1..<path.count() {
-                                print ("COORDINATE: \(path.coordinate(at:idx))")
                                 if idx == path.count() - 1 {
                                     if markersIdx + Int(idx-1) >= self.markers.count {
                                         self.addPoint(coordinate: path.coordinate(at: idx), isControlPoint: true, at: markersIdx+Int(idx-1))
@@ -333,22 +434,32 @@ class RouteDesignerViewController: UIViewController {
                                     self.addPoint(coordinate: path.coordinate(at: idx), isControlPoint: false, at: markersIdx+Int(idx-1))
                                 }
                             }
+                            if removeAllPoints {
+                                self.googleRouteMarkers = self.markers
+                            }
+                            self.googleRouteButton.isEnabled = true
+                            self.historyOfMarkers.append(self.markers)
+                            completion(true)
                         }
                         else {
                             self.cantFindLocation()
+                            completion(false)
                         }
                     }
                     catch {
                         self.cantFindLocation()
+                        completion(false)
                     }
                 })
             }
             else {
                 cantFindLocation()
+                completion(false)
             }
         }
         else {
             cantFindLocation()
+            completion(false)
         }
     }
     
@@ -358,6 +469,7 @@ class RouteDesignerViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
+        googleRouteButton.isEnabled = false
     }
     
     func findIdx(of key: CheckPoint) -> Int {
@@ -373,18 +485,24 @@ class RouteDesignerViewController: UIViewController {
     func addPath(coordinate: CLLocationCoordinate2D, isControlPoint: Bool, at idx: Int) {
         if manualRouteType {
             addPoint(coordinate: coordinate, isControlPoint: isControlPoint, at: idx)
+            historyOfMarkers.append(markers)
         } else {
-            let lastPoint = markers.isEmpty ? myLocation!.coordinate : markers.last!.position
-            getDirections(origin: "\(lastPoint.latitude) \(lastPoint.longitude)", destination: "\(coordinate.latitude) \(coordinate.longitude)", waypoints: nil, removeAllPoints: false, at: idx)
+            let source = usingCurrentLocationAsSource ? myLocation!.coordinate : mySource
+            let lastPoint = markers.isEmpty ? source! : markers.last!.position
+            getDirections(origin: "\(lastPoint.latitude) \(lastPoint.longitude)", destination: "\(coordinate.latitude) \(coordinate.longitude)", waypoints: nil, removeAllPoints: false, at: idx) { (result) -> () in
+                print(result)
+            }
         }
     }
     
     func addPoint(coordinate: CLLocationCoordinate2D, isControlPoint: Bool, at idx: Int) {
         if idx >= markers.count {
-            var currentLocation = myLocation!.coordinate
+            var currentLocation = usingCurrentLocationAsSource ? myLocation!.coordinate : coordinate
             if !markers.isEmpty {
                 let pointData = markers.last!.userData as! CheckPoint
                 currentLocation = CLLocationCoordinate2D(latitude: pointData.latitude, longitude: pointData.longitude)
+            } else {
+                mySource = coordinate
             }
             addLine(from: currentLocation, to: coordinate, at: markers.count)
             addMarker(coordinate: coordinate, at: markers.count, isControlPoint: isControlPoint)
@@ -392,25 +510,22 @@ class RouteDesignerViewController: UIViewController {
             removeLine(at: idx)
             addLine(from:  coordinate, to: markers[idx].position, at: idx)
             addMarker(coordinate: coordinate, at: idx, isControlPoint: isControlPoint)
-            let beforeCoord = idx == 0 ? myLocation!.coordinate : markers[idx-1].position
+            let beforeCoord = idx == 0 ? usingCurrentLocationAsSource ? myLocation!.coordinate : coordinate : markers[idx-1].position
             addLine(from: beforeCoord, to: coordinate, at: idx)
         }
     }
     
     func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool) {
         let marker = GMSMarker(position: coordinate)
-        marker.title = "Checkpoint"
+        marker.title = checkpointDefaultName
         marker.userData = CheckPoint(coordinate.latitude, coordinate.longitude, marker.title!, "", isControlPoint)
-        checkPointNum += 1
         if isControlPoint {
             marker.map = mapView
         }
-        marker.isDraggable = true
         markers.insert(marker, at: idx)
     }
     
     func addLine(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, at idx: Int) {
-        print("ADDING LINE")
         let path = GMSMutablePath()
         path.add(from)
         path.add(to)
@@ -422,18 +537,17 @@ class RouteDesignerViewController: UIViewController {
     }
     
     func removeMarker(at idx: Int) {
-        // if idx >= 0 && idx < markers.count {
+         if idx >= 0 && idx < markers.count {
             markers[idx].map = nil
             markers.remove(at:idx)
-            checkPointNum -= 1
-        // }
+         }
     }
     
     func removeLine(at idx: Int) {
-        // if idx >= 0 && idx < lines.count {
+         if idx >= 0 && idx < lines.count {
             lines[idx].map = nil
             lines.remove(at:idx)
-        // }
+         }
     }
     
     func removeAllMarkersAndLines() {
@@ -445,7 +559,6 @@ class RouteDesignerViewController: UIViewController {
         }
         markers.removeAll()
         lines.removeAll()
-        checkPointNum = 1
         infoWindow.removeFromSuperview()
     }
     
@@ -518,11 +631,6 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         infoWindow.deleteButton.addTarget(self, action: #selector(deleteButtonTapped(gestureRecognizer:)), for: .touchUpInside)
         infoWindow.addAfterButton.addTarget(self, action: #selector(addAfterButtonTapped(gestureRecognizer:)), for: .touchUpInside)
         self.view.addSubview(infoWindow)
-        
-//        afterMarkerTapped = false
-        
-        // Remember to return false
-        // so marker event is still handled by delegate
         return false
     }
     
@@ -539,7 +647,6 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
     
     func addAfterButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
         infoWindow.removeFromSuperview()
-//        afterMarkerTapped = true
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
@@ -557,7 +664,6 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         infoWindow.removeFromSuperview()
         addPath(coordinate: coordinate, isControlPoint: true, at: markers.count)
-        historyOfMarkers.append(markers)
     }
     
     // ---------------- back segue to AR view --------------------//
@@ -587,9 +693,6 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
 extension RouteDesignerViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if myLocation != nil && textField.text != nil && textField.text != "" {
-            getDirections(origin: "\(myLocation!.coordinate.latitude) \(myLocation!.coordinate.longitude)", destination: textField.text!, waypoints: nil, removeAllPoints: true, at: 0)
-        }
         return false
     }
 }
