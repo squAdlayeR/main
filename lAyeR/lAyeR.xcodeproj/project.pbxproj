@@ -43,6 +43,7 @@
 		528288CF1E9682E700163654 /* GPSTrackerParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288CE1E9682E700163654 /* GPSTrackerParser.swift */; };
 		528288DC1E96923D00163654 /* GPSTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288DB1E96923D00163654 /* GPSTrackerViewController.swift */; };
 		528288DE1E969F2D00163654 /* GPXManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288DD1E969F2D00163654 /* GPXManager.swift */; };
+		528288E01E96B24800163654 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528288DF1E96B24800163654 /* MessageUI.framework */; };
 		52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52830F261E8F4567009DFD02 /* UserProfile.swift */; };
 		52830F411E8FF8E7009DFD02 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3D1E8FF8E7009DFD02 /* Bolts.framework */; };
 		52830F421E8FF8E7009DFD02 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3E1E8FF8E7009DFD02 /* FBSDKCoreKit.framework */; };
@@ -163,6 +164,7 @@
 		528288D81E968FDC00163654 /* lAyeR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lAyeR-Bridging-Header.h"; sourceTree = "<group>"; };
 		528288DB1E96923D00163654 /* GPSTrackerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSTrackerViewController.swift; sourceTree = "<group>"; };
 		528288DD1E969F2D00163654 /* GPXManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXManager.swift; sourceTree = "<group>"; };
+		528288DF1E96B24800163654 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		52830F261E8F4567009DFD02 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		52830F301E8FE422009DFD02 /* lAyeR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lAyeR.entitlements; sourceTree = "<group>"; };
 		52830F3D1E8FF8E7009DFD02 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Downloads/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				528288E01E96B24800163654 /* MessageUI.framework in Frameworks */,
 				B4EEF9CDCE1F28C23A26F902 /* Pods_lAyeR.framework in Frameworks */,
 				52830F411E8FF8E7009DFD02 /* Bolts.framework in Frameworks */,
 				52830F421E8FF8E7009DFD02 /* FBSDKCoreKit.framework in Frameworks */,
@@ -643,6 +646,7 @@
 		FED6868487D29D53B260A46F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				528288DF1E96B24800163654 /* MessageUI.framework */,
 				52830F3D1E8FF8E7009DFD02 /* Bolts.framework */,
 				52830F3E1E8FF8E7009DFD02 /* FBSDKCoreKit.framework */,
 				52830F3F1E8FF8E7009DFD02 /* FBSDKLoginKit.framework */,
