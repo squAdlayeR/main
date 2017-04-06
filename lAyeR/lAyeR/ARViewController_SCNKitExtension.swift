@@ -16,11 +16,17 @@ import SceneKit.ModelIO
  The negative direction of z axis points to the North
  */
 extension ARViewController {
+    /**
+     return a SCNNode arrow that points to the North
+    */
     private func getArrowSCNNode() -> SCNNode {
         let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
         let asset = MDLAsset(url: URL(string: path)!)
         let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
-        arrowNode.geometry?.firstMaterial?.emission.contents = UIColor.orange
+        arrowNode.geometry?.firstMaterial?.emission.contents = arrowColor
+        
+        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI), 1, 0, 0)
+        
         return arrowNode
     }
     
@@ -49,6 +55,40 @@ extension ARViewController {
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
     
+    func addArrows(from src: GeoPoint, to dest: GeoPoint) {
+        guard checkpointCardControllers.count > 0 else {
+            return
+        }
+        
+        let firstPoint = checkpointCardControllers[0].checkpoint
+        
+        let srcDestDistance = GeoUtil.getCoordinateDistance(src, dest)
+        let azimuth = GeoUtil.getAzimuth(between: src, dest)
+        let num = Int(floor(srcDestDistance / gap) - 1)
+        
+        let originSrcDistance = GeoUtil.getCoordinateDistance(firstPoint, src)
+        let originSrcAzimuth = GeoUtil.getAzimuth(between: firstPoint, src)
+        
+        let srcPosition = azimuthDistanceToCoordinate(azimuth: originSrcAzimuth, distance: originSrcDistance)
+        
+        for i in 1 ... num {
+            let arrow = getArrowSCNNode()
+        
+            let rotationTransformation = SCNMatrix4Rotate(arrow.transform,
+                                                          -Float(GeoUtil.getAzimuth(between: src, dest)),
+                                                          0, 1, 0)
+            arrow.transform = rotationTransformation
+            
+            arrow.scale = SCNVector3(x: 1/108, y: 1/108, z: 1/60)
+            let distance = gap * Double(i)
+            let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
+            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -1.6, 0)
+            
+            arrowNodes.append(arrow)
+            scene.rootNode.addChildNode(arrow)
+        }
+    }
+    
     func updateScene() {
         let pitch = motionManager.getVerticalAngle()
         let yaw = motionManager.getYawAngle()
@@ -69,47 +109,6 @@ extension ARViewController {
         }
         
         cameraNode.transform = r1
-    }
-    
-    
-    
-    func addArrows(from src: GeoPoint, to dest: GeoPoint) {
-        guard checkpointCardControllers.count > 0 else {
-            return
-        }
-        
-        let firstPoint = checkpointCardControllers[0].checkpoint
-        
-        let distance = GeoUtil.getCoordinateDistance(src, dest)
-        let azimuth = GeoUtil.getAzimuth(between: src, dest)
-        let num = floor(distance / 0.8) - 1
-        
-        let srcDistance = GeoUtil.getCoordinateDistance(firstPoint, src)
-        let srcAzimuth = GeoUtil.getAzimuth(between: firstPoint, src)
-        
-        let srcPosition = azimuthDistanceToCoordinate(azimuth: srcAzimuth, distance: srcDistance)
-        
-        for i in 1 ... Int(num) {
-            let arrow = getArrowSCNNode()
-            
-            
-            var r1 = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI), 1, 0, 0)
-            r1 = SCNMatrix4Rotate(r1, -Float(GeoUtil.getAzimuth(between: src, dest)), 0, 1, 0)
-            arrow.transform = r1
-            
-            
-            
-            arrow.scale = SCNVector3(x: 1/108, y: 1/108, z: 1/60)
-            let distance = 0.8 * Double(i)
-            let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
-            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -1.6, 0)
-            
-            
-            arrowNodes.append(arrow)
-            scene.rootNode.addChildNode(arrow)
-    
-
-        }
     }
     
     
