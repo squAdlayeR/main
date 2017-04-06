@@ -92,6 +92,7 @@
 		A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB541E92985B002C6ADC /* ArrowView.swift */; };
 		A253FB591E93D2F1002C6ADC /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB581E93D2F1002C6ADC /* RealmModels.swift */; };
 		A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */; };
+		A253FB6E1E962D20002C6ADC /* arrow48.obj in Resources */ = {isa = PBXBuildFile; fileRef = A253FB6D1E962D20002C6ADC /* arrow48.obj */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -203,6 +204,7 @@
 		A253FB541E92985B002C6ADC /* ArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		A253FB581E93D2F1002C6ADC /* RealmModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
 		A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_SCNKitExtension.swift; sourceTree = "<group>"; };
+		A253FB6D1E962D20002C6ADC /* arrow48.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arrow48.obj; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -586,9 +588,18 @@
 			name = RealmModels;
 			sourceTree = "<group>";
 		};
+		A253FB6C1E962CFD002C6ADC /* 3DModels */ = {
+			isa = PBXGroup;
+			children = (
+				A253FB6D1E962D20002C6ADC /* arrow48.obj */,
+			);
+			name = 3DModels;
+			sourceTree = "<group>";
+		};
 		A2AF0AB81E70101000B4478C /* ARRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				A253FB6C1E962CFD002C6ADC /* 3DModels */,
 				A253FB561E929861002C6ADC /* Views */,
 				A238E0701E8FA75B00BA10DC /* Controllers */,
 				A238E06F1E8FA73E00BA10DC /* Models */,
@@ -726,6 +737,7 @@
 				2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */,
 				2C7813881E7544C000851188 /* confirm.wav in Resources */,
 				2C3119A21E670A5F00FF6334 /* Assets.xcassets in Resources */,
+				A253FB6E1E962D20002C6ADC /* arrow48.obj in Resources */,
 				2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
