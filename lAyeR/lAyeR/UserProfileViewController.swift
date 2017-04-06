@@ -117,6 +117,8 @@ class UserProfileViewController: UIViewController {
         location.text = userProfile?.email//userData[1]
         view.addSubview(userName)
         vibrancyEffectView.addSubview(location)
+        logoutButton.layer.cornerRadius = 5
+        logoutButton.layer.masksToBounds = true
         view.addSubview(logoutButton)
     }
     
