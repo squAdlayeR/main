@@ -190,8 +190,11 @@ extension RegisterViewController {
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
         let passwordConfirm = passwordConfirmField.text ?? ""
-        guard !email.characters.isEmpty && !password.characters.isEmpty
-            && !passwordConfirm.characters.isEmpty else {
+        let username = usernameField.text ?? ""
+        guard !email.characters.isEmpty
+            && !password.characters.isEmpty
+            && !passwordConfirm.characters.isEmpty
+            && !username.characters.isEmpty else {
                 showErrorAlert(message: "Please fill all fields.")
                 return
         }
@@ -199,7 +202,7 @@ extension RegisterViewController {
             showErrorAlert(message: "Passwords not match!")
             return
         }
-        guard password.characters.count > 6 else {
+        guard password.characters.count >= 6 else {
             showErrorAlert(message: "Password should be longer than 6 digits!")
             return
         }
@@ -215,8 +218,7 @@ extension RegisterViewController {
                 return
             }
             DispatchQueue.main.async {
-                let newUser = User(uid: uid, email: email, password: password)
-                let profile = UserProfile(user: newUser)
+                let profile = UserProfile(email: email, username: username)
                 self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
             }
             LoadingBadge.instance.hideBadge()
