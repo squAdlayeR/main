@@ -11,13 +11,11 @@ import CoreMotion
 import Foundation
 import MapKit
 import UIKit
+import SceneKit
 
 class ARViewController: UIViewController {
     
     // setting constants
-    let sampleCardWidth = 108
-    let sampleCardHeight = 108
-    let sampleCardAlpha: CGFloat = 0.48
     let framePerSecond = 60
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
@@ -42,6 +40,10 @@ class ARViewController: UIViewController {
     let geoManager = GeoManager.getInstance()
 
     let menuController = MenuViewController()
+    
+    // for displaying path with SceneKit
+    let cameraNode = SCNNode()
+    let scene = SCNScene()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +128,8 @@ class ARViewController: UIViewController {
             poiCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
                                          superView: view, fov: fov)
         }
+        
+        updateScene()
     }
     
     @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}

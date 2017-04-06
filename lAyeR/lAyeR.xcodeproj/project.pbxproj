@@ -38,6 +38,7 @@
 		528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AF1E92690C00163654 /* AppSettingsConstants.swift */; };
 		528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B01E92690C00163654 /* AppSettingsViewController.swift */; };
 		528288BA1E9355B100163654 /* PoiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B91E9355B100163654 /* PoiCard.swift */; };
+		528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288C31E94F4F800163654 /* LoadingBadge.swift */; };
 		52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52830F261E8F4567009DFD02 /* UserProfile.swift */; };
 		52830F411E8FF8E7009DFD02 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3D1E8FF8E7009DFD02 /* Bolts.framework */; };
 		52830F421E8FF8E7009DFD02 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3E1E8FF8E7009DFD02 /* FBSDKCoreKit.framework */; };
@@ -93,6 +94,7 @@
 		A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */; };
 		A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB541E92985B002C6ADC /* ArrowView.swift */; };
 		A253FB591E93D2F1002C6ADC /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB581E93D2F1002C6ADC /* RealmModels.swift */; };
+		A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -150,6 +152,7 @@
 		528288AF1E92690C00163654 /* AppSettingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsConstants.swift; sourceTree = "<group>"; };
 		528288B01E92690C00163654 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		528288B91E9355B100163654 /* PoiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiCard.swift; path = ViewComponents/HighLevelComponents/POI/PoiCard.swift; sourceTree = "<group>"; };
+		528288C31E94F4F800163654 /* LoadingBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingBadge.swift; sourceTree = "<group>"; };
 		52830F261E8F4567009DFD02 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		52830F301E8FE422009DFD02 /* lAyeR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lAyeR.entitlements; sourceTree = "<group>"; };
 		52830F3D1E8FF8E7009DFD02 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Downloads/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 		A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmLocalStorageManager.swift; sourceTree = "<group>"; };
 		A253FB541E92985B002C6ADC /* ArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		A253FB581E93D2F1002C6ADC /* RealmModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
+		A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_SCNKitExtension.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -434,6 +438,7 @@
 				52938BFE1E860D8000EB8F81 /* LoginViewController.swift */,
 				52938C001E860D9000EB8F81 /* RegisterViewController.swift */,
 				52BD496E1E8A802D00B4B750 /* User.swift */,
+				528288C31E94F4F800163654 /* LoadingBadge.swift */,
 			);
 			name = LoginRegister;
 			sourceTree = "<group>";
@@ -564,8 +569,9 @@
 			isa = PBXGroup;
 			children = (
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
-				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
 				A21BBFAE1E82CB0300394531 /* ARViewController_CameraBackgroundExtension.swift */,
+				A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */,
+				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
 				A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */,
 				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
 			);
@@ -891,6 +897,8 @@
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
 				528288BA1E9355B100163654 /* PoiCard.swift in Sources */,
+				528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */,
+				A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,

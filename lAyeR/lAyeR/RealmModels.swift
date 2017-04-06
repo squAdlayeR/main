@@ -68,6 +68,7 @@ class RealmRoute: Object {
 class RealmCheckPoint: RealmGeoPoint {
     dynamic private var name: String = ""
     dynamic private var desc: String = ""
+    dynamic private var isControlPoint: Bool = true
     
     convenience init(_ checkpoint: CheckPoint) {
         self.init()
@@ -75,10 +76,11 @@ class RealmCheckPoint: RealmGeoPoint {
         desc = checkpoint.description
         latitude = checkpoint.latitude
         longitude = checkpoint.longitude
+        isControlPoint = checkpoint.isControlPoint
     }
     
     override func get() -> CheckPoint {
-        return CheckPoint(latitude, longitude, name, description)
+        return CheckPoint(latitude, longitude, name, description, isControlPoint)
     }
 }
 

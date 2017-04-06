@@ -14,11 +14,8 @@ class DatabaseManager {
     static let instance = DatabaseManager()
     private(set) var currentUserProfile: UserProfile?
     
-    func addUserToDatabase(user: User) {
-        FIRDatabase.database().reference().child("users").child(user.uid).setValue(user.toJSON())
-    }
-    
     func addUserProfileToDatabase(uid: String, userProfile: UserProfile) {
+        
         FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
     }
     
@@ -27,7 +24,14 @@ class DatabaseManager {
     }
     
     func addRouteToDatabase(route: Route) {
-        FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
+        
+        FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChild(route.name) {
+                print("route exists")
+                return
+            }
+            FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
+        })
     }
     
     func removeRouteFromDatabase(routeName: String) {
@@ -65,27 +69,8 @@ class DatabaseManager {
         }
     }
     
-    /// Queries routes with name
-    func getRoutes(withName name: String, completion: @escaping (_ routes: [Route]) -> ()) {
-        FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? [String: [String: Any]] else {
-                    return
-            }
-            var routes: [Route] = []
-            for result in value.values {
-                guard let route = Route(JSON: result) else { continue }
-                if route.name.contains(name) {
-                    routes.append(route)
-                }
-            }
-            completion(routes)
-        }) { error in
-            print(error.localizedDescription)
-        }
-    }
-    
     /// Queries routes in range
-    func getRoutes(topLeft: GeoPoint, bottomRight: GeoPoint, completion: @escaping (_ routes: [Route]) -> ()) {
+    func getRoutes(between source: GeoPoint, and destination: GeoPoint, inRange range: Double, completion: @escaping (_ routes: [Route]) -> ()) {
         FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? [String: [String: Any]] else {
                 return
@@ -93,9 +78,22 @@ class DatabaseManager {
             var routes: [Route] = []
             for result in value.values {
                 guard let route = Route(JSON: result) else { continue }
-                //if //route.name.contains(name) {
-                if GeoUtil.isWithinRange(route.source!, topLeft, bottomRight) || GeoUtil.isWithinRange(route.destination!, topLeft, bottomRight) {
-                    routes.append(route)
+                var sourceIndex = -1
+                var destIndex = -1
+                for i in 0 ..< route.size {
+                    if GeoUtil.getCoordinateDistance(route.checkPoints[i], source) < range {
+                        sourceIndex = i
+                    } else if GeoUtil.getCoordinateDistance(route.checkPoints[i], destination) < range {
+                        destIndex = i
+                    }
+                }
+                if sourceIndex >= 0 && destIndex >= 0 {
+                    let section = destIndex >= sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
+                    let returnRoute = Route(route.name)
+                    for checkpoint in section {
+                        returnRoute.append(checkpoint)
+                    }
+                    routes.append(returnRoute)
                 }
             }
             completion(routes)
