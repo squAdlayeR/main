@@ -49,15 +49,60 @@ extension ARViewController {
     }
     
     func updateScene() {
+    
         let direction = M_PI / 2
         
         let pitch = motionManager.getVerticalAngle()
         let yaw = motionManager.getYawAngle()
         let roll = motionManager.getHorzAngleRelToNorth()
         
-        var r1 = SCNMatrix4Rotate(SCNMatrix4Identity, Float(roll + direction), 0, 1, 0)
+        var r1 = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-yaw), 0, 0, 1)
+        r1 = SCNMatrix4Rotate(r1, Float(roll + direction), 0, 1, 0)
         r1 = SCNMatrix4Rotate(r1, Float(pitch), 1, 0, 0)
-        r1 = SCNMatrix4Rotate(r1, Float(-yaw), 0, 0, 1)
+        
+        if checkpointCardControllers.count > 0 {
+            let source = checkpointCardControllers[0].checkpoint
+            let userPoint = geoManager.getLastUpdatedUserPoint()
+            let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
+            let distance = GeoUtil.getCoordinateDistance(userPoint, source)
+            let (nDistance, eDistance) = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
+            
+            r1 = SCNMatrix4Translate(r1, Float(eDistance), 0, Float(nDistance))
+        }
+        
         cameraNode.transform = r1
     }
+    
+    private func azimuthDistanceToCoordinate(azimuth: Double, distance: Double) -> (Double, Double) {
+        let x = distance * sin(azimuth)  // positive: to East
+        let y = distance * cos(azimuth)  // positive: to North
+        return (x, y)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
