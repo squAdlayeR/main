@@ -31,26 +31,22 @@ extension ARViewController {
         scnView.scene = scene
         
         setupCameraNode()
-        setupArrows()
+        //setupArrows()
+        
+        guard checkpointCardControllers.count > 1 else {
+            return
+        }
+        for i in 0 ..< checkpointCardControllers.count - 1 {
+            let src = checkpointCardControllers[i].checkpoint
+            let dest = checkpointCardControllers[i + 1].checkpoint
+            addArrows(from: src, to: dest)
+        }
     }
     
-    func setupCameraNode() {
+    private func setupCameraNode() {
         cameraNode.camera = SCNCamera()
         scene.rootNode.addChildNode(cameraNode)
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
-    }
-
-    func setupArrows() {
-        for i in 0 ... 12 {  // show 8 arrows
-            arrowNodes.append(getArrowSCNNode())
-            
-            let r1 = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI), 1, 0, 0)
-            arrowNodes[i].transform = r1
-            arrowNodes[i].scale = SCNVector3(x: 1/38, y: 1/38, z: 1/18)
-            arrowNodes[i].position = SCNVector3(x: 0, y: -1.6, z: Float(-3.8 * Double(i)))
-            
-            scene.rootNode.addChildNode(arrowNodes[i])
-        }
     }
     
     func updateScene() {
@@ -67,23 +63,69 @@ extension ARViewController {
             let userPoint = geoManager.getLastUpdatedUserPoint()
             let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
             let distance = GeoUtil.getCoordinateDistance(userPoint, source)
-            let (e, n) = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
+            let v = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
             
-            r1 = SCNMatrix4Translate(r1, Float(-e), 0, Float(n))
+            r1 = SCNMatrix4Translate(r1, -(v.x), 0, -(v.z))
         }
         
         cameraNode.transform = r1
     }
     
-    private func azimuthDistanceToCoordinate(azimuth: Double, distance: Double) -> (Double, Double) {
-        let x = distance * sin(azimuth)  // positive: to East
-        let y = distance * cos(azimuth)  // positive: to North
-        return (x, y)
+    
+    
+    func addArrows(from src: GeoPoint, to dest: GeoPoint) {
+        guard checkpointCardControllers.count > 0 else {
+            return
+        }
+        
+        let firstPoint = checkpointCardControllers[0].checkpoint
+        
+        let distance = GeoUtil.getCoordinateDistance(src, dest)
+        let azimuth = GeoUtil.getAzimuth(between: src, dest)
+        let num = floor(distance / 0.8) - 1
+        
+        let srcDistance = GeoUtil.getCoordinateDistance(firstPoint, src)
+        let srcAzimuth = GeoUtil.getAzimuth(between: firstPoint, src)
+        
+        let srcPosition = azimuthDistanceToCoordinate(azimuth: srcAzimuth, distance: srcDistance)
+        
+        for i in 1 ... Int(num) {
+            let arrow = getArrowSCNNode()
+            
+            
+            var r1 = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI), 1, 0, 0)
+            r1 = SCNMatrix4Rotate(r1, -Float(GeoUtil.getAzimuth(between: src, dest)), 0, 1, 0)
+            arrow.transform = r1
+            
+            
+            
+            arrow.scale = SCNVector3(x: 1/108, y: 1/108, z: 1/60)
+            let distance = 0.8 * Double(i)
+            let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
+            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -1.6, 0)
+            
+            
+            arrowNodes.append(arrow)
+            scene.rootNode.addChildNode(arrow)
+    
+
+        }
     }
     
     
+    private func azimuthDistanceToCoordinate(azimuth: Double, distance: Double) -> SCNVector3 {
+        let x = distance * sin(azimuth)  // positive: to East
+        let y = distance * cos(azimuth)  // positive: to North
+        return SCNVector3(x: Float(x), y: 0, z: Float(-y))
+    }
 }
 
+
+extension SCNVector3 {
+    public static func +(v1: SCNVector3, v2: SCNVector3) -> SCNVector3 {
+        return SCNVector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z)
+    }
+}
 
 
 

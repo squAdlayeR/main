@@ -45,6 +45,7 @@ class ARViewController: UIViewController {
     let cameraNode = SCNNode()
     let scene = SCNScene()
     var arrowNodes: [SCNNode] = []
+    let gap = 0.8
     
     override func viewDidLoad() {
         super.viewDidLoad()
