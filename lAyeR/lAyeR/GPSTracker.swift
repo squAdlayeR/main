@@ -19,7 +19,7 @@ class GPSTracker {
     
     func start() {
         route = Route("New Route")
-        timer = Timer(timeInterval: 5, target: self, selector: #selector(track), userInfo: nil, repeats: true)
+        resume()
     }
     
     @objc func track() {
@@ -35,29 +35,26 @@ class GPSTracker {
         self.route?.append(CheckPoint(currentLocation, "Way Point"))
     }
     
-    func save(routeName: String, uploadFlag: Bool, localFlag: Bool) {
-        let currentLocation = geoManager.getLastUpdatedUserPoint()
-        route?.append(CheckPoint(currentLocation, "Destination", "", true))
-        route?.setName(name: routeName)
-        //
-        // Storage operation occurs here.
-        //
-        stop()
-    }
-    
     func insert(name: String, description: String) {
-        guard let route = route else { return }
-        timer?.invalidate()
-        timer = nil
+        guard route != nil else { return }
+        pause()
         let currentLocation = geoManager.getLastUpdatedUserPoint()
         self.prevLocation = currentLocation
         self.route?.append(CheckPoint(currentLocation, name, description, true))
+        resume()
+    }
+    
+    func pause() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func resume() {
         timer = Timer(timeInterval: 5, target: self, selector: #selector(track), userInfo: nil, repeats: true)
     }
     
     func stop() {
-        timer?.invalidate()
-        timer = nil
+        pause()
         route = nil
         prevLocation = nil
     }

@@ -26,15 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main);
-        //var currentUser = PFUser.currentUser()
-        var currentUser = FIRAuth.auth()?.currentUser
-        if currentUser != nil {
-            self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController");
-        }
-        
-        //return true;
-        
+        //self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        //let currentUser = FIRAuth.auth()?.currentUser
+        //if currentUser != nil {
+            //self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
+        //}
         return true
     }
     
