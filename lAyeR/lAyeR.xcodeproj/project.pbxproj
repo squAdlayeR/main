@@ -39,6 +39,8 @@
 		528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B01E92690C00163654 /* AppSettingsViewController.swift */; };
 		528288BA1E9355B100163654 /* PoiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B91E9355B100163654 /* PoiCard.swift */; };
 		528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288C31E94F4F800163654 /* LoadingBadge.swift */; };
+		528288CD1E9678A900163654 /* GPSTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288CC1E9678A900163654 /* GPSTracker.swift */; };
+		528288CF1E9682E700163654 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288CE1E9682E700163654 /* GPXParser.swift */; };
 		52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52830F261E8F4567009DFD02 /* UserProfile.swift */; };
 		52830F411E8FF8E7009DFD02 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3D1E8FF8E7009DFD02 /* Bolts.framework */; };
 		52830F421E8FF8E7009DFD02 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3E1E8FF8E7009DFD02 /* FBSDKCoreKit.framework */; };
@@ -153,6 +155,8 @@
 		528288B01E92690C00163654 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		528288B91E9355B100163654 /* PoiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiCard.swift; path = ViewComponents/HighLevelComponents/POI/PoiCard.swift; sourceTree = "<group>"; };
 		528288C31E94F4F800163654 /* LoadingBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingBadge.swift; sourceTree = "<group>"; };
+		528288CC1E9678A900163654 /* GPSTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSTracker.swift; sourceTree = "<group>"; };
+		528288CE1E9682E700163654 /* GPXParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		52830F261E8F4567009DFD02 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		52830F301E8FE422009DFD02 /* lAyeR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lAyeR.entitlements; sourceTree = "<group>"; };
 		52830F3D1E8FF8E7009DFD02 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../Downloads/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
@@ -272,9 +276,10 @@
 		2C3119991E670A5F00FF6334 /* lAyeR */ = {
 			isa = PBXGroup;
 			children = (
+				528288CB1E96789300163654 /* GPX */,
+				52830F301E8FE422009DFD02 /* lAyeR.entitlements */,
 				A21BBFBC1E83AB7500394531 /* Constant.swift */,
 				528288AD1E9268EB00163654 /* ApplicationSettings */,
-				52830F301E8FE422009DFD02 /* lAyeR.entitlements */,
 				52BD49701E8A8CE800B4B750 /* DataService */,
 				52938BFD1E860D6900EB8F81 /* LoginRegister */,
 				9DAFF1FC1E8E944E00D09C11 /* UserProfile */,
@@ -430,6 +435,15 @@
 				528288B01E92690C00163654 /* AppSettingsViewController.swift */,
 			);
 			name = ApplicationSettings;
+			sourceTree = "<group>";
+		};
+		528288CB1E96789300163654 /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+				528288CC1E9678A900163654 /* GPSTracker.swift */,
+				528288CE1E9682E700163654 /* GPXParser.swift */,
+			);
+			name = GPX;
 			sourceTree = "<group>";
 		};
 		52938BFD1E860D6900EB8F81 /* LoginRegister */ = {
@@ -867,6 +881,7 @@
 				9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */,
 				A238E0721E8FA7A900BA10DC /* CheckpointCardController.swift in Sources */,
 				A238E0741E8FAC7000BA10DC /* PoiCardController.swift in Sources */,
+				528288CD1E9678A900163654 /* GPSTracker.swift in Sources */,
 				A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */,
 				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
 				9D1499001E800B1D0043DDB6 /* MarkerIcon.swift in Sources */,
@@ -911,6 +926,7 @@
 				52BD49721E8A8D0000B4B750 /* DataServiceManager.swift in Sources */,
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
+				528288CF1E9682E700163654 /* GPXParser.swift in Sources */,
 				52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */,
 				A21BBFBD1E83AB7500394531 /* Constant.swift in Sources */,
 				52BD49741E8A8DC000B4B750 /* UserAuthenticator.swift in Sources */,
