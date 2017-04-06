@@ -10,6 +10,11 @@ import Foundation
 import SceneKit
 import SceneKit.ModelIO
 
+/*
+ The origin of the coordinate is the start point
+ The positive direction of x axis points to the East
+ The negative direction of z axis points to the North
+ */
 extension ARViewController {
     private func getArrowSCNNode() -> SCNNode {
         let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
@@ -34,7 +39,7 @@ extension ARViewController {
         scene.rootNode.addChildNode(cameraNode)
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
-    
+
     func setupArrows() {
         for i in 0 ... 12 {  // show 8 arrows
             arrowNodes.append(getArrowSCNNode())
@@ -49,25 +54,22 @@ extension ARViewController {
     }
     
     func updateScene() {
-    
-        let direction = M_PI / 2
-        
         let pitch = motionManager.getVerticalAngle()
         let yaw = motionManager.getYawAngle()
         let roll = motionManager.getHorzAngleRelToNorth()
         
         var r1 = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-yaw), 0, 0, 1)
-        r1 = SCNMatrix4Rotate(r1, Float(roll + direction), 0, 1, 0)
         r1 = SCNMatrix4Rotate(r1, Float(pitch), 1, 0, 0)
+        r1 = SCNMatrix4Rotate(r1, Float(roll), 0, 1, 0)
         
         if checkpointCardControllers.count > 0 {
             let source = checkpointCardControllers[0].checkpoint
             let userPoint = geoManager.getLastUpdatedUserPoint()
             let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
             let distance = GeoUtil.getCoordinateDistance(userPoint, source)
-            let (nDistance, eDistance) = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
+            let (e, n) = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
             
-            r1 = SCNMatrix4Translate(r1, Float(eDistance), 0, Float(nDistance))
+            r1 = SCNMatrix4Translate(r1, Float(-e), 0, Float(n))
         }
         
         cameraNode.transform = r1
@@ -78,6 +80,8 @@ extension ARViewController {
         let y = distance * cos(azimuth)  // positive: to North
         return (x, y)
     }
+    
+    
 }
 
 
