@@ -365,7 +365,7 @@
         <!--Tracker View Controller-->
         <scene sceneID="KPH-Hq-T4L">
             <objects>
-                <viewController id="DB7-Gw-VOk" customClass="GPSTrackerViewController" customModule="lAyeR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="test" id="DB7-Gw-VOk" customClass="GPSTrackerViewController" customModule="lAyeR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="goG-fM-wl1"/>
                         <viewControllerLayoutGuide type="bottom" id="cQm-sF-ThO"/>

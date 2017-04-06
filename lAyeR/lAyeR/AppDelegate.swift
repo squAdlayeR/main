@@ -26,16 +26,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        //self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         //let currentUser = FIRAuth.auth()?.currentUser
         //if currentUser != nil {
-            //self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
+        self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "test")
         //}
+        
+        if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
+            self.window?.rootViewController?.handleOpenUrl(url: url)
+        }
+        
+        
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String!, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        if url.isFileURL {
+            self.window?.rootViewController?.handleOpenUrl(url: url)
+        }
+        
+        
         return handled
     }
     
@@ -63,6 +75,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //self.saveContext()
     }
     
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        //if url.isFileURL {
+            //print("???")
+            self.window?.rootViewController?.handleOpenUrl(url: url)
+        //}
+        return true
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        //if url.isFileURL {
+        //print("???")
+        self.window?.rootViewController?.handleOpenUrl(url: url)
+        //}
+        return true
+    }
     // MARK: - Core Data stack
     
 //    lazy var persistentContainer: NSPersistentContainer = {
@@ -110,3 +137,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 }
 
+extension UIViewController {
+    func handleOpenUrl(url: URL) {
+        let alert = UIAlertController(title: "Oops", message: url.absoluteString, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+}
