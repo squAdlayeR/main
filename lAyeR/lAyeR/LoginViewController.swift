@@ -28,6 +28,7 @@ class LoginViewController: UIViewController {
     // Connects welcome title and subtitle
     @IBOutlet weak var welcomeTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
+    @IBOutlet weak var orLabel: UILabel!
     
     @IBOutlet weak var FBButtonPlaceHolder: UIButton!
     // Connects register hint
@@ -57,8 +58,6 @@ class LoginViewController: UIViewController {
         setCloseKeyboardAction()
         setUpFBLoginButton()
     }
-    
-    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -90,6 +89,7 @@ class LoginViewController: UIViewController {
         view.addSubview(welcomeTitle)
         vibrancyEffectView.contentView.addSubview(subtitle)
         vibrancyEffectView.contentView.addSubview(registerHint)
+        vibrancyEffectView.contentView.addSubview(orLabel)
     }
     
     /// Sets up the input fields
