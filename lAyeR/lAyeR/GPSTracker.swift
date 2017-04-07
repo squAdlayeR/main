@@ -11,11 +11,14 @@ import CoreLocation
 
 class GPSTracker {
     
+    static let instance = GPSTracker()
+    
     private var timer: Timer?
     private var route: Route?
     private var prevLocation: GeoPoint?
     private var geoManager = GeoManager.getInstance()
     private let defaultLocation = GeoPoint(0, 0)
+    private(set) var distance: Double = 0
     
     func start() {
         route = Route("New Route")
@@ -30,7 +33,9 @@ class GPSTracker {
             route?.append(CheckPoint(currentLocation, "Source", "", true))
             return
         }
-        guard GeoUtil.getCoordinateDistance(prevLocation, currentLocation) > 5 else { return }
+        let deltaDistance = GeoUtil.getCoordinateDistance(prevLocation, currentLocation)
+        guard deltaDistance > 5 else { return }
+        self.distance += deltaDistance
         self.prevLocation = currentLocation
         self.route?.append(CheckPoint(currentLocation, "Way Point"))
     }
@@ -39,6 +44,8 @@ class GPSTracker {
         guard route != nil else { return }
         pause()
         let currentLocation = geoManager.getLastUpdatedUserPoint()
+        let deltaDistance = GeoUtil.getCoordinateDistance(self.prevLocation!, currentLocation)
+        self.distance += deltaDistance
         self.prevLocation = currentLocation
         self.route?.append(CheckPoint(currentLocation, name, description, true))
         resume()
@@ -50,12 +57,13 @@ class GPSTracker {
     }
     
     func resume() {
-        timer = Timer(timeInterval: 5, target: self, selector: #selector(track), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(track), userInfo: nil, repeats: true)
     }
     
     func stop() {
         pause()
         route = nil
         prevLocation = nil
+        distance = 0
     }
 }

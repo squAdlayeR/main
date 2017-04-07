@@ -11,10 +11,26 @@ import UIKit
 
 class GPSTrackerViewController: UIViewController {
     
+    @IBOutlet weak var startButton: UIButton!
+    
+    @IBOutlet weak var pauseButton: UIButton!
+    
+    @IBOutlet weak var stopButton: UIButton!
+    
+    @IBOutlet weak var uploadButton: UIButton!
+    
+    @IBOutlet weak var exportButton: UIButton!
+    
+    @IBOutlet weak var testTextField: UITextField!
+    
+    let tracker = GPSTracker.instance
+    var timer = Timer()
+    
+    
     var documentInteractionController = UIDocumentInteractionController()
     
     override func viewDidLoad() {
-        view.backgroundColor = UIColor.black
+        
         let path = URL(fileURLWithPath: Bundle.main.path(forResource: "confirm", ofType: "wav")!)
         //let path =
         documentInteractionController = UIDocumentInteractionController(url: path)
@@ -25,24 +41,31 @@ class GPSTrackerViewController: UIViewController {
     
     @IBAction func test(_ sender: Any) {
         openDocumentIn()
-        //do {
-            //let gpx = try GPSTrackerParser.instace.parseRouteToGPX(route: Route.testRoute)
-            //print(gpx)
-            //let routes = try GPSTrackerParser.instace.parseGPXToRoute(filePath: "/Users/victoriaduan/Downloads/t.gpx")
-            //print(routes.first?.name)
-        //} catch {
-            //print(error.localizedDescription)
-        //}
-        
+    }
+    
+    @IBAction func startPressed(_ sender: Any) {
+        tracker.start()
+    }
+    
+    @IBAction func pausePressed(_ sender: Any) {
+        tracker.pause()
+    }
+    
+    @IBAction func stopPressed(_ sender: Any) {
+        tracker.stop()
+    }
+    
+    @IBAction func uploadPressed(_ sender: Any) {
+    }
+    
+    
+    @IBAction func exportPressed(_ sender: Any) {
     }
 }
 
 extension GPSTrackerViewController: UIDocumentInteractionControllerDelegate {
     
     func openDocumentIn() {
-        
-        //documentInteractionController.presentOpenInMenu(from: CGRect(x: 0, y: 0, width: 200, height: 300), in: view, animated: true)
-        //documentInteractionControllerWillPresentOptionsMenu(self)
         documentInteractionController.presentOptionsMenu(from: CGRect.zero, in: view , animated: true)
     }
     
