@@ -92,8 +92,8 @@ class Card: NSObject {
     private var popupFrame: CGRect {
         let suggestdPopupW = superView.bounds.width * 0.8 <= 500 ? superView.bounds.width * 0.8 : 500
         let suggsetdPopupH = superView.bounds.height * 0.5 <= 800 ? superView.bounds.height * 0.5 : 800
-        let originX = center.x - suggestdPopupW / 2
-        let originY = center.y - suggsetdPopupH / 2
+        let originX = superView.center.x - suggestdPopupW / 2
+        let originY = superView.center.y - suggsetdPopupH / 2
         return CGRect(x: originX, y: originY, width: suggestdPopupW, height: suggsetdPopupH)
     }
     
