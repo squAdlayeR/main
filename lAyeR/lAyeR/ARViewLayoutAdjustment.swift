@@ -33,10 +33,10 @@ struct ARViewLayoutAdjustment {
     var perspectiveYPosition: CGFloat {
         let projectionPlaneDistance = Constant.projectionPlaneDistance
         let projectionPlaneToTargeDistance = CGFloat(distance)
-        let eyeYPositioin = superView.bounds.height * 0.38
-        let range = superView.bounds.height * 0.28
-        let declineOffset = projectionPlaneDistance / (projectionPlaneDistance + projectionPlaneToTargeDistance) * range
-        return eyeYPositioin + declineOffset
+        let eyeYPositioin = superView.bounds.height * 0.56
+        let range = superView.bounds.height * 0.18
+        let riseOffset = projectionPlaneDistance / (projectionPlaneDistance + projectionPlaneToTargeDistance) * range
+        return eyeYPositioin - riseOffset
     }
     
     init(deviceMotionManager: DeviceMotionManager, distance: Double, azimuth: Double,
