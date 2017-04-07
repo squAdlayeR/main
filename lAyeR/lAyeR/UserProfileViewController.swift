@@ -99,6 +99,7 @@ class UserProfileViewController: UIViewController {
             routeList.allowsMultipleSelection = false
             sender.setTitle("Select", for: .normal)
             selectionMode = false
+            deselectAll()
         }
         selectedRouteNames.removeAll()
     }
@@ -138,9 +139,7 @@ class UserProfileViewController: UIViewController {
         
         // TODO: magic string and magic number
         let avatarName = "profilePlaceholder.png"
-        //if userData[2] != "" {
-            //avatarName = userData[2]
-        //}
+        // TODO: Change after image cropping
         if userProfile?.avatarRef != avatarName {
             avatar.imageFromUrl(url: (userProfile?.avatarRef)!)
         } else {
@@ -153,8 +152,8 @@ class UserProfileViewController: UIViewController {
     
     /// Sets user related texts including user name and location info
     private func setUserText() {
-        userName.text = userProfile?.username//userData[0]
-        location.text = userProfile?.email//userData[1]
+        userName.text = userProfile?.username
+        location.text = userProfile?.email
         view.addSubview(userName)
         vibrancyEffectView.addSubview(location)
         
@@ -197,7 +196,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     
     /// Returns the total number of cells in the data table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userProfile?.designedRoutes.count ?? 0//routeData.count
+        return userProfile?.designedRoutes.count ?? 0
     }
     
     /// Creates cells for the table
@@ -206,8 +205,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         // TODO: Magic strings and numbers
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
         cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
-        //cell.routeDescription.text = routeData[indexPath.item][1]
-        //cell.backgroundImage.image = UIImage(named: routeData[indexPath.item][2])
+        // TODO: To be implemented
         return cell
     }
     
@@ -215,10 +213,8 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell,
             let name = cell.routeName.text else { return }
         if selectionMode {
-            cell.isSelected = true
             cell.checkMark.isHidden = false
             selectedRouteNames.insert(name)
-            print(selectedRouteNames)
         } else {
             LoadingBadge.instance.showBadge(in: view)
             DatabaseManager.instance.getRoute(withName: name) { route in
@@ -233,7 +229,16 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell,
             let name = cell.routeName.text else { return }
         if selectionMode {
-            cell.isSelected = false
+            cell.checkMark.isHidden = true
+            selectedRouteNames.remove(name)
+        }
+    }
+    
+    func deselectAll() {
+        for row in 0..<routeList.numberOfRows(inSection: 0) {
+            let indexPath = IndexPath(row: row, section: 0)
+            guard let cell = routeList.cellForRow(at: indexPath) as? RouteListCell,
+                let name = cell.routeName.text else { continue }
             cell.checkMark.isHidden = true
             selectedRouteNames.remove(name)
         }
