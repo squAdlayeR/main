@@ -16,8 +16,9 @@ class Route: Mappable {
     private(set) var checkPoints: [CheckPoint] = []
     //private(set) var distance: Double = 0
     
-    init(_ name: String) {
+    init(_ name: String, _ checkPoints: [CheckPoint] = []) {
         self.name = name
+        self.checkPoints = checkPoints
     }
     
     static var testRoute: Route {
