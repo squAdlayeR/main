@@ -18,6 +18,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var emailFieldSample: UITextField!
     @IBOutlet weak var passwordFieldSample: UITextField!
     @IBOutlet weak var confirmPasswordSample: UITextField!
+    @IBOutlet weak var usernameFieldSample: UITextField!
     
     // Connects buttons
     @IBOutlet weak var registerButton: UIButton!
@@ -35,6 +36,7 @@ class RegisterViewController: UIViewController {
     var vibrancyEffectView: UIVisualEffectView!
     
     // Defines the real input fields
+    var usernameField: InputTextFeild!
     var emailField: InputTextFeild!
     var passwordField: InputTextFeild!
     var passwordConfirmField: InputTextFeild!
@@ -76,9 +78,16 @@ class RegisterViewController: UIViewController {
     
     /// Sets up all the form input fields
     private func setupFormInput() {
+        setupUsernameInput()
         setupEmailInput()
         setupPasswordInput()
         setupPasswordConfirmInput()
+    }
+    
+    private func setupUsernameInput() {
+        usernameField = createTextField(with: usernameFieldSample, and: "username")
+        usernameField.delegate = self
+        vibrancyEffectView.contentView.addSubview(usernameField)
     }
     
     /// Sets up the email input field
@@ -125,7 +134,7 @@ class RegisterViewController: UIViewController {
     
     /// Sets up the sign in button (back to sign page)
     private func setupSigninButton() {
-        signinButton.titleLabel?.textColor = UIColor.blue
+        signinButton.titleLabel?.textColor = UIColor.yellow
         vibrancyEffectView.contentView.addSubview(signinButton)
     }
     
@@ -194,6 +203,7 @@ extension RegisterViewController {
             showErrorAlert(message: "Password should be longer than 6 digits!")
             return
         }
+        LoadingBadge.instance.showBadge(in: view)
         dataService.createUser(email: email, password: password) {
             (user, error) in
             if let error = error {
@@ -204,9 +214,12 @@ extension RegisterViewController {
                 self.showErrorAlert(message: "Failed to create user.")
                 return
             }
-            let newUser = User(uid: uid, email: email, password: password)
-            let profile = UserProfile(user: newUser)
-            self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
+            DispatchQueue.main.async {
+                let newUser = User(uid: uid, email: email, password: password)
+                let profile = UserProfile(user: newUser)
+                self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
+            }
+            LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "registerToAR", sender: nil)
         }
     }

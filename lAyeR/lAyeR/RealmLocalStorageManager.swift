@@ -66,6 +66,15 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
         return returnedRoutes
     }
     
+    public func getLocalRoutes() -> [Route] {
+        var returnedRoutes: [Route] = []
+        let realmRoutes = realm.objects(RealmRoute.self)
+        for realmRoute in realmRoutes {
+            returnedRoutes.append(realmRoute.get())
+        }
+        return returnedRoutes
+    }
+    
     // currently, only allow one user setting per device
     public func saveAppSettings() {
         for setting in realm.objects(RealmAppSettings.self) {

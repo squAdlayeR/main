@@ -18,17 +18,20 @@ import UIKit
 let bottomBannerHeight: CGFloat = 80
 let defaultFont: String = "HomenajeMod-Regular"
 let defaultFontBold: String = "HomenajeMod-Bold"
+let alterDefaultFontLight: String = "DINPro-Light"
+let alterDefaultFontMedium: String = "DINPro-Medium"
+let alterDefaultFontRegular: String = "DINPro-Regular"
 let defaultFontColor: UIColor = UIColor.white
-let defaultFontSize: CGFloat = 14
-let labelFontSize: CGFloat = 18
+let defaultFontSize: CGFloat = 15
+let labelFontSize: CGFloat = 20
 let maxAlertHeight: CGFloat = 500
 let minAlertHeight: CGFloat = 250
 let topBannerHeight: CGFloat = 60
 let defaultBorderWidth: CGFloat = 1
 
 /// Labels
-let nameLabel: String = "name"
-let descriptionLabel: String = "description"
+let nameLabel: String = "Name"
+let descriptionLabel: String = "Description"
 
 /// BackgroundImage
 let topBannerImage: String = "banner.png"
@@ -71,19 +74,19 @@ let suggestedMarkerWidth: CGFloat = 60
 
 /// POI View
 let directLabelText: String = "Direct"
-let poiTitle = "Point of Interests"
-let poiAddressLabel = "address"
-let poiContactLabel = "contact"
-let poiWebsiteLabel = "website"
-let poiRatingLabel = "rating"
-let poiOpenStatusLabel = "now open"
+let poiTitle = "POI"
+let poiAddressLabel = "Address"
+let poiContactLabel = "Contact"
+let poiWebsiteLabel = "Website"
+let poiRatingLabel = "Rating"
+let poiOpenStatusLabel = "Now open"
 
 /// Informative view
 let infoPanelTitleFontColor: UIColor = UIColor.gray
 let infoPanelTitleHeight: CGFloat = 20
 let innerViewSidePadding: CGFloat = 20
 let innerViewStackMargin: CGFloat = 10
-let titleText: String = "Detailed infomation"
+let titleText: String = "Detailed information"
 
 /// Menu view
 let menuButtonIconPaddingPercent: CGFloat = 0.2

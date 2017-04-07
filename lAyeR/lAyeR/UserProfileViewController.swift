@@ -20,14 +20,7 @@ import UIKit
  */
 class UserProfileViewController: UIViewController {
 
-    // Just for testing perpose. You can modify this as you wish
-    //let routeData = [["Walk from pgp to science", "21 March, 2017", "test.png"],
-      //              ["Walk from pgp to biz", "20 March, 2017", "test2.png"],
-       //             ["Walk from biz to computing", "20 March, 2017", "test3.png"],
-       //             ["Walk from computing to clb", "19 March 2017", //"test4.png"],
     @IBOutlet weak var logoutButton: UIButton!
-        //            ["Walk from computing to engining", "18 March 2017", "test2.png"]]
-   // let userData = ["Yang Zhuohan", "Singapore, Singapore", ""]
     var userProfile: UserProfile?
     
     // Connects the route list view
@@ -52,11 +45,12 @@ class UserProfileViewController: UIViewController {
         self.setCameraView()
         self.setBlur()
         self.setBackButton()
+        LoadingBadge.instance.showBadge(in: view)
         dataService.retrieveUserProfile { profile in
             self.userProfile = profile
-            //super.viewDidLoad()
             self.setUserInfo()
             self.setRouteList()
+            LoadingBadge.instance.hideBadge()
         }
     }
     
@@ -66,8 +60,6 @@ class UserProfileViewController: UIViewController {
     
     @IBAction func logout(_ sender: Any) {
         dataService.signOut()
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
         self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
     }
     
@@ -125,6 +117,8 @@ class UserProfileViewController: UIViewController {
         location.text = userProfile?.email//userData[1]
         view.addSubview(userName)
         vibrancyEffectView.addSubview(location)
+        logoutButton.layer.cornerRadius = 5
+        logoutButton.layer.masksToBounds = true
         view.addSubview(logoutButton)
     }
     
@@ -157,12 +151,11 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         
         // TODO: Magic strings and numbers
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as! RouteListCell
-        cell.routeName.text = userProfile?.designedRoutes[indexPath.item]//routeData[indexPath.item][0]
+        cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
         //cell.routeDescription.text = routeData[indexPath.item][1]
         //cell.backgroundImage.image = UIImage(named: routeData[indexPath.item][2])
         return cell
     }
-    
 }
 
 extension UIImageView {

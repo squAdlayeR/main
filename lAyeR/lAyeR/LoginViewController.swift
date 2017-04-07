@@ -19,6 +19,8 @@ import FBSDKLoginKit
  */
 class LoginViewController: UIViewController {
     
+    //weak var activityIndicatorView: UIActivityIndicatorView!
+    
     // Connects outlets of sample input fields
     @IBOutlet weak var emailFieldSample: UITextField!
     @IBOutlet weak var passwordFieldSample: UITextField!
@@ -26,6 +28,7 @@ class LoginViewController: UIViewController {
     // Connects welcome title and subtitle
     @IBOutlet weak var welcomeTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
+    @IBOutlet weak var orLabel: UILabel!
     
     @IBOutlet weak var FBButtonPlaceHolder: UIButton!
     // Connects register hint
@@ -55,8 +58,6 @@ class LoginViewController: UIViewController {
         setCloseKeyboardAction()
         setUpFBLoginButton()
     }
-    
-    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -88,6 +89,7 @@ class LoginViewController: UIViewController {
         view.addSubview(welcomeTitle)
         vibrancyEffectView.contentView.addSubview(subtitle)
         vibrancyEffectView.contentView.addSubview(registerHint)
+        vibrancyEffectView.contentView.addSubview(orLabel)
     }
     
     /// Sets up the input fields
@@ -183,12 +185,14 @@ extension LoginViewController {
             showErrorAlert(message: "Please fill all fields.")
             return
         }
+        LoadingBadge.instance.showBadge(in: view)
         dataService.signInUser(email: email, password: password) {
             (user, error) in
             if let error = error {
                 self.handleSignInError(error: error)
                 return
             }
+            LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
         }
     }
@@ -253,15 +257,15 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
+        if result.isCancelled { return }
         if error != nil {
             self.showErrorAlert(message: "Failed login with Facebook.")
             return
         }
-        guard result.declinedPermissions.isEmpty else { return }
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        LoadingBadge.instance.showBadge(in: view)
+        FBSDKLoginManager().logOut()
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-            //loginButton.removeFromSuperview()
-            //guard let user = user else { return }
             DispatchQueue.global().async {
                 if let error = error {
                     self.handleSignInError(error: error)
@@ -273,8 +277,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
                     self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
                 }
             }
-            //let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
-            //self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+            LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
         }
     }
@@ -284,6 +287,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
      - Parameter loginButton: The button that was clicked.
      */
     public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("logged out")
+        
     }
 }
+
