@@ -40,8 +40,10 @@ class IconCropViewController: UIViewController {
     }
     
     @IBAction func savePressed(_ sender: Any) {
-        
-        
+        // TODO: Crop the image and update database
+        let croppedCGImage = placeholder.image?.cgImage?.cropping(to: cropArea.frame)
+        let croppedImage = UIImage(cgImage: croppedCGImage!)
+        placeholder.image = croppedImage
     }
     
     func panned(_ sender: UIPanGestureRecognizer) {
@@ -76,3 +78,4 @@ extension IconCropViewController: UIImagePickerControllerDelegate, UINavigationC
     
     }
 }
+
