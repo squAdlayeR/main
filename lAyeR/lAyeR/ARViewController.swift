@@ -57,6 +57,13 @@ class ARViewController: UIViewController {
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
         prepareMenu()
+        
+        let scnView = SCNView(frame: view.frame)
+        scnView.backgroundColor = UIColor.clear
+        view.insertSubview(scnView, at: 1)
+        scnView.scene = scene
+        
+        
         prepareScene()
     }
     

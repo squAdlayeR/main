@@ -31,13 +31,7 @@ extension ARViewController {
     }
     
     func prepareScene() {
-        let scnView = SCNView(frame: view.frame)
-        scnView.backgroundColor = UIColor.clear
-        view.insertSubview(scnView, at: 1)
-        scnView.scene = scene
-        
-        setupCameraNode()
-        //setupArrows()
+        removeAllArrows()
         
         guard checkpointCardControllers.count > 1 else {
             return
@@ -47,6 +41,8 @@ extension ARViewController {
             let dest = checkpointCardControllers[i + 1].checkpoint
             addArrows(from: src, to: dest)
         }
+        
+        setupCameraNode()
     }
     
     private func setupCameraNode() {
@@ -87,6 +83,13 @@ extension ARViewController {
             arrowNodes.append(arrow)
             scene.rootNode.addChildNode(arrow)
         }
+    }
+    
+    private func removeAllArrows() {
+        for arrow in arrowNodes {
+            arrow.removeFromParentNode()
+        }
+        arrowNodes = []
     }
     
     func updateScene() {
