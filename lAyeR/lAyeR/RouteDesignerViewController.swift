@@ -854,7 +854,32 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
     }
     
     func editButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
-        
+        let alert = UIAlertController(title: "Edit CheckPoint", message: "Enter Name and Description of CheckPoint", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter CheckPoint Name"
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter CheckPoint Description"
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
+            let nameTextField = alert!.textFields![0]
+            let descriptionTextField = alert!.textFields![1]
+            if (nameTextField.text != nil && nameTextField.text != "" && descriptionTextField.text != nil) {
+                let markerData = self.tappedMarker.userData as! CheckPoint
+                let newMarkerData = CheckPoint(markerData.latitude, markerData.longitude, nameTextField.text!, descriptionTextField.text!, markerData.isControlPoint)
+                self.tappedMarker.userData = newMarkerData
+                
+                let resultAlert = UIAlertController(title: "CheckPoint Details Saved Successfully", message: "Congrats", preferredStyle: .alert)
+                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
+                self.present(resultAlert, animated: true, completion: nil)
+            } else {
+                let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to this CheckPoint", preferredStyle: .alert)
+                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
+                self.present(resultAlert, animated: true, completion: nil)
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
         infoWindow.removeFromSuperview()
     }
     

@@ -11,8 +11,7 @@ import GoogleMaps
 import GooglePlaces
 
 class RouteDesignerModel {
-    
-    let rangeOfQuery = 100.0
+
     let baseURLGeocode = "https://maps.googleapis.com/maps/api/geocode/json?"
     let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
     
@@ -78,6 +77,6 @@ class RouteDesignerModel {
     }
     
     func getLayerRoutes(source: GeoPoint, dest: GeoPoint) -> [Route] {
-        return RealmLocalStorageManager.getInstance().getRoutes(between: source, and: dest, inRange: rangeOfQuery)
+        return RealmLocalStorageManager.getInstance().getRoutes(between: source, and: dest, inRange: UserConfig.queryRadius)
     }
 }
