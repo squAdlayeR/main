@@ -426,49 +426,44 @@
                                     <action selector="savePressed:" destination="GL3-r2-iHy" eventType="touchUpInside" id="DMn-YH-JPp"/>
                                 </connections>
                             </button>
-                            <view alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BD1-SD-Vfg">
-                                <rect key="frame" x="87" y="233" width="200" height="200"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gc7-zq-raR">
+                                <rect key="frame" x="0.0" y="597" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.94999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8b9-od-9rZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mJ-mC-5xX">
+                                        <rect key="frame" x="226" y="13" width="48" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.92599936549999995" green="0.92599936549999995" blue="0.92599936549999995" alpha="0.15459118150000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </imageView>
-                                    <imageView multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="pul-Cp-7FJ">
-                                        <rect key="frame" x="-69" y="-157" width="338" height="513"/>
+                                        <state key="normal" backgroundImage="camera"/>
+                                        <connections>
+                                            <action selector="cameraPressed:" destination="GL3-r2-iHy" eventType="touchUpInside" id="sjy-L1-anE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8a-f3-RgI">
+                                        <rect key="frame" x="100" y="11" width="54" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                        <state key="normal" backgroundImage="album"/>
+                                        <connections>
+                                            <action selector="albumPressed:" destination="GL3-r2-iHy" eventType="touchUpInside" id="up7-7E-7s1"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92599936548223349" green="0.92599936548223349" blue="0.92599936548223349" alpha="0.15459118150684931" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mJ-mC-5xX">
-                                <rect key="frame" x="239" y="599" width="48" height="44"/>
+                            <imageView multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="pul-Cp-7FJ">
+                                <rect key="frame" x="18" y="77" width="338" height="513"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="camera"/>
-                                <connections>
-                                    <action selector="cameraPressed:" destination="GL3-r2-iHy" eventType="touchUpInside" id="sjy-L1-anE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYS-fW-tjc">
-                                <rect key="frame" x="87" y="617" width="42" height="42"/>
+                            </imageView>
+                            <view alpha="0.14999999999999999" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BD1-SD-Vfg">
+                                <rect key="frame" x="87" y="233" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8a-f3-RgI">
-                                <rect key="frame" x="87" y="597" width="54" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="album"/>
-                                <connections>
-                                    <action selector="albumPressed:" destination="GL3-r2-iHy" eventType="touchUpInside" id="up7-7E-7s1"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="Gan-37-h6t" id="HjB-98-uaC"/>
                         <outlet property="cropArea" destination="BD1-SD-Vfg" id="sKX-1a-3pp"/>
-                        <outlet property="mask" destination="8b9-od-9rZ" id="oWk-mM-Uqq"/>
                         <outlet property="placeholder" destination="pul-Cp-7FJ" id="qjq-O5-laJ"/>
                         <outlet property="saveButton" destination="8Bh-uZ-Fhm" id="NMI-Bb-BPH"/>
                     </connections>

@@ -16,14 +16,11 @@ class IconCropViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var placeholder: UIImageView!
     
-    @IBOutlet weak var mask: UIImageView!
     let picker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate = self
-        cropArea.addSubview(placeholder)
-        cropArea.addSubview(mask)
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panned))
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinched))
         placeholder.addGestureRecognizer(pan)
@@ -43,28 +40,23 @@ class IconCropViewController: UIViewController {
     }
     
     @IBAction func savePressed(_ sender: Any) {
-        let image = viewCapture(view: cropArea)
-        placeholder.image = image
-        placeholder.contentMode = .center
+        
+        
     }
     
     func panned(_ sender: UIPanGestureRecognizer) {
-        //placeholder.superview?.bringSubview(toFront: placeholder)
-        var translation = sender.translation(in: placeholder)
-        translation = translation.applying(placeholder.transform)
-        placeholder.center.x += translation.x
-        placeholder.center.y += translation.y
-        sender.setTranslation(CGPoint.zero, in: placeholder)
-        //_cropoptions.Center = self.center
+        if sender.state == .changed {
+            let translation = sender.translation(in: placeholder)
+            placeholder.center.x += translation.x
+            placeholder.center.y += translation.y
+            sender.setTranslation(CGPoint.zero, in: placeholder)
+        }
     }
     
     func pinched(_ sender: UIPinchGestureRecognizer) {
-        //placeholder.superview?.bringSubview(toFront: placeholder)
         let scale = sender.scale
         placeholder.transform = placeholder.transform.scaledBy(x: scale, y: scale)
-        //_cropoptions.Height = self.frame.height
-        //_cropoptions.Width = self.frame.width
-        //sender.scale = 1.0
+        sender.scale = 1
     }
     
 }
@@ -81,5 +73,6 @@ extension IconCropViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    
     }
 }
