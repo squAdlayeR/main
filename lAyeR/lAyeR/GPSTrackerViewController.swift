@@ -13,71 +13,106 @@ class GPSTrackerViewController: UIViewController {
     
     @IBOutlet weak var startButton: UIButton!
     
-    @IBOutlet weak var pauseButton: UIButton!
-    
     @IBOutlet weak var stopButton: UIButton!
     
-    @IBOutlet weak var uploadButton: UIButton!
-    
-    @IBOutlet weak var exportButton: UIButton!
-    
-    @IBOutlet weak var testTextField: UITextField!
+    @IBOutlet weak var saveButton: UIButton!
     
     let tracker = GPSTracker.instance
-    var timer = Timer()
-    
     
     var documentInteractionController = UIDocumentInteractionController()
     
     override func viewDidLoad() {
         
-        let path = URL(fileURLWithPath: Bundle.main.path(forResource: "confirm", ofType: "wav")!)
-        //let path =
-        documentInteractionController = UIDocumentInteractionController(url: path)
         documentInteractionController.delegate = self
-        documentInteractionController.uti = "wav"
+        documentInteractionController.uti = "com.topografix.gpx"
     
     }
-    
-    @IBAction func test(_ sender: Any) {
-        openDocumentIn()
+
+    @IBAction func savePressed(_ sender: Any) {
+        promptExportDialog()
     }
-    
     @IBAction func startPressed(_ sender: Any) {
-        tracker.start()
-    }
-    
-    @IBAction func pausePressed(_ sender: Any) {
-        tracker.pause()
+        let title = startButton.title(for: .normal)!
+        switch title {
+        case "Start":
+            startButton.setTitle("Pause", for: .normal)
+            tracker.start()
+            break
+        case "Pause":
+            startButton.setTitle("Resume", for: .normal)
+            tracker.pause()
+            promptInsertDialog()
+            break
+        case "Resume":
+            startButton.setTitle("Pause", for: .normal)
+            tracker.resume()
+            break
+        default:
+            break
+        }
     }
     
     @IBAction func stopPressed(_ sender: Any) {
-        tracker.stop()
+        startButton.setTitle("Start", for: .normal)
+        tracker.reset()
     }
     
-    @IBAction func uploadPressed(_ sender: Any) {
+    func promptExportDialog() {
+        var nameTextField: UITextField?
+        let prompt = UIAlertController(title: "Export To GPX", message: "Please name your route", preferredStyle: UIAlertControllerStyle.alert)
+        prompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        prompt.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) -> Void in
+            let name = nameTextField?.text ?? "New Route"
+            self.tracker.route?.setName(name: name)
+            do {
+                let url = try self.tracker.getExportURL()
+                self.openDocumentIn(url: url)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }))
+        prompt.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Name"
+            nameTextField = textField
+        })
+        present(prompt, animated: true, completion: nil)
     }
     
     
-    @IBAction func exportPressed(_ sender: Any) {
+    func promptInsertDialog() {
+        var nameTextField: UITextField?
+        var descTextField: UITextField?
+        let prompt = UIAlertController(title: "Insert Way Point", message: "Please key in information", preferredStyle: UIAlertControllerStyle.alert)
+        prompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        prompt.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) -> Void in
+            self.tracker.insert(name: (nameTextField?.text!)!, description: (descTextField?.text)!)
+        }))
+        prompt.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Name"
+            nameTextField = textField
+        })
+        prompt.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Description"
+            descTextField = textField
+        })
+        present(prompt, animated: true, completion: nil)
     }
+    
 }
 
 extension GPSTrackerViewController: UIDocumentInteractionControllerDelegate {
     
-    func openDocumentIn() {
+    func openDocumentIn(url: URL) {
+        documentInteractionController.url = url
         documentInteractionController.presentOptionsMenu(from: CGRect.zero, in: view , animated: true)
     }
     
     func documentInteractionController(_ controller: UIDocumentInteractionController, willBeginSendingToApplication application: String?) {
-        
     }
     
     func documentInteractionController(_ controller: UIDocumentInteractionController, didEndSendingToApplication application: String?) {
-        
     }
     
     func documentInteractionControllerDidDismissOpenInMenu(_ controller: UIDocumentInteractionController) {
-        
     }
 }

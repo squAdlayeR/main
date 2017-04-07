@@ -14,14 +14,16 @@ class GPSTracker {
     static let instance = GPSTracker()
     
     private var timer: Timer?
-    private var route: Route?
+    private(set) var route: Route?
     private var prevLocation: GeoPoint?
     private var geoManager = GeoManager.getInstance()
     private let defaultLocation = GeoPoint(0, 0)
     private(set) var distance: Double = 0
+    private(set) var isStarted: Bool = false
     
     func start() {
         route = Route("New Route")
+        isStarted = true
         resume()
     }
     
@@ -42,13 +44,11 @@ class GPSTracker {
     
     func insert(name: String, description: String) {
         guard route != nil else { return }
-        pause()
         let currentLocation = geoManager.getLastUpdatedUserPoint()
         let deltaDistance = GeoUtil.getCoordinateDistance(self.prevLocation!, currentLocation)
         self.distance += deltaDistance
         self.prevLocation = currentLocation
         self.route?.append(CheckPoint(currentLocation, name, description, true))
-        resume()
     }
     
     func pause() {
@@ -60,10 +60,26 @@ class GPSTracker {
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(track), userInfo: nil, repeats: true)
     }
     
-    func stop() {
+    func reset() {
+        isStarted = false
         pause()
         route = nil
         prevLocation = nil
         distance = 0
     }
+    
+    func getExportURL() throws -> URL {
+        guard let route = route else {
+            throw GPXError.noRouteFound
+        }
+        //let route = Route.testRoute
+        try GPXManager.save(route: route)
+        let path = try GPXManager.getPath(with: route.name)
+        return URL(fileURLWithPath: path)
+    }
+    
+    func deleteCache(name: String) {
+        GPXManager.delete(routeName: name)
+    }
 }
+

@@ -54,6 +54,7 @@
 		52830F481E8FF960009DFD02 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F401E8FF8E7009DFD02 /* FBSDKShareKit.framework */; };
 		52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938BFE1E860D8000EB8F81 /* LoginViewController.swift */; };
 		52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938C001E860D9000EB8F81 /* RegisterViewController.swift */; };
+		52B2298B1E974FB2009C733B /* GPXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B2298A1E974FB2009C733B /* GPXError.swift */; };
 		52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
 		52BD496F1E8A802D00B4B750 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD496E1E8A802D00B4B750 /* User.swift */; };
 		52BD49721E8A8D0000B4B750 /* DataServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD49711E8A8D0000B4B750 /* DataServiceManager.swift */; };
@@ -172,6 +173,7 @@
 		52830F401E8FF8E7009DFD02 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../Downloads/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		52938BFE1E860D8000EB8F81 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		52938C001E860D9000EB8F81 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		52B2298A1E974FB2009C733B /* GPXError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXError.swift; sourceTree = "<group>"; };
 		52B229EE1E8E392600B9F97F /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_lAyeR_lAyeRTests.framework; path = "../../Library/Developer/Xcode/DerivedData/lAyeR-djnudskkashkccdgvjwlignsgcgu/Build/Products/Debug-iphonesimulator/Pods_lAyeR_lAyeRTests.framework"; sourceTree = "<group>"; };
 		52BD496E1E8A802D00B4B750 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		52BD49711E8A8D0000B4B750 /* DataServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceManager.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				528288DB1E96923D00163654 /* GPSTrackerViewController.swift */,
 				528288CE1E9682E700163654 /* GPSTrackerParser.swift */,
 				528288DD1E969F2D00163654 /* GPXManager.swift */,
+				52B2298A1E974FB2009C733B /* GPXError.swift */,
 			);
 			name = GPSTracker;
 			sourceTree = "<group>";
@@ -927,6 +930,7 @@
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
 				528288BA1E9355B100163654 /* PoiCard.swift in Sources */,
 				528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */,
+				52B2298B1E974FB2009C733B /* GPXError.swift in Sources */,
 				A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,

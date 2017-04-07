@@ -31,8 +31,8 @@ class GPSTrackerParser {
         return root.gpx()
     }
     
-    func parseGPXToRoute(filePath: String) throws -> [Route] {
-        guard let root = GPXParser.parseGPX(atPath: filePath) else {
+    func parseGPXToRoute(url: URL) throws -> [Route] {
+        guard let root = GPXParser.parseGPX(at: url) else {
             throw GPXError.readFailure
         }
         guard let gpxRoutes = root.routes as? [GPXRoute] else {
@@ -58,9 +58,4 @@ class GPSTrackerParser {
     
 }
 
-enum GPXError: Error {
-    case createFailure
-    case readFailure
-    case noGPXRouteFound
-    case noPathFound
-}
+
