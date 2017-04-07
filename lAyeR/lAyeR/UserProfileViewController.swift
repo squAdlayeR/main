@@ -127,8 +127,8 @@ class UserProfileViewController: UIViewController {
         routeList.delegate = self
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
-        routeList.allowsMultipleSelectionDuringEditing = true
-        routeList.setEditing(true, animated: false)
+        //routeList.allowsMultipleSelectionDuringEditing = true
+        //routeList.setEditing(true, animated: false)
         view.addSubview(routeList)
     }
 
@@ -152,11 +152,16 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // TODO: Magic strings and numbers
-        let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as! RouteListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
         cell.routeName.text = "Test"//userProfile?.designedRoutes[indexPath.item]
         //cell.routeDescription.text = routeData[indexPath.item][1]
         //cell.backgroundImage.image = UIImage(named: routeData[indexPath.item][2])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
     }
     
 }
