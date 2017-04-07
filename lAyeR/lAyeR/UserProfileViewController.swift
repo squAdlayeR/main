@@ -29,6 +29,8 @@ class UserProfileViewController: UIViewController {
     // Connects the avatar
     @IBOutlet weak var avatar: UIImageView!
     
+    @IBOutlet weak var exportButton: UIButton!
+    @IBOutlet weak var selectButton: UIButton!
     // Connects user name and his/her location
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var location: UILabel!
@@ -36,6 +38,8 @@ class UserProfileViewController: UIViewController {
     // Connects the back button
     @IBOutlet weak var backButton: UIButton!
     
+
+    var selectedRouteNames: Set<String> = []
     /// Defines the vibrancy effect view
     var vibrancyEffectView: UIVisualEffectView!
     
@@ -63,6 +67,38 @@ class UserProfileViewController: UIViewController {
         self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
     }
     
+    @IBAction func exportPressed(_ sender: UIButton) {
+        if selectedRouteNames.isEmpty {
+            showAlertMessage(message: "Please select routes to export.")
+            return
+        }
+        let group = DispatchGroup()
+        var routes: [Route] = []
+        for name in selectedRouteNames {
+            group.enter()
+            DatabaseManager.instance.getRoute(withName: name) { route in
+                routes.append(route)
+                group.leave()
+            }
+        }
+        group.notify(queue: .main) {
+            self.share(routes: routes)
+        }
+    }
+    
+    @IBAction func selectPressed(_ sender: UIButton) {
+        let title = sender.title(for: .normal)
+        if title == "Select" {
+            routeList.setEditing(true, animated: true)
+            selectedRouteNames.removeAll()
+            sender.setTitle("Cancel", for: .normal)
+        } else {
+            selectedRouteNames.removeAll()
+            sender.setTitle("Select", for: .normal)
+            routeList.setEditing(false, animated: true)
+        }
+    }
+    
     /// Sets the camera view as backgound image
     private func setCameraView() {
         let cameraViewController = CameraViewController()
@@ -84,6 +120,8 @@ class UserProfileViewController: UIViewController {
     /// Adds the back button into the vibrancy effect view
     private func setBackButton() {
         vibrancyEffectView.contentView.addSubview(backButton)
+        vibrancyEffectView.contentView.addSubview(selectButton)
+        vibrancyEffectView.contentView.addSubview(exportButton)
     }
     
     /// Sets up the user infomation at the top
@@ -145,7 +183,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     
     /// Returns the total number of cells in the data table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3//userProfile?.designedRoutes.count ?? 0//routeData.count
+        return userProfile?.designedRoutes.count ?? 0//routeData.count
     }
     
     /// Creates cells for the table
@@ -153,15 +191,30 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         
         // TODO: Magic strings and numbers
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
-        cell.routeName.text = "Test"//userProfile?.designedRoutes[indexPath.item]
+        cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
         //cell.routeDescription.text = routeData[indexPath.item][1]
         //cell.backgroundImage.image = UIImage(named: routeData[indexPath.item][2])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        
+        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell else { return }
+        if tableView.isEditing {
+            selectedRouteNames.insert(cell.routeName.text!)
+            print(selectedRouteNames)
+        } else {
+            // segue
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell else { return }
+        if tableView.isEditing {
+            selectedRouteNames.remove(cell.routeName.text!)
+            print(selectedRouteNames)
+        } else {
+            // segue
+        }
     }
     
 }

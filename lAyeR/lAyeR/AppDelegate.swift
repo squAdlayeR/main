@@ -27,15 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let currentUser = FIRAuth.auth()?.currentUser
-        if currentUser != nil {
-        self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
+        guard let currentUser = FIRAuth.auth()?.currentUser else {
+            return true
         }
-        
-        //if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
+        if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
             //self.window?.rootViewController?.handleOpenUrl(url: url)
-        //}
-        
+            return true
+        }
+        self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
         return true
     }
     

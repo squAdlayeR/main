@@ -14,7 +14,7 @@ class UserProfile: Mappable {
     private(set) var username: String = "lAyeRuser"
     private(set) var email: String
     private(set) var avatarRef: String
-    private(set) var designedRoutes: [String] = []
+    var designedRoutes: [String] = []
     
     init(email: String, avatarRef: String = "profilePlaceholder.png", username: String) {
         self.email = email

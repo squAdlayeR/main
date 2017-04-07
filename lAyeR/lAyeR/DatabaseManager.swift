@@ -20,6 +20,7 @@ class DatabaseManager {
     }
     
     func updateUserProfile(uid: String, userProfile: UserProfile) {
+        currentUserProfile = userProfile
         FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
     }
     
@@ -31,7 +32,13 @@ class DatabaseManager {
                 return
             }
             FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
+            guard let uid = UserAuthenticator.instance.currentUser?.uid else { return }
+            self.getUserProfile(uid: uid) { userProfile in
+                userProfile.designedRoutes.append(route.name)
+                self.updateUserProfile(uid: uid, userProfile: userProfile)
+            }
         })
+        
     }
     
     func removeRouteFromDatabase(routeName: String) {
@@ -60,9 +67,10 @@ class DatabaseManager {
     func getRoute(withName routeName: String, completion: @escaping (_ route: Route) -> ()) {
         FIRDatabase.database().reference().child("routes").child(routeName).observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? [String: Any],
-                let route = Route(JSON: value) else {
-                    return
-            }
+                let points = value["checkPoints"] as? [[String: Any]],
+                let name = value["name"] as? String,
+                let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint] else { return }
+            let route = Route(name, checkPoints)
             completion(route)
         }) { error in
             print(error.localizedDescription)
