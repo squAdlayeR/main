@@ -68,6 +68,10 @@ class Route: Mappable {
         checkPoints.insert(checkPoint, at: index)
     }
     
+    func setName(name: String) {
+        self.name = name
+    }
+    
     /// Removes the check point at specifed location.
     func remove(at index: Int) {
         let _ = checkPoints.remove(at: index)

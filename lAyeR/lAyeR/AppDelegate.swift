@@ -26,20 +26,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main);
-        //var currentUser = PFUser.currentUser()
-        var currentUser = FIRAuth.auth()?.currentUser
-        if currentUser != nil {
-            self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController");
+        self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let currentUser = FIRAuth.auth()?.currentUser else {
+            return true
         }
-        
-        //return true;
-        
+        self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
+        if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
+            self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
+            return true
+        }
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String!, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        if url.isFileURL {
+            if self.window?.rootViewController is ARViewController {
+                self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
+            }
+        }
         return handled
     }
     
@@ -64,53 +70,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        //self.saveContext()
+        
+        // Upload GPS tracking data here.
     }
     
-    // MARK: - Core Data stack
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        if url.isFileURL {
+            if self.window?.rootViewController is ARViewController {
+                self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
+            }
+        }
+        return true
+    }
     
-//    lazy var persistentContainer: NSPersistentContainer = {
-//        /*
-//         The persistent container for the application. This implementation
-//         creates and returns a container, having loaded the store for the
-//         application to it. This property is optional since there are legitimate
-//         error conditions that could cause the creation of the store to fail.
-//         */
-//        let container = NSPersistentContainer(name: "lAyeR")
-//        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-//            if let error = error as NSError? {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                
-//                /*
-//                 Typical reasons for an error here include:
-//                 * The parent directory does not exist, cannot be created, or disallows writing.
-//                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-//                 * The device is out of space.
-//                 * The store could not be migrated to the current model version.
-//                 Check the error message to determine what the actual problem was.
-//                 */
-//                fatalError("Unresolved error \(error), \(error.userInfo)")
-//            }
-//        })
-//        return container
-//    }()
-//    
-//    // MARK: - Core Data Saving support
-//    
-//    func saveContext () {
-//        let context = persistentContainer.viewContext
-//        if context.hasChanges {
-//            do {
-//                try context.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
-    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        if url.isFileURL {
+            if self.window?.rootViewController is ARViewController {
+                self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
+            }
+        }
+        return true
+    }
 }
+
 

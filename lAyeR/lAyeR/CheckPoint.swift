@@ -23,6 +23,15 @@ class CheckPoint: GeoPoint {
         super.init(latitude, longitude)
     }
     
+    init(_ geoPoint: GeoPoint,
+         _ name: String, _ description: String = "",
+         _ isControlPoint: Bool = false) {
+        self.name = name
+        self.description = description
+        self.isControlPoint = isControlPoint
+        super.init(geoPoint.latitude, geoPoint.longitude)
+    }
+    
    // override func encode(with aCoder: NSCoder) {
      //   aCoder.encode(name, forKey: "name")
       //  aCoder.encode(index, forKey: "index")

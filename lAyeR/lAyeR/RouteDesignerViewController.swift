@@ -48,6 +48,10 @@ class RouteDesignerViewController: UIViewController {
     var tappedMarker = GMSMarker()
     var infoWindow = MarkerPopupView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
     
+    // Segue
+    var importedURL: URL?
+    var importedRoutes: [Route]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeLocationManager()
@@ -65,6 +69,13 @@ class RouteDesignerViewController: UIViewController {
         
         historyOfMarkers.append(markers)
         
+        if let importedURL = importedURL {
+            handleOpenUrl(url: importedURL)
+        }
+        
+        if let importedRoutes = importedRoutes {
+            load(routes: importedRoutes)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -102,6 +113,60 @@ class RouteDesignerViewController: UIViewController {
     @IBOutlet weak var googleRouteButton: UIButton!
     @IBOutlet weak var layerRoutesButton: UIButton!
     @IBOutlet weak var currentLocationIcon: UIImageView!
+    
+    func handleOpenUrl(url: URL) {
+        // load route here.
+        do {
+            let routes = try GPXManager.load(with: url)
+            load(routes: routes)
+        } catch {
+            showAlertMessage(message: "Fail to load the routes.")
+        }
+    }
+    
+    func load(routes: [Route]) {
+        // load routes
+        for route in routes {
+            if route.checkPoints.count < 2 { continue }
+            var oneMarkers = [GMSMarker]()
+            var oneLines = [GMSPolyline]()
+            var from = CLLocationCoordinate2D(latitude: route.source!.latitude, longitude: route.source!.longitude)
+            for checkpoint in route.checkPoints {
+                let to = CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude)
+                self.addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: checkpoint.isControlPoint, using: &oneMarkers, show: true)
+                self.addLine(from: from, to: to, at: oneLines.count, using: &oneLines, show: true)
+                from = to
+            }
+            self.layerRoutesMarkers.append(oneMarkers)
+            self.layerRoutesLines.append(oneLines)
+        }
+    }
+    
+    @IBAction func export(_ sender: Any) {
+        let alert = UIAlertController(title: "Name of Route", message: "Enter a Unique Name", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter Route Name"
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Export", style: .default, handler: { [weak alert] (_) in
+            let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
+            if (textField.text != nil && textField.text != "") {
+                let route = Route(textField.text!)
+                let source = self.usingCurrentLocationAsSource ? self.myLocation!.coordinate : self.mySource
+                route.append(CheckPoint(source!.latitude, source!.longitude, self.checkpointDefaultName, self.checkpointDefaultDescription, true))
+                for marker in self.markers {
+                    let markerData = marker.userData as! CheckPoint
+                    route.append(markerData)
+                }
+                self.share(routes: [route])
+            } else {
+                let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to your route", preferredStyle: .alert)
+                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
+                self.present(resultAlert, animated: true, completion: nil)
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @IBAction func undo(_ sender: UIButton) {
         if historyOfMarkers.count > 1 {

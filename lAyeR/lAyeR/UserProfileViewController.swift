@@ -29,6 +29,8 @@ class UserProfileViewController: UIViewController {
     // Connects the avatar
     @IBOutlet weak var avatar: UIImageView!
     
+    @IBOutlet weak var exportButton: UIButton!
+    @IBOutlet weak var selectButton: UIButton!
     // Connects user name and his/her location
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var location: UILabel!
@@ -36,6 +38,9 @@ class UserProfileViewController: UIViewController {
     // Connects the back button
     @IBOutlet weak var backButton: UIButton!
     
+
+    var selectedRouteNames: Set<String> = []
+    var selectionMode: Bool = false
     /// Defines the vibrancy effect view
     var vibrancyEffectView: UIVisualEffectView!
     
@@ -61,6 +66,41 @@ class UserProfileViewController: UIViewController {
     @IBAction func logout(_ sender: Any) {
         dataService.signOut()
         self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
+    }
+    
+    @IBAction func exportPressed(_ sender: UIButton) {
+        if selectedRouteNames.isEmpty {
+            showAlertMessage(message: "Please select routes to export.")
+            return
+        }
+        LoadingBadge.instance.showBadge(in: view)
+        let group = DispatchGroup()
+        var routes: [Route] = []
+        for name in selectedRouteNames {
+            group.enter()
+            DatabaseManager.instance.getRoute(withName: name) { route in
+                routes.append(route)
+                group.leave()
+            }
+        }
+        group.notify(queue: .main) {
+            LoadingBadge.instance.hideBadge()
+            self.share(routes: routes)
+        }
+    }
+    
+    @IBAction func selectPressed(_ sender: UIButton) {
+        let title = sender.title(for: .normal)
+        if title == "Select" {
+            routeList.allowsMultipleSelection = true
+            selectionMode = true
+            sender.setTitle("Cancel", for: .normal)
+        } else {
+            routeList.allowsMultipleSelection = false
+            sender.setTitle("Select", for: .normal)
+            selectionMode = false
+        }
+        selectedRouteNames.removeAll()
     }
     
     /// Sets the camera view as backgound image
@@ -117,9 +157,7 @@ class UserProfileViewController: UIViewController {
         location.text = userProfile?.email//userData[1]
         view.addSubview(userName)
         vibrancyEffectView.addSubview(location)
-        logoutButton.layer.cornerRadius = 5
-        logoutButton.layer.masksToBounds = true
-        view.addSubview(logoutButton)
+        
     }
     
     /// Sets up the route list table
@@ -128,12 +166,28 @@ class UserProfileViewController: UIViewController {
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
         view.addSubview(routeList)
+        setUpButton(selectButton)
+        setUpButton(exportButton)
+        setUpButton(logoutButton)
+    }
+    
+    private func setUpButton(_ btn: UIButton) {
+        btn.layer.cornerRadius = 5
+        btn.layer.masksToBounds = true
+        view.addSubview(btn)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "userProfileToDesigner" {
+            if let route = sender as? Route, let dest = segue.destination as? RouteDesignerViewController {
+                dest.importedRoutes = [route]
+            }
+        }
+    }
 }
 
 /**
@@ -150,12 +204,41 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // TODO: Magic strings and numbers
-        let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as! RouteListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
         cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
         //cell.routeDescription.text = routeData[indexPath.item][1]
         //cell.backgroundImage.image = UIImage(named: routeData[indexPath.item][2])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell,
+            let name = cell.routeName.text else { return }
+        if selectionMode {
+            cell.isSelected = true
+            cell.checkMark.isHidden = false
+            selectedRouteNames.insert(name)
+            print(selectedRouteNames)
+        } else {
+            LoadingBadge.instance.showBadge(in: view)
+            DatabaseManager.instance.getRoute(withName: name) { route in
+                //segue
+                LoadingBadge.instance.hideBadge()
+                self.performSegue(withIdentifier: "userProfileToDesigner", sender: route)
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell,
+            let name = cell.routeName.text else { return }
+        if selectionMode {
+            cell.isSelected = false
+            cell.checkMark.isHidden = true
+            selectedRouteNames.remove(name)
+        }
+    }
+    
 }
 
 extension UIImageView {
