@@ -140,8 +140,9 @@ class UserProfileViewController: UIViewController {
         // TODO: magic string and magic number
         let avatarName = "profilePlaceholder.png"
         // TODO: Change after image cropping
-        if userProfile?.avatarRef != avatarName {
-            avatar.imageFromUrl(url: (userProfile?.avatarRef)!)
+        if userProfile?.avatarRef != avatarName,
+           let url = userProfile?.avatarRef {
+            avatar.imageFromUrl(url: url)
         } else {
             avatar.image = UIImage(named: avatarName)
         }
@@ -260,9 +261,9 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension UIImageView {
     public func imageFromUrl(url: String) {
-        let url = URL(string: url)
+        guard let url = URL(string: url) else { return }
         DispatchQueue.global().async {
-            let data = try? Data(contentsOf: url!)
+            let data = try? Data(contentsOf: url)
             DispatchQueue.main.async {
                 self.image = UIImage(data: data!)
             }
