@@ -48,6 +48,7 @@ class RouteListCell: UITableViewCell {
                                           alpha: 0.5)
         backgroundImage.layer.cornerRadius = 5
         backgroundImage.layer.masksToBounds = true
+        backgroundImage.contentMode = .scaleAspectFill
         backgroundImage.addSubview(overlay)
     }
     
