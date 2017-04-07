@@ -34,6 +34,15 @@ class GPXManager {
         }
     }
     
+    static func delete(url: URL) -> Bool {
+        do {
+            try FileManager.default.removeItem(at: url)
+            return true
+        } catch {
+            return false
+        }
+    }
+    
     static func getPath(with fileName: String) throws -> String {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         guard let documentDirectory = urls.first else {

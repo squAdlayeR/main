@@ -41,7 +41,6 @@
 		528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288C31E94F4F800163654 /* LoadingBadge.swift */; };
 		528288CD1E9678A900163654 /* GPSTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288CC1E9678A900163654 /* GPSTracker.swift */; };
 		528288CF1E9682E700163654 /* GPSTrackerParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288CE1E9682E700163654 /* GPSTrackerParser.swift */; };
-		528288DC1E96923D00163654 /* GPSTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288DB1E96923D00163654 /* GPSTrackerViewController.swift */; };
 		528288DE1E969F2D00163654 /* GPXManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288DD1E969F2D00163654 /* GPXManager.swift */; };
 		52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52830F261E8F4567009DFD02 /* UserProfile.swift */; };
 		52830F411E8FF8E7009DFD02 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52830F3D1E8FF8E7009DFD02 /* Bolts.framework */; };
@@ -55,6 +54,7 @@
 		52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938BFE1E860D8000EB8F81 /* LoginViewController.swift */; };
 		52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938C001E860D9000EB8F81 /* RegisterViewController.swift */; };
 		52B2298B1E974FB2009C733B /* GPXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B2298A1E974FB2009C733B /* GPXError.swift */; };
+		52B229901E978284009C733B /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B2298F1E978284009C733B /* ViewControllerExtensions.swift */; };
 		52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
 		52BD496F1E8A802D00B4B750 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD496E1E8A802D00B4B750 /* User.swift */; };
 		52BD49721E8A8D0000B4B750 /* DataServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD49711E8A8D0000B4B750 /* DataServiceManager.swift */; };
@@ -163,7 +163,6 @@
 		528288CC1E9678A900163654 /* GPSTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSTracker.swift; sourceTree = "<group>"; };
 		528288CE1E9682E700163654 /* GPSTrackerParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSTrackerParser.swift; sourceTree = "<group>"; };
 		528288D81E968FDC00163654 /* lAyeR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lAyeR-Bridging-Header.h"; sourceTree = "<group>"; };
-		528288DB1E96923D00163654 /* GPSTrackerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSTrackerViewController.swift; sourceTree = "<group>"; };
 		528288DD1E969F2D00163654 /* GPXManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXManager.swift; sourceTree = "<group>"; };
 		528288DF1E96B24800163654 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		52830F261E8F4567009DFD02 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -175,6 +174,7 @@
 		52938BFE1E860D8000EB8F81 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		52938C001E860D9000EB8F81 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		52B2298A1E974FB2009C733B /* GPXError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXError.swift; sourceTree = "<group>"; };
+		52B2298F1E978284009C733B /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtensions.swift; sourceTree = "<group>"; };
 		52B229EE1E8E392600B9F97F /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_lAyeR_lAyeRTests.framework; path = "../../Library/Developer/Xcode/DerivedData/lAyeR-djnudskkashkccdgvjwlignsgcgu/Build/Products/Debug-iphonesimulator/Pods_lAyeR_lAyeRTests.framework"; sourceTree = "<group>"; };
 		52BD496E1E8A802D00B4B750 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		52BD49711E8A8D0000B4B750 /* DataServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceManager.swift; sourceTree = "<group>"; };
@@ -454,10 +454,10 @@
 			isa = PBXGroup;
 			children = (
 				528288CC1E9678A900163654 /* GPSTracker.swift */,
-				528288DB1E96923D00163654 /* GPSTrackerViewController.swift */,
 				528288CE1E9682E700163654 /* GPSTrackerParser.swift */,
 				528288DD1E969F2D00163654 /* GPXManager.swift */,
 				52B2298A1E974FB2009C733B /* GPXError.swift */,
+				52B2298F1E978284009C733B /* ViewControllerExtensions.swift */,
 			);
 			name = GPSTracker;
 			sourceTree = "<group>";
@@ -920,7 +920,6 @@
 				9DAFF1F81E8E942600D09C11 /* RouteListCell.swift in Sources */,
 				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
 				528288B21E92690C00163654 /* AppSettings.swift in Sources */,
-				528288DC1E96923D00163654 /* GPSTrackerViewController.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */,
@@ -957,6 +956,7 @@
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
 				528288CF1E9682E700163654 /* GPSTrackerParser.swift in Sources */,
+				52B229901E978284009C733B /* ViewControllerExtensions.swift in Sources */,
 				52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */,
 				A21BBFBD1E83AB7500394531 /* Constant.swift in Sources */,
 				528288DE1E969F2D00163654 /* GPXManager.swift in Sources */,
