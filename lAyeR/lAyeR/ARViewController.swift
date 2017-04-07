@@ -102,7 +102,7 @@ class ARViewController: UIViewController {
                 guard let name = newPoi.name else {
                     break
                 }
-                let poiCard = PoiCard(center: view.center, distance: 0, type: "library", superView: view)
+                let poiCard = PoiCard(center: view.center, distance: 0, type: newPoi.types.first!, superView: view)
                 poiCard.setPoiName(name)
                 poiCard.setPoiDescription("To be specified...")
                 poiCard.setPoiAddress(newPoi.vicinity!)

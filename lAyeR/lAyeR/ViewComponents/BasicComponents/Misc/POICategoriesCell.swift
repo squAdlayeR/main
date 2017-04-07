@@ -20,17 +20,20 @@ class POICategoriesCell: UITableViewCell {
     // Connects the category name
     @IBOutlet weak var categoryName: UILabel!
     
+    private(set) var category: POICategory = .other
+    
     /// Prepares the display of cell with specified icon name and category name
-    func prepareDisplay(with iconName: String, categoryNameText: String) {
-        categoryName.text = categoryNameText
-        prepareIcon(with: iconName)
+    func prepareDisplay(with category: POICategory) {
+        categoryName.text = category.text
+        prepareIcon(with: category)
     }
     
     /// Prepares the category icon with specified icon name
     /// - Parameter imageName: the image name of the icon
-    private func prepareIcon(with imageName: String) {
-        let icon = UIImage(named: imageName)
+    private func prepareIcon(with category: POICategory) {
+        let icon = UIImage(named: category.rawValue)
         let tintIcon = icon?.withRenderingMode(.alwaysTemplate)
+        self.category = category
         categoryIcon.image = tintIcon
         categoryIcon.tintColor = .black
     }

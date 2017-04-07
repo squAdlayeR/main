@@ -46,6 +46,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         }
         userPoint = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         
+        print(appSettings.selectedPOICategrories)
         
         /// TODO: Change after implement application settings
         let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, appSettings.selectedPOICategrories, userPoint)

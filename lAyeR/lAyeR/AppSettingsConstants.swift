@@ -8,25 +8,15 @@
 
 import UIKit
 
-let iconSet: Set = ["atm",
-                    "bus_station",
-                    "cafe",
-                    "gym",
-                    "hospital",
-                    "library",
-                    "restaurant",
-                    "store",
-                    "university"]
-let categoryDictionary = [["atm", "atm"],
-                          ["bus station", "bus_station"],
-                          ["cafe", "cafe"],
-                          ["gym", "gym"],
-                          ["hospital", "hospital"],
-                          ["library", "library"],
-                          ["restaurant", "restaurant"],
-                          ["store", "store"],
-                          ["university", "university"],
-                          ["others", "others"]]
+let poiCategories: [POICategory] = [.atm,
+                                    .busStation,
+                                    .cafe,
+                                    .gym,
+                                    .hospital,
+                                    .library,
+                                    .restaurant,
+                                    .store,
+                                    .university]
 let categoryIndex = 0
 let categoryNameIndex = 1
 let categoriesReusableIdentifier = "categoryCell"

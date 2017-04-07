@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F5C481E97A28100EAECFF /* POICategory.swift */; };
 		2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199A1E670A5F00FF6334 /* AppDelegate.swift */; };
 		2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199C1E670A5F00FF6334 /* ViewController.swift */; };
 		2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C31199E1E670A5F00FF6334 /* Main.storyboard */; };
@@ -119,6 +120,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C1F5C481E97A28100EAECFF /* POICategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POICategory.swift; sourceTree = "<group>"; };
 		2C3119971E670A5F00FF6334 /* lAyeR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lAyeR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C31199A1E670A5F00FF6334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C31199C1E670A5F00FF6334 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				528288AE1E92690C00163654 /* AppSettings.swift */,
 				528288AF1E92690C00163654 /* AppSettingsConstants.swift */,
 				528288B01E92690C00163654 /* AppSettingsViewController.swift */,
+				2C1F5C481E97A28100EAECFF /* POICategory.swift */,
 			);
 			name = ApplicationSettings;
 			sourceTree = "<group>";
@@ -874,6 +877,7 @@
 				528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */,
 				A253FB521E92892C002C6ADC /* PlistLocalStorageManager.swift in Sources */,
 				52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */,
+				2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,

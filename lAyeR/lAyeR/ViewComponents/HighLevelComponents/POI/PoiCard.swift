@@ -39,14 +39,16 @@ class PoiCard: Card {
     }
     
     /// Initializes the card icon with its type
-    /// - Parameter type: the type ofthe icon
+    /// - Parameter type: the type of the icon
     private func initializeCardIcon(with type: String) {
-        if iconSet.contains(type) {
-            let icon = ResourceManager.getImageView(by: type + imageExtension)
+        var sanitizedType = type
+        if let category = POICategory(rawValue: type) {
+            let icon = ResourceManager.getImageView(by: category.rawValue)
             self.markerCard.setIconImage(icon)
             return
         }
-        let icon = ResourceManager.getImageView(by: otherIconType + imageExtension)
+        sanitizedType = otherIconType
+        let icon = ResourceManager.getImageView(by: sanitizedType)
         self.markerCard.setIconImage(icon)
     }
     
