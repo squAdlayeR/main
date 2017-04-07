@@ -16,7 +16,7 @@ class Constant {
     
     static let maxPushBackDistance: CGFloat = 380
     static let maxSearchDistance: Double = 800
-    static let pathArrowName = "arrow48"
+    static let pathArrowName = "arrow14"
     static let pathArrowExtension = "obj"
 }
 

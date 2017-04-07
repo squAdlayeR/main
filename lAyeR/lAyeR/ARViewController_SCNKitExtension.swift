@@ -25,12 +25,22 @@ extension ARViewController {
         let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
         arrowNode.geometry?.firstMaterial?.emission.contents = arrowColor
         
-        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI), 1, 0, 0)
-        
+        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI / 2), 1, 0, 0)
+        arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(M_PI / 2), 0, 1, 0)
+       
         return arrowNode
     }
     
     func prepareScene() {
+        let scnView = SCNView(frame: view.frame)
+        scnView.backgroundColor = UIColor.clear
+        view.insertSubview(scnView, at: 1)
+        scnView.scene = scene
+        
+        prepareNodes()
+    }
+    
+    func prepareNodes() {
         removeAllArrows()
         
         guard checkpointCardControllers.count > 1 else {
@@ -75,10 +85,10 @@ extension ARViewController {
                                                           0, 1, 0)
             arrow.transform = rotationTransformation
             
-            arrow.scale = SCNVector3(x: 1/108, y: 1/108, z: 1/60)
+            arrow.scale = SCNVector3(x: 1/28, y: 1/28, z: 1/108)
             let distance = gap * Double(i)
             let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
-            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -1.6, 0)
+            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -1.8, 0)
             
             arrowNodes.append(arrow)
             scene.rootNode.addChildNode(arrow)
@@ -117,9 +127,9 @@ extension ARViewController {
     }
     
     private func updateOpacity() {
-        let opacityGap = 1 / 8.0  // show the first 8 arrows in the decreasing opacity
+        let opacityGap = 0.38 / 12.0  // show the first 8 arrows in the decreasing opacity
         for i in 0 ..< arrowNodes.count {
-            let opacity = 1 - Double(i) * opacityGap
+            let opacity = 0.66 - Double(i) * opacityGap
             arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
         }
     }
