@@ -206,6 +206,9 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
         cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
         // TODO: To be implemented
+        DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
+            cell.backgroundImage.imageFromUrl(url: route.imagePath)
+        }
         return cell
     }
     

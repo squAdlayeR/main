@@ -15,7 +15,7 @@ class GPXManager {
     
     /// Cache - if needed else delete after export
     static func save(route: Route) throws {
-        let path = try getPath(with: route.name)
+        let path = try getPath(with: route.name, ext: "gpx")
         let gpx = try GPSTrackerParser.instace.parseRouteToGPX(route: route)
         do {
             try gpx.write(toFile: path, atomically: true, encoding: .utf8)
@@ -24,9 +24,16 @@ class GPXManager {
         }
     }
     
+    static func save(name: String, image: UIImage) throws -> URL {
+        let path = try getPath(with: name, ext: "png")
+        let url = URL(fileURLWithPath: path)
+        try UIImagePNGRepresentation(image)?.write(to: url)
+        return url
+    }
+    
     static func delete(routeName: String) -> Bool {
         do {
-            let path = try getPath(with: routeName)
+            let path = try getPath(with: routeName, ext: "gpx")
             try FileManager.default.removeItem(atPath: path)
             return true
         } catch {
@@ -43,12 +50,12 @@ class GPXManager {
         }
     }
     
-    static func getPath(with fileName: String) throws -> String {
+    static func getPath(with fileName: String, ext: String) throws -> String {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         guard let documentDirectory = urls.first else {
             throw GPXError.noPathFound
         }
-        let url = documentDirectory.appendingPathComponent(fileName + "." + "gpx")
+        let url = documentDirectory.appendingPathComponent(fileName + "." + ext)
         return url.relativePath
     }
 }

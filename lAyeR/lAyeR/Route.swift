@@ -14,6 +14,7 @@ class Route: Mappable {
     /// Stores check points on the route.
     private(set) var name: String
     private(set) var checkPoints: [CheckPoint] = []
+    private(set) var imagePath: String = ""
     //private(set) var distance: Double = 0
     
     init(_ name: String, _ checkPoints: [CheckPoint] = []) {
@@ -31,16 +32,23 @@ class Route: Mappable {
     
     required init?(map: Map) {
         guard let name = map.JSON["name"] as? String,
-            let checkPoints = map.JSON["checkPoints"] as? [CheckPoint] else {
+            let checkPoints = map.JSON["checkPoints"] as? [CheckPoint],
+            let imagePath = map.JSON["imagePath"] as? String else {
                 return nil
         }
         self.name = name
         self.checkPoints = checkPoints
+        self.imagePath = imagePath
     }
     
     func mapping(map: Map) {
         name <- map["name"]
         checkPoints <- map["checkPoints"]
+        imagePath <- map["imagePath"]
+    }
+    
+    func setImage(path: String) {
+        self.imagePath = path
     }
     
     /// Returns the number of check points on the route.

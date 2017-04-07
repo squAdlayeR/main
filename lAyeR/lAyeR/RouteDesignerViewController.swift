@@ -194,6 +194,11 @@ class RouteDesignerViewController: UIViewController {
                     let markerData = marker.userData as! CheckPoint
                     route.append(markerData)
                 }
+                do {
+                    let url = try GPXManager.save(name: route.name, image: self.viewCapture(view: self.mapView))
+                    route.setImage(path: url.absoluteString)
+                } catch {
+                }
                 // TODO: separate local storage and server
                 self.routeDesignerModel.saveToLocal(route: route)
                 self.routeDesignerModel.saveToDB(route: route)

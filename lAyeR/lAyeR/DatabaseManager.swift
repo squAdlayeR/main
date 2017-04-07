@@ -78,8 +78,10 @@ class DatabaseManager {
             guard let value = snapshot.value as? [String: Any],
                 let points = value["checkPoints"] as? [[String: Any]],
                 let name = value["name"] as? String,
-                let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint] else { return }
+                let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint],
+                let image = value["imagePath"] as? String else { return }
             let route = Route(name, checkPoints)
+            route.setImage(path: image)
             completion(route)
         }) { error in
             print(error.localizedDescription)

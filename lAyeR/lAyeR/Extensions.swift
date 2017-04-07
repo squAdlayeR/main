@@ -18,17 +18,26 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func viewCapture(view: UIView) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0.0)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return screenshot ?? UIImage()
+    }
+    
+    
 }
 
 /// Using DocumentInteractionViewController
-extension UIViewController: UIDocumentPickerDelegate, UIDocumentMenuDelegate {
+extension UIViewController {
     
     func share(routes: [Route]) {
         do {
             var urls: [URL] = []
             for route in routes {
                 try GPXManager.save(route: route)
-                let path = try GPXManager.getPath(with: route.name)
+                let path = try GPXManager.getPath(with: route.name, ext: "gpx")
                 let url = URL(fileURLWithPath: path)
                 urls.append(url)
             }
@@ -44,18 +53,4 @@ extension UIViewController: UIDocumentPickerDelegate, UIDocumentMenuDelegate {
         }
     }
     
-    func promptAppActivities() {
-        let documentPicker = UIDocumentMenuViewController(documentTypes: [".gpx"], in: .import)
-        //let documentPicker = UIDocumentPickerViewController(documentTypes: [".gpx"], in: .import)
-        documentPicker.delegate = self
-        present(documentPicker, animated: true, completion: nil)
-    }
-    
-    public func documentMenu(_ documentMenu: UIDocumentMenuViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
-        
-    }
-    
-    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        //
-    }
 }
