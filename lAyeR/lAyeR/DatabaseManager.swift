@@ -41,6 +41,15 @@ class DatabaseManager {
         
     }
     
+    func verifyUserProfile(uid: String, completion: @escaping () -> ()) {
+        FIRDatabase.database().reference().child("profiles").observeSingleEvent(of: .value, with: { (snapshot) in
+            guard snapshot.hasChild(uid) else {
+                completion()
+                return
+            }
+        })
+    }
+    
     func removeRouteFromDatabase(routeName: String) {
         FIRDatabase.database().reference().child("routes").child(routeName).removeValue()
     }

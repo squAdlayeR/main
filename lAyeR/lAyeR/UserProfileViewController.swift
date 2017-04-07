@@ -203,17 +203,12 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
             selectedRouteNames.insert(cell.routeName.text!)
             print(selectedRouteNames)
         } else {
-            // segue
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell else { return }
-        if tableView.isEditing {
-            selectedRouteNames.remove(cell.routeName.text!)
-            print(selectedRouteNames)
-        } else {
-            // segue
+            guard let name = cell.routeName.text else { return }
+            DatabaseManager.instance.getRoute(withName: name) { route in
+                //segue
+                print(route.name)
+                print(route.checkPoints.count)
+            }
         }
     }
     

@@ -272,9 +272,12 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
                     return
                 }
                 guard let user = user else { return }
-                let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
                 DispatchQueue.main.async {
-                    self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+                    
+                    DatabaseManager.instance.verifyUserProfile(uid: user.uid) {
+                        let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
+                        self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+                    }
                 }
             }
             LoadingBadge.instance.hideBadge()
