@@ -910,7 +910,6 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
             addPath(coordinate: coordinate, isControlPoint: true, at: markers.count)
         }
     }
-    
 }
 
 extension RouteDesignerViewController: UITextFieldDelegate {
