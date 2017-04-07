@@ -144,6 +144,15 @@ class ARViewController: UIViewController {
     }
     
     @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "arToDesignerImport" {
+            if let url = sender as? URL, let dest = segue.destination as? RouteDesignerViewController {
+                dest.importedURL = url
+            }
+        }
+    }
+    
 }
 
 

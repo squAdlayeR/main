@@ -27,6 +27,10 @@ class RouteListCell: UITableViewCell {
     // Connects the background image
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    // Connects the check mark for selection
+    @IBOutlet weak var checkMark: UIImageView!
+    
+    
     /// This will be called when the table cell is loaded.
     override func awakeFromNib() {
         super.awakeFromNib()

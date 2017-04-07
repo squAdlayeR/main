@@ -9,20 +9,6 @@
 import Foundation
 import UIKit
 
-extension RouteDesignerViewController {
-    
-    func handleOpenUrl(url: URL) {
-        // load route here.
-        do {
-            let routes = try GPXManager.load(with: url)
-            // load routes
-        } catch {
-            showAlertMessage(message: "Fail to load the routes.")
-        }
-    }
-    
-}
-
 extension UIViewController {
     
     func showAlertMessage(message: String) {
@@ -35,26 +21,7 @@ extension UIViewController {
 }
 
 /// Using DocumentInteractionViewController
-extension UIViewController: UIDocumentInteractionControllerDelegate {
-    
-//    func export(route: Route) {
-//        do {
-//            try GPXManager.save(route: route)
-//            let path = try GPXManager.getPath(with: route.name)
-//            let url = URL(fileURLWithPath: path)
-//            openDocumentIn(url: url)
-//        } catch {
-//            showAlertMessage(message: "Fail to create .gpx file.")
-//        }
-//    }
-//        
-//    func openDocumentIn(url: URL) {
-//        let documentInteractionController = UIDocumentInteractionController()
-//        documentInteractionController.delegate = self
-//        documentInteractionController.uti = "com.topografix.gpx"
-//        documentInteractionController.url = url
-//        documentInteractionController.presentOptionsMenu(from: CGRect.zero, in: view , animated: true)
-//    }
+extension UIViewController: UIDocumentPickerDelegate, UIDocumentMenuDelegate {
     
     func share(routes: [Route]) {
         do {
@@ -77,4 +44,18 @@ extension UIViewController: UIDocumentInteractionControllerDelegate {
         }
     }
     
+    func promptAppActivities() {
+        let documentPicker = UIDocumentMenuViewController(documentTypes: [".gpx"], in: .import)
+        //let documentPicker = UIDocumentPickerViewController(documentTypes: [".gpx"], in: .import)
+        documentPicker.delegate = self
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
+    public func documentMenu(_ documentMenu: UIDocumentMenuViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
+        
+    }
+    
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        //
+    }
 }

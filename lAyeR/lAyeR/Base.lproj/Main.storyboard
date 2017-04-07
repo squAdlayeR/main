@@ -37,6 +37,7 @@
                         <segue destination="ZZQ-e4-cj1" kind="presentation" identifier="settingsSegue" id="yhm-TZ-iKu"/>
                         <segue destination="zxE-ce-dRU" kind="presentation" identifier="arToUserProfile" id="gmy-Fg-dkd"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="arToDegisnerSegue" id="L6E-9q-XGj"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="arToDesignerImport" id="7sy-DA-cOn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y8o-ag-LPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -282,6 +283,17 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exh-bj-xme">
+                                <rect key="frame" x="16" y="259" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="17"/>
+                                <state key="normal" title="Select">
+                                    <color key="titleColor" red="0.92540210489999997" green="0.92555385830000003" blue="0.92536973950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectPressed:" destination="zxE-ce-dRU" eventType="touchUpInside" id="pg6-LS-FKP"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="148" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="olM-7O-Wvd">
                                 <rect key="frame" x="0.0" y="290" width="375" height="377"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -312,10 +324,15 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="xNr-J7-FXN">
+                                                    <rect key="frame" x="297" y="98" width="47" height="41"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="backgroundImage" destination="WfS-ph-vxd" id="rUC-02-fDE"/>
+                                            <outlet property="checkMark" destination="xNr-J7-FXN" id="j8f-PN-kY0"/>
                                             <outlet property="routeDescription" destination="pZj-JJ-eHr" id="Qo3-Kq-U0l"/>
                                             <outlet property="routeName" destination="rm5-n7-U0P" id="jgg-o1-kcU"/>
                                         </connections>
@@ -343,23 +360,12 @@
                                     <action selector="logout:" destination="zxE-ce-dRU" eventType="touchUpInside" id="eIb-1S-fnD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exh-bj-xme">
-                                <rect key="frame" x="16" y="252" width="64" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="17"/>
-                                <state key="normal" title="Select">
-                                    <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="selectPressed:" destination="zxE-ce-dRU" eventType="touchUpInside" id="pg6-LS-FKP"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eje-qa-rCD">
-                                <rect key="frame" x="307" y="252" width="52" height="30"/>
+                                <rect key="frame" x="299" y="259" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="17"/>
                                 <state key="normal" title="Export">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.92540210489999997" green="0.92555385830000003" blue="0.92536973950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="exportPressed:" destination="zxE-ce-dRU" eventType="touchUpInside" id="yMM-NH-yQ2"/>
@@ -378,6 +384,7 @@
                         <outlet property="selectButton" destination="exh-bj-xme" id="HVr-1E-YCd"/>
                         <outlet property="userName" destination="ddY-IV-1hb" id="sZ8-J2-fwn"/>
                         <segue destination="KG1-mK-LJP" kind="presentation" identifier="userProfileToLogin" id="mFQ-Cb-EzA"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="userProfileToDesigner" id="lyp-VT-xjG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dKX-7P-lyc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -535,7 +542,7 @@
         <!--Route Designer View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="RouteDesignerViewController" customModule="lAyeR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="routeDesigner" id="BYZ-38-t0r" customClass="RouteDesignerViewController" customModule="lAyeR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -755,9 +762,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark" width="256" height="256"/>
         <image name="current_location" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J0J-J1-3xV"/>
+        <segue reference="lyp-VT-xjG"/>
     </inferredMetricsTieBreakers>
 </document>

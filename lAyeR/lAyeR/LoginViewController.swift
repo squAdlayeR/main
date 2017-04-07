@@ -63,6 +63,11 @@ class LoginViewController: UIViewController {
         return .lightContent
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.delegate?.window??.rootViewController = self
+    }
+    
     /// Sets up the camera view for background image
     private func setupCameraView() {
         let cameraViewController = CameraViewController()
@@ -194,6 +199,7 @@ extension LoginViewController {
             }
             LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
+            
         }
     }
     
