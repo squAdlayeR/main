@@ -47,11 +47,18 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
             let route = realmRoute.get()
             var sourceIndex = -1
             var destIndex = -1
+            var sourceDist = range
+            var destDist = range
             for i in 0 ..< route.size {
-                if GeoUtil.getCoordinateDistance(route.checkPoints[i], source) < range {
+                let newSourceDist = GeoUtil.getCoordinateDistance(route.checkPoints[i], source)
+                if newSourceDist < sourceDist {
                     sourceIndex = i
-                } else if GeoUtil.getCoordinateDistance(route.checkPoints[i], destination) < range {
+                    sourceDist = newSourceDist
+                }
+                let newDestDist = GeoUtil.getCoordinateDistance(route.checkPoints[i], destination)
+                if  newDestDist < destDist {
                     destIndex = i
+                    destDist = newDestDist
                 }
             }
             if sourceIndex >= 0 && destIndex >= 0 {

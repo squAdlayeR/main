@@ -72,34 +72,36 @@ class DatabaseManager {
     /// Queries routes in range
     func getRoutes(between source: GeoPoint, and destination: GeoPoint, inRange range: Double, completion: @escaping (_ routes: [Route]) -> ()) {
         FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
-            print(snapshot.value)
-//            guard let value = snapshot.value as? [String: [String: Any]] else {
-//                return
-//            }
-//            var routes: [Route] = []
-//            for result in value.values {
-//                guard let route = Route(JSON: result) else {
-//                    continue
-//                }
-//                var sourceIndex = -1
-//                var destIndex = -1
-//                for i in 0 ..< route.size {
-//                    if GeoUtil.getCoordinateDistance(route.checkPoints[i], source) < range {
-//                        sourceIndex = i
-//                    } else if GeoUtil.getCoordinateDistance(route.checkPoints[i], destination) < range {
-//                        destIndex = i
-//                    }
-//                }
-//                if sourceIndex >= 0 && destIndex >= 0 {
-//                    let section = destIndex >= sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
-//                    let returnRoute = Route(route.name)
-//                    for checkpoint in section {
-//                        returnRoute.append(checkpoint)
-//                    }
-//                    routes.append(returnRoute)
-//                }
-//            }
-            //completion(routes)
+            guard let value = snapshot.value as? [String: [String: Any]] else {
+                return
+            }
+            var routes: [Route] = []
+            for result in value.values {
+                guard let points = result["checkPoints"] as? [[String: Any]],
+                    let name = result["name"] as? String else {
+                        continue
+                }
+                guard let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint] else { return }
+                let route = Route(name, checkPoints)
+                var sourceIndex = -1
+                var destIndex = -1
+                for i in 0 ..< route.size {
+                    if GeoUtil.getCoordinateDistance(route.checkPoints[i], source) < range {
+                        sourceIndex = i
+                    } else if GeoUtil.getCoordinateDistance(route.checkPoints[i], destination) < range {
+                        destIndex = i
+                    }
+                }
+                if sourceIndex >= 0 && destIndex >= 0 {
+                    let section = destIndex >= sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
+                    let returnRoute = Route(route.name)
+                    for checkpoint in section {
+                        returnRoute.append(checkpoint)
+                    }
+                    routes.append(returnRoute)
+                }
+            }
+            completion(routes)
         }) { error in
             print(error.localizedDescription)
         }
