@@ -112,6 +112,16 @@ extension ARViewController {
         }
         
         cameraNode.transform = r1
+        
+        updateOpacity()
+    }
+    
+    private func updateOpacity() {
+        let opacityGap = 1 / 8.0  // show the first 8 arrows in the decreasing opacity
+        for i in 0 ..< arrowNodes.count {
+            let opacity = 1 - Double(i) * opacityGap
+            arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
+        }
     }
     
     

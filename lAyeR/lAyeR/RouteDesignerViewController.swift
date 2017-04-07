@@ -759,7 +759,7 @@ class RouteDesignerViewController: UIViewController {
             if (!markers.isEmpty) {
                 arViewController.checkpointCardControllers[0].setSelected(true)
             }
-            
+            arViewController.prepareScene()
             //TODO: force update the POI in ARView
         }
     }
