@@ -121,9 +121,9 @@ extension BasicAlertController {
     ///     - conetent: the text of the content
     func addText(with label: String, and content: String) {
         if let innerView = alert.infoPanel.innerView as? InformativeInnerView {
-            let infoBlock = InfoBlock(label: label,
-                                      content: content,
-                                      width: innerView.bounds.width - innerViewSidePadding * 2)
+            let infoBlock = InfoBlockView(label: label,
+                                          content: content,
+                                          width: innerView.bounds.width - innerViewSidePadding * 2)
             innerView.insertSubInfo(infoBlock)
         }
     }

@@ -24,6 +24,9 @@ class InfoBlock: UILabel {
     init(label: String, content: String, width: CGFloat) {
         let initialFrame = CGRect(x: 0, y: 0, width: width, height: 0)
         super.init(frame: initialFrame)
+//        self.backgroundColor = UIColor.white
+        self.layer.cornerRadius = 2
+        self.layer.masksToBounds = true
         prepareContent(label, content)
     }
     
@@ -57,9 +60,10 @@ class InfoBlock: UILabel {
     /// - Parameter labelText: the label of the info block
     /// - Returns: an attributed string the represents the label
     private func formatingLabel(_ labelText: String) -> NSMutableAttributedString {
-        let labelColor = UIColor(red: CGFloat(1.0 / 255),
-                                 green: CGFloat(159.0 / 255),
-                                 blue: CGFloat(232.0 / 255), alpha: 1)
+//        let labelColor = UIColor(red: CGFloat(1.0 / 255),
+//                                 green: CGFloat(159.0 / 255),
+//                                 blue: CGFloat(232.0 / 255), alpha: 1)
+        let labelColor = UIColor.lightGray
         let label = NSMutableAttributedString(string: labelText,
             attributes: [NSFontAttributeName: UIFont(name: alterDefaultFontMedium, size: labelFontSize)!,
                          NSForegroundColorAttributeName: labelColor])
@@ -70,9 +74,10 @@ class InfoBlock: UILabel {
     /// - Parameter contentText: the content of the info block
     /// - Returns: an attributed string the represents the content
     private func formatingContent(_ contentText: String) -> NSAttributedString {
-        let textColor = UIColor(red: CGFloat(233.0 / 255),
-                                green: CGFloat(232.0 / 255),
-                                blue: CGFloat(231.0 / 255), alpha: 1)
+//        let textColor = UIColor(red: CGFloat(233.0 / 255),
+//                                green: CGFloat(232.0 / 255),
+//                                blue: CGFloat(231.0 / 255), alpha: 1)
+        let textColor = UIColor.white
         let text = NSAttributedString(string: contentText,
             attributes: [NSFontAttributeName: UIFont(name: alterDefaultFontRegular, size: defaultFontSize)!,
                          NSForegroundColorAttributeName: textColor])

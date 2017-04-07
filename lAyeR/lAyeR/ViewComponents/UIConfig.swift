@@ -30,8 +30,8 @@ let topBannerHeight: CGFloat = 60
 let defaultBorderWidth: CGFloat = 1
 
 /// Labels
-let nameLabel: String = "Name"
-let descriptionLabel: String = "Description"
+let nameLabel: String = "NAME"
+let descriptionLabel: String = "DESCRIPTION"
 
 /// BackgroundImage
 let topBannerImage: String = "banner.png"
@@ -75,17 +75,17 @@ let suggestedMarkerWidth: CGFloat = 75
 /// POI View
 let directLabelText: String = "Direct"
 let poiTitle = "POI"
-let poiAddressLabel = "Address"
-let poiContactLabel = "Contact"
-let poiWebsiteLabel = "Website"
-let poiRatingLabel = "Rating"
-let poiOpenStatusLabel = "Now open"
+let poiAddressLabel = "ADDRESS"
+let poiContactLabel = "CONTACT"
+let poiWebsiteLabel = "WEBSITE"
+let poiRatingLabel = "RATING"
+let poiOpenStatusLabel = "NOW OPEN"
 
 /// Informative view
 let infoPanelTitleFontColor: UIColor = UIColor.gray
 let infoPanelTitleHeight: CGFloat = 20
 let innerViewSidePadding: CGFloat = 20
-let innerViewStackMargin: CGFloat = 10
+let innerViewStackMargin: CGFloat = 5
 let titleText: String = "Detailed information"
 
 /// Menu view
