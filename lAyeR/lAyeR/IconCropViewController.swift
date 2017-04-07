@@ -21,6 +21,8 @@ class IconCropViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate = self
+        cropArea.layer.borderWidth = 2
+        cropArea.layer.borderColor = UIColor.red.cgColor
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panned))
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinched))
         placeholder.addGestureRecognizer(pan)
@@ -40,10 +42,8 @@ class IconCropViewController: UIViewController {
     }
     
     @IBAction func savePressed(_ sender: Any) {
-        // TODO: Crop the image and update database
-        let croppedCGImage = placeholder.image?.cgImage?.cropping(to: cropArea.frame)
-        let croppedImage = UIImage(cgImage: croppedCGImage!)
-        placeholder.image = croppedImage
+        // TODO: Crop the image correctly and update database
+        
     }
     
     func panned(_ sender: UIPanGestureRecognizer) {

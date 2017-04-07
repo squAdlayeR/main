@@ -147,7 +147,14 @@ class UserProfileViewController: UIViewController {
         }
         avatar.layer.cornerRadius = avatar.bounds.height / 2
         avatar.layer.masksToBounds = true
+        avatar.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(changeIcon))
+        avatar.addGestureRecognizer(tap)
         view.addSubview(avatar)
+    }
+    
+    func changeIcon() {
+        self.performSegue(withIdentifier: "userProfileToIconCrop", sender: nil)
     }
     
     /// Sets user related texts including user name and location info
@@ -187,6 +194,8 @@ class UserProfileViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func unwindSegueToUserProfile(segue: UIStoryboardSegue) {}
 }
 
 /**
