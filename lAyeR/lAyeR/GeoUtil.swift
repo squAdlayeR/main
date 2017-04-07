@@ -111,7 +111,6 @@ class GeoUtil {
         //var deltas: [Double] = []
         let pathScore1 = getPathDissimilarityScore(from: route1, to: route2)
         let pathScore2 = getPathDissimilarityScore(from: route2, to: route1)
-        print (pathScore1/Double(route1.checkPoints.count) + pathScore2/Double(route2.checkPoints.count))
         return pathScore1/Double(route1.checkPoints.count) + pathScore2/Double(route2.checkPoints.count) <= threshold
     }
 }

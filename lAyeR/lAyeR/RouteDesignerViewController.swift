@@ -208,9 +208,7 @@ class RouteDesignerViewController: UIViewController {
             layerRoutesLines.removeAll()
             let sourceCoord = self.source!
             let destCoord = self.markers.last!.position
-            print ("\(sourceCoord) \(destCoord)")
             routeDesignerModel.getLayerRoutes(source: GeoPoint(sourceCoord.latitude, sourceCoord.longitude), dest: GeoPoint(destCoord.latitude, destCoord.longitude)) { (layerRoutes) -> () in
-                print (layerRoutes.count)
                 for (idx, route) in layerRoutes.enumerated() {
                     var isSimilar = false
                     for index in 0..<idx {
@@ -678,7 +676,6 @@ class RouteDesignerViewController: UIViewController {
     }
     
     func modifyLine(at idx: Int) {
-        print (idx)
         if idx >= 0 && idx < lines.count {
             let from = idx == 0 ? source! : markers[idx-1].position
             let to = markers[idx].position
@@ -687,7 +684,7 @@ class RouteDesignerViewController: UIViewController {
                 addLine(from: from, to: to, at: idx)
             } else {
                 getDirections(origin: "\(from.latitude) \(from.longitude)", destination: "\(to.latitude) \(to.longitude)", waypoints: nil, removeAllPoints: false, at: idx) { (result) -> () in
-                    print(result)
+                    // print(result)
                 }
             }
         }
@@ -796,7 +793,6 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
             // locationManager.stopUpdatingLocation()
         } else {
             mapView.animate(to: camera)
-            print ("LOCATION UPDATED")
             changeStartLocation()
         }
     }
