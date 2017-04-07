@@ -10,6 +10,7 @@ class RouteDesignerViewController: UIViewController {
     // Threshold is how far a tap point can be away from a marker or a line
     // Range Of Query defines how far away the starting and ending points can be for a query in meters
     let threshold = 35.0
+    let similarityThreshold = 0.001
     let currentLocationText = "Current Location"
     let checkpointDefaultDescription = ""
     let checkpointDefaultName = "Checkpoint"
@@ -123,8 +124,7 @@ class RouteDesignerViewController: UIViewController {
             let textField = alert!.textFields![0]
             if (textField.text != nil && textField.text != "") {
                 let route = Route(textField.text!)
-                let source = self.usingCurrentLocationAsSource ? self.myLocation!.coordinate : self.mySource
-                route.append(CheckPoint(source!.latitude, source!.longitude, self.checkpointDefaultName, self.checkpointDefaultDescription, true))
+                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, self.checkpointDefaultName, self.checkpointDefaultDescription, true))
                 for marker in self.markers {
                     let markerData = marker.userData as! CheckPoint
                     route.append(markerData)
@@ -178,13 +178,13 @@ class RouteDesignerViewController: UIViewController {
         for layerRoute in layerRoutesMarkers {
             for marker in layerRoute {
                 let markerData = marker.userData as! CheckPoint
-                if markerData.isControlPoint {
-                    if selectingRoute {
+                if selectingRoute {
+                    if markerData.isControlPoint {
                         marker.map = mapView
                         marker.icon = GMSMarker.markerImage(with: .gray)
-                    } else {
-                        addPoint(coordinate: marker.position, isControlPoint: markerData.isControlPoint, at: markers.count)
                     }
+                } else {
+                    addPoint(coordinate: marker.position, isControlPoint: markerData.isControlPoint, at: markers.count)
                 }
             }
         }
@@ -206,26 +206,39 @@ class RouteDesignerViewController: UIViewController {
             }
             layerRoutesMarkers.removeAll()
             layerRoutesLines.removeAll()
-            let sourceCoord = self.usingCurrentLocationAsSource ? self.myLocation!.coordinate : self.mySource
+            let sourceCoord = self.source!
             let destCoord = self.markers.last!.position
-            let layerRoutes = routeDesignerModel.getLayerRoutes(source: GeoPoint(sourceCoord!.latitude, sourceCoord!.longitude), dest: GeoPoint(destCoord.latitude, destCoord.longitude))
-            for route in layerRoutes {
-                var oneMarkers = [GMSMarker]()
-                var oneLines = [GMSPolyline]()
-                var from = usingCurrentLocationAsSource ? myLocation!.coordinate : mySource!
-                for checkpoint in route.checkPoints {
-                    let to = CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude)
-                    addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: checkpoint.isControlPoint, using: &oneMarkers, show: false)
-                    addLine(from: from, to: to, at: oneLines.count, using: &oneLines, show: false)
-                    from = to
+            print ("\(sourceCoord) \(destCoord)")
+            routeDesignerModel.getLayerRoutes(source: GeoPoint(sourceCoord.latitude, sourceCoord.longitude), dest: GeoPoint(destCoord.latitude, destCoord.longitude)) { (layerRoutes) -> () in
+                print (layerRoutes.count)
+                for (idx, route) in layerRoutes.enumerated() {
+                    var isSimilar = false
+                    for index in 0..<idx {
+                        if GeoUtil.isSimilar(route1: route, route2: layerRoutes[index], threshold: self.similarityThreshold) {
+                            isSimilar = true
+                            break
+                        }
+                    }
+                    if isSimilar {
+                        continue
+                    }
+                    var oneMarkers = [GMSMarker]()
+                    var oneLines = [GMSPolyline]()
+                    var from = self.source!
+                    for checkpoint in route.checkPoints {
+                        let to = CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude)
+                        self.addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: checkpoint.isControlPoint, using: &oneMarkers, show: false)
+                        self.addLine(from: from, to: to, at: oneLines.count, using: &oneLines, show: false)
+                        from = to
+                    }
+                    self.layerRoutesMarkers.append(oneMarkers)
+                    self.layerRoutesLines.append(oneLines)
                 }
-                self.layerRoutesMarkers.append(oneMarkers)
-                self.layerRoutesLines.append(oneLines)
-            }
-            if self.layerRoutesMarkers.isEmpty {
-                self.layerRoutesButton.isEnabled = false
-            } else {
-                self.layerRoutesButton.isEnabled = true
+                if self.layerRoutesMarkers.isEmpty {
+                    self.layerRoutesButton.isEnabled = false
+                } else {
+                    self.layerRoutesButton.isEnabled = true
+                }
             }
         } else {
             self.googleRouteButton.isEnabled = false
@@ -391,7 +404,7 @@ class RouteDesignerViewController: UIViewController {
         for (idx, point) in listOfMarkers.enumerated() {
             let pointData = point.userData as! CheckPoint
             let nextPoint = mapView.projection.point(for: CLLocationCoordinate2DMake(pointData.latitude, pointData.longitude))
-            let dist = distanceToPoint(point: startPoint, fromLineSegmentBetween: prevPoint, and: nextPoint)
+            let dist = distanceFromPointToLine(point: startPoint, fromLineSegmentBetween: prevPoint, and: nextPoint)
             if  dist <= threshold {
                 return (2, lastControlPointIdx)
             }
@@ -533,7 +546,7 @@ class RouteDesignerViewController: UIViewController {
         return Double(dist) <= threshold
     }
     
-    private func distanceToPoint(point p: CGPoint, fromLineSegmentBetween l1: CGPoint, and l2: CGPoint) -> Double {
+    private func distanceFromPointToLine(point p: CGPoint, fromLineSegmentBetween l1: CGPoint, and l2: CGPoint) -> Double {
         let a = p.x - l1.x
         let b = p.y - l1.y
         let c = l2.x - l1.x

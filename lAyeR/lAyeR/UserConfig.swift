@@ -11,6 +11,6 @@ import Foundation
 class UserConfig {
     
     /// Default query radius
-    static let queryRadius: Double = 500
+    static let queryRadius: Double = 100
     
 }

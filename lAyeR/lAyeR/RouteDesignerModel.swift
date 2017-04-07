@@ -76,7 +76,12 @@ class RouteDesignerModel {
         DataServiceManager.instance.addRouteToDatabase(route: route)
     }
     
-    func getLayerRoutes(source: GeoPoint, dest: GeoPoint) -> [Route] {
-        return RealmLocalStorageManager.getInstance().getRoutes(between: source, and: dest, inRange: UserConfig.queryRadius)
+    func getLayerRoutes(source: GeoPoint, dest: GeoPoint, completion: @escaping (_ routes: [Route]) -> ()) {
+        
+        var routes = RealmLocalStorageManager.getInstance().getRoutes(between: source, and: dest, inRange: UserConfig.queryRadius)
+        DatabaseManager.instance.getRoutes(between: source, and: dest, inRange: UserConfig.queryRadius) { (dbRoutes) -> () in
+            routes.append(contentsOf: dbRoutes)
+            completion(routes)
+        }
     }
 }
