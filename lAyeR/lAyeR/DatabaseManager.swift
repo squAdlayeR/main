@@ -77,7 +77,12 @@ class DatabaseManager {
             }
             var routes: [Route] = []
             for result in value.values {
-                guard let route = Route(JSON: result) else { continue }
+                guard let points = result["checkPoints"] as? [[String: Any]],
+                    let name = result["name"] as? String else {
+                        continue
+                }
+                guard let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint] else { return }
+                let route = Route(name, checkPoints)
                 var sourceIndex = -1
                 var destIndex = -1
                 for i in 0 ..< route.size {
