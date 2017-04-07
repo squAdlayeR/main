@@ -4,16 +4,15 @@ import GooglePlaces
 
 class RouteDesignerViewController: UIViewController {
     
+    let routeDesignerModel = RouteDesignerModel()
+    
     // Constants
     // Threshold is how far a tap point can be away from a marker or a line
     // Range Of Query defines how far away the starting and ending points can be for a query in meters
     let threshold = 35.0
-    let rangeOfQuery = 100.0
     let currentLocationText = "Current Location"
     let checkpointDefaultDescription = ""
     let checkpointDefaultName = "Checkpoint"
-    let baseURLGeocode = "https://maps.googleapis.com/maps/api/geocode/json?"
-    let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
     
     // Location Variables
     var locationManager = CLLocationManager()
@@ -50,13 +49,38 @@ class RouteDesignerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeLocationManager()
+        initializeMap()
+        
+        googleRouteButton.isEnabled = false
+        layerRoutesButton.isEnabled = false
+        searchBar.returnKeyType = UIReturnKeyType.done
+        searchBar.delegate = self
+        sourceBar.returnKeyType = UIReturnKeyType.done
+        sourceBar.delegate = self
+        
+        addPanGesture()
+        addTapCurrentLocationGesture()
+        
+        historyOfMarkers.append(markers)
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func initializeLocationManager() {
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
-        
+    }
+    
+    func initializeMap() {
         let camera = GMSCameraPosition.camera(withLatitude: 1.2950584,
                                               longitude: 103.7716573,
                                               zoom: zoomLevel)
@@ -66,27 +90,10 @@ class RouteDesignerViewController: UIViewController {
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isMyLocationEnabled = true
         mapView.delegate = self
-        
-        // Add the map to the view, hide it until location update.
         view.insertSubview(mapView, at: 0)
         mapView.isHidden = true
-        googleRouteButton.isEnabled = false
-        layerRoutesButton.isEnabled = false
-        searchBar.returnKeyType = UIReturnKeyType.done
-        searchBar.delegate = self
-        sourceBar.returnKeyType = UIReturnKeyType.done
-        sourceBar.delegate = self
-        
         mapView.settings.scrollGestures = true
         mapView.settings.consumesGesturesInView = false
-        addPanGesture()
-        addTapCurrentLocationGesture()
-        historyOfMarkers.append(markers)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBOutlet weak var sourceBar: UITextField!
@@ -113,7 +120,7 @@ class RouteDesignerViewController: UIViewController {
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
-            let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
+            let textField = alert!.textFields![0]
             if (textField.text != nil && textField.text != "") {
                 let route = Route(textField.text!)
                 let source = self.usingCurrentLocationAsSource ? self.myLocation!.coordinate : self.mySource
@@ -123,8 +130,9 @@ class RouteDesignerViewController: UIViewController {
                     route.append(markerData)
                 }
                 // TODO: separate local storage and server
-                RealmLocalStorageManager.getInstance().saveRoute(route)
-                DataServiceManager.instance.addRouteToDatabase(route: route)
+                self.routeDesignerModel.saveToLocal(route: route)
+                self.routeDesignerModel.saveToDB(route: route)
+                
                 let resultAlert = UIAlertController(title: "Saved Successfully", message: "Congrats", preferredStyle: .alert)
                 resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
                 self.present(resultAlert, animated: true, completion: nil)
@@ -192,6 +200,7 @@ class RouteDesignerViewController: UIViewController {
     
     func getLayerRoutesUponCompletionOfGoogle(result: Bool) {
         if result {
+            self.googleRouteButton.isEnabled = true
             for idx in 0..<layerRoutesMarkers.count {
                 removeAllMarkersAndLines(usingMarkersList: &layerRoutesMarkers[idx], usingLinesList: &layerRoutesLines[idx])
             }
@@ -199,7 +208,7 @@ class RouteDesignerViewController: UIViewController {
             layerRoutesLines.removeAll()
             let sourceCoord = self.usingCurrentLocationAsSource ? self.myLocation!.coordinate : self.mySource
             let destCoord = self.markers.last!.position
-            let layerRoutes = RealmLocalStorageManager.getInstance().getRoutes(between: GeoPoint(sourceCoord!.latitude, sourceCoord!.longitude), and: GeoPoint(destCoord.latitude, destCoord.longitude), inRange: self.rangeOfQuery)
+            let layerRoutes = routeDesignerModel.getLayerRoutes(source: GeoPoint(sourceCoord!.latitude, sourceCoord!.longitude), dest: GeoPoint(destCoord.latitude, destCoord.longitude))
             for route in layerRoutes {
                 var oneMarkers = [GMSMarker]()
                 var oneLines = [GMSPolyline]()
@@ -219,6 +228,7 @@ class RouteDesignerViewController: UIViewController {
                 self.layerRoutesButton.isEnabled = true
             }
         } else {
+            self.googleRouteButton.isEnabled = false
             self.layerRoutesButton.isEnabled = false
         }
     }
@@ -273,6 +283,13 @@ class RouteDesignerViewController: UIViewController {
         sourceBar.text = currentLocationText
     }
     
+    func changeStartLocation() {
+        if !markers.isEmpty && usingCurrentLocationAsSource {
+            removeLine(at: 0)
+            addLine(from: myLocation!.coordinate, to: markers[0].position, at: 0)
+        }
+    }
+    
     func focusOnOneRoute() {
         selectingRoute = false
         for layerRoute in layerRoutesMarkers {
@@ -302,11 +319,11 @@ class RouteDesignerViewController: UIViewController {
                 if done {
                     break
                 } else {
-                    deleteMarker(at: deleteIdx)
+                    deletePoint(at: deleteIdx)
                     done = true
                 }
             } else {
-                deleteMarker(at: deleteIdx)
+                deletePoint(at: deleteIdx)
             }
         }
         let startCoordinate = mapView.projection.coordinate(for: startPoint)
@@ -331,7 +348,7 @@ class RouteDesignerViewController: UIViewController {
             if deleteData.isControlPoint {
                 break
             } else {
-                deleteMarker(at: deleteIdx)
+                deletePoint(at: deleteIdx)
                 
             }
         }
@@ -367,7 +384,13 @@ class RouteDesignerViewController: UIViewController {
                 if withinThreshold(first: startPoint, second: nextPoint) {
                     return (1, lastControlPointIdx)
                 }
+                lastControlPointIdx = idx
             }
+        }
+        lastControlPointIdx = -1
+        for (idx, point) in listOfMarkers.enumerated() {
+            let pointData = point.userData as! CheckPoint
+            let nextPoint = mapView.projection.point(for: CLLocationCoordinate2DMake(pointData.latitude, pointData.longitude))
             let dist = distanceToPoint(point: startPoint, fromLineSegmentBetween: prevPoint, and: nextPoint)
             if  dist <= threshold {
                 return (2, lastControlPointIdx)
@@ -390,16 +413,20 @@ class RouteDesignerViewController: UIViewController {
             removeLine(at: lines.count-1)
             removeMarker(at: markers.count-1)
             getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx) { (result) -> () in
-                // print(result)
+                if result {
+                    self.historyOfMarkers.append(self.markers)
+                }
             }
         } else {
             let destinationString = "\(markers[dragIdx+1].position.latitude) \(markers[dragIdx+1].position.longitude)"
             getDirections(origin: middleString, destination: destinationString, waypoints: nil, removeAllPoints: false, at: dragIdx+1) { (result) -> () in
-                // print(result)
+                self.getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx) { (result2) -> () in
+                    if result || result2 {
+                        self.historyOfMarkers.append(self.markers)
+                    }
+                }
             }
-            getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx) { (result) -> () in
-                // print(result)
-            }
+            
         }
     }
     
@@ -445,7 +472,7 @@ class RouteDesignerViewController: UIViewController {
             default: startDragMap()
             }
         } else if gestureRecognizer.state == UIGestureRecognizerState.ended {
-            if !manualRouteType {
+            if !mapView.settings.scrollGestures && !manualRouteType {
                 modifyToGoogleRoute()
             }
             if !mapView.settings.scrollGestures && manualRouteType {
@@ -466,70 +493,28 @@ class RouteDesignerViewController: UIViewController {
     // GOOGLE ROUTING FUNCTION
     
     func getDirections(origin: String!, destination: String!, waypoints: Array<String>?, removeAllPoints: Bool, at markersIdx: Int, completion: @escaping (_ result: Bool)->()) {
-        
-        if let originLocation = origin {
-            if let destinationLocation = destination {
-                var directionsURLString = baseURLDirections + "origin=" + originLocation + "&destination=" + destinationLocation + "&mode=walking"
-                if let routeWaypoints = waypoints {
-                    directionsURLString += "&waypoints=optimize:true"
-                    
-                    for waypoint in routeWaypoints {
-                        directionsURLString += "|" + waypoint
+        routeDesignerModel.getDirections(origin: origin, destination: destination, waypoints: waypoints, at: markersIdx) { (result, path) -> () in
+            if result {
+                if removeAllPoints {
+                    self.removeAllMarkersAndLines()
+                }
+                
+                for idx in 1..<path!.count() {
+                    if idx == path!.count() - 1 {
+                        if markersIdx + Int(idx-1) >= self.markers.count {
+                            self.addPoint(coordinate: path!.coordinate(at: idx), isControlPoint: true, at: markersIdx+Int(idx-1))
+                        }
+                    } else {
+                        self.addPoint(coordinate: path!.coordinate(at: idx), isControlPoint: false, at: markersIdx+Int(idx-1))
                     }
                 }
-                directionsURLString = directionsURLString.addingPercentEscapes(using: String.Encoding.utf8)!
-                let directionsURL = NSURL(string: directionsURLString)
-                DispatchQueue.main.async( execute: { () -> Void in
-                    let directionsData = NSData(contentsOf: directionsURL! as URL)
-                    do{
-                        let dictionary: Dictionary<String, AnyObject> = try JSONSerialization.jsonObject(with: directionsData! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
-                        
-                        let status = dictionary["status"] as! String
-                        
-                        if status == "OK" {
-                            if removeAllPoints {
-                                self.removeAllMarkersAndLines()
-                            }
-                            let selectedRoute = (dictionary["routes"] as! Array<Dictionary<String, AnyObject>>)[0]
-                            let overviewPolyline = selectedRoute["overview_polyline"] as! Dictionary<String, AnyObject>
-                            
-                            let route = overviewPolyline["points"] as! String
-                            
-                            let path: GMSPath = GMSPath(fromEncodedPath: route)!
-                            for idx in 1..<path.count() {
-                                if idx == path.count() - 1 {
-                                    if markersIdx + Int(idx-1) >= self.markers.count {
-                                        self.addPoint(coordinate: path.coordinate(at: idx), isControlPoint: true, at: markersIdx+Int(idx-1))
-                                    }
-                                } else {
-                                    self.addPoint(coordinate: path.coordinate(at: idx), isControlPoint: false, at: markersIdx+Int(idx-1))
-                                }
-                            }
-                            if removeAllPoints {
-                                self.googleRouteMarkers = self.markers
-                            }
-                            self.googleRouteButton.isEnabled = true
-                            completion(true)
-                        }
-                        else {
-                            self.cantFindLocation()
-                            completion(false)
-                        }
-                    }
-                    catch {
-                        self.cantFindLocation()
-                        completion(false)
-                    }
-                })
+                if removeAllPoints {
+                    self.googleRouteMarkers = self.markers
+                }
+            } else {
+                self.cantFindLocation()
             }
-            else {
-                cantFindLocation()
-                completion(false)
-            }
-        }
-        else {
-            cantFindLocation()
-            completion(false)
+            completion(result)
         }
     }
     
@@ -539,7 +524,6 @@ class RouteDesignerViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
-        googleRouteButton.isEnabled = false
     }
     
     // DESIGN HELPER FUNCTIONS
@@ -579,18 +563,56 @@ class RouteDesignerViewController: UIViewController {
         return sqrt(dx * dx + dy * dy)
     }
     
-    // DESIGN HELPER FUNCTIONS
+    func findPreviousControlPoint(at idx: Int) -> Int {
+        var cur = idx-1
+        while true {
+            if cur < 0 {
+                return cur
+            }
+            let markerData = markers[cur].userData as! CheckPoint
+            if markerData.isControlPoint {
+                return cur
+            }
+            cur -= 1
+        }
+    }
+    
+    func findNextControlPoint(at idx: Int) -> Int {
+        var cur = idx+1
+        while true {
+            if cur >= markers.count {
+                return cur
+            }
+            let markerData = markers[cur].userData as! CheckPoint
+            if markerData.isControlPoint {
+                return cur
+            }
+            cur += 1
+        }
+    }
+    
+    func findIdxInMarkers(of key: CheckPoint) -> Int {
+        for (idx, marker) in markers.enumerated() {
+            let nextMarkerData = marker.userData as! CheckPoint
+            if nextMarkerData == key {
+                return idx
+            }
+        }
+        return -1
+    }
     
     func addPath(coordinate: CLLocationCoordinate2D, isControlPoint: Bool, at idx: Int) {
         if manualRouteType {
             addPoint(coordinate: coordinate, isControlPoint: isControlPoint, at: idx)
+            historyOfMarkers.append(markers)
         } else {
             let lastPoint = markers.isEmpty ? source! : markers.last!.position
             getDirections(origin: "\(lastPoint.latitude) \(lastPoint.longitude)", destination: "\(coordinate.latitude) \(coordinate.longitude)", waypoints: nil, removeAllPoints: false, at: idx) { (result) -> () in
-                print(result)
+                if result {
+                    self.historyOfMarkers.append(self.markers)
+                }
             }
         }
-        historyOfMarkers.append(markers)
     }
     
     func addPoint(coordinate: CLLocationCoordinate2D, isControlPoint: Bool, at idx: Int) {
@@ -613,7 +635,7 @@ class RouteDesignerViewController: UIViewController {
         }
     }
     
-    func deleteMarker(at idx: Int) {
+    func deletePoint(at idx: Int) {
         if idx >= 0 && idx < markers.count {
             // 3 Cases
             if idx == 0 {
@@ -642,14 +664,20 @@ class RouteDesignerViewController: UIViewController {
         }
     }
     
-    func findIdxInMarkers(of key: CheckPoint) -> Int {
-        for (idx, marker) in markers.enumerated() {
-            let nextMarkerData = marker.userData as! CheckPoint
-            if nextMarkerData == key {
-                return idx
+    func modifyLine(at idx: Int) {
+        print (idx)
+        if idx >= 0 && idx < lines.count {
+            let from = idx == 0 ? source! : markers[idx-1].position
+            let to = markers[idx].position
+            if manualRouteType {
+                removeLine(at: idx)
+                addLine(from: from, to: to, at: idx)
+            } else {
+                getDirections(origin: "\(from.latitude) \(from.longitude)", destination: "\(to.latitude) \(to.longitude)", waypoints: nil, removeAllPoints: false, at: idx) { (result) -> () in
+                    print(result)
+                }
             }
         }
-        return -1
     }
     
     func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool, using markersList: inout [GMSMarker], show: Bool) {
@@ -713,6 +741,28 @@ class RouteDesignerViewController: UIViewController {
         removeAllMarkersAndLines(usingMarkersList: &markers, usingLinesList: &lines)
     }
     
+    // ---------------- back segue to AR view --------------------//
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let arViewController = segue.destination as? ARViewController {
+            arViewController.checkpointCardControllers.removeAll()
+            for marker in markers {
+                guard let checkpoint = marker.userData as? CheckPoint else {
+                    break
+                }
+                let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // for demo only, hide out of screen
+                    distance: 0, superView: arViewController.view)
+                checkpointCard.setCheckpointName(checkpoint.name)
+                checkpointCard.setCheckpointDescription("To be specified...")
+                arViewController.checkpointCardControllers.append(CheckpointCardController(checkpoint: checkpoint,
+                                                                                           card: checkpointCard))
+            }
+            if (!markers.isEmpty) {
+                arViewController.checkpointCardControllers[0].setSelected(true)
+            }
+            
+            //TODO: force update the POI in ARView
+        }
+    }
     
 }
 
@@ -730,9 +780,11 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
             mapView.isHidden = false
             mapView.camera = camera
             myLocation = location
-            locationManager.stopUpdatingLocation()
+            // locationManager.stopUpdatingLocation()
         } else {
             mapView.animate(to: camera)
+            print ("LOCATION UPDATED")
+            changeStartLocation()
         }
     }
     
@@ -749,7 +801,7 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
             print("Location status not determined.")
         case .authorizedAlways: fallthrough
         case .authorizedWhenInUse:
-            // locationManager.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
             print("Location status is OK.")
         }
     }
@@ -757,7 +809,7 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
     // Handle location manager errors.
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
-        print("Error: \(error)")
+        // print("Error: \(error)")
     }
 }
 
@@ -780,7 +832,7 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         centerPoint.y = centerPoint.y - 95
         infoWindow.center = centerPoint
         infoWindow.deleteButton.addTarget(self, action: #selector(deleteButtonTapped(gestureRecognizer:)), for: .touchUpInside)
-        infoWindow.addAfterButton.addTarget(self, action: #selector(addAfterButtonTapped(gestureRecognizer:)), for: .touchUpInside)
+        infoWindow.editButton.addTarget(self, action: #selector(editButtonTapped(gestureRecognizer:)), for: .touchUpInside)
         self.view.addSubview(infoWindow)
         return false
     }
@@ -792,11 +844,17 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         infoWindow.removeFromSuperview()
         let tappedMarkerData = tappedMarker.userData as! CheckPoint
         let idx = findIdxInMarkers(of: tappedMarkerData)
-        deleteMarker(at: idx)
+        let prevIdx = findPreviousControlPoint(at: idx)
+        let nextIdx = findNextControlPoint(at: idx)
+        for _ in prevIdx+1..<nextIdx {
+            deletePoint(at: prevIdx+1)
+        }
+        modifyLine(at: prevIdx+1)
         historyOfMarkers.append(markers)
     }
     
-    func addAfterButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
+    func editButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
+        
         infoWindow.removeFromSuperview()
     }
     
@@ -828,28 +886,6 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         }
     }
     
-    // ---------------- back segue to AR view --------------------//
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let arViewController = segue.destination as? ARViewController {
-            arViewController.checkpointCardControllers.removeAll()
-            for marker in markers {
-                guard let checkpoint = marker.userData as? CheckPoint else {
-                    break
-                }
-                let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // for demo only, hide out of screen
-                                                    distance: 0, superView: arViewController.view)
-                checkpointCard.setCheckpointName(checkpoint.name)
-                checkpointCard.setCheckpointDescription("To be specified...")
-                arViewController.checkpointCardControllers.append(CheckpointCardController(checkpoint: checkpoint,
-                                                                                           card: checkpointCard))
-            }
-            if (!markers.isEmpty) {
-                arViewController.checkpointCardControllers[0].setSelected(true)
-            }
-            
-            //TODO: force update the POI in ARView
-        }
-    }
 }
 
 extension RouteDesignerViewController: UITextFieldDelegate {

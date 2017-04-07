@@ -13,7 +13,7 @@ class MarkerPopupView: UIView {
     var arrow: TriangleView!
     var label: UILabel!
     var deleteButton: UIButton!
-    var addAfterButton: UIButton!
+    var editButton: UIButton!
     
     override init (frame : CGRect) {
         super.init(frame : frame)
@@ -35,11 +35,11 @@ class MarkerPopupView: UIView {
         label.textAlignment = NSTextAlignment.center
         topView.addSubview(label)
         
-        addAfterButton = UIButton(frame: CGRect(x: 0, y: 42, width: self.frame.size.width, height: 25))
-        addAfterButton.setTitle("Add After", for: UIControlState.normal)
-        addAfterButton.setTitleColor(UIColor.green, for: UIControlState.normal)
-        addAfterButton.titleLabel?.textAlignment = NSTextAlignment.center
-        topView.addSubview(addAfterButton)
+        editButton = UIButton(frame: CGRect(x: 0, y: 42, width: self.frame.size.width, height: 25))
+        editButton.setTitle("Edit", for: UIControlState.normal)
+        editButton.setTitleColor(UIColor.green, for: UIControlState.normal)
+        editButton.titleLabel?.textAlignment = NSTextAlignment.center
+        topView.addSubview(editButton)
         
         deleteButton = UIButton(frame: CGRect(x: 0, y: 67, width: self.frame.size.width, height: 25))
         deleteButton.setTitle("Delete", for: UIControlState.normal)
