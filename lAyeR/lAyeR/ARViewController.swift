@@ -44,6 +44,9 @@ class ARViewController: UIViewController {
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
     let scene = SCNScene()
+    var arrowNodes: [SCNNode] = []
+    let gap = 0.8
+    let arrowColor = UIColor(red: 0, green: 0.5765, blue: 0.3765, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +57,14 @@ class ARViewController: UIViewController {
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
         prepareMenu()
+        
+        let scnView = SCNView(frame: view.frame)
+        scnView.backgroundColor = UIColor.clear
+        view.insertSubview(scnView, at: 1)
+        scnView.scene = scene
+        
+        
+        prepareScene()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
