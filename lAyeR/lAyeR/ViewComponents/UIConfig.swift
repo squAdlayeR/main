@@ -28,10 +28,13 @@ let maxAlertHeight: CGFloat = 500
 let minAlertHeight: CGFloat = 250
 let topBannerHeight: CGFloat = 60
 let defaultBorderWidth: CGFloat = 1
+let lightBlue = UIColor(red: CGFloat(1.0 / 255), green: CGFloat(159.0 / 255),
+                        blue: CGFloat(232.0 / 255), alpha: 1)
+let labelIconWidth: CGFloat = 15
 
 /// Labels
-let nameLabel: String = "Name"
-let descriptionLabel: String = "Description"
+let nameLabel: String = "NAME"
+let descriptionLabel: String = "DESCRIPTION"
 
 /// BackgroundImage
 let topBannerImage: String = "banner.png"
@@ -69,24 +72,27 @@ let checkpointTitle: String = "Checkpoint"
 let confirmLabelText: String = "OK"
 let suggestedPopupHeight: CGFloat = 250
 let suggestedPopupWidth: CGFloat = 300
-let suggestedMarkerHeight: CGFloat = 80
-let suggestedMarkerWidth: CGFloat = 60
+let suggestedMarkerHeight: CGFloat = 100
+let suggestedMarkerWidth: CGFloat = 75
 
 /// POI View
 let directLabelText: String = "Direct"
 let poiTitle = "POI"
-let poiAddressLabel = "Address"
-let poiContactLabel = "Contact"
-let poiWebsiteLabel = "Website"
-let poiRatingLabel = "Rating"
-let poiOpenStatusLabel = "Now open"
+let poiAddressLabel = "ADDRESS"
+let poiContactLabel = "CONTACT"
+let poiWebsiteLabel = "WEBSITE"
+let poiRatingLabel = "RATING"
+let poiOpenStatusLabel = "NOW OPEN"
 
 /// Informative view
 let infoPanelTitleFontColor: UIColor = UIColor.gray
 let infoPanelTitleHeight: CGFloat = 20
 let innerViewSidePadding: CGFloat = 20
-let innerViewStackMargin: CGFloat = 10
+let innerViewStackMargin: CGFloat = 5
 let titleText: String = "Detailed information"
+let infoBlockPadding: CGFloat = 10
+let infoBlockPaddingTop: CGFloat = 5
+let infoBlockBorderRadius: CGFloat = 5
 
 /// Menu view
 let menuButtonIconPaddingPercent: CGFloat = 0.2
@@ -104,3 +110,12 @@ let menuButtonBackgroundImage = "menuButton.png"
 /// Input view
 let inputFieldFontSize: CGFloat = 26
 let inputFieldHight: CGFloat = 60
+
+/// Card
+let nameIcon: String = "name"
+let descriptionIcon: String = "info"
+let addressIcon: String = "address"
+let contactIcon: String = "contact"
+let websiteIcon: String = "website"
+let ratingsIcon: String = "ratings"
+let statusIcon: String = "status"

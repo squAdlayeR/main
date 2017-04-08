@@ -53,6 +53,8 @@ class BasicAlert: UIView {
         super.init(frame: frame)
         initElements()
         prepareDisplay()
+        self.layer.cornerRadius = 20
+        self.layer.masksToBounds = true
     }
     
     /// Initializes banners and info panel

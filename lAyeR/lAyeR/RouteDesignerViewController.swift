@@ -924,7 +924,7 @@ class RouteDesignerViewController: UIViewController {
                 let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // for demo only, hide out of screen
                     distance: 0, superView: arViewController.view)
                 checkpointCard.setCheckpointName(checkpoint.name)
-                checkpointCard.setCheckpointDescription("To be specified...")
+                checkpointCard.setCheckpointDescription("Oops! This checkpoint has no specific description.")
                 arViewController.checkpointCardControllers.append(CheckpointCardController(checkpoint: checkpoint,
                                                                                            card: checkpointCard))
             }

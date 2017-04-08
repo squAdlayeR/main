@@ -96,9 +96,9 @@ class ARViewController: UIViewController {
                 guard let name = newPoi.name else {
                     break
                 }
-                let poiCard = PoiCard(center: view.center, distance: 0, type: "library", superView: view)
+                let poiCard = PoiCard(center: view.center, distance: 0, type: newPoi.types.first!, superView: view)
                 poiCard.setPoiName(name)
-                poiCard.setPoiDescription("To be specified...")
+                poiCard.setPoiDescription("Oops! This place of interest has no specific information. ")
                 poiCard.setPoiAddress(newPoi.vicinity!)
                 newPOICardControllers.append(PoiCardController(poi: newPoi, card: poiCard))
             }

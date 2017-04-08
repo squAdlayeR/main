@@ -39,14 +39,16 @@ class PoiCard: Card {
     }
     
     /// Initializes the card icon with its type
-    /// - Parameter type: the type ofthe icon
+    /// - Parameter type: the type of the icon
     private func initializeCardIcon(with type: String) {
-        if iconSet.contains(type) {
-            let icon = ResourceManager.getImageView(by: type + imageExtension)
+        var sanitizedType = type
+        if let category = POICategory(rawValue: type) {
+            let icon = ResourceManager.getImageView(by: category.rawValue)
             self.markerCard.setIconImage(icon)
             return
         }
-        let icon = ResourceManager.getImageView(by: otherIconType + imageExtension)
+        sanitizedType = otherIconType
+        let icon = ResourceManager.getImageView(by: sanitizedType)
         self.markerCard.setIconImage(icon)
     }
     
@@ -97,43 +99,43 @@ extension PoiCard {
     /// Sets the name of poi
     /// - Parameter name: the name of the poi
     func setPoiName(_ name: String) {
-        self.popupController.addText(with: nameLabel, and: name)
+        self.popupController.addText(with: nameLabel, iconName: nameIcon, and: name)
     }
     
     /// Sets the description of poi
     /// - Parameter description: the description of the poi
     func setPoiDescription(_ description: String) {
-        self.popupController.addText(with: descriptionLabel, and: description)
+        self.popupController.addText(with: descriptionLabel, iconName: descriptionIcon, and: description)
     }
     
     /// Sets the addresss of poi
     /// - Parameter address: the address of the poi
     func setPoiAddress(_ address: String) {
-        self.popupController.addText(with: poiAddressLabel, and: address)
+        self.popupController.addText(with: poiAddressLabel, iconName: addressIcon, and: address)
     }
     
     /// Sets the contact of poi
     /// - Parameter contact: the contact of the poi
     func setPoiContact(_ contact: String) {
-        self.popupController.addText(with: poiContactLabel, and: contact)
+        self.popupController.addText(with: poiContactLabel, iconName: contactIcon, and: contact)
     }
     
     /// Sets the website of poi
     /// - Parameter website: the website of the poi
     func setPoiWebsite(_ website: String) {
-        self.popupController.addText(with: poiWebsiteLabel, and: website)
+        self.popupController.addText(with: poiWebsiteLabel, iconName: websiteIcon, and: website)
     }
     
     /// Sets the rating of poi
     /// - Parameter rating: the rating of the poi
     func setPoiRating(_ rating: String) {
-        self.popupController.addText(with: poiRatingLabel, and: rating)
+        self.popupController.addText(with: poiRatingLabel, iconName: ratingsIcon, and: rating)
     }
     
     /// Sets the open status of poi
     /// - Parameter status: the status of the poi
     func setPoiOpenStatus(_ status: String) {
-        self.popupController.addText(with: poiOpenStatusLabel, and: status)
+        self.popupController.addText(with: poiOpenStatusLabel, iconName: statusIcon, and: status)
     }
     
 }

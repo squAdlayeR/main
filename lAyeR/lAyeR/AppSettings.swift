@@ -34,6 +34,7 @@ class AppSettings: NSObject {
     static func getInstance() -> AppSettings {
         if instance == nil {
             self.instance = AppSettings()
+            RealmLocalStorageManager.getInstance().loadAppSettings()
         }
         return instance!
     }

@@ -48,6 +48,9 @@ class AppSettingsViewController: UIViewController {
     // Gets the app settings
     var appSettingsInstance = AppSettings.getInstance()
     
+    // Gest the geo manager instance
+    var geoManager = GeoManager.getInstance()
+    
     /// Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,8 +129,8 @@ class AppSettingsViewController: UIViewController {
     private func loadCurrentCategoriesTable() {
         for cell in categoriesTable.visibleCells {
             guard let categoriesCell = cell as? POICategoriesCell else { continue }
-            let category = categoriesCell.categoryName.text!
-            if appSettingsInstance.selectedPOICategrories.contains(category) {
+            let category = categoriesCell.category
+            if appSettingsInstance.selectedPOICategrories.contains(category.rawValue) {
                 categoriesCell.accessoryType = .checkmark
                 continue
             }
@@ -153,6 +156,7 @@ class AppSettingsViewController: UIViewController {
     /// and the query should be updated
     @IBAction func doneIsPressed(_ sender: Any) {
         RealmLocalStorageManager.getInstance().saveAppSettings()
+        geoManager.forceUpdateUserNearbyPOIS()
     }
     
     /// Updates the slider values for display
@@ -177,16 +181,15 @@ extension AppSettingsViewController: UITableViewDelegate, UITableViewDataSource 
     
     /// Defines the number of cells in the table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryDictionary.count
+        return poiCategories.count
     }
     
     /// Defines the diplay of cells.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: categoriesReusableIdentifier)
         guard let categoryCell = cell as? POICategoriesCell else { return cell! }
-        let specificCategory = categoryDictionary[indexPath.item]
-        categoryCell.prepareDisplay(with: specificCategory[categoryNameIndex] + imageExtension,
-                                    categoryNameText: specificCategory[categoryIndex])
+        let specificCategory = poiCategories[indexPath.item]
+        categoryCell.prepareDisplay(with: specificCategory)
         return categoryCell
     }
     
@@ -194,12 +197,13 @@ extension AppSettingsViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath)
             as? POICategoriesCell else { return }
+        let cellCategroy = cell.category
         if cell.accessoryType == .checkmark {
             cell.accessoryType = .none
-            appSettingsInstance.removePOICategories(cell.categoryName.text!)
+            appSettingsInstance.removePOICategories(cellCategroy.rawValue)
         } else {
             cell.accessoryType = .checkmark
-            appSettingsInstance.addSelectedPOICategories(cell.categoryName.text!)
+            appSettingsInstance.addSelectedPOICategories(cellCategroy.rawValue)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
