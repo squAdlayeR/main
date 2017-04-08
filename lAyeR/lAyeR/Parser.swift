@@ -57,11 +57,19 @@ class Parser {
         if let vicinity = jsonPOI["vicinity"] as? String {
             poi.setVicinity(vicinity)
         }
-        if let priceLevel = jsonPOI["price"] as? Double {
-            poi.setPriceLevel(priceLevel)
-        }
         if let types = jsonPOI["types"] as? [String] {
             poi.setTypes(types)
+        }
+        return poi
+    }
+    
+    static func parseDetailedPOI(_ json: [String: Any]) -> POI? {
+        guard let jsonPOI = json["result"] as? [String: Any] else {
+            return nil
+        }
+        guard let poi = parseJSONToPOI(jsonPOI) else { return nil }
+        if let priceLevel = jsonPOI["price"] as? Double {
+            poi.setPriceLevel(priceLevel)
         }
         if let openHours = jsonPOI["opening_hours"] as? [String: Any], let openNow = openHours["open_now"] as? Bool {
             poi.setOpenNow(openNow)

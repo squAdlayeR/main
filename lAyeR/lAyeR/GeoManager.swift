@@ -48,7 +48,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         userPoint = currentLocation
         
         /// Sets a threshold for poi query
-        guard GeoUtil.getCoordinateDistance(userPoint, currentLocation) > 20 else { return }
+        guard GeoUtil.getCoordinateDistance(userPoint, currentLocation) > 25 else { return }
         let group = DispatchGroup()
         var candidates: [POI] = []
         for type in appSettings.selectedPOICategrories {
@@ -92,20 +92,22 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         }
         group.notify(queue: .main) {
             self.pois = candidates
-            NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName,
-                                            object: nil)
+            NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName, object: nil)
+            self.getDetailedPOIInfo(self.pois.first!) { _ in
+                
+            }
         }
+        
     }
     
     func getDetailedPOIInfo(_ poi: POI, completion: @escaping (_ newPOI: POI) -> ()) {
         guard let placeID = poi.placeID else { return }
         let url = Parser.parsePOIDetailSearchRequest(placeID)
         Alamofire.request(url).responseJSON { response in
-            guard let json = response.result.value as? [String: Any] else {
+            guard let json = response.result.value as? [String: Any],
+                let newPOI = Parser.parseDetailedPOI(json) else {
                 return
             }
-            print(json)
-            guard let newPOI = Parser.parseJSONToPOI(json) else { return }
             completion(newPOI)
         }
     }
