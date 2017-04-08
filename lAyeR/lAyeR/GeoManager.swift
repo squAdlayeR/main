@@ -16,7 +16,8 @@ import GoogleMaps
 class GeoManager: NSObject, CLLocationManagerDelegate {
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
                                                                         Constant.nearbyPOIsUpdatedNotificationName)
-    
+    private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
+                                                                        Constant.userLocationUpdatedNotificationName)
     private static var instance: GeoManager?
     private let locationManager: CLLocationManager = CLLocationManager()
     private var appSettings: AppSettings = AppSettings.getInstance()
@@ -46,9 +47,9 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         }
         userPoint = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         
-        print(appSettings.selectedPOICategrories)
+        NotificationCenter.default.post(name: self.userLocationUpdatedNotificationName, object: userPoint)
         
-        /// TODO: Change after implement application settings
+        // TODO: Change after implement application settings
         let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, appSettings.selectedPOICategrories, userPoint)
         Alamofire.request(url).responseJSON { [unowned self] response in
             if let json = response.result.value as? [String: Any] {
