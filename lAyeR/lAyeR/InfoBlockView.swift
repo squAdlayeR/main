@@ -14,8 +14,8 @@ class InfoBlockView: UIView {
     var text: InfoBlock!
     var blurEffect: UIVisualEffectView!
     
-    init(label: String, content: String, width: CGFloat) {
-        let infoBlock = InfoBlock(label: label, content: content, width: width * 0.9 - 10)
+    init(label: String, iconName: String, content: String, width: CGFloat) {
+        let infoBlock = InfoBlock(label: label, imageName: iconName, content: content, width: width * 0.9 - 10)
         let initialFrame = CGRect(x: 0, y: 0, width: width, height: infoBlock.bounds.height + 15)
         super.init(frame: initialFrame)
         
