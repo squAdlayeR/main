@@ -24,7 +24,6 @@ class InfoBlock: UILabel {
     init(label: String, imageName: String, content: String, width: CGFloat) {
         let initialFrame = CGRect(x: 0, y: 0, width: width, height: 0)
         super.init(frame: initialFrame)
-//        self.backgroundColor = UIColor.white
         self.layer.cornerRadius = 2
         self.layer.masksToBounds = true
         prepareContent(label, content, imageName)
@@ -35,6 +34,7 @@ class InfoBlock: UILabel {
     /// - Parameters:
     ///     - label: the label of the info block
     ///     - content: the content of the info blcok
+    ///     - imageName: the name of the icon image
     private func prepareContent(_ label: String, _ content: String, _ imageName: String) {
         let formatedInfo = formatingInfo(label, content, imageName)
         self.attributedText = formatedInfo
@@ -62,30 +62,31 @@ class InfoBlock: UILabel {
     ///     - imageName: the name of the icon image
     /// - Returns: an attributed string the represents the label
     private func formatingLabel(_ labelText: String, _ imageName: String) -> NSMutableAttributedString {
-//        let labelColor = UIColor(red: CGFloat(1.0 / 255),
-//                                 green: CGFloat(159.0 / 255),
-//                                 blue: CGFloat(232.0 / 255), alpha: 1)
         let labelColor = UIColor.lightGray
         let label = NSMutableAttributedString(string: "  " + labelText,
             attributes: [NSFontAttributeName: UIFont(name: alterDefaultFontMedium, size: labelFontSize)!,
                          NSForegroundColorAttributeName: labelColor])
-        let attachment = NSTextAttachment()
-        attachment.bounds = CGRect(x: 0, y: 0, width: 15, height: 15)
-        attachment.image = UIImage(named: imageName)
-        let icon = NSAttributedString(attachment: attachment)
         let result = NSMutableAttributedString()
+        let icon = createIconAttachment(imageName)
         result.append(icon)
         result.append(label)
         return result
+    }
+    
+    /// Creates an attributed string that contains an icon
+    /// - Parameter imageName: the name of the icon
+    /// - Returns: an attributed string that contains the icon
+    private func createIconAttachment(_ imageName: String) -> NSAttributedString {
+        let attachment = NSTextAttachment()
+        attachment.bounds = CGRect(x: 0, y: 0, width: labelIconWidth, height: labelIconWidth)
+        attachment.image = UIImage(named: imageName)
+        return NSAttributedString(attachment: attachment)
     }
     
     /// Formates the content of the info block
     /// - Parameter contentText: the content of the info block
     /// - Returns: an attributed string the represents the content
     private func formatingContent(_ contentText: String) -> NSAttributedString {
-//        let textColor = UIColor(red: CGFloat(233.0 / 255),
-//                                green: CGFloat(232.0 / 255),
-//                                blue: CGFloat(231.0 / 255), alpha: 1)
         let textColor = UIColor.white
         let text = NSAttributedString(string: contentText,
             attributes: [NSFontAttributeName: UIFont(name: alterDefaultFontRegular, size: defaultFontSize)!,

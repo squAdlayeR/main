@@ -119,6 +119,7 @@ extension BasicAlertController {
     /// - Parameters:
     ///     - label: the label of the text content
     ///     - conetent: the text of the content
+    ///     - iconName: the name of the icon that will be displayed in the label
     func addText(with label: String, iconName: String, and content: String) {
         if let innerView = alert.infoPanel.innerView as? InformativeInnerView {
             let infoBlock = InfoBlockView(label: label,

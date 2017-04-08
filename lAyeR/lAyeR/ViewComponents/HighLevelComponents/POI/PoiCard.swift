@@ -99,43 +99,43 @@ extension PoiCard {
     /// Sets the name of poi
     /// - Parameter name: the name of the poi
     func setPoiName(_ name: String) {
-        self.popupController.addText(with: nameLabel, iconName: "name", and: name)
+        self.popupController.addText(with: nameLabel, iconName: nameIcon, and: name)
     }
     
     /// Sets the description of poi
     /// - Parameter description: the description of the poi
     func setPoiDescription(_ description: String) {
-        self.popupController.addText(with: descriptionLabel, iconName: "info", and: description)
+        self.popupController.addText(with: descriptionLabel, iconName: descriptionIcon, and: description)
     }
     
     /// Sets the addresss of poi
     /// - Parameter address: the address of the poi
     func setPoiAddress(_ address: String) {
-        self.popupController.addText(with: poiAddressLabel, iconName: "info", and: address)
+        self.popupController.addText(with: poiAddressLabel, iconName: addressIcon, and: address)
     }
     
     /// Sets the contact of poi
     /// - Parameter contact: the contact of the poi
     func setPoiContact(_ contact: String) {
-        self.popupController.addText(with: poiContactLabel, iconName: "info", and: contact)
+        self.popupController.addText(with: poiContactLabel, iconName: contactIcon, and: contact)
     }
     
     /// Sets the website of poi
     /// - Parameter website: the website of the poi
     func setPoiWebsite(_ website: String) {
-        self.popupController.addText(with: poiWebsiteLabel, iconName: "info", and: website)
+        self.popupController.addText(with: poiWebsiteLabel, iconName: websiteIcon, and: website)
     }
     
     /// Sets the rating of poi
     /// - Parameter rating: the rating of the poi
     func setPoiRating(_ rating: String) {
-        self.popupController.addText(with: poiRatingLabel, iconName: "info", and: rating)
+        self.popupController.addText(with: poiRatingLabel, iconName: ratingsIcon, and: rating)
     }
     
     /// Sets the open status of poi
     /// - Parameter status: the status of the poi
     func setPoiOpenStatus(_ status: String) {
-        self.popupController.addText(with: poiOpenStatusLabel, iconName: "info", and: status)
+        self.popupController.addText(with: poiOpenStatusLabel, iconName: statusIcon, and: status)
     }
     
 }

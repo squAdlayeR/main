@@ -62,13 +62,13 @@ extension CheckpointCard {
     /// Sets the name of the check point
     /// - Parameter name: the name of the check point
     func setCheckpointName(_ name: String) {
-        self.popupController.addText(with: nameLabel, iconName: "name", and: name)
+        self.popupController.addText(with: nameLabel, iconName: nameIcon, and: name)
     }
     
     /// Sets the description of the check point
     /// - Parameter description: the description of the check point
     func setCheckpointDescription(_ description: String) {
-        self.popupController.addText(with: descriptionLabel, iconName: "info", and: description)
+        self.popupController.addText(with: descriptionLabel, iconName: descriptionIcon, and: description)
     }
     
 }
