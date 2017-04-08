@@ -240,7 +240,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         // TODO: Magic strings and numbers
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
         cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
-        // TODO: To be implemented
+        
         DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
             cell.backgroundImage.imageFromUrl(url: route.imagePath)
         }
@@ -311,26 +311,27 @@ extension UserProfileViewController: TOCropViewControllerDelegate {
     
     func cropViewController(_ cropViewController: TOCropViewController, didCropToCircularImage image: UIImage, with cropRect: CGRect, angle: Int) {
         dismiss(animated: true) { _ in
-            DispatchQueue.global().async {
-                do {
-                    let url = try GPXManager.save(name: "user-icon", image: image)
-                    self.avatar.imageFromUrl(url: url.absoluteString)
-                    DispatchQueue.main.async {
-                        self.userProfile?.avatarRef = url.absoluteString
-                        DatabaseManager.instance.addUserProfileToDatabase(uid: UserAuthenticator.instance.currentUser!.uid, userProfile: self.userProfile!)
-                    }
-                } catch {
-                    self.showAlertMessage(message: "Failed to save the icon.")
-                }
+            self.refreshProfile(with: image)
+        }
+    }
+    
+    func refreshProfile(with image: UIImage) {
+        do {
+            let url = try GPXManager.save(name: "user-icon", image: image)
+            self.avatar.imageFromUrl(url: url.absoluteString)
+            self.userProfile?.avatarRef = url.absoluteString
+            DispatchQueue.global(qos: .background).async {
+                DatabaseManager.instance.addUserProfileToDatabase(uid: UserAuthenticator.instance.currentUser!.uid, userProfile: self.userProfile!)
             }
+        } catch {
+            self.showAlertMessage(message: "Failed to save the icon.")
         }
     }
     
 }
 
-
-
 extension UIImageView {
+    
     public func imageFromUrl(url: String) {
         guard let url = URL(string: url) else { return }
         DispatchQueue.global().async {
