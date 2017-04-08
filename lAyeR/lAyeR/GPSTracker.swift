@@ -31,8 +31,9 @@ class GPSTracker {
         }
         let deltaDistance = GeoUtil.getCoordinateDistance(prevLocation, currentLocation)
         guard deltaDistance > 10 else { return }
-        DatabaseManager.instance.sendLocationInfoToDatabase(from: prevLocation, to: currentLocation)
         self.prevLocation = currentLocation
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: prevLocation, to: currentLocation)
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: currentLocation, to: prevLocation) // bi-directions
     }
     
     func reset() {
