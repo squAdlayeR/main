@@ -103,7 +103,8 @@ let menuAnimatingDuration: TimeInterval = 0.8
 let menuButtonAnimationDelay: TimeInterval = 0.05
 let menuSpringCoefficient: CGFloat = 0.8
 let menuLeftPaddingPercent: CGFloat = 0.15
-let mapIconName: String = "map.png"
+let designerIconName: String = "search.png"
+let miniMapIconName: String = "map.png"
 let profileIconName: String = "profile.png"
 let settingsIconName: String = "settings.png"
 let menuButtonRaidus: CGFloat = 50
@@ -121,3 +122,11 @@ let contactIcon: String = "contact"
 let websiteIcon: String = "website"
 let ratingsIcon: String = "ratings"
 let statusIcon: String = "status"
+
+/// MiniMap
+let miniMapZoomLevel: Float = 15.5
+let miniMapAlpha: CGFloat = 0.8
+let miniMapSizePercentage: CGFloat = 0.35
+let miniMapPaddingTop: CGFloat = 30
+let miniMapPaddingRight: CGFloat = 20
+let miniMapBorderRadius: CGFloat = 15
