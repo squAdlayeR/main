@@ -11,6 +11,7 @@ import UIKit
 
 class Constant {
     static let nearbyPOIsUpdatedNotificationName = "nearbyPOIsUpdatedNotification"
+    static let userLocationUpdatedNotificationName = "userLocationUpdatedNotification"
     
     static let projectionPlaneDistance: CGFloat = 600
     
