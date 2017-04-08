@@ -13,24 +13,20 @@ import ObjectMapper
 class Parser {
     
     /// Parses poi search request.
-    static func parsePOISearchRequest(_ radius: Int, _ types: Set<String>, _ location: GeoPoint) -> String {
+    static func parsePOISearchRequest(_ radius: Int, _ type: String, _ location: GeoPoint) -> String {
         let searchBase = AppConfig.mapQueryBaseURL
         let locationToken = "location=" + location.latitude.description + "," + location.longitude.description
         let radiusToken = "&radius=" + radius.description
-        let typeToken = parseTypeQueryToken(types)
+        let typeToken = "&type=" + type
         let keyToken = "&key=" + AppConfig.apiKey
         return searchBase + locationToken + radiusToken + typeToken + keyToken
     }
     
-    static func parseTypeQueryToken(_ types: Set<String>) -> String {
-        guard !types.isEmpty, let firstType = types.first else {
-            return ""
-        }
-        var typeToken = "&type=" + firstType
-        for type in types.dropFirst() {
-            typeToken += "|" + type
-        }
-        return typeToken
+    static func parsePOIDetailSearchRequest(_ placeID: String) -> String {
+        let searchbase = AppConfig.poiQueryBaseURL
+        let placeToken = "placeid=" + placeID
+        let keyToken = "&key=" + AppConfig.apiKey
+        return searchbase + placeToken + keyToken
     }
     
     static func parseJSONToPOIs(_ json: [String: Any]) -> [POI] {
@@ -52,14 +48,32 @@ class Parser {
             let longitude = location["lng"] as? Double
         else { return nil }
         let poi = POI(latitude, longitude)
+        if let placeID = jsonPOI["place_id"] as? String {
+            poi.setPlaceID(placeID)
+        }
         if let name = jsonPOI["name"] as? String {
             poi.setName(name)
         }
         if let vicinity = jsonPOI["vicinity"] as? String {
             poi.setVicinity(vicinity)
         }
+        if let priceLevel = jsonPOI["price"] as? Double {
+            poi.setPriceLevel(priceLevel)
+        }
         if let types = jsonPOI["types"] as? [String] {
             poi.setTypes(types)
+        }
+        if let openHours = jsonPOI["opening_hours"] as? [String: Any], let openNow = openHours["open_now"] as? Bool {
+            poi.setOpenNow(openNow)
+        }
+        if let rating = jsonPOI["rating"] as? Double {
+            poi.setRating(rating)
+        }
+        if let website = jsonPOI["website"] as? String {
+            poi.setWebsite(website)
+        }
+        if let contact = jsonPOI["international_phone_number"] as? String {
+            poi.setContact(contact)
         }
         return poi
     }

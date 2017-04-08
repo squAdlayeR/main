@@ -44,20 +44,27 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         guard let userLocation = locations.last else {
             return
         }
-        userPoint = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+        let currentLocation = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+        userPoint = currentLocation
         
-        print(appSettings.selectedPOICategrories)
-        
-        /// TODO: Change after implement application settings
-        let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, appSettings.selectedPOICategrories, userPoint)
-        Alamofire.request(url).responseJSON { [unowned self] response in
-            if let json = response.result.value as? [String: Any] {
-                
-                self.pois = Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers))
-                
-                NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName,
-                                                object: nil)
+        /// Sets a threshold for poi query
+        guard GeoUtil.getCoordinateDistance(userPoint, currentLocation) > 20 else { return }
+        let group = DispatchGroup()
+        var candidates: [POI] = []
+        for type in appSettings.selectedPOICategrories {
+            group.enter()
+            let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, type, userPoint)
+            Alamofire.request(url).responseJSON { [unowned self] response in
+                guard let json = response.result.value as? [String: Any] else {
+                    return
+                }
+                candidates.append(contentsOf: Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers)))
+                group.leave()
             }
+        }
+        group.notify(queue: .main) {
+            self.pois = candidates
+            NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName, object: nil)
         }
     }
     
@@ -68,30 +75,41 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
     func getLastUpdatedNearbyPOIs() -> [POI] {
         return pois
     }
-
-    /// TODO: Change after implement application settings.
-    func getNearbyPOIS(around geoPoint: GeoPoint, complete: @escaping (_ results: [POI]) -> Void) {
-        let url = Parser.parsePOISearchRequest(500, ["food"], geoPoint)
-        Alamofire.request(url).responseJSON { response in
-            if let json = response.result.value as? [String: Any] {
-                let results = Parser.parseJSONToPOIs(json)
-                complete(results)
+    
+    func forceUpdateUserNearbyPOIS() {
+        let group = DispatchGroup()
+        var candidates: [POI] = []
+        for type in appSettings.selectedPOICategrories {
+            group.enter()
+            let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, type, userPoint)
+            Alamofire.request(url).responseJSON { [unowned self] response in
+                guard let json = response.result.value as? [String: Any] else {
+                    return
+                }
+                candidates.append(contentsOf: Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers)))
+                group.leave()
             }
+        }
+        group.notify(queue: .main) {
+            self.pois = candidates
+            NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName,
+                                            object: nil)
         }
     }
     
-    func forceUpdateUserNearbyPOIS() {
-        let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, appSettings.selectedPOICategrories, userPoint)
-        Alamofire.request(url).responseJSON { [unowned self] response in
-            if let json = response.result.value as? [String: Any] {
-                
-                self.pois = Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers))
-                
-                NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName,
-                                                object: nil)
+    func getDetailedPOIInfo(_ poi: POI, completion: @escaping (_ newPOI: POI) -> ()) {
+        guard let placeID = poi.placeID else { return }
+        let url = Parser.parsePOIDetailSearchRequest(placeID)
+        Alamofire.request(url).responseJSON { response in
+            guard let json = response.result.value as? [String: Any] else {
+                return
             }
+            print(json)
+            guard let newPOI = Parser.parseJSONToPOI(json) else { return }
+            completion(newPOI)
         }
     }
+    
 }
 
 
