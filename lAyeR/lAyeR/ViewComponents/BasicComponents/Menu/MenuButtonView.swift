@@ -16,6 +16,7 @@ import UIKit
  */
 class MenuButtonView: UIView {
 
+    private var vibrancyView: UIVisualEffectView!
     /// Initialization
     /// - Parameters:
     ///     - radius: the radius of the button (representing width and height)
@@ -23,17 +24,30 @@ class MenuButtonView: UIView {
     init(radius: CGFloat, iconName: String) {
         let frame = CGRect(x: 0, y: 0, width: radius, height: radius)
         super.init(frame: frame)
+        stylizeView()
         initBackground()
         initIcon(with: iconName)
     }
     
+    private func stylizeView() {
+        layer.cornerRadius = bounds.width / 2
+        layer.masksToBounds = true
+    }
+    
     /// Initializes the background of the buttons
     private func initBackground() {
-        let backgroundImage = UIImageView(image: UIImage(named: menuButtonBackgroundImage))
-        backgroundImage.frame = CGRect(x: 0, y: 0,
-                                       width: self.bounds.width,
-                                       height: self.bounds.height)
-        self.addSubview(backgroundImage)
+//        let backgroundImage = UIImageView(image: UIImage(named: menuButtonBackgroundImage))
+//        backgroundImage.frame = CGRect(x: 0, y: 0,
+//                                       width: self.bounds.width,
+//                                       height: self.bounds.height)
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        
+        vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: blurEffect))
+        vibrancyView.frame = self.bounds
+        self.addSubview(blurEffectView)
+        self.addSubview(vibrancyView)
     }
     
     /// Initializes the icon on the button
@@ -43,7 +57,7 @@ class MenuButtonView: UIView {
                                  y: self.bounds.height * menuButtonIconPaddingPercent,
                                  width: self.bounds.width * (1 - 2 * menuButtonIconPaddingPercent),
                                  height: self.bounds.height * (1 - 2 * menuButtonIconPaddingPercent))
-        self.addSubview(iconImage)
+        vibrancyView.contentView.addSubview(iconImage)
     }
     
     required init?(coder aDecoder: NSCoder) {

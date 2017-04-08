@@ -90,7 +90,7 @@ extension MiniMapViewController {
         mapView.layer.cornerRadius = miniMapBorderRadius
         mapView.layer.masksToBounds = true
         superView.addSubview(view)
-        view.transform = CGAffineTransform(translationX: 0, y: -view.bounds.height - miniMapPaddingTop)
+        view.transform = CGAffineTransform(translationX: view.bounds.height + miniMapPaddingRight, y: 0)
     }
     
     /// Toggles the mini map
@@ -115,7 +115,7 @@ extension MiniMapViewController {
     /// Hides the mini map with animation
     private func hideMiniMap() {
         UIView.animate(withDuration: 0.2, animations: {
-            self.view.transform = CGAffineTransform(translationX: 0, y: -self.view.bounds.height - miniMapPaddingTop)
+            self.view.transform = CGAffineTransform(translationX: self.view.bounds.height + miniMapPaddingRight, y: 0)
         })
     }
     

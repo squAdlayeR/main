@@ -48,6 +48,9 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         let currentLocation = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         userPoint = currentLocation
         
+        // Update user's location for mini map
+        NotificationCenter.default.post(name: self.userLocationUpdatedNotificationName, object: self.userPoint)
+        
         /// Sets a threshold for poi query
         guard GeoUtil.getCoordinateDistance(userPoint, currentLocation) > 25 else { return }
         let group = DispatchGroup()
@@ -65,7 +68,6 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         }
         group.notify(queue: .main) {
             self.pois = candidates
-            NotificationCenter.default.post(name: self.userLocationUpdatedNotificationName, object: userPoint)
             NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName, object: nil)
         }
     }
