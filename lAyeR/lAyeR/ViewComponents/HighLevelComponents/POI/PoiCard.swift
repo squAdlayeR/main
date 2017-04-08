@@ -99,43 +99,60 @@ extension PoiCard {
     /// Sets the name of poi
     /// - Parameter name: the name of the poi
     func setPoiName(_ name: String) {
-        self.popupController.addText(with: nameLabel, iconName: nameIcon, and: name)
+        self.popupController.addText(with: nameLabel, iconName: descriptionIcon, and: name)
     }
     
     /// Sets the description of poi
-    /// - Parameter description: the description of the poi
-    func setPoiDescription(_ description: String) {
-        self.popupController.addText(with: descriptionLabel, iconName: descriptionIcon, and: description)
-    }
-    
-    /// Sets the addresss of poi
     /// - Parameter address: the address of the poi
     func setPoiAddress(_ address: String) {
-        self.popupController.addText(with: poiAddressLabel, iconName: addressIcon, and: address)
-    }
-    
-    /// Sets the contact of poi
-    /// - Parameter contact: the contact of the poi
-    func setPoiContact(_ contact: String) {
-        self.popupController.addText(with: poiContactLabel, iconName: contactIcon, and: contact)
-    }
-    
-    /// Sets the website of poi
-    /// - Parameter website: the website of the poi
-    func setPoiWebsite(_ website: String) {
-        self.popupController.addText(with: poiWebsiteLabel, iconName: websiteIcon, and: website)
+        let sanitizedAddress = address.isEmpty ? infoBlockPlaceHolder : address
+        self.popupController.addText(with: poiAddressLabel, iconName: addressIcon, and: sanitizedAddress)
     }
     
     /// Sets the rating of poi
     /// - Parameter rating: the rating of the poi
-    func setPoiRating(_ rating: String) {
-        self.popupController.addText(with: poiRatingLabel, iconName: ratingsIcon, and: rating)
+    func setPoiRating(_ rating: Double) {
+        let starString = getStarString(rating)
+        self.popupController.addText(with: poiRatingLabel, iconName: ratingsIcon, and: starString)
     }
     
-    /// Sets the open status of poi
-    /// - Parameter status: the status of the poi
-    func setPoiOpenStatus(_ status: String) {
-        self.popupController.addText(with: poiOpenStatusLabel, iconName: statusIcon, and: status)
+    /// Gets a string of stars according the a number
+    /// - Parameter number: the number that will be converted into stars
+    
+    private func getStarString(_ number: Double) -> String {
+        let numberOfFullStar = floor(number)
+        let remaining = number - numberOfFullStar
+        let numberOfHalfStar = remaining < 0.5 ? 0 : 1
+        var result = String()
+        for _ in 1...Int(numberOfFullStar) {
+            result = result.appending(infoBlockFullStar)
+        }
+        if numberOfHalfStar == 1 {
+            result = result.appending(infoBlockHalfStar)
+        }
+        return result
+    }
+    
+    /// Sets the open hours of poi
+    /// - Parameter hours: the open hours of the poi
+    func setPoiOpenHours(_ hours: String) {
+        self.popupController.addText(with: poiOpenHoursLabel, iconName: statusIcon, and: hours)
+    }
+    
+    /// Sets the price level of poi
+    /// - Parameter level: the price level of the poi
+    func setPoiPriceLevel(_ level: Int) {
+        self.popupController.addText(with: poiPriceLevelLabel, iconName: nameIcon, and: convertPriceLevel(level))
+    }
+    
+    /// Converts price level integer into string
+    /// - Parameter levle: the price level number
+    /// - Returns: string description of the price level
+    private func convertPriceLevel(_ level: Int) -> String {
+        if let priceLevel = PriceLevel(rawValue: level) {
+            return priceLevel.text
+        }
+        return infoBlockPlaceHolder
     }
     
 }

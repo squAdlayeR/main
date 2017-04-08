@@ -61,6 +61,7 @@
 		52D379681E8530FA005ED912 /* GeoPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379661E8530FA005ED912 /* GeoPointTests.swift */; };
 		52D379691E8530FA005ED912 /* GeoUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379671E8530FA005ED912 /* GeoUtilTests.swift */; };
 		52D3796B1E8533CC005ED912 /* CheckPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3796A1E8533CC005ED912 /* CheckPointTests.swift */; };
+		9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11C35F1E98CD4400C33207 /* PriceLevel.swift */; };
 		9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */; };
 		9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */; };
 		9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F61E800AFB0043DDB6 /* TopBanner.swift */; };
@@ -178,6 +179,7 @@
 		52D3796A1E8533CC005ED912 /* CheckPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPointTests.swift; sourceTree = "<group>"; };
 		59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A523DFB3F070AFCD61151E7 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9D11C35F1E98CD4400C33207 /* PriceLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceLevel.swift; sourceTree = "<group>"; };
 		9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/BottomBanner.swift; sourceTree = "<group>"; };
 		9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPanel.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/InfoPanel.swift; sourceTree = "<group>"; };
 		9D1498F61E800AFB0043DDB6 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/TopBanner.swift; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				528288B91E9355B100163654 /* PoiCard.swift */,
+				9D11C35F1E98CD4400C33207 /* PriceLevel.swift */,
 			);
 			name = POI;
 			sourceTree = "<group>";
@@ -905,6 +908,7 @@
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */,
 				A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */,
+				9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,

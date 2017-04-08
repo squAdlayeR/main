@@ -79,10 +79,9 @@ let suggestedMarkerWidth: CGFloat = 75
 let directLabelText: String = "Direct"
 let poiTitle = "POI"
 let poiAddressLabel = "ADDRESS"
-let poiContactLabel = "CONTACT"
-let poiWebsiteLabel = "WEBSITE"
+let poiPriceLevelLabel = "PRICE LEVEL"
 let poiRatingLabel = "RATING"
-let poiOpenStatusLabel = "NOW OPEN"
+let poiOpenHoursLabel = "OPENING HOURS"
 
 /// Informative view
 let infoPanelTitleFontColor: UIColor = UIColor.gray
@@ -93,6 +92,9 @@ let titleText: String = "Detailed information"
 let infoBlockPadding: CGFloat = 10
 let infoBlockPaddingTop: CGFloat = 5
 let infoBlockBorderRadius: CGFloat = 5
+let infoBlockPlaceHolder: String = "Not specified"
+let infoBlockFullStar = "★"
+let infoBlockHalfStar = "☆"
 
 /// Menu view
 let menuButtonIconPaddingPercent: CGFloat = 0.2
