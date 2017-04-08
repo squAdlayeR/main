@@ -157,15 +157,9 @@ extension ARViewController {
         let count = arrowNodes.count > 12 ? 12 : arrowNodes.count
         for i in 0 ..< count {
             arrowNodes[i].runAction(SCNAction.sequence([
-                SCNAction.wait(duration: Double(i) * 0.28),
-                
-                SCNAction.customAction(duration: 0.18, action: { (arrow, _) in
-                    arrow.geometry?.firstMaterial?.emission.contents = UIColor.white
-                }),
-                
-                SCNAction.customAction(duration: 0.10, action: { (arrow, _) in
-                    arrow.geometry?.firstMaterial?.emission.contents = self.arrowColor
-                })
+                SCNAction.wait(duration: Double(i) * 0.18),
+                SCNAction.fadeOut(duration: 0.18),
+                SCNAction.fadeIn(duration: 0.28)
             ]))
         }
     }
