@@ -16,7 +16,9 @@ class IconCropViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var placeholder: UIImageView!
     
+    var imageView = UIImageView()
     let picker = UIImagePickerController()
+    var originalWidth: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +27,12 @@ class IconCropViewController: UIViewController {
         cropArea.layer.borderColor = UIColor.red.cgColor
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panned))
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinched))
-        placeholder.addGestureRecognizer(pan)
-        placeholder.addGestureRecognizer(pinch)
+        imageView.isUserInteractionEnabled = true
+        imageView.frame = placeholder.frame
+        imageView.center = placeholder.center
+        imageView.addGestureRecognizer(pan)
+        imageView.addGestureRecognizer(pinch)
+        view.insertSubview(imageView, belowSubview: cropArea)
     }
     
     @IBAction func albumPressed(_ sender: Any) {
@@ -43,22 +49,80 @@ class IconCropViewController: UIViewController {
     
     @IBAction func savePressed(_ sender: Any) {
         // TODO: Crop the image correctly and update database
-        
+        guard let image = imageView.image else {
+            showAlertMessage(message: "Please choose a photo.")
+            return
+        }
+        let croppedImage = cropImage(image)
+        load(croppedImage)
     }
     
     func panned(_ sender: UIPanGestureRecognizer) {
         if sender.state == .changed {
             let translation = sender.translation(in: placeholder)
-            placeholder.center.x += translation.x
-            placeholder.center.y += translation.y
+            imageView.center.x += translation.x
+            imageView.center.y += translation.y
             sender.setTranslation(CGPoint.zero, in: placeholder)
         }
     }
     
     func pinched(_ sender: UIPinchGestureRecognizer) {
         let scale = sender.scale
-        placeholder.transform = placeholder.transform.scaledBy(x: scale, y: scale)
+        imageView.transform = imageView.transform.scaledBy(x: scale, y: scale)
         sender.scale = 1
+    }
+    
+    func load(_ image: UIImage) {
+        
+        imageView.image = image
+        imageView.frame = placeholder.frame
+        originalWidth = image.size.width
+        imageView.center = placeholder.center
+        imageView.contentMode = .scaleAspectFit
+        let ratio = image.size.width/image.size.height
+        var width = imageView.frame.width
+        var height = imageView.frame.height
+        if ratio > 1 {
+            height = imageView.frame.width/ratio
+        } else {
+            width = imageView.frame.height*ratio
+        }
+        imageView.frame.size = CGSize(width: width, height: height)
+        imageView.center = placeholder.center
+        
+    }
+    
+    func cropImage(_ image: UIImage) -> UIImage {
+        
+        let scale = imageView.frame.width/originalWidth
+        switch image.imageOrientation {
+        case .down:
+            imageView.frame.applying(CGAffineTransform(rotationAngle: .pi))
+            cropArea.frame.applying(CGAffineTransform(rotationAngle: .pi))
+            break
+        case .left:
+            imageView.frame.applying(CGAffineTransform(rotationAngle: .pi/2))
+            cropArea.frame.applying(CGAffineTransform(rotationAngle: .pi/2))
+            break
+        case .right:
+            imageView.frame.applying(CGAffineTransform(rotationAngle: -.pi/2))
+            cropArea.frame.applying(CGAffineTransform(rotationAngle: -.pi/2))
+            break
+        case .up:
+            break
+        default:
+            break
+        }
+        let intersection = imageView.frame.intersection(cropArea.frame)
+        let x = (intersection.origin.x - imageView.frame.origin.x)/scale
+        let y = (intersection.origin.y - imageView.frame.origin.y)/scale
+        let width = intersection.width/scale
+        let height = intersection.height/scale
+        let cropFrame = CGRect(x: x, y: y, width: width, height: height)
+        let croppedCGImage = image.cgImage?.cropping(to: cropFrame)
+        let croppedImage = UIImage(cgImage: croppedCGImage!)
+        return croppedImage
+        
     }
     
 }
@@ -67,8 +131,7 @@ extension IconCropViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            placeholder.contentMode = .scaleAspectFit
-            placeholder.image = pickedImage
+            load(pickedImage)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -78,4 +141,6 @@ extension IconCropViewController: UIImagePickerControllerDelegate, UINavigationC
     
     }
 }
+
+
 
