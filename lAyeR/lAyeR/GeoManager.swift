@@ -93,9 +93,6 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         group.notify(queue: .main) {
             self.pois = candidates
             NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName, object: nil)
-            self.getDetailedPOIInfo(self.pois.first!) { _ in
-                
-            }
         }
         
     }
