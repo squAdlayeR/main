@@ -31,6 +31,7 @@ class GPSTracker {
         }
         let deltaDistance = GeoUtil.getCoordinateDistance(prevLocation, currentLocation)
         guard deltaDistance > 10 else { return }
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: prevLocation, to: currentLocation)
         self.prevLocation = currentLocation
     }
     
