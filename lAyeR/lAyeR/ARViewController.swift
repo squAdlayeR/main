@@ -47,9 +47,10 @@ class ARViewController: UIViewController {
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
     let scene = SCNScene()
+    var scnView: SCNView!
     var arrowNodes: [SCNNode] = []
     let gap = 1.8
-    let arrowColor = UIColor(red: 0, green: 0.9098, blue: 0.9098, alpha: 1.0) 
+    let arrowColor = UIColor(red: 0, green: 0.9098, blue: 0.9098, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,7 +158,20 @@ class ARViewController: UIViewController {
         updateScene()
     }
     
+    @IBAction func forceUpdateButtonDown(_ sender: UIButton) {
+        geoManager.forceUpdateUserPoint()
+    }
+    
     @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "arToDesignerImport" {
+            if let url = sender as? URL, let dest = segue.destination as? RouteDesignerViewController {
+                dest.importedURL = url
+            }
+        }
+    }
+    
 }
 
 

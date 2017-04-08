@@ -63,6 +63,11 @@ class LoginViewController: UIViewController {
         return .lightContent
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.delegate?.window??.rootViewController = self
+    }
+    
     /// Sets up the camera view for background image
     private func setupCameraView() {
         let cameraViewController = CameraViewController()
@@ -194,6 +199,7 @@ extension LoginViewController {
             }
             LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
+            
         }
     }
     
@@ -272,9 +278,12 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
                     return
                 }
                 guard let user = user else { return }
-                let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
                 DispatchQueue.main.async {
-                    self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+                    
+                    DatabaseManager.instance.verifyUserProfile(uid: user.uid) {
+                        let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
+                        self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
+                    }
                 }
             }
             LoadingBadge.instance.hideBadge()

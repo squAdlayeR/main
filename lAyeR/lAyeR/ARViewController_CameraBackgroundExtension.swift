@@ -12,6 +12,7 @@ import UIKit
 
 extension ARViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.delegate?.window??.rootViewController = self
         if !done {
             session.startRunning()
         }

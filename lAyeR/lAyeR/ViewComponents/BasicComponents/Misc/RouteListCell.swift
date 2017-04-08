@@ -27,6 +27,10 @@ class RouteListCell: UITableViewCell {
     // Connects the background image
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    // Connects the check mark for selection
+    @IBOutlet weak var checkMark: UIImageView!
+    
+    
     /// This will be called when the table cell is loaded.
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,6 +48,7 @@ class RouteListCell: UITableViewCell {
                                           alpha: 0.5)
         backgroundImage.layer.cornerRadius = 5
         backgroundImage.layer.masksToBounds = true
+        backgroundImage.contentMode = .scaleAspectFill
         backgroundImage.addSubview(overlay)
     }
     

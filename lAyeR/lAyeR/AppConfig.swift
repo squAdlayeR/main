@@ -19,6 +19,8 @@ class AppConfig {
     /// May change to radar query. To be determined.
     static let mapQueryBaseURL: String = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
     
+    static let poiQueryBaseURL: String = "https://maps.googleapis.com/maps/api/place/details/json?"
+    
     /// API key for google services.
     static let apiKey = "AIzaSyAxEeB1jYBx9HgghM4IXxxzGIA4p6yjr9s"
     
