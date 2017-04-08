@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 class DatabaseManager {
     
+    private(set) var isConnected: Bool = false //check connectivity
     static let instance = DatabaseManager()
     private(set) var currentUserProfile: UserProfile?
     
@@ -270,4 +271,19 @@ class DatabaseManager {
             print(error.localizedDescription)
         }
     }
+    
+    func checkConnectivity() {
+        DispatchQueue.global(qos: .background).async {
+            let connectedRef = FIRDatabase.database().reference(withPath: ".info/connected")
+            connectedRef.observe(.value, with: { snapshot in
+                print("called")
+                guard let connected = snapshot.value as? Bool, connected else {
+                    self.isConnected = false
+                    return
+                }
+                self.isConnected = true
+            })
+        }
+    }
+    
 }

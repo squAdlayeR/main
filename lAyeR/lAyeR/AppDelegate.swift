@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let currentUser = FIRAuth.auth()?.currentUser else {
             return true
         }
+        DatabaseManager.instance.checkConnectivity()
         self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
         if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
             self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
