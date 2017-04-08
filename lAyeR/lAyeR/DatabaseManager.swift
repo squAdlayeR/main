@@ -33,15 +33,15 @@ class DatabaseManager {
             if from.latitude > to.latitude { londict["down"] = true }
             if from.longitude > to.longitude { londict["left"] = true }
             if from.longitude < to.longitude { londict["right"] = true }
-            latdict[Int(from.longitude*1000000).description] = londict
+            latdict[Int(from.longitude*100000000).description] = londict
             // get dirs
             FIRDatabase.database().reference().child("gpstrack").observeSingleEvent(of: .value, with: { snapshot in
-                if snapshot.hasChild(Int(from.latitude*1000000).description) {
+                if snapshot.hasChild(Int(from.latitude*100000000).description) {
                     // update value here
-                    let latRef = FIRDatabase.database().reference().child("gpstrack").child(Int(from.latitude*1000000).description)
-                    let latSnapshot = snapshot.childSnapshot(forPath: Int(from.latitude*1000000).description)
-                    if latSnapshot.hasChild(Int(from.longitude*1000000).description) {
-                        let lonRef = latRef.child(Int(from.longitude*1000000).description)
+                    let latRef = FIRDatabase.database().reference().child("gpstrack").child(Int(from.latitude*100000000).description)
+                    let latSnapshot = snapshot.childSnapshot(forPath: Int(from.latitude*100000000).description)
+                    if latSnapshot.hasChild(Int(from.longitude*100000000).description) {
+                        let lonRef = latRef.child(Int(from.longitude*100000000).description)
                         if let _ = londict["up"] {
                             lonRef.child("up").setValue(true)
                         }
@@ -55,10 +55,10 @@ class DatabaseManager {
                             lonRef.child("right").setValue(true)
                         }
                     } else {
-                        latRef.child(Int(from.longitude*1000000).description).setValue(londict)
+                        latRef.child(Int(from.longitude*100000000).description).setValue(londict)
                     }
                 } else {
-                    FIRDatabase.database().reference().child("gpstrack").child(Int(from.latitude*1000000).description).setValue(latdict)
+                    FIRDatabase.database().reference().child("gpstrack").child(Int(from.latitude*100000000).description).setValue(latdict)
                 }
             })
             DispatchQueue.main.async {
