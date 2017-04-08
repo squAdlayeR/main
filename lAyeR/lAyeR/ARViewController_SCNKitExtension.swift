@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import SceneKit
 import SceneKit.ModelIO
 
@@ -32,9 +33,10 @@ extension ARViewController {
     }
     
     func prepareScene() {
-        let scnView = SCNView(frame: view.frame)
+        scnView = SCNView(frame: view.frame)
         scnView.backgroundColor = UIColor.clear
-        view.insertSubview(scnView, at: 1)
+        scnView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
+        view.insertSubview(scnView, at: 2)
         scnView.scene = scene
         
         prepareNodes()
@@ -139,6 +141,33 @@ extension ARViewController {
         let x = distance * sin(azimuth)  // positive: to East
         let y = distance * cos(azimuth)  // positive: to North
         return SCNVector3(x: Float(x), y: 0, z: Float(-y))
+    }
+    
+    func handleTap(_ gestureRecognize: UIGestureRecognizer) {
+        // check what nodes are tapped
+        let p = gestureRecognize.location(in: scnView)
+        let hitResults = scnView.hitTest(p, options: [:])
+        // check that we clicked on at least one object
+        if hitResults.count > 0 {
+            animateMovingOn()
+        }
+    }
+    
+    func animateMovingOn() {
+        let count = arrowNodes.count > 12 ? 12 : arrowNodes.count
+        for i in 0 ..< count {
+            arrowNodes[i].runAction(SCNAction.sequence([
+                SCNAction.wait(duration: Double(i) * 0.28),
+                
+                SCNAction.customAction(duration: 0.18, action: { (arrow, _) in
+                    arrow.geometry?.firstMaterial?.emission.contents = UIColor.white
+                }),
+                
+                SCNAction.customAction(duration: 0.10, action: { (arrow, _) in
+                    arrow.geometry?.firstMaterial?.emission.contents = self.arrowColor
+                })
+            ]))
+        }
     }
 }
 
