@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KG1-mK-LJP">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KG1-mK-LJP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -34,6 +34,16 @@
                     <view key="view" contentMode="scaleToFill" id="OeL-0o-Ds9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVQ-X2-uMk">
+                                <rect key="frame" x="312" y="603" width="38" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <state key="normal" title="Button" image="current_location"/>
+                                <connections>
+                                    <action selector="forceUpdateButtonDown:" destination="8CX-ET-To7" eventType="touchUpInside" id="Ckl-0P-sz1"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
@@ -45,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y8o-ag-LPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1057" y="439"/>
+            <point key="canvasLocation" x="-1058.4000000000001" y="438.53073463268368"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="Nic-X2-7hW">
@@ -854,6 +864,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J0J-J1-3xV"/>
-        <segue reference="lyp-VT-xjG"/>
+        <segue reference="L6E-9q-XGj"/>
     </inferredMetricsTieBreakers>
 </document>

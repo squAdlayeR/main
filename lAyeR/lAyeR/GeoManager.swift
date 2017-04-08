@@ -112,6 +112,10 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func forceUpdateUserPoint() {
+        locationManager.stopUpdatingLocation()
+        locationManager.startUpdatingLocation()
+    }
 }
 
 
