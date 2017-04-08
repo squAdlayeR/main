@@ -68,6 +68,9 @@ class Parser {
             return nil
         }
         guard let poi = parseJSONToPOI(jsonPOI) else { return nil }
+        if let address = jsonPOI["formatted_address"] as? String {
+            poi.setVicinity(address)
+        }
         if let priceLevel = jsonPOI["price"] as? Double {
             poi.setPriceLevel(priceLevel)
         }
