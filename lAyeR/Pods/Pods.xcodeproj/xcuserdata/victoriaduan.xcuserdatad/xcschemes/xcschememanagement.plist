@@ -49,6 +49,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TOCropViewController-TOCropViewControllerBundle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TOCropViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>iOS-GPX-Framework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,22 +77,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>12D8AE3B0F548C7F2F86F44CBE441CAC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1CC9626D0C6EA16122BA7C590237F0DB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3AF8A7AA1674121F562FCD147411A339</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4CB853A0D96E82431ABB27777596233A</key>
+		<key>213047B44F22EA4C1A17F5A83AFD16F3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +87,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>72AF5582B75F5C8894C5549E282BB59B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7A374D20FC47C48CD562A239BC97436D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B14C28DBA209D92844CBC51BEB6E196E</key>
+		<key>8CD13B487285A84C69CCC767F1152930</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B686810433BE750227445E3455F950EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,22 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C53E4B68340C4C622E26A166A1DCBD9B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CC0F5DB961FB12268CFCE92AF398B9A5</key>
+		<key>C7D6B46A93CA2FC247A26C33D8C75584</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>CD6C9FB6B052E1CF663F8A56041EA163</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F46E03D5735E3C88DEC9B8CA6498F438</key>
 		<dict>
 			<key>primary</key>
 			<true/>

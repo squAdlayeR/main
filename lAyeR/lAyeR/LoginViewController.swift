@@ -194,6 +194,7 @@ extension LoginViewController {
         dataService.signInUser(email: email, password: password) {
             (user, error) in
             if let error = error {
+                LoadingBadge.instance.hideBadge()
                 self.handleSignInError(error: error)
                 return
             }
@@ -274,6 +275,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             DispatchQueue.global().async {
                 if let error = error {
+                    LoadingBadge.instance.hideBadge()
                     self.handleSignInError(error: error)
                     return
                 }

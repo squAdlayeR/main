@@ -210,10 +210,12 @@ extension RegisterViewController {
         dataService.createUser(email: email, password: password) {
             (user, error) in
             if let error = error {
+                LoadingBadge.instance.hideBadge()
                 self.handleSignUpError(error: error)
                 return
             }
             guard let uid = user?.uid else {
+                LoadingBadge.instance.hideBadge()
                 self.showErrorAlert(message: "Failed to create user.")
                 return
             }
