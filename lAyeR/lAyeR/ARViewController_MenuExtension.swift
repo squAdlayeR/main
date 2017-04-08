@@ -30,15 +30,16 @@ extension ARViewController {
     /// - Returns: the corresponding buttons
     private func createMenuButtons() -> [MenuButtonView] {
         let mapButton = createMapButton()
+        let miniMapButton = createMiniMapButton()
         let profileButton = createProfileButton()
         let settingsButton = createSettingsButton()
-        return [mapButton, profileButton, settingsButton]
+        return [mapButton, miniMapButton, profileButton, settingsButton]
     }
     
     /// Creates a map button
     /// - Returns: a menu button view
     private func createMapButton() -> MenuButtonView {
-        let mapButton = MenuButtonView(radius: menuButtonRaidus, iconName: mapIconName)
+        let mapButton = MenuButtonView(radius: menuButtonRaidus, iconName: designerIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(openDesigner))
         mapButton.addGestureRecognizer(tap)
         return mapButton
@@ -62,19 +63,36 @@ extension ARViewController {
         return profileButton
     }
     
+    /// Creates a button that would be used to toggle mini map
+    /// - Returns: a mini map toggle button
+    private func createMiniMapButton() -> MenuButtonView {
+        let miniMapButton = MenuButtonView(radius: menuButtonRaidus, iconName: miniMapIconName)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(toggleMiniMap))
+        miniMapButton.addGestureRecognizer(tap)
+        return miniMapButton
+    }
+    
+    /// Opens the user profile page
     func openUserProfile() {
         menuController.remove()
         self.performSegue(withIdentifier: "arToUserProfile", sender: nil)
     }
     
+    /// Opens the app settings page
     func openAppSettings() {
         menuController.remove()
         self.performSegue(withIdentifier: "settingsSegue", sender: nil)
     }
     
+    /// Opens the map designer page
     func openDesigner() {
         menuController.remove()
         self.performSegue(withIdentifier: "arToDegisnerSegue", sender: nil)
+    }
+    
+    /// Toggles the mini map
+    func toggleMiniMap() {
+        miniMapController.toggleMiniMap()
     }
     
     /// Prepares the gestures to call out / close menu

@@ -19,8 +19,10 @@ class ARViewController: UIViewController {
     let framePerSecond = 60
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
-                                                                        Constant.nearbyPOIsUpdatedNotificationName)
-    
+                                                                    Constant.nearbyPOIsUpdatedNotificationName)
+    // Defines the notification name for user location update
+    private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
+                                                                        Constant.userLocationUpdatedNotificationName)
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
     var videoDataOutputQueue: DispatchQueue!
@@ -40,6 +42,7 @@ class ARViewController: UIViewController {
     let geoManager = GeoManager.getInstance()
 
     let menuController = MenuViewController()
+    let miniMapController = MiniMapViewController()
     
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
@@ -54,10 +57,11 @@ class ARViewController: UIViewController {
         setupAVCapture()
         fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         monitorNearbyPOIsUpdate()
+        monitorCurrentLocationUpdate()
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
         prepareMenu()
-        
+        prepareMiniMap()
         prepareScene()
     }
     
@@ -71,11 +75,28 @@ class ARViewController: UIViewController {
         view.insertSubview(cameraView, at: 0)
     }
     
+    /// Prepares the minimap view
+    private func prepareMiniMap() {
+        miniMapController.prepareMiniMapView(inside: view)
+    }
+    
     private func monitorNearbyPOIsUpdate() {
         NotificationCenter.default.addObserver(forName: nearbyPOIsUpdatedNotificationName, object: nil, queue: nil,
                                                using: { [unowned self] _ in
             self.displayLastUpdatedPOIs()
         })
+    }
+    
+    /// Monitors the update of the current user location
+    private func monitorCurrentLocationUpdate() {
+        NotificationCenter.default.addObserver(self, selector: #selector(observeUserLocationChange(_:)),
+                                               name: userLocationUpdatedNotificationName, object: nil)
+    }
+    
+    func observeUserLocationChange(_ notification: NSNotification) {
+        if let currentLocation = notification.object as? GeoPoint {
+            miniMapController.updateMiniMap(with: currentLocation)
+        }
     }
     
     private func displayLastUpdatedPOIs() {
