@@ -51,10 +51,14 @@ class ARViewController: UIViewController {
         super.viewDidLoad()
         addCameraView()
         setupAVCapture()
+        
         fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
-        monitorNearbyPOIsUpdate()
+        
         startObservingDeviceMotion()
+        
+        monitorNearbyPOIsUpdate()
         displayLastUpdatedPOIs()
+        
         prepareMenu()
         
         prepareScene()
