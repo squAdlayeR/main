@@ -127,14 +127,19 @@ class ARViewController: UIViewController {
         }
         
         // add the new POI and create corresponding card that appears in the updated list but not the previous list
+        let group = DispatchGroup()
         for newPoi in lastUpdatedPOIs {
             if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
-                guard let name = newPoi.name else {
-                    break
+                group.enter()
+                let poiCard = PoiCard(center: self.view.center, distance: 0, type: newPoi.types.first!, superView: self.view)
+                geoManager.getDetailedPOIInfo(newPoi) { poi in
+                    if let name = poi.name { poiCard.setPoiName(name) }
+                    if let address = poi.vicinity { poiCard.setPoiAddress(address) }
+                    if let rating = poi.rating { poiCard.setPoiRating(rating) }
+                    if let website = poi.website { poiCard.setPoiWebsite(website) }
+                    if let contact = poi.contact { poiCard.setPoiContacet(contact) }
+                    group.leave()
                 }
-                let poiCard = PoiCard(center: view.center, distance: 0, type: newPoi.types.first!, superView: view)
-                poiCard.setPoiName(name)
-                poiCard.setPoiAddress(newPoi.vicinity!)
                 newPOICardControllers.append(PoiCardController(poi: newPoi, card: poiCard))
             }
         }
