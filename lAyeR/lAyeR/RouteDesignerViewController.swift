@@ -57,6 +57,7 @@ class RouteDesignerViewController: UIViewController {
     var tappedMarker = GMSMarker()
     var infoWindow = MarkerPopupView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
     
+    @IBOutlet weak var loadingLayerRoutesIcon: UIActivityIndicatorView!
 
     // Segue
     var importedURL: URL?
@@ -120,6 +121,7 @@ class RouteDesignerViewController: UIViewController {
         addTapCurrentLocationGesture()
         
         historyOfMarkers.append(markers)
+        stopLoadingRouteAnimation()
         
         if let importedURL = importedURL {
             handleOpenUrl(url: importedURL)
@@ -271,6 +273,7 @@ class RouteDesignerViewController: UIViewController {
     
     @IBAction func search(_ sender: Any) {
         if searchBar.text != nil && searchBar.text != "" && sourceBar.text != nil && sourceBar.text != "" {
+            startLoadingRouteAnimation()
             if sourceBar.text! == currentLocationText && myLocation != nil {
                 usingCurrentLocationAsSource = true
                 getDirections(origin: "\(myLocation!.coordinate.latitude) \(myLocation!.coordinate.longitude)", destination: searchBar.text!, waypoints: nil, removeAllPoints: true, at: 0, completion: getLayerRoutesUponCompletionOfGoogle)
@@ -326,17 +329,38 @@ class RouteDesignerViewController: UIViewController {
         if TESTING { assert(checkRep()) }
     }
     
+    func startLoadingRouteAnimation() {
+        layerRoutesButton.isEnabled = false
+        loadingLayerRoutesIcon.isHidden = false
+        loadingLayerRoutesIcon.startAnimating()
+    }
+    
+    func stopLoadingRouteAnimation() {
+        loadingLayerRoutesIcon.isHidden = true
+        loadingLayerRoutesIcon.stopAnimating()
+    }
+    
     func getLayerRoutesUponCompletionOfGoogle(result: Bool) {
         if TESTING { assert(checkRep()) }
         if result {
-            self.googleRouteButton.isEnabled = true
+            googleRouteButton.isEnabled = true
             for idx in 0..<layerRoutesMarkers.count {
                 removeAllMarkersAndLines(usingMarkersList: &layerRoutesMarkers[idx], usingLinesList: &layerRoutesLines[idx])
             }
+            
+            // Clear Previous Layer Routes
             layerRoutesMarkers.removeAll()
             layerRoutesLines.removeAll()
-            let sourceCoord = self.source!
-            let destCoord = self.markers.last!.position
+            let sourceCoord = source!
+            let destCoord = markers.last!.position
+            
+            // Animate Map to Source Location
+            let camera = GMSCameraPosition.camera(withLatitude: sourceCoord.latitude,
+                                                  longitude: sourceCoord.longitude,
+                                                  zoom: zoomLevel)
+            mapView.animate(to: camera)
+            
+            // Get Layer Routes based on source and destination coordinates provided by Google API
             routeDesignerModel.getLayerRoutes(source: GeoPoint(sourceCoord.latitude, sourceCoord.longitude), dest: GeoPoint(destCoord.latitude, destCoord.longitude)) { (layerRoutes) -> () in
                 for (idx, route) in layerRoutes.enumerated() {
                     var isSimilar = false
@@ -352,12 +376,14 @@ class RouteDesignerViewController: UIViewController {
                     var oneMarkers = [GMSMarker]()
                     var oneLines = [GMSPolyline]()
                     var from = self.source!
-                    for checkpoint in route.checkPoints {
+                    for (index, checkpoint) in route.checkPoints.enumerated() {
                         let to = CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude)
-                        self.addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: checkpoint.isControlPoint, using: &oneMarkers, show: false)
+                        if index + 1 != route.checkPoints.count {
+                            self.addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: checkpoint.isControlPoint, using: &oneMarkers, show: false)
+                        } else {
+                            self.addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: true, using: &oneMarkers, show: false)
+                        }
                         self.addLine(from: from, to: to, at: oneLines.count, using: &oneLines, show: false)
-                        assert(oneMarkers.last!.position.latitude == oneLines.last!.path!.coordinate(at: 1).latitude)
-                        assert(oneMarkers.last!.position.longitude == oneLines.last!.path!.coordinate(at: 1).longitude)
                         from = to
                     }
                     self.layerRoutesMarkers.append(oneMarkers)
@@ -368,10 +394,12 @@ class RouteDesignerViewController: UIViewController {
                 } else {
                     self.layerRoutesButton.isEnabled = true
                 }
+                self.stopLoadingRouteAnimation()
             }
         } else {
-            self.googleRouteButton.isEnabled = false
-            self.layerRoutesButton.isEnabled = false
+            stopLoadingRouteAnimation()
+            googleRouteButton.isEnabled = false
+            layerRoutesButton.isEnabled = false
         }
         if TESTING { assert(checkRep()) }
     }
@@ -675,7 +703,11 @@ class RouteDesignerViewController: UIViewController {
                     self.googleRouteMarkers = self.markers
                 }
             } else {
-                self.cantFindLocation()
+                if path == nil {
+                    self.cantFindLocation()
+                } else {
+                    self.cantHaveSameSourceAndDestination()
+                }
             }
             completion(result)
             if self.TESTING { assert(self.checkRep()) }
@@ -683,8 +715,16 @@ class RouteDesignerViewController: UIViewController {
     }
     
     func cantFindLocation() {
+        showErrorMessage(errorMsg: "We can't find this destination!")
+    }
+    
+    func cantHaveSameSourceAndDestination() {
+        showErrorMessage(errorMsg: "Please select different source and destination!")
+    }
+    
+    func showErrorMessage(errorMsg: String) {
         let alertController = UIAlertController(title: "Sorry!", message:
-            "We can't find this destination!", preferredStyle: UIAlertControllerStyle.alert)
+            errorMsg, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
