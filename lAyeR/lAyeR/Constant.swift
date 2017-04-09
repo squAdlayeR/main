@@ -18,6 +18,7 @@ class Constant {
     static let maxSearchDistance: Double = 800
     static let pathArrowName = "arrow14"
     static let pathArrowExtension = "obj"
+    static let movingOnActionKey: String = "movingOnAction"
 }
 
 

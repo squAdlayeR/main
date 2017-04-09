@@ -48,10 +48,12 @@ extension ARViewController {
         guard checkpointCardControllers.count > 1 else {
             return
         }
+        
+        var previousOffset = addArrows(from: geoManager.getLastUpdatedUserPoint(), to: checkpointCardControllers[0].checkpoint, firstOffset: 0)
         for i in 0 ..< checkpointCardControllers.count - 1 {
             let src = checkpointCardControllers[i].checkpoint
             let dest = checkpointCardControllers[i + 1].checkpoint
-            addArrows(from: src, to: dest)
+            previousOffset = addArrows(from: src, to: dest, firstOffset: previousOffset)
         }
         
         setupCameraNode()
@@ -63,23 +65,23 @@ extension ARViewController {
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
     
-    func addArrows(from src: GeoPoint, to dest: GeoPoint) {
+    func addArrows(from src: GeoPoint, to dest: GeoPoint, firstOffset: Double) -> Double {
         guard checkpointCardControllers.count > 0 else {
-            return
+            return 0
         }
         
         let firstPoint = checkpointCardControllers[0].checkpoint
         
         let srcDestDistance = GeoUtil.getCoordinateDistance(src, dest)
-        let azimuth = GeoUtil.getAzimuth(between: src, dest)
-        let num = Int(floor(srcDestDistance / gap) - 1)
-        
+        let srcDestAzimuth = GeoUtil.getAzimuth(between: src, dest)
+        //let num = Int(floor(srcDestDistance / gap) - 1)
+        var currentOffset = firstOffset
         let originSrcDistance = GeoUtil.getCoordinateDistance(firstPoint, src)
         let originSrcAzimuth = GeoUtil.getAzimuth(between: firstPoint, src)
         
         let srcPosition = azimuthDistanceToCoordinate(azimuth: originSrcAzimuth, distance: originSrcDistance)
         
-        for i in 1 ... num {
+        while currentOffset <= srcDestDistance {
             let arrow = getArrowSCNNode()
         
             let rotationTransformation = SCNMatrix4Rotate(arrow.transform,
@@ -87,14 +89,17 @@ extension ARViewController {
                                                           0, 1, 0)
             arrow.transform = rotationTransformation
             
-            arrow.scale = SCNVector3(x: 1/28, y: 1/28, z: 1/108)
-            let distance = gap * Double(i)
-            let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
+            arrow.scale = SCNVector3(x: 1/24, y: 1/24, z: 1/108)
+            let distance = currentOffset
+            let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: srcDestAzimuth, distance: distance)
             arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -1.8, 0)
             
             arrowNodes.append(arrow)
             scene.rootNode.addChildNode(arrow)
+            
+            currentOffset += 1.8
         }
+        return currentOffset
     }
     
     private func removeAllArrows() {
@@ -154,12 +159,33 @@ extension ARViewController {
     }
     
     func animateMovingOn() {
-        let count = arrowNodes.count > 12 ? 12 : arrowNodes.count
+        let count = arrowNodes.count > 18 ? 18 : arrowNodes.count
+        
+        let pr: CGFloat = 1 / 0.18
+        let pg: CGFloat = (1 - 0.9098) / 0.18
+        let pb: CGFloat = (1 - 0.9098) / 0.18
+        
+        let changeColorAction = SCNAction.sequence([
+            SCNAction.customAction(duration: 0.38, action: { (node, time) in
+                let color = UIColor(red: pr * time, green: 0.9098 + pg * time, blue: 0.9098 + pb * time, alpha: 1)
+                node.geometry!.firstMaterial!.emission.contents = color
+            }),
+            
+            SCNAction.customAction(duration: 0.28, action: { (node, time) in
+                let color = UIColor(red: 1 - pr * time, green: 1 - pg * time, blue: 1 - pb * time, alpha: 1)
+                node.geometry!.firstMaterial!.emission.contents = color
+            })
+        ])
+        
+        let floatAction = SCNAction.sequence([
+            SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
+            SCNAction.moveBy(x: 0, y: -0.08, z: 0, duration: 0.28),
+        ])
+        
         for i in 0 ..< count {
             arrowNodes[i].runAction(SCNAction.sequence([
-                SCNAction.wait(duration: Double(i) * 0.18),
-                SCNAction.fadeOut(duration: 0.18),
-                SCNAction.fadeIn(duration: 0.28)
+                SCNAction.wait(duration: Double(i) * 0.38),
+                SCNAction.group([changeColorAction, floatAction])
             ]))
         }
     }
