@@ -11,6 +11,9 @@ import FirebaseDatabase
 
 class DatabaseManager {
     
+    
+    let formatter = NumberFormatter()
+    
     private(set) var isConnected: Bool = false //check connectivity
     static let instance = DatabaseManager()
     private(set) var currentUserProfile: UserProfile?
@@ -24,6 +27,11 @@ class DatabaseManager {
     func sendLocationInfoToDatabase(from: GeoPoint, to: GeoPoint) {
         DispatchQueue.global(qos: .background).async {
             // get the value
+            self.formatter.maximumFractionDigits = 4
+            self.formatter.minimumFractionDigits = 4
+            let latEntry = String(format: "%.4f", from.latitude).replacingOccurrences(of: ".", with: "")//self.formatter.string(from: NSNumber(from.latitude))
+            let lonEntry = String(format: "%.4f", to.latitude).replacingOccurrences(of: ".", with: "")
+            //let lonEntry = self.formatter.string(from: NSNumber(from.longitude))
             // add value here
             var latdict: [String: Any] = [:]
             latdict["latitude"] = from.latitude
@@ -33,15 +41,15 @@ class DatabaseManager {
             if from.latitude > to.latitude { londict["down"] = true }
             if from.longitude > to.longitude { londict["left"] = true }
             if from.longitude < to.longitude { londict["right"] = true }
-            latdict[Int(from.longitude*100000000).description] = londict
+            latdict[lonEntry] = londict
             // get dirs
             FIRDatabase.database().reference().child("gpstrack").observeSingleEvent(of: .value, with: { snapshot in
-                if snapshot.hasChild(Int(from.latitude*100000000).description) {
+                if snapshot.hasChild(latEntry) {
                     // update value here
-                    let latRef = FIRDatabase.database().reference().child("gpstrack").child(Int(from.latitude*100000000).description)
-                    let latSnapshot = snapshot.childSnapshot(forPath: Int(from.latitude*100000000).description)
-                    if latSnapshot.hasChild(Int(from.longitude*100000000).description) {
-                        let lonRef = latRef.child(Int(from.longitude*100000000).description)
+                    let latRef = FIRDatabase.database().reference().child("gpstrack").child(latEntry)
+                    let latSnapshot = snapshot.childSnapshot(forPath: latEntry)
+                    if latSnapshot.hasChild(lonEntry) {
+                        let lonRef = latRef.child(lonEntry)
                         if let _ = londict["up"] {
                             lonRef.child("up").setValue(true)
                         }
@@ -55,10 +63,10 @@ class DatabaseManager {
                             lonRef.child("right").setValue(true)
                         }
                     } else {
-                        latRef.child(Int(from.longitude*100000000).description).setValue(londict)
+                        latRef.child(lonEntry).setValue(londict)
                     }
                 } else {
-                    FIRDatabase.database().reference().child("gpstrack").child(Int(from.latitude*100000000).description).setValue(latdict)
+                    FIRDatabase.database().reference().child("gpstrack").child(latEntry).setValue(latdict)
                 }
             })
             DispatchQueue.main.async {
@@ -67,10 +75,12 @@ class DatabaseManager {
         }
     }
     
-    func getRectFromDatabase(from: GeoPoint, to: GeoPoint, completion: @escaping (_ trackPoints: [TrackPoint]) -> ()) {
+    func getRectFromDatabase(from: GeoPoint, to: GeoPoint, completion: @escaping (_ trackPoints: Set<TrackPoint>) -> ()) {
         let fromLat = min(from.latitude, to.latitude)
         let toLat = max(from.latitude, to.latitude)
-        var trackPoints: [TrackPoint] = []
+        let fromLon = min(from.longitude, to.longitude)
+        let toLon = max(from.longitude, to.longitude)
+        var trackPoints: Set<TrackPoint> = []
         DispatchQueue.global(qos: .background).async {
             // data service here
             FIRDatabase.database().reference().child("gpstrack").queryOrdered(byChild: "latitude").queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
@@ -109,9 +119,10 @@ class DatabaseManager {
                         if let _ = londict["down"] { trackPoint.up = true }
                         if let _ = londict["left"] { trackPoint.up = true }
                         if let _ = londict["right"] { trackPoint.up = true }
-                        trackPoints.append(trackPoint)
+                        if trackPoint.longitude < toLon && trackPoint.latitude > fromLon {
+                            trackPoints.insert(trackPoint)
+                        }
                     }
-
                     return
                 }
                 print("0th ok")
@@ -145,7 +156,9 @@ class DatabaseManager {
                         if let _ = londict["down"] { trackPoint.up = true }
                         if let _ = londict["left"] { trackPoint.up = true }
                         if let _ = londict["right"] { trackPoint.up = true }
-                        trackPoints.append(trackPoint)
+                        if trackPoint.longitude < toLon && trackPoint.latitude > fromLon {
+                            trackPoints.insert(trackPoint)
+                        }
                     }
                 }
             })
@@ -286,4 +299,12 @@ class DatabaseManager {
         }
     }
     
+}
+
+extension Double
+{
+    func truncate(places : Int)-> Double
+    {
+        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
+    }
 }

@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         DatabaseManager.instance.checkConnectivity()
+        //DatabaseManager.instance.startObserveGPSTrack()
         self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
         if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
             self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
