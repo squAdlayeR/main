@@ -36,7 +36,7 @@ class InfoPanel: UIView {
     
     // Sets blur mode. If it is true, blur view should
     // be shown.
-    var blurMode: Bool = false {
+    var blurMode: Bool = true {
         didSet {
             if blurMode {
                 backgroundImageView.isHidden = true
@@ -71,6 +71,7 @@ class InfoPanel: UIView {
         backgroundImage.frame = imageFrame
         backgroundImageView = backgroundImage
         self.addSubview(backgroundImageView)
+        backgroundImageView.isHidden = blurMode
     }
     
     /// Initializes blur effect
@@ -79,7 +80,7 @@ class InfoPanel: UIView {
         blurEffect.frame = imageFrame
         blurEffectView = blurEffect
         self.addSubview(blurEffectView)
-        blurEffectView.isHidden = true
+        blurEffectView.isHidden = !blurMode
     }
     
     /// Sets the inner view of the info panel

@@ -19,8 +19,49 @@ extension ARViewController {
     /// - prepare buttons
     func prepareMenu() {
         prepareMenuGestures()
+        prepareUpdateSuccessAlert()
         let menuButtons = createMenuButtons()
         menuController.addMenuButtons(menuButtons)
+    }
+    
+    /// Prepares the updated successful alert
+    private func prepareUpdateSuccessAlert() {
+        let alertFrame = CGRect(x: 0, y: 0, width: suggestedPopupWidth, height: suggestedPopupHeight)
+        updateSuccessAlertController = BasicAlertController(title: "Success", frame: alertFrame)
+        updateSuccessAlertController.alertView.center = view.center
+        let closeButton = createCloseButton()
+        updateSuccessAlertController.addButtonToAlert(closeButton)
+        let label = createSuccessText()
+        updateSuccessAlertController.addViewToAlert(label)
+    }
+    
+    /// Creates a text field that shows success message
+    /// - Returns: a ui label with success text
+    private func createSuccessText() -> UILabel {
+        let label = UILabel()
+        label.text = "Current location have been updated!"
+        label.font = UIFont(name: alterDefaultFontLight, size: buttonFontSize)
+        label.textAlignment = NSTextAlignment.center
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.textColor = UIColor.lightGray
+        return label
+    }
+    
+    /// Creates a close button
+    /// - Returns: a close button which will close the popup if it is clicked
+    private func createCloseButton() -> UIButton {
+        let newButton = UIButton()
+        newButton.setTitle(confirmLabelText, for: .normal)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.addTarget(self, action: #selector(closeSuccessAlert), for: .touchUpInside)
+        return newButton
+    }
+    
+    func closeSuccessAlert() {
+        updateSuccessAlertController.closeAlert()
+        geoManager.forceUpdateUserNearbyPOIS()
+        geoManager.forceUpdateUserPoint()
     }
     
     /// Creates necessary buttons in the menu. This includes
@@ -33,7 +74,8 @@ extension ARViewController {
         let miniMapButton = createMiniMapButton()
         let profileButton = createProfileButton()
         let settingsButton = createSettingsButton()
-        return [mapButton, miniMapButton, profileButton, settingsButton]
+        let refreshButton = createRefreshButton()
+        return [mapButton, miniMapButton, profileButton, settingsButton, refreshButton]
     }
     
     /// Creates a map button
@@ -72,6 +114,13 @@ extension ARViewController {
         return miniMapButton
     }
     
+    private func createRefreshButton() -> MenuButtonView {
+        let refreshButton = MenuButtonView(radius: menuButtonRaidus, iconName: "refresh")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(forceUpdateLocation))
+        refreshButton.addGestureRecognizer(tap)
+        return refreshButton
+    }
+    
     /// Opens the user profile page
     func openUserProfile() {
         menuController.remove()
@@ -93,6 +142,13 @@ extension ARViewController {
     /// Toggles the mini map
     func toggleMiniMap() {
         miniMapController.toggleMiniMap()
+    }
+    
+    func forceUpdateLocation() {
+        menuController.remove()
+        updateSuccessAlertController.presentAlert(within: view)
+        view.bringSubview(toFront: updateSuccessAlertController.alertView)
+        geoManager.forceUpdateUserPoint()
     }
     
     /// Prepares the gestures to call out / close menu

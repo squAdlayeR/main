@@ -36,7 +36,7 @@ class BasicAlert: UIView {
     var topBanner: TopBanner!
     
     // Specifies the blur mode of the alert
-    var blurMode: Bool = false {
+    var blurMode: Bool = true {
         didSet {
             if blurMode {
                 setSubviewsBlurMode(true)

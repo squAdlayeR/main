@@ -43,6 +43,7 @@ class ARViewController: UIViewController {
 
     let menuController = MenuViewController()
     let miniMapController = MiniMapViewController()
+    var updateSuccessAlertController: BasicAlertController!
     
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
@@ -156,10 +157,6 @@ class ARViewController: UIViewController {
         }
         
         updateScene()
-    }
-    
-    @IBAction func forceUpdateButtonDown(_ sender: UIButton) {
-        geoManager.forceUpdateUserPoint()
     }
     
     @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}
