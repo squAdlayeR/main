@@ -24,6 +24,8 @@ class RouteDesignerViewController: UIViewController {
     let currentLocationText = "Current Location"
     let checkpointDefaultDescription = ""
     let checkpointDefaultName = "Checkpoint"
+    let selectDestinationText = "Please select destination"
+    let selectSourceText = "Please select source"
     
     // Location Variables
     var locationManager = CLLocationManager()
@@ -44,6 +46,8 @@ class RouteDesignerViewController: UIViewController {
     var selectingLayerRoute = false
     var selectingGpsRoute = false
     var selectedRoute = false
+    var selectingSource = false
+    var sourceText = ""
     
     // Map, Marker and Lines
     var mapView: GMSMapView!
@@ -61,7 +65,6 @@ class RouteDesignerViewController: UIViewController {
     var tappedMarker = GMSMarker()
     var infoWindow = MarkerPopupView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
     
-    var tableView: UITableView  =   UITableView()
     var suggestedPlaces = [String]()
     
     @IBOutlet weak var loadingLayerRoutesIcon: UIActivityIndicatorView!
@@ -146,6 +149,11 @@ class RouteDesignerViewController: UIViewController {
         if let importedRoutes = importedRoutes {
             load(routes: importedRoutes)
         }
+
+        suggestedPlacesTableView.delegate =   self
+        suggestedPlacesTableView.dataSource =   self
+        suggestedPlacesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        selectPlacesView.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -289,6 +297,8 @@ class RouteDesignerViewController: UIViewController {
     }
     
     @IBAction func search(_ sender: Any) {
+        searchBar.resignFirstResponder()
+        sourceBar.resignFirstResponder()
         if searchBar.text != nil && searchBar.text != "" && sourceBar.text != nil && sourceBar.text != "" {
             if sourceBar.text! == currentLocationText && myLocation != nil {
                 usingCurrentLocationAsSource = true
@@ -297,21 +307,8 @@ class RouteDesignerViewController: UIViewController {
                         self.cantFindDestinationLocation()
                         return
                     }
-                    if let results = results {
-                        if results.isEmpty {
-                            self.cantFindDestinationLocation()
-                            return
-                        }
-                        var description = results[0].attributedPrimaryText.string
-                        if results[0].attributedSecondaryText != nil {
-                            description += " "
-                            description += results[0].attributedSecondaryText!.string
-                        }
-                        self.startLoadingLayerRoutesAnimation()
-                        self.startLoadingGpsRoutesAnimation()
-                        self.searchBar.text = description
-                        self.getDirections(origin: "\(self.myLocation!.coordinate.latitude) \(self.myLocation!.coordinate.longitude)", destination: description, waypoints: nil, removeAllPoints: true, at: 0, completion: self.getLayerAndGpsRoutesUponCompletionOfGoogle)
-                    }
+                    self.sourceText = "\(self.myLocation!.coordinate.latitude) \(self.myLocation!.coordinate.longitude)"
+                    self.dealWithSuggestedDestinations(results: results)
                 }
             } else {
                 usingCurrentLocationAsSource = false
@@ -325,35 +322,75 @@ class RouteDesignerViewController: UIViewController {
                             self.cantFindSourceLocation()
                             return
                         }
-                        var sourceDescription = results[0].attributedPrimaryText.string
-                        if results[0].attributedSecondaryText != nil {
-                            sourceDescription += " "
-                            sourceDescription += results[0].attributedSecondaryText!.string
-                        }
-                        self.placeAutocomplete(query: self.searchBar.text!) {(results2, error2) -> Void in
-                            if error2 != nil {
-                                self.cantFindDestinationLocation()
-                                return
+                        if results.count == 1 {
+                            self.sourceText = results[0].attributedPrimaryText.string
+                            if results[0].attributedSecondaryText != nil {
+                                self.sourceText += " "
+                                self.sourceText += results[0].attributedSecondaryText!.string
                             }
-                            if let results2 = results2 {
-                                if results2.isEmpty {
+                            self.sourceBar.text = self.sourceText
+                            self.placeAutocomplete(query: self.searchBar.text!) {(results2, error2) -> Void in
+                                if error2 != nil {
                                     self.cantFindDestinationLocation()
                                     return
                                 }
-                                var destinationDescription = results2[0].attributedPrimaryText.string
-                                if results2[0].attributedSecondaryText != nil {
-                                    destinationDescription += " "
-                                    destinationDescription += results2[0].attributedSecondaryText!.string
-                                }
-                                self.startLoadingLayerRoutesAnimation()
-                                self.startLoadingGpsRoutesAnimation()
-                                self.sourceBar.text = sourceDescription
-                                self.searchBar.text = destinationDescription
-                                self.getDirections(origin: sourceDescription, destination: destinationDescription, waypoints: nil, removeAllPoints: true, at: 0, completion: self.getLayerAndGpsRoutesUponCompletionOfGoogle)
+                                self.dealWithSuggestedDestinations(results: results2)
                             }
+                        } else {
+                            self.suggestedPlaces.removeAll()
+                            self.selectingSource = true
+                            for result in results {
+                                var description = result.attributedPrimaryText.string
+                                if result.attributedSecondaryText != nil {
+                                    description += " "
+                                    description += result.attributedSecondaryText!.string
+                                }
+                                self.suggestedPlaces.append(description)
+                            }
+                            self.selectPlacesInstructionLabel.text = self.selectSourceText
+                            self.suggestedPlacesTableView.reloadData()
+                            self.selectPlacesView.isHidden = false
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    func startSearch(destination: String) {
+        self.startLoadingLayerRoutesAnimation()
+        self.startLoadingGpsRoutesAnimation()
+        self.searchBar.text = destination
+        self.getDirections(origin: self.sourceText, destination: destination, waypoints: nil, removeAllPoints: true, at: 0, completion: self.getLayerAndGpsRoutesUponCompletionOfGoogle)
+    }
+    
+    func dealWithSuggestedDestinations(results: [GMSAutocompletePrediction]?) {
+        if let results = results {
+            if results.isEmpty {
+                self.cantFindDestinationLocation()
+                return
+            }
+            if results.count == 1 {
+                var description = results[0].attributedPrimaryText.string
+                if results[0].attributedSecondaryText != nil {
+                    description += " "
+                    description += results[0].attributedSecondaryText!.string
+                }
+                self.startSearch(destination: description)
+            } else {
+                self.suggestedPlaces.removeAll()
+                self.selectingSource = false
+                for result in results {
+                    var description = result.attributedPrimaryText.string
+                    if result.attributedSecondaryText != nil {
+                        description += " "
+                        description += result.attributedSecondaryText!.string
+                    }
+                    self.suggestedPlaces.append(description)
+                }
+                self.selectPlacesInstructionLabel.text = self.selectDestinationText
+                self.suggestedPlacesTableView.reloadData()
+                self.selectPlacesView.isHidden = false
             }
         }
     }
@@ -423,6 +460,11 @@ class RouteDesignerViewController: UIViewController {
             break
         }
     }
+    
+    @IBOutlet weak var selectPlacesInstructionLabel: UILabel!
+    @IBOutlet weak var selectPlacesView: UIView!
+    @IBOutlet weak var suggestedPlacesTableView: UITableView!
+    
     
     // LOADING ANIMATIONS
     
