@@ -97,9 +97,10 @@ class MenuView: UIView {
             UIView.animate(withDuration: menuAnimatingDuration,
                            delay: menuButtonAnimationDelay * Double(index),
                            usingSpringWithDamping: menuSpringCoefficient,
-                           initialSpringVelocity: 0, animations: {
+                           initialSpringVelocity: 0, animations: { [weak self] in
+                guard self != nil else { return }
                 button.alpha = 0
-                button.transform = CGAffineTransform(translationX: 0, y: -self.menuHeight)
+                button.transform = CGAffineTransform(translationX: 0, y: -self!.menuHeight)
             }, completion: { isFinished in
                 inCompletion()
             })

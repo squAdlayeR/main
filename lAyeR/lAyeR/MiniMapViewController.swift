@@ -121,7 +121,7 @@ extension MiniMapViewController {
             let polyline = GMSPolyline(path: path)
             polyline.strokeWidth = 3.0
             polyline.geodesic = true
-            polyline.strokeColor = UIColor(red: 0.4549, green: 0.4078, blue: 0.3333, alpha: 1)
+            polyline.strokeColor = UIColor(red: CGFloat(107.0 / 255), green: CGFloat(185.0 / 255), blue: CGFloat(240 / 255), alpha: 1)
             polyline.map = mapViewS
         }
     }
@@ -137,19 +137,21 @@ extension MiniMapViewController {
     }
     
     private func expandMiniMap() {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-            self.view.frame = CGRect(x: miniMapPaddingRight, y: miniMapPaddingTop,
-                                     width: self.view.bounds.width / miniMapSizePercentage - miniMapPaddingRight * 2,
-                                     height: self.view.bounds.height)
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.view.frame = CGRect(x: miniMapPaddingRight, y: miniMapPaddingTop,
+                                     width: self!.view.bounds.width / miniMapSizePercentage - miniMapPaddingRight * 2,
+                                     height: self!.view.bounds.height)
         }, completion: nil)
     }
     
     private func shrinkMiniMap() {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-            self.view.frame = CGRect(x: self.view.bounds.width + miniMapPaddingRight * 2 - miniMapPaddingRight -  (self.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.view.frame = CGRect(x: self!.view.bounds.width + miniMapPaddingRight * 2 - miniMapPaddingRight -  (self!.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
                                      y: miniMapPaddingTop,
-                                     width: (self.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
-                                     height: self.view.bounds.height)
+                                     width: (self!.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
+                                     height: self!.view.bounds.height)
         }, completion: nil)
     }
     
