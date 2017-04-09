@@ -67,7 +67,11 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
             }
         }
         group.notify(queue: .main) {
-            self.pois = candidates
+            //self.pois = candidates
+            candidates.sort(by: { pt1, pt2 in
+                GeoUtil.getCoordinateDistance(self.userPoint, pt1) < GeoUtil.getCoordinateDistance(self.userPoint, pt2)
+            })
+            self.pois = Array(candidates.prefix(self.appSettings.maxNumberOfMarkers))
             NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName, object: nil)
         }
     }
@@ -95,7 +99,10 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
             }
         }
         group.notify(queue: .main) {
-            self.pois = candidates
+            candidates.sort(by: { pt1, pt2 in
+                GeoUtil.getCoordinateDistance(self.userPoint, pt1) < GeoUtil.getCoordinateDistance(self.userPoint, pt2)
+            })
+            self.pois = Array(candidates.prefix(self.appSettings.maxNumberOfMarkers))
             NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName, object: nil)
         }
         
