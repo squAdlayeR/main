@@ -51,7 +51,7 @@ extension ARViewController {
         let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
         let asset = MDLAsset(url: URL(string: path)!)
         let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
-        arrowNode.geometry?.firstMaterial?.emission.contents = arrowColor
+        arrowNode.geometry?.firstMaterial?.emission.contents = Constant.arrowDefaultColor
         
         arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI / 2), 1, 0, 0)
         arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(M_PI / 2), 0, 1, 0)
@@ -134,9 +134,10 @@ extension ARViewController {
         let yaw = motionManager.getYawAngle()
         let roll = motionManager.getHorzAngleRelToNorth()
         
-        var r1 = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-yaw), 0, 0, 1)
-        r1 = SCNMatrix4Rotate(r1, Float(pitch), 1, 0, 0)
-        r1 = SCNMatrix4Rotate(r1, Float(roll), 0, 1, 0)
+        // Note: the transfomation concatenation is the reversed order
+        var transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-yaw), 0, 0, 1)
+        transform = SCNMatrix4Rotate(transform, Float(pitch), 1, 0, 0)
+        transform = SCNMatrix4Rotate(transform, Float(roll), 0, 1, 0)
         
         if checkpointCardControllers.count > 0 {
             let source = checkpointCardControllers[0].checkpoint
@@ -145,16 +146,17 @@ extension ARViewController {
             let distance = GeoUtil.getCoordinateDistance(userPoint, source)
             let v = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
             
-            r1 = SCNMatrix4Translate(r1, -(v.x), 0, -(v.z))
+            transform = SCNMatrix4Translate(transform, -(v.x), 0, -(v.z))
         }
         
-        cameraNode.transform = r1
+        cameraNode.transform = transform
         
         updateOpacity()
     }
     
     private func updateOpacity() {
-        let opacityGap = Constant.arrowOpacity / Double(Constant.numDisplayedArrow)  // show arorws in the decreasing opacity
+        // show arorws in the decreasing opacity
+        let opacityGap = Constant.arrowOpacity / Double(Constant.numDisplayedArrow)
         for i in 0 ..< arrowNodes.count {
             let opacity = Constant.arrowOpacity - Double(i) * opacityGap
             arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
@@ -169,10 +171,10 @@ extension ARViewController {
     }
     
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
-        // check what nodes are tapped
-        let p = gestureRecognize.location(in: scnView)
-        let hitResults = scnView.hitTest(p, options: [:])
-        // check that we clicked on at least one object
+        let tappedPoint = gestureRecognize.location(in: scnView)
+        let hitResults = scnView.hitTest(tappedPoint, options: [:])
+        
+        // check that click on at least one object
         if hitResults.count > 0 {
             animateMovingOn()
         }
@@ -183,18 +185,22 @@ extension ARViewController {
                     Constant.numDisplayedArrow :
                     arrowNodes.count
         
-        let pr: CGFloat = 1 / 0.18
-        let pg: CGFloat = (1 - 0.9098) / 0.18
-        let pb: CGFloat = (1 - 0.9098) / 0.18
+        let pr: CGFloat = (1 - Constant.arrowDefaultColorR) / 0.18
+        let pg: CGFloat = (1 - Constant.arrowDefaultColorG) / 0.18
+        let pb: CGFloat = (1 - Constant.arrowDefaultColorB) / 0.18
         
         let changeColorAction = SCNAction.sequence([
             SCNAction.customAction(duration: 0.38, action: { (node, time) in
-                let color = UIColor(red: pr * time, green: 0.9098 + pg * time, blue: 0.9098 + pb * time, alpha: 1)
+                let color = UIColor(red: pr * time,
+                                    green: Constant.arrowDefaultColorG + pg * time,
+                                    blue: Constant.arrowDefaultColorB + pb * time, alpha: 1)
                 node.geometry!.firstMaterial!.emission.contents = color
             }),
             
             SCNAction.customAction(duration: 0.28, action: { (node, time) in
-                let color = UIColor(red: 1 - pr * time, green: 1 - pg * time, blue: 1 - pb * time, alpha: 1)
+                let color = UIColor(red: 1 - pr * time,
+                                    green: 1 - pg * time,
+                                    blue: 1 - pb * time, alpha: 1)
                 node.geometry!.firstMaterial!.emission.contents = color
             })
         ])
@@ -207,7 +213,7 @@ extension ARViewController {
         for i in 0 ..< count {
             arrowNodes[i].runAction(SCNAction.sequence([
                 SCNAction.wait(duration: Double(i) * 0.38),
-                SCNAction.group([changeColorAction, floatAction])
+                SCNAction.group([changeColorAction, floatAction])  // parallely
             ]))
         }
     }

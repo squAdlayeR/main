@@ -22,6 +22,14 @@ class Constant {
     static let numDisplayedArrow = 18
     static let arrowGap = 1.8  // Unit: meter
     static let arrowOpacity = 0.38
+    static let arrowDefaultColorR: CGFloat = 0
+    static let arrowDefaultColorG: CGFloat = 0.9098
+    static let arrowDefaultColorB: CGFloat = 0.9098
+    static let arrowDefaultColorAlpha: CGFloat = 1.0
+    static let arrowDefaultColor = UIColor(red: arrowDefaultColorR,
+                                           green: arrowDefaultColorG,
+                                           blue: arrowDefaultColorB,
+                                           alpha: arrowDefaultColorAlpha)
 }
 
 

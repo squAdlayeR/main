@@ -46,8 +46,6 @@ class ARViewController: UIViewController {
     let scene = SCNScene()
     var scnView: SCNView!
     var arrowNodes: [SCNNode] = []
-    let gap = 1.8
-    let arrowColor = UIColor(red: 0, green: 0.9098, blue: 0.9098, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
