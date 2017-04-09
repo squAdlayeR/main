@@ -104,18 +104,32 @@ class DatabaseManager {
                 let route = Route(name, checkPoints)
                 var sourceIndex = -1
                 var destIndex = -1
+                var sourceDist = range
+                var destDist = range
                 for i in 0 ..< route.size {
-                    if GeoUtil.getCoordinateDistance(route.checkPoints[i], source) < range {
+                    let newSourceDist = GeoUtil.getCoordinateDistance(route.checkPoints[i], source)
+                    if newSourceDist < sourceDist {
                         sourceIndex = i
-                    } else if GeoUtil.getCoordinateDistance(route.checkPoints[i], destination) < range {
+                        sourceDist = newSourceDist
+                    }
+                    let newDestDist = GeoUtil.getCoordinateDistance(route.checkPoints[i], destination)
+                    if  newDestDist < destDist {
                         destIndex = i
+                        destDist = newDestDist
                     }
                 }
+                if sourceIndex == destIndex {
+                    continue
+                }
                 if sourceIndex >= 0 && destIndex >= 0 {
-                    let section = destIndex >= sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
+                    let section = destIndex > sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
                     let returnRoute = Route(route.name)
                     for checkpoint in section {
-                        returnRoute.append(checkpoint)
+                        if destIndex > sourceIndex {
+                            returnRoute.append(checkpoint)
+                        } else {
+                            returnRoute.insert(checkpoint, at: 0)
+                        }
                     }
                     routes.append(returnRoute)
                 }

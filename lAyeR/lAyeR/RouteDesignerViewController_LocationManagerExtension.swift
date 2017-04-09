@@ -26,6 +26,7 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
             myLocation = location
             // locationManager.stopUpdatingLocation()
         } else {
+            myLocation = location
             mapView.animate(to: camera)
             changeStartLocation()
         }
