@@ -19,6 +19,9 @@ class Constant {
     static let pathArrowName = "arrow14"
     static let pathArrowExtension = "obj"
     static let movingOnActionKey: String = "movingOnAction"
+    static let numDisplayedArrow = 18
+    static let arrowGap = 1.8  // Unit: meter
+    static let arrowOpacity = 0.38
 }
 
 

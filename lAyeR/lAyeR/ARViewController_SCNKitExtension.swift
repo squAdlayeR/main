@@ -17,19 +17,11 @@ import SceneKit.ModelIO
  The negative direction of z axis points to the North
  */
 extension ARViewController {
-    /**
-     return a SCNNode arrow that points to the North
-    */
-    private func getArrowSCNNode() -> SCNNode {
-        let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
-        let asset = MDLAsset(url: URL(string: path)!)
-        let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
-        arrowNode.geometry?.firstMaterial?.emission.contents = arrowColor
-        
-        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI / 2), 1, 0, 0)
-        arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(M_PI / 2), 0, 1, 0)
-       
-        return arrowNode
+    var firstCheckpoint: GeoPoint? {
+        guard checkpointCardControllers.count > 0 else {
+            return nil
+        }
+        return checkpointCardControllers[0].checkpoint
     }
     
     func prepareScene() {
@@ -42,21 +34,43 @@ extension ARViewController {
         prepareNodes()
     }
     
+    /**
+     remvoe obsolete arrow nodes,
+     then add camera node and arrow nodes
+     */
     func prepareNodes() {
         removeAllArrows()
+        setupArrowNodes()
+        setupCameraNode()
+    }
+    
+    /**
+     return a SCNNode arrow that points to the North
+     */
+    private func getArrowSCNNode() -> SCNNode {
+        let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
+        let asset = MDLAsset(url: URL(string: path)!)
+        let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
+        arrowNode.geometry?.firstMaterial?.emission.contents = arrowColor
         
-        guard checkpointCardControllers.count > 1 else {
+        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI / 2), 1, 0, 0)
+        arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(M_PI / 2), 0, 1, 0)
+        
+        return arrowNode
+    }
+    
+    private func setupArrowNodes() {
+        guard let firstCheckpoint = firstCheckpoint else {
             return
         }
+        let userPoint = geoManager.getLastUpdatedUserPoint()
         
-        var previousOffset = addArrows(from: geoManager.getLastUpdatedUserPoint(), to: checkpointCardControllers[0].checkpoint, firstOffset: 0)
+        var previousOffset = addArrows(from: userPoint, to: firstCheckpoint, firstOffset: 0.8)
         for i in 0 ..< checkpointCardControllers.count - 1 {
             let src = checkpointCardControllers[i].checkpoint
             let dest = checkpointCardControllers[i + 1].checkpoint
             previousOffset = addArrows(from: src, to: dest, firstOffset: previousOffset)
         }
-        
-        setupCameraNode()
     }
     
     private func setupCameraNode() {
@@ -65,22 +79,24 @@ extension ARViewController {
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
     
+    /**
+     add arrows starting from the source to the destination
+     - Parameters: firstOffset  the distance in meters from the source to the first arrow
+     */
     func addArrows(from src: GeoPoint, to dest: GeoPoint, firstOffset: Double) -> Double {
-        guard checkpointCardControllers.count > 0 else {
+        guard let firstPoint = firstCheckpoint else {
             return 0
         }
         
-        let firstPoint = checkpointCardControllers[0].checkpoint
-        
         let srcDestDistance = GeoUtil.getCoordinateDistance(src, dest)
         let srcDestAzimuth = GeoUtil.getAzimuth(between: src, dest)
-        //let num = Int(floor(srcDestDistance / gap) - 1)
-        var currentOffset = firstOffset
+        
         let originSrcDistance = GeoUtil.getCoordinateDistance(firstPoint, src)
         let originSrcAzimuth = GeoUtil.getAzimuth(between: firstPoint, src)
         
         let srcPosition = azimuthDistanceToCoordinate(azimuth: originSrcAzimuth, distance: originSrcDistance)
         
+        var currentOffset = firstOffset
         while currentOffset <= srcDestDistance {
             let arrow = getArrowSCNNode()
         
@@ -90,18 +106,22 @@ extension ARViewController {
             arrow.transform = rotationTransformation
             
             arrow.scale = SCNVector3(x: 1/24, y: 1/24, z: 1/108)
+            
             let distance = currentOffset
             let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: srcDestAzimuth, distance: distance)
-            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -1.8, 0)
+            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -Constant.arrowGap, 0)
             
             arrowNodes.append(arrow)
             scene.rootNode.addChildNode(arrow)
             
-            currentOffset += 1.8
+            currentOffset += Constant.arrowGap
         }
-        return currentOffset
+        return currentOffset - srcDestDistance
     }
     
+    /**
+     remove all arrow nodes from memory
+     */
     private func removeAllArrows() {
         for arrow in arrowNodes {
             arrow.removeFromParentNode()
@@ -134,9 +154,9 @@ extension ARViewController {
     }
     
     private func updateOpacity() {
-        let opacityGap = 0.38 / 12.0  // show the first 8 arrows in the decreasing opacity
+        let opacityGap = Constant.arrowOpacity / Double(Constant.numDisplayedArrow)  // show arorws in the decreasing opacity
         for i in 0 ..< arrowNodes.count {
-            let opacity = 0.66 - Double(i) * opacityGap
+            let opacity = Constant.arrowOpacity - Double(i) * opacityGap
             arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
         }
     }
@@ -159,7 +179,9 @@ extension ARViewController {
     }
     
     func animateMovingOn() {
-        let count = arrowNodes.count > 18 ? 18 : arrowNodes.count
+        let count = arrowNodes.count > Constant.numDisplayedArrow ?
+                    Constant.numDisplayedArrow :
+                    arrowNodes.count
         
         let pr: CGFloat = 1 / 0.18
         let pg: CGFloat = (1 - 0.9098) / 0.18
