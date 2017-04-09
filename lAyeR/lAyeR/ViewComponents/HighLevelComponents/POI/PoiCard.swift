@@ -102,11 +102,23 @@ extension PoiCard {
         self.popupController.addText(with: nameLabel, iconName: descriptionIcon, and: name)
     }
     
-    /// Sets the description of poi
+    /// Sets the address of poi
     /// - Parameter address: the address of the poi
     func setPoiAddress(_ address: String) {
         let sanitizedAddress = address.isEmpty ? infoBlockPlaceHolder : address
         self.popupController.addText(with: poiAddressLabel, iconName: addressIcon, and: sanitizedAddress)
+    }
+    
+    /// Sets the contact of poi
+    /// - Parameter contact: the contact of the poi
+    func setPoiContacet(_ contact: String) {
+        self.popupController.addText(with: poiContactLabel, iconName: contactIcon, and: contact)
+    }
+    
+    /// Sets the website of poi
+    /// - Parameter website: the website of the poi
+    func setPoiWebsite(_ website: String) {
+        self.popupController.addText(with: poiWebsiteLabel, iconName: websiteIcon, and: website)
     }
     
     /// Sets the rating of poi

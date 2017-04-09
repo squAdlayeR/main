@@ -82,6 +82,8 @@ let poiAddressLabel = "ADDRESS"
 let poiPriceLevelLabel = "PRICE LEVEL"
 let poiRatingLabel = "RATING"
 let poiOpenHoursLabel = "OPENING HOURS"
+let poiContactLabel = "CONTACT"
+let poiWebsiteLabel = "WEBSITE"
 
 /// Informative view
 let infoPanelTitleFontColor: UIColor = UIColor.gray
