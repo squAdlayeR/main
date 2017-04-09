@@ -41,9 +41,12 @@ class ARViewController: UIViewController {
     let motionManager = DeviceMotionManager.getInstance()
     let geoManager = GeoManager.getInstance()
 
+    // Defined for view control
     let menuController = MenuViewController()
     let miniMapController = MiniMapViewController()
     var updateSuccessAlertController: BasicAlertController!
+    var mainMenuButton: MenuButtonView!
+
     
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
@@ -57,7 +60,7 @@ class ARViewController: UIViewController {
         super.viewDidLoad()
         addCameraView()
         setupAVCapture()
-        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
+        fov = Double(captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
         monitorNearbyPOIsUpdate()
         monitorCurrentLocationUpdate()
         startObservingDeviceMotion()

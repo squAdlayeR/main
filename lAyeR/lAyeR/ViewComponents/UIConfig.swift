@@ -53,6 +53,8 @@ let titleFontName: String = "HomenajeMod-Regular"
 let titleFontSize: CGFloat = 30
 let titlePadding: CGFloat = 30
 let titlePlaceHolder: String = "Place holder"
+let successTitle: String = "Success"
+let locationUpdateSuccessText = "Current location have been updated!"
 
 /// Buttons
 let buttonFontName: String = "HomenajeMod-Regular"
@@ -105,12 +107,13 @@ let menuAnimatingDuration: TimeInterval = 0.8
 let menuButtonAnimationDelay: TimeInterval = 0.05
 let menuSpringCoefficient: CGFloat = 0.8
 let menuLeftPaddingPercent: CGFloat = 0.15
-let designerIconName: String = "search.png"
-let miniMapIconName: String = "map.png"
-let profileIconName: String = "profile.png"
-let settingsIconName: String = "settings.png"
+let designerIconName: String = "search"
+let miniMapIconName: String = "map"
+let profileIconName: String = "profile"
+let settingsIconName: String = "settings"
 let menuButtonRaidus: CGFloat = 50
-let menuButtonBackgroundImage = "menuButton.png"
+let menuButtonBackgroundImage = "menuButton"
+let menuButtonIcon = "menu"
 
 /// Input view
 let inputFieldFontSize: CGFloat = 26

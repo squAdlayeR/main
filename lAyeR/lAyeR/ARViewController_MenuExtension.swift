@@ -19,15 +19,27 @@ extension ARViewController {
     /// - prepare buttons
     func prepareMenu() {
         prepareMenuGestures()
+        prepareMainMenuButton()
         prepareUpdateSuccessAlert()
         let menuButtons = createMenuButtons()
         menuController.addMenuButtons(menuButtons)
     }
     
+    /// Prepares the main menu button. When it is clicked, it will toggle the menu
+    private func prepareMainMenuButton() {
+        let menuButton = MenuButtonView(radius: menuButtonRaidus, iconName: menuButtonIcon)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(toggleMenu))
+        menuButton.addGestureRecognizer(tap)
+        mainMenuButton = menuButton
+        mainMenuButton.center = CGPoint(x: view.bounds.width * menuLeftPaddingPercent,
+                                        y: view.bounds.height - view.bounds.width * menuLeftPaddingPercent)
+        view.addSubview(mainMenuButton)
+    }
+    
     /// Prepares the updated successful alert
     private func prepareUpdateSuccessAlert() {
         let alertFrame = CGRect(x: 0, y: 0, width: suggestedPopupWidth, height: suggestedPopupHeight)
-        updateSuccessAlertController = BasicAlertController(title: "Success", frame: alertFrame)
+        updateSuccessAlertController = BasicAlertController(title: successTitle, frame: alertFrame)
         updateSuccessAlertController.alertView.center = view.center
         let closeButton = createCloseButton()
         updateSuccessAlertController.addButtonToAlert(closeButton)
@@ -39,7 +51,7 @@ extension ARViewController {
     /// - Returns: a ui label with success text
     private func createSuccessText() -> UILabel {
         let label = UILabel()
-        label.text = "Current location have been updated!"
+        label.text = locationUpdateSuccessText
         label.font = UIFont(name: alterDefaultFontLight, size: buttonFontSize)
         label.textAlignment = NSTextAlignment.center
         label.lineBreakMode = .byWordWrapping
@@ -56,12 +68,6 @@ extension ARViewController {
         newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
         newButton.addTarget(self, action: #selector(closeSuccessAlert), for: .touchUpInside)
         return newButton
-    }
-    
-    func closeSuccessAlert() {
-        updateSuccessAlertController.closeAlert()
-        geoManager.forceUpdateUserNearbyPOIS()
-        geoManager.forceUpdateUserPoint()
     }
     
     /// Creates necessary buttons in the menu. This includes
@@ -114,6 +120,8 @@ extension ARViewController {
         return miniMapButton
     }
     
+    /// Creates a refresh button for updating people current locations
+    /// - Returns: a refresh button for update
     private func createRefreshButton() -> MenuButtonView {
         let refreshButton = MenuButtonView(radius: menuButtonRaidus, iconName: "refresh")
         let tap = UITapGestureRecognizer(target: self, action: #selector(forceUpdateLocation))
@@ -144,11 +152,28 @@ extension ARViewController {
         miniMapController.toggleMiniMap()
     }
     
+    /// Force updates the user current location and nearby pois
     func forceUpdateLocation() {
         menuController.remove()
         updateSuccessAlertController.presentAlert(within: view)
         view.bringSubview(toFront: updateSuccessAlertController.alertView)
         geoManager.forceUpdateUserPoint()
+    }
+    
+    /// Closes the success alert
+    func closeSuccessAlert() {
+        updateSuccessAlertController.closeAlert()
+        geoManager.forceUpdateUserNearbyPOIS()
+        geoManager.forceUpdateUserPoint()
+    }
+    
+    /// Toggles the menu
+    func toggleMenu() {
+        if menuController.isOpened {
+            menuController.remove()
+            return
+        }
+        menuController.present(inside: view)
     }
     
     /// Prepares the gestures to call out / close menu
