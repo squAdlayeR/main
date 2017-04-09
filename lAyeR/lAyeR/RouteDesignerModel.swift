@@ -19,7 +19,6 @@ class RouteDesignerModel {
         if let originLocation = origin {
             if let destinationLocation = destination {
                 var directionsURLString = baseURLDirections + "origin=" + originLocation + "&destination=" + destinationLocation + "&mode=walking"
-                print (directionsURLString)
                 if let routeWaypoints = waypoints {
                     directionsURLString += "&waypoints=optimize:true"
                     
