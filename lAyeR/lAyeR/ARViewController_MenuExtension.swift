@@ -77,11 +77,10 @@ extension ARViewController {
     /// - Returns: the corresponding buttons
     private func createMenuButtons() -> [MenuButtonView] {
         let mapButton = createMapButton()
-        let miniMapButton = createMiniMapButton()
         let profileButton = createProfileButton()
         let settingsButton = createSettingsButton()
         let refreshButton = createRefreshButton()
-        return [mapButton, miniMapButton, profileButton, settingsButton, refreshButton]
+        return [mapButton, profileButton, settingsButton, refreshButton]
     }
     
     /// Creates a map button
@@ -111,15 +110,6 @@ extension ARViewController {
         return profileButton
     }
     
-    /// Creates a button that would be used to toggle mini map
-    /// - Returns: a mini map toggle button
-    private func createMiniMapButton() -> MenuButtonView {
-        let miniMapButton = MenuButtonView(radius: menuButtonRaidus, iconName: miniMapIconName)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(toggleMiniMap))
-        miniMapButton.addGestureRecognizer(tap)
-        return miniMapButton
-    }
-    
     /// Creates a refresh button for updating people current locations
     /// - Returns: a refresh button for update
     private func createRefreshButton() -> MenuButtonView {
@@ -145,11 +135,6 @@ extension ARViewController {
     func openDesigner() {
         menuController.remove()
         self.performSegue(withIdentifier: "arToDegisnerSegue", sender: nil)
-    }
-    
-    /// Toggles the mini map
-    func toggleMiniMap() {
-        miniMapController.toggleMiniMap()
     }
     
     /// Force updates the user current location and nearby pois

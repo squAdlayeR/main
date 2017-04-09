@@ -16,13 +16,25 @@ import GoogleMaps
 class MiniMapViewController: UIViewController, GMSMapViewDelegate {
     
     // The main map view
-    var mapView: GMSMapView!
+    var mapViewS: GMSMapView!
     
     // Defines geo manager for location queries
     var geoManager = GeoManager.getInstance()
     
     // See whether the mini map is open or not
-    var isOpened = false
+    var isExpanded = false
+    
+    var checkpointCardControllers: [CheckpointCardController] = [] {
+        didSet {
+            drawCheckpoint()
+        }
+    }
+    
+    var poiCardControllers: [PoiCardController] = [] {
+        didSet {
+            
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,28 +46,28 @@ class MiniMapViewController: UIViewController, GMSMapViewDelegate {
         let camera = GMSCameraPosition.camera(withLatitude: geoManager.getLastUpdatedUserPoint().latitude,
                                               longitude: geoManager.getLastUpdatedUserPoint().longitude,
                                               zoom: miniMapZoomLevel)
-        mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
+        mapViewS = GMSMapView.map(withFrame: view.bounds, camera: camera)
         stylizeGMap()
         changeGMapSettings()
-        mapView.animate(to: camera)
-        view.addSubview(mapView)
+        mapViewS.animate(to: camera)
+        view.addSubview(mapViewS)
     }
     
     /// Change the styling of the google map, which includes:
     /// - the overall styling through json provided by google
     /// - alpha of the map
     private func stylizeGMap() {
-        mapView.mapStyle = try? GMSMapStyle(jsonString: kMapStyle)
-        mapView.alpha = miniMapAlpha
+        mapViewS.mapStyle = try? GMSMapStyle(jsonString: kMapStyle)
+        mapViewS.alpha = miniMapAlpha
     }
     
     /// Change the overall map settings
     private func changeGMapSettings() {
-        mapView.settings.myLocationButton = false
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.isMyLocationEnabled = true
-        mapView.delegate = self
-        mapView.settings.setAllGesturesEnabled(false)
+        mapViewS.settings.myLocationButton = false
+        mapViewS.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapViewS.isMyLocationEnabled = true
+        mapViewS.delegate = self
+        mapViewS.settings.setAllGesturesEnabled(false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,7 +84,7 @@ extension MiniMapViewController {
     /// Updates the current location to be displayed on the minimap
     /// - Parameter currentLocation: the current location of the user, represented by a geo point
     func updateMiniMap(with currentLocation: GeoPoint) {
-        mapView.animate(to: GMSCameraPosition.camera(withLatitude: currentLocation.latitude,
+        mapViewS.animate(to: GMSCameraPosition.camera(withLatitude: currentLocation.latitude,
                                                      longitude: currentLocation.longitude,
                                                      zoom: miniMapZoomLevel))
     }
@@ -83,40 +95,62 @@ extension MiniMapViewController {
         let mapViewFrame = CGRect(x: 0, y: 0,
                                   width: superView.bounds.width * miniMapSizePercentage,
                                   height: superView.bounds.width * miniMapSizePercentage)
-        let center = CGPoint(x: superView.bounds.width - miniMapPaddingRight - mapViewFrame.width / 2,
-                             y: mapViewFrame.width / 2 + miniMapPaddingTop)
+        let center = CGPoint(x: superView.bounds.width - mapViewFrame.width / 2 - miniMapPaddingRight,
+                             y: mapViewFrame.height / 2 + miniMapPaddingTop)
         view.frame = mapViewFrame
         view.center = center
-        mapView.layer.cornerRadius = miniMapBorderRadius
-        mapView.layer.masksToBounds = true
+        view.backgroundColor = UIColor.clear
+        view.layer.cornerRadius = miniMapBorderRadius
+        view.layer.masksToBounds = true
         superView.addSubview(view)
-        view.transform = CGAffineTransform(translationX: view.bounds.height + miniMapPaddingRight, y: 0)
     }
     
-    /// Toggles the mini map
-    func toggleMiniMap() {
-        if isOpened {
-            hideMiniMap()
-            isOpened = false
+    func drawCheckpoint() {
+        mapViewS.clear()
+        guard checkpointCardControllers.count > 0 else { return }
+        for index in 0..<checkpointCardControllers.count - 1 {
+            let fromCheckpoint = checkpointCardControllers[index].checkpoint
+            let toCheckpoint = checkpointCardControllers[index + 1].checkpoint
+            let from = CLLocationCoordinate2D(latitude: fromCheckpoint.latitude,
+                                              longitude: fromCheckpoint.longitude)
+            let to = CLLocationCoordinate2D(latitude: toCheckpoint.latitude,
+                                            longitude: toCheckpoint.longitude)
+            let path = GMSMutablePath()
+            path.add(from)
+            path.add(to)
+            let polyline = GMSPolyline(path: path)
+            polyline.strokeWidth = 3.0
+            polyline.geodesic = true
+            polyline.strokeColor = UIColor(red: 0.4549, green: 0.4078, blue: 0.3333, alpha: 1)
+            polyline.map = mapViewS
+        }
+    }
+    
+    func toggleMiniMapSize() {
+        if isExpanded {
+            shrinkMiniMap()
+            isExpanded = false
             return
         }
-        showMiniMap()
-        isOpened = true
+        expandMiniMap()
+        isExpanded = true
     }
     
-    /// Shows the mini map with animation
-    private func showMiniMap() {
-        hideMiniMap()
-        UIView.animate(withDuration: 0.2, animations: {
-            self.view.transform = CGAffineTransform(translationX: 0, y: 0)
-        })
+    private func expandMiniMap() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+            self.view.frame = CGRect(x: miniMapPaddingRight, y: miniMapPaddingTop,
+                                     width: self.view.bounds.width / miniMapSizePercentage - miniMapPaddingRight * 2,
+                                     height: self.view.bounds.height)
+        }, completion: nil)
     }
     
-    /// Hides the mini map with animation
-    private func hideMiniMap() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.view.transform = CGAffineTransform(translationX: self.view.bounds.height + miniMapPaddingRight, y: 0)
-        })
+    private func shrinkMiniMap() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+            self.view.frame = CGRect(x: self.view.bounds.width + miniMapPaddingRight * 2 - miniMapPaddingRight -  (self.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
+                                     y: miniMapPaddingTop,
+                                     width: (self.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
+                                     height: self.view.bounds.height)
+        }, completion: nil)
     }
     
 }

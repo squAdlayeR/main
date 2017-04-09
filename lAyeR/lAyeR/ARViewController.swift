@@ -33,7 +33,11 @@ class ARViewController: UIViewController {
     var done = false
     
     var cameraView: UIView!
-    var checkpointCardControllers: [CheckpointCardController] = []
+    var checkpointCardControllers: [CheckpointCardController] = [] {
+        didSet {
+            miniMapController.checkpointCardControllers = checkpointCardControllers
+        }
+    }
     private var currentPoiCardControllers: [PoiCardController] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
@@ -83,6 +87,12 @@ class ARViewController: UIViewController {
     /// Prepares the minimap view
     private func prepareMiniMap() {
         miniMapController.prepareMiniMapView(inside: view)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(toggleMiniMapSize))
+        miniMapController.view.addGestureRecognizer(tap)
+    }
+    
+    func toggleMiniMapSize() {
+        miniMapController.toggleMiniMapSize()
     }
     
     private func monitorNearbyPOIsUpdate() {
