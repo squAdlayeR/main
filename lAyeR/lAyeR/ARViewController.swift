@@ -193,7 +193,7 @@ class ARViewController: UIViewController {
             if let destName = cardDestination {
                 let currentUserPoint = geoManager.getLastUpdatedUserPoint()
                 dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
-                dest.searchBar.text = destName
+                dest.importedSearchDestination = destName
                 dest.getDirections(origin: "\(currentUserPoint.latitude) \(currentUserPoint.longitude)",
                     destination: destName,
                     waypoints: nil,

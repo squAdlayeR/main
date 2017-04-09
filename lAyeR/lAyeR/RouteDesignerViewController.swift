@@ -67,6 +67,7 @@ class RouteDesignerViewController: UIViewController {
     // Segue
     var importedURL: URL?
     var importedRoutes: [Route]?
+    var importedSearchDestination: String?
 
     func checkRepMarkersAndLines(aMarkers: [GMSMarker], aLines: [GMSPolyline]) -> Bool {
         if aMarkers.isEmpty {
@@ -128,6 +129,7 @@ class RouteDesignerViewController: UIViewController {
         searchBar.delegate = self
         sourceBar.returnKeyType = UIReturnKeyType.done
         sourceBar.delegate = self
+        searchBar.text = importedSearchDestination
         
         addPanGesture()
         addTapCurrentLocationGesture()
