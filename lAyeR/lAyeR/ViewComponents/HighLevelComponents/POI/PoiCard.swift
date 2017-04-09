@@ -47,13 +47,11 @@ class PoiCard: Card {
     private func initializeCardIcon(with type: String) {
         var sanitizedType = type
         if let category = POICategory(rawValue: type) {
-            let icon = ResourceManager.getImageView(by: category.rawValue)
-            self.markerCard.setIconImage(icon)
+            self.markerCard.setIcon(with: category)
             return
         }
         sanitizedType = otherIconType
-        let icon = ResourceManager.getImageView(by: sanitizedType)
-        self.markerCard.setIconImage(icon)
+        self.markerCard.setIcon(with: POICategory(rawValue: sanitizedType)!)
     }
     
     /// Initializes the card title

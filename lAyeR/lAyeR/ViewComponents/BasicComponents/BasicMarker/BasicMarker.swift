@@ -65,6 +65,8 @@ class BasicMarker: UIView {
     private func prepareDisplay() {
         self.addSubview(self.icon)
         self.addSubview(self.info)
+        self.layer.cornerRadius = 10
+        self.layer.masksToBounds = true
     }
     
     /// Sets the distance displayed on the marker
@@ -75,8 +77,10 @@ class BasicMarker: UIView {
     
     /// Sets the icon image displayed on the marker
     /// - Parameter iconImage: the icon image to be displayed
-    func setIconImage(_ iconImage: UIImageView) {
-        self.icon.icon = iconImage
+    func setIcon(with category: POICategory) {
+        let icon = UIImage(named: "\(category.rawValue)-colored")
+        let iconView = UIImageView(image: icon)
+        self.icon.icon = iconView
     }
 
     /// Sets the blur mode of the sub elements

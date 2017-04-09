@@ -36,7 +36,7 @@ class MarkerIcon: UIView {
     
     // Sets blur mode. If it is true, blur view should
     // be shown.
-    var blurMode: Bool = false {
+    var blurMode: Bool = true {
         didSet {
             if blurMode {
                 backgroundImageView.isHidden = true
