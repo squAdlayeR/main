@@ -154,7 +154,7 @@ extension ARViewController {
     
     /// Toggles the menu
     func toggleMenu() {
-        if menuController.isOpened {
+        if menuController.isOpened! {
             menuController.remove()
             return
         }

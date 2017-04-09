@@ -61,6 +61,9 @@ class RouteDesignerViewController: UIViewController {
     var tappedMarker = GMSMarker()
     var infoWindow = MarkerPopupView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
     
+    var tableView: UITableView  =   UITableView()
+    var suggestedPlaces = [String]()
+    
     @IBOutlet weak var loadingLayerRoutesIcon: UIActivityIndicatorView!
     @IBOutlet weak var loadingGpsRoutesIcon: UIActivityIndicatorView!
 
@@ -402,6 +405,23 @@ class RouteDesignerViewController: UIViewController {
     
     @IBAction func showGpsRoutes(_ sender: Any) {
         
+    }
+    
+    @IBOutlet weak var mapTypeButton: UIButton!
+    @IBAction func toggleMapType(_ sender: Any) {
+        switch mapTypeButton.titleLabel!.text! {
+        case "Map View":
+            mapTypeButton.setTitle("Satellite View", for: .normal)
+            mapView.mapType = .satellite
+        case "Satellite View":
+            mapTypeButton.setTitle("Hybrid View", for: .normal)
+            mapView.mapType = .hybrid
+        case "Hybrid View":
+            mapTypeButton.setTitle("Map View", for: .normal)
+            mapView.mapType = .normal
+        default:
+            break
+        }
     }
     
     // LOADING ANIMATIONS
