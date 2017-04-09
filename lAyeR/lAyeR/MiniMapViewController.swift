@@ -24,16 +24,9 @@ class MiniMapViewController: UIViewController, GMSMapViewDelegate {
     // See whether the mini map is open or not
     var isExpanded = false
     
+    // Defines the checkpoints that will be shown on the minimap
     var checkpointCardControllers: [CheckpointCardController] = [] {
-        didSet {
-            drawCheckpoint()
-        }
-    }
-    
-    var poiCardControllers: [PoiCardController] = [] {
-        didSet {
-            
-        }
+        didSet { drawPath() }
     }
 
     override func viewDidLoad() {
@@ -105,27 +98,40 @@ extension MiniMapViewController {
         superView.addSubview(view)
     }
     
-    func drawCheckpoint() {
+    /// Draws the path that is directing to the destination
+    func drawPath() {
         mapViewS.clear()
         guard checkpointCardControllers.count > 0 else { return }
         for index in 0..<checkpointCardControllers.count - 1 {
-            let fromCheckpoint = checkpointCardControllers[index].checkpoint
-            let toCheckpoint = checkpointCardControllers[index + 1].checkpoint
-            let from = CLLocationCoordinate2D(latitude: fromCheckpoint.latitude,
-                                              longitude: fromCheckpoint.longitude)
-            let to = CLLocationCoordinate2D(latitude: toCheckpoint.latitude,
-                                            longitude: toCheckpoint.longitude)
-            let path = GMSMutablePath()
-            path.add(from)
-            path.add(to)
-            let polyline = GMSPolyline(path: path)
-            polyline.strokeWidth = 3.0
-            polyline.geodesic = true
-            polyline.strokeColor = UIColor(red: 0.4549, green: 0.4078, blue: 0.3333, alpha: 1)
-            polyline.map = mapViewS
+            let from = getCLLocation(of: checkpointCardControllers[index].checkpoint)
+            let to = getCLLocation(of: checkpointCardControllers[index + 1].checkpoint)
+            createPath(from: from, to: to)
         }
     }
     
+    /// Gets the CL location of a check point
+    /// - Parameter checkpoint: the check point that is to get location
+    /// - Returns: the corresponding CL location
+    private func getCLLocation(of checkpoint: CheckPoint) -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude)
+    }
+    
+    /// Creates a path between point one and point two.
+    /// - Parameters:
+    ///     - pointOne: the first check point
+    ///     - pointTwo: the second check point
+    private func createPath(from pointOne: CLLocationCoordinate2D, to pointTwo: CLLocationCoordinate2D) {
+        let path = GMSMutablePath()
+        path.add(pointOne)
+        path.add(pointTwo)
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeWidth = miniMapStrokeWidth
+        polyline.geodesic = true
+        polyline.strokeColor = miniMapStrokeColor
+        polyline.map = mapViewS
+    }
+    
+    /// Toggles the size of the mini map
     func toggleMiniMapSize() {
         if isExpanded {
             shrinkMiniMap()
@@ -136,20 +142,24 @@ extension MiniMapViewController {
         isExpanded = true
     }
     
+    /// Defines animation of expanding the mini map
     private func expandMiniMap() {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-            self.view.frame = CGRect(x: miniMapPaddingRight, y: miniMapPaddingTop,
-                                     width: self.view.bounds.width / miniMapSizePercentage - miniMapPaddingRight * 2,
-                                     height: self.view.bounds.height)
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.view.frame = CGRect(x: miniMapPaddingRight, y: miniMapPaddingTop,
+                                     width: self!.view.bounds.width / miniMapSizePercentage - miniMapPaddingRight * 2,
+                                     height: self!.view.bounds.height)
         }, completion: nil)
     }
     
+    /// Defines animation of shrinking the mini map
     private func shrinkMiniMap() {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-            self.view.frame = CGRect(x: self.view.bounds.width + miniMapPaddingRight * 2 - miniMapPaddingRight -  (self.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.view.frame = CGRect(x: self!.view.bounds.width + miniMapPaddingRight * 2 - miniMapPaddingRight -  (self!.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
                                      y: miniMapPaddingTop,
-                                     width: (self.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
-                                     height: self.view.bounds.height)
+                                     width: (self!.view.bounds.width + miniMapPaddingRight * 2) * miniMapSizePercentage,
+                                     height: self!.view.bounds.height)
         }, completion: nil)
     }
     

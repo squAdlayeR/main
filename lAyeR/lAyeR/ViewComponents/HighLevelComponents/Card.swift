@@ -107,16 +107,18 @@ extension Card {
     /// Opens the popup
     func openPopup() {
         popupController.presentAlert(within: superView)
-        UIView.animate(withDuration: 0.2, animations: {
-            self.markerCard.alpha = 0
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.markerCard.alpha = 0
         })
     }
     
     /// Closes the popup
     func closePopup() {
         popupController.closeAlert()
-        UIView.animate(withDuration: 0.2, animations: {
-            self.markerCard.alpha = 1
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.markerCard.alpha = 1
         })
     }
     
