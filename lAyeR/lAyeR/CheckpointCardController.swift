@@ -17,7 +17,7 @@ class CheckpointCardController {
     private var arrow: ArrowView!
     
     private var isInsideView: Bool {
-        guard let superView = card.superView else {
+        guard let superView = card.superViewController.view else {
             return false
         }
         return card.markerCard.frame.intersects(superView.frame)
@@ -41,7 +41,7 @@ class CheckpointCardController {
     func setSelected(_ selected: Bool) {
         self.selected = selected
         
-        guard let superView = card.superView else {
+        guard let superView = card.superViewController.view else {
             return
         }
         if selected {
@@ -78,7 +78,7 @@ class CheckpointCardController {
     
     
     private func displayArrow() {
-        guard let superView = card.superView else {
+        guard let superView = card.superViewController.view else {
             return
         }
         arrow.isHidden = false

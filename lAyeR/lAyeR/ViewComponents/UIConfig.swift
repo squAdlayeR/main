@@ -31,6 +31,7 @@ let defaultBorderWidth: CGFloat = 1
 let lightBlue = UIColor(red: CGFloat(1.0 / 255), green: CGFloat(159.0 / 255),
                         blue: CGFloat(232.0 / 255), alpha: 1)
 let labelIconWidth: CGFloat = 15
+let alertViewZPosition: CGFloat = 10000
 
 /// Labels
 let nameLabel: String = "NAME"

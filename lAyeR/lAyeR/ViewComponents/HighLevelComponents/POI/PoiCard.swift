@@ -25,14 +25,16 @@ import UIKit
  */
 class PoiCard: Card {
     
+    var name: String?
+    
     /// Initializes the poi view controller
     /// - Parameters:
     ///     - center: the initial center of the marker
     ///     - distance: the distance between current place and that place
     ///     - type: the type of the poi
     ///     - superView: the view that this popup & marker is attached to
-    init(center: CGPoint, distance: Double, type: String, superView: UIView) {
-        super.init(center: center, distance: distance, superView: superView)
+    init(center: CGPoint, distance: Double, type: String, superViewController: UIViewController) {
+        super.init(center: center, distance: distance, superViewController: superViewController)
         initializeCardTitle()
         initializeCardButtons()
         initializeCardIcon(with: type)
@@ -84,7 +86,7 @@ class PoiCard: Card {
         let newButton = UIButton()
         newButton.setTitle(directLabelText, for: .normal)
         newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
-        // TODO: add action here
+        newButton.addTarget(self, action: #selector(segueToDesigner), for: .touchUpInside)
         return newButton
     }
     
@@ -99,6 +101,7 @@ extension PoiCard {
     /// Sets the name of poi
     /// - Parameter name: the name of the poi
     func setPoiName(_ name: String) {
+        self.name = name
         self.popupController.addText(with: nameLabel, iconName: descriptionIcon, and: name)
     }
     

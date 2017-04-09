@@ -50,7 +50,7 @@ class ARViewController: UIViewController {
     let miniMapController = MiniMapViewController()
     var updateSuccessAlertController: BasicAlertController!
     var mainMenuButton: MenuButtonView!
-
+    var cardDestination: String?
     
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
@@ -131,7 +131,7 @@ class ARViewController: UIViewController {
         for newPoi in lastUpdatedPOIs {
             if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
                 group.enter()
-                let poiCard = PoiCard(center: self.view.center, distance: 0, type: newPoi.types.first!, superView: self.view)
+                let poiCard = PoiCard(center: self.view.center, distance: 0, type: newPoi.types.first!, superViewController: self)
                 geoManager.getDetailedPOIInfo(newPoi) { poi in
                     if let name = poi.name { poiCard.setPoiName(name) }
                     if let address = poi.vicinity { poiCard.setPoiAddress(address) }
@@ -183,6 +183,15 @@ class ARViewController: UIViewController {
         if segue.identifier == "arToDesignerImport" {
             if let url = sender as? URL, let dest = segue.destination as? RouteDesignerViewController {
                 dest.importedURL = url
+            }
+            return
+        }
+        if segue.identifier == "arToDesignerWithDirect" {
+            guard let dest = segue.destination as? RouteDesignerViewController else { return }
+            if let destName = cardDestination {
+                let currentUserPoint = geoManager.getLastUpdatedUserPoint()
+                dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
+                dest.getDirections(origin: "\(currentUserPoint.latitude) \(currentUserPoint.longitude)", destination: destName, waypoints: nil, removeAllPoints: true, at: 0, completion: dest.getGpsRoutesUponCompletionOfGoogle(result:))
             }
         }
     }

@@ -22,7 +22,7 @@ class Card: NSObject {
     
     // The superview in which the marker and the popup will be
     // displayed
-    var superView: UIView!
+    var superViewController: UIViewController!
     
     // Specifies the center of the card
     var center: CGPoint!
@@ -33,10 +33,10 @@ class Card: NSObject {
     ///     - distance: distance to that place that the card is representing
     ///     - superView: the super view in which the marker card & popup will
     ///         be displayed
-    init(center: CGPoint, distance: Double, superView: UIView) {
+    init(center: CGPoint, distance: Double, superViewController: UIViewController) {
         super.init()
         self.center = center
-        self.superView = superView
+        self.superViewController = superViewController
         initMarker(with: CGFloat(distance))
         initAlert()
         prepareDisplay()
@@ -74,7 +74,7 @@ class Card: NSObject {
     
     /// Prepares the card view for display
     private func prepareDisplay() {
-        superView.addSubview(markerCard)
+        superViewController.view.addSubview(markerCard)
     }
     
     /// Calculates the frame of the marker
@@ -90,10 +90,10 @@ class Card: NSObject {
     /// - Note: the frame is defined by suggested popup height/width, which are
     ///     defined in config
     private var popupFrame: CGRect {
-        let suggestdPopupW = superView.bounds.width * 0.8 <= 500 ? superView.bounds.width * 0.8 : 500
-        let suggsetdPopupH = superView.bounds.height * 0.5 <= 800 ? superView.bounds.height * 0.5 : 800
-        let originX = superView.center.x - suggestdPopupW / 2
-        let originY = superView.center.y - suggsetdPopupH / 2
+        let suggestdPopupW = superViewController.view.bounds.width * 0.8 <= 500 ? superViewController.view.bounds.width * 0.8 : 500
+        let suggsetdPopupH = superViewController.view.bounds.height * 0.5 <= 800 ? superViewController.view.bounds.height * 0.5 : 800
+        let originX = superViewController.view.center.x - suggestdPopupW / 2
+        let originY = superViewController.view.center.y - suggsetdPopupH / 2
         return CGRect(x: originX, y: originY, width: suggestdPopupW, height: suggsetdPopupH)
     }
     
@@ -106,7 +106,7 @@ extension Card {
     
     /// Opens the popup
     func openPopup() {
-        popupController.presentAlert(within: superView)
+        popupController.presentAlert(within: superViewController.view)
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             guard self != nil else { return }
             self!.markerCard.alpha = 0
@@ -120,6 +120,15 @@ extension Card {
             guard self != nil else { return }
             self!.markerCard.alpha = 1
         })
+    }
+    
+    func segueToDesigner() {
+        guard self is PoiCard else { return }
+        let poiCard = self as! PoiCard
+        if let name = poiCard.name, let superController = superViewController as? ARViewController {
+            superController.cardDestination = name
+            superViewController.performSegue(withIdentifier: "arToDesignerWithDirect", sender: nil)
+        }
     }
     
     /// Updates the distance that will be displayed on marker card
