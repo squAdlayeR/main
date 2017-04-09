@@ -12,7 +12,6 @@ import GooglePlaces
 
 class RouteDesignerModel {
 
-    let baseURLGeocode = "https://maps.googleapis.com/maps/api/geocode/json?"
     let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
     
     func getDirections(origin: String!, destination: String!, waypoints: Array<String>?, at markersIdx: Int, completion: @escaping (_ result: Bool, _ path: GMSPath?)->()) {
@@ -20,6 +19,7 @@ class RouteDesignerModel {
         if let originLocation = origin {
             if let destinationLocation = destination {
                 var directionsURLString = baseURLDirections + "origin=" + originLocation + "&destination=" + destinationLocation + "&mode=walking"
+                print (directionsURLString)
                 if let routeWaypoints = waypoints {
                     directionsURLString += "&waypoints=optimize:true"
                     
@@ -87,5 +87,22 @@ class RouteDesignerModel {
             routes.append(contentsOf: dbRoutes)
             completion(routes)
         }
+    }
+    
+    func getGpsRoutes(source: GeoPoint, dest: GeoPoint, completion: @escaping (_ routes: [Route]) -> ()) {
+        let queryRadiusInCoordinates = 0.00001 * UserConfig.queryRadius
+        let minLat = min(source.latitude, dest.latitude)
+        let maxLat = max(source.latitude, dest.latitude)
+        let minLon = min(source.longitude, dest.longitude)
+        let maxLon = max(source.longitude, dest.longitude)
+        let bottomLeft = GeoPoint(minLat - queryRadiusInCoordinates, minLon - queryRadiusInCoordinates)
+        let topRight = GeoPoint(maxLat + queryRadiusInCoordinates, maxLon + queryRadiusInCoordinates)
+        var routes = [Route]()
+        return completion(routes)
+//        DatabaseManager.instance.getRectFromDatabase(from: bottomLeft, to: topRight) { (points) -> () in
+//            // points is [TrackPoint]
+//            
+//            
+//        }
     }
 }
