@@ -17,19 +17,11 @@ import SceneKit.ModelIO
  The negative direction of z axis points to the North
  */
 extension ARViewController {
-    /**
-     return a SCNNode arrow that points to the North
-    */
-    private func getArrowSCNNode() -> SCNNode {
-        let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
-        let asset = MDLAsset(url: URL(string: path)!)
-        let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
-        arrowNode.geometry?.firstMaterial?.emission.contents = arrowColor
-        
-        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI / 2), 1, 0, 0)
-        arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(M_PI / 2), 0, 1, 0)
-       
-        return arrowNode
+    var firstCheckpoint: GeoPoint? {
+        guard checkpointCardControllers.count > 0 else {
+            return nil
+        }
+        return checkpointCardControllers[0].checkpoint
     }
     
     func prepareScene() {
@@ -42,19 +34,43 @@ extension ARViewController {
         prepareNodes()
     }
     
+    /**
+     remvoe obsolete arrow nodes,
+     then add camera node and arrow nodes
+     */
     func prepareNodes() {
         removeAllArrows()
+        setupArrowNodes()
+        setupCameraNode()
+    }
+    
+    /**
+     return a SCNNode arrow that points to the North
+     */
+    private func getArrowSCNNode() -> SCNNode {
+        let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
+        let asset = MDLAsset(url: URL(string: path)!)
+        let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
+        arrowNode.geometry?.firstMaterial?.emission.contents = Constant.arrowDefaultColor
         
-        guard checkpointCardControllers.count > 1 else {
+        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI / 2), 1, 0, 0)
+        arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(M_PI / 2), 0, 1, 0)
+        
+        return arrowNode
+    }
+    
+    private func setupArrowNodes() {
+        guard let firstCheckpoint = firstCheckpoint else {
             return
         }
+        let userPoint = geoManager.getLastUpdatedUserPoint()
+        
+        var previousOffset = addArrows(from: userPoint, to: firstCheckpoint, firstOffset: 0.8)
         for i in 0 ..< checkpointCardControllers.count - 1 {
             let src = checkpointCardControllers[i].checkpoint
             let dest = checkpointCardControllers[i + 1].checkpoint
-            addArrows(from: src, to: dest)
+            previousOffset = addArrows(from: src, to: dest, firstOffset: previousOffset)
         }
-        
-        setupCameraNode()
     }
     
     private func setupCameraNode() {
@@ -63,23 +79,25 @@ extension ARViewController {
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
     
-    func addArrows(from src: GeoPoint, to dest: GeoPoint) {
-        guard checkpointCardControllers.count > 0 else {
-            return
+    /**
+     add arrows starting from the source to the destination
+     - Parameters: firstOffset  the distance in meters from the source to the first arrow
+     */
+    func addArrows(from src: GeoPoint, to dest: GeoPoint, firstOffset: Double) -> Double {
+        guard let firstPoint = firstCheckpoint else {
+            return 0
         }
         
-        let firstPoint = checkpointCardControllers[0].checkpoint
-        
         let srcDestDistance = GeoUtil.getCoordinateDistance(src, dest)
-        let azimuth = GeoUtil.getAzimuth(between: src, dest)
-        let num = Int(floor(srcDestDistance / gap) - 1)
+        let srcDestAzimuth = GeoUtil.getAzimuth(between: src, dest)
         
         let originSrcDistance = GeoUtil.getCoordinateDistance(firstPoint, src)
         let originSrcAzimuth = GeoUtil.getAzimuth(between: firstPoint, src)
         
         let srcPosition = azimuthDistanceToCoordinate(azimuth: originSrcAzimuth, distance: originSrcDistance)
         
-        for i in 1 ... num {
+        var currentOffset = firstOffset
+        while currentOffset <= srcDestDistance {
             let arrow = getArrowSCNNode()
         
             let rotationTransformation = SCNMatrix4Rotate(arrow.transform,
@@ -87,16 +105,23 @@ extension ARViewController {
                                                           0, 1, 0)
             arrow.transform = rotationTransformation
             
-            arrow.scale = SCNVector3(x: 1/28, y: 1/28, z: 1/108)
-            let distance = gap * Double(i)
-            let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
-            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -1.8, 0)
+            arrow.scale = SCNVector3(x: 1/24, y: 1/24, z: 1/108)
+            
+            let distance = currentOffset
+            let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: srcDestAzimuth, distance: distance)
+            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -Constant.arrowGap, 0)
             
             arrowNodes.append(arrow)
             scene.rootNode.addChildNode(arrow)
+            
+            currentOffset += Constant.arrowGap
         }
+        return currentOffset - srcDestDistance
     }
     
+    /**
+     remove all arrow nodes from memory
+     */
     private func removeAllArrows() {
         for arrow in arrowNodes {
             arrow.removeFromParentNode()
@@ -109,9 +134,10 @@ extension ARViewController {
         let yaw = motionManager.getYawAngle()
         let roll = motionManager.getHorzAngleRelToNorth()
         
-        var r1 = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-yaw), 0, 0, 1)
-        r1 = SCNMatrix4Rotate(r1, Float(pitch), 1, 0, 0)
-        r1 = SCNMatrix4Rotate(r1, Float(roll), 0, 1, 0)
+        // Note: the transfomation concatenation is the reversed order
+        var transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-yaw), 0, 0, 1)
+        transform = SCNMatrix4Rotate(transform, Float(pitch), 1, 0, 0)
+        transform = SCNMatrix4Rotate(transform, Float(roll), 0, 1, 0)
         
         if checkpointCardControllers.count > 0 {
             let source = checkpointCardControllers[0].checkpoint
@@ -120,18 +146,19 @@ extension ARViewController {
             let distance = GeoUtil.getCoordinateDistance(userPoint, source)
             let v = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
             
-            r1 = SCNMatrix4Translate(r1, -(v.x), 0, -(v.z))
+            transform = SCNMatrix4Translate(transform, -(v.x), 0, -(v.z))
         }
         
-        cameraNode.transform = r1
+        cameraNode.transform = transform
         
         updateOpacity()
     }
     
     private func updateOpacity() {
-        let opacityGap = 0.38 / 12.0  // show the first 8 arrows in the decreasing opacity
+        // show arorws in the decreasing opacity
+        let opacityGap = Constant.arrowOpacity / Double(Constant.numDisplayedArrow)
         for i in 0 ..< arrowNodes.count {
-            let opacity = 0.66 - Double(i) * opacityGap
+            let opacity = Constant.arrowOpacity - Double(i) * opacityGap
             arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
         }
     }
@@ -144,22 +171,49 @@ extension ARViewController {
     }
     
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
-        // check what nodes are tapped
-        let p = gestureRecognize.location(in: scnView)
-        let hitResults = scnView.hitTest(p, options: [:])
-        // check that we clicked on at least one object
+        let tappedPoint = gestureRecognize.location(in: scnView)
+        let hitResults = scnView.hitTest(tappedPoint, options: [:])
+        
+        // check that click on at least one object
         if hitResults.count > 0 {
             animateMovingOn()
         }
     }
     
     func animateMovingOn() {
-        let count = arrowNodes.count > 12 ? 12 : arrowNodes.count
+        let count = arrowNodes.count > Constant.numDisplayedArrow ?
+                    Constant.numDisplayedArrow :
+                    arrowNodes.count
+        
+        let pr: CGFloat = (1 - Constant.arrowDefaultColorR) / 0.18
+        let pg: CGFloat = (1 - Constant.arrowDefaultColorG) / 0.18
+        let pb: CGFloat = (1 - Constant.arrowDefaultColorB) / 0.18
+        
+        let changeColorAction = SCNAction.sequence([
+            SCNAction.customAction(duration: 0.38, action: { (node, time) in
+                let color = UIColor(red: pr * time,
+                                    green: Constant.arrowDefaultColorG + pg * time,
+                                    blue: Constant.arrowDefaultColorB + pb * time, alpha: 1)
+                node.geometry!.firstMaterial!.emission.contents = color
+            }),
+            
+            SCNAction.customAction(duration: 0.28, action: { (node, time) in
+                let color = UIColor(red: 1 - pr * time,
+                                    green: 1 - pg * time,
+                                    blue: 1 - pb * time, alpha: 1)
+                node.geometry!.firstMaterial!.emission.contents = color
+            })
+        ])
+        
+        let floatAction = SCNAction.sequence([
+            SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
+            SCNAction.moveBy(x: 0, y: -0.08, z: 0, duration: 0.28),
+        ])
+        
         for i in 0 ..< count {
             arrowNodes[i].runAction(SCNAction.sequence([
-                SCNAction.wait(duration: Double(i) * 0.18),
-                SCNAction.fadeOut(duration: 0.18),
-                SCNAction.fadeIn(duration: 0.28)
+                SCNAction.wait(duration: Double(i) * 0.38),
+                SCNAction.group([changeColorAction, floatAction])  // parallely
             ]))
         }
     }

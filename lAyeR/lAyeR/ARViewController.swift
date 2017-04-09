@@ -57,8 +57,6 @@ class ARViewController: UIViewController {
     let scene = SCNScene()
     var scnView: SCNView!
     var arrowNodes: [SCNNode] = []
-    let gap = 1.8
-    let arrowColor = UIColor(red: 0, green: 0.9098, blue: 0.9098, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +65,10 @@ class ARViewController: UIViewController {
         fov = Double(captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
         monitorNearbyPOIsUpdate()
         monitorCurrentLocationUpdate()
+        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
+        
         prepareMenu()
         prepareMiniMap()
         prepareScene()
@@ -127,14 +127,19 @@ class ARViewController: UIViewController {
         }
         
         // add the new POI and create corresponding card that appears in the updated list but not the previous list
+        let group = DispatchGroup()
         for newPoi in lastUpdatedPOIs {
             if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
-                guard let name = newPoi.name else {
-                    break
+                group.enter()
+                let poiCard = PoiCard(center: self.view.center, distance: 0, type: newPoi.types.first!, superView: self.view)
+                geoManager.getDetailedPOIInfo(newPoi) { poi in
+                    if let name = poi.name { poiCard.setPoiName(name) }
+                    if let address = poi.vicinity { poiCard.setPoiAddress(address) }
+                    if let rating = poi.rating { poiCard.setPoiRating(rating) }
+                    if let website = poi.website { poiCard.setPoiWebsite(website) }
+                    if let contact = poi.contact { poiCard.setPoiContacet(contact) }
+                    group.leave()
                 }
-                let poiCard = PoiCard(center: view.center, distance: 0, type: newPoi.types.first!, superView: view)
-                poiCard.setPoiName(name)
-                poiCard.setPoiAddress(newPoi.vicinity!)
                 newPOICardControllers.append(PoiCardController(poi: newPoi, card: poiCard))
             }
         }
