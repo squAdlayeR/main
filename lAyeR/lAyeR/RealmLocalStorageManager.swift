@@ -61,11 +61,18 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
                     destDist = newDestDist
                 }
             }
+            if sourceIndex == destIndex {
+                continue
+            }
             if sourceIndex >= 0 && destIndex >= 0 {
-                let section = destIndex >= sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
+                let section = destIndex > sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
                 let returnRoute = Route(route.name)
                 for checkpoint in section {
-                    returnRoute.append(checkpoint)
+                    if destIndex > sourceIndex {
+                        returnRoute.append(checkpoint)
+                    } else {
+                        returnRoute.insert(checkpoint, at: 0)
+                    }
                 }
                 returnedRoutes.append(returnRoute)
             }

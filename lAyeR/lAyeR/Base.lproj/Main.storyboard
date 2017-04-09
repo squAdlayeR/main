@@ -809,6 +809,10 @@
                                             <action selector="export:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rsf-fp-X2N"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="W1c-WF-9OV">
+                                        <rect key="frame" x="210" y="88" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -846,6 +850,7 @@
                         <outlet property="currentLocationIcon" destination="2J1-WC-wMJ" id="vbP-ha-FOi"/>
                         <outlet property="googleRouteButton" destination="vld-tD-ceB" id="fL6-2q-sGm"/>
                         <outlet property="layerRoutesButton" destination="xpe-Sz-Bkr" id="jk6-Hd-a0R"/>
+                        <outlet property="loadingLayerRoutesIcon" destination="W1c-WF-9OV" id="9lK-2L-M8z"/>
                         <outlet property="searchBar" destination="kyk-27-5Ml" id="q8G-bX-DyK"/>
                         <outlet property="sourceBar" destination="fTt-0N-sgk" id="KtF-Hq-r25"/>
                     </connections>

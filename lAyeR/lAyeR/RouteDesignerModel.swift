@@ -48,7 +48,11 @@ class RouteDesignerModel {
                             let route = overviewPolyline["points"] as! String
                             let path: GMSPath = GMSPath(fromEncodedPath: route)!
                             
-                            completion(true, path)
+                            if path.count() > 1 {
+                                completion(true, path)
+                            } else {
+                                completion(false, path)
+                            }
                         }
                         else {
                             completion(false, nil)
