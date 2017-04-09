@@ -25,7 +25,9 @@ import UIKit
  */
 class PoiCard: Card {
     
+    // Defines name and address that will be used for query
     var name: String?
+    var address: String?
     
     /// Initializes the poi view controller
     /// - Parameters:
@@ -90,6 +92,18 @@ class PoiCard: Card {
         return newButton
     }
     
+    /// Defines the function that would trigger the segue to ar view controller
+    func segueToDesigner() {
+        if let superController = superViewController as? ARViewController {
+            self.closePopup()
+            var destQuery = String()
+            if let name = self.name { destQuery = destQuery.appending("\(name) ") }
+            if let address = self.address { destQuery = destQuery.appending(address) }
+            superController.cardDestination = destQuery
+            superViewController.performSegue(withIdentifier: segueToDirectName, sender: nil)
+        }
+    }
+    
 }
 
 /**
@@ -108,6 +122,7 @@ extension PoiCard {
     /// Sets the address of poi
     /// - Parameter address: the address of the poi
     func setPoiAddress(_ address: String) {
+        self.address = address
         let sanitizedAddress = address.isEmpty ? infoBlockPlaceHolder : address
         self.popupController.addText(with: poiAddressLabel, iconName: addressIcon, and: sanitizedAddress)
     }

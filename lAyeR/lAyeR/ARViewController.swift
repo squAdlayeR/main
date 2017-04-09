@@ -50,6 +50,8 @@ class ARViewController: UIViewController {
     let miniMapController = MiniMapViewController()
     var updateSuccessAlertController: BasicAlertController!
     var mainMenuButton: MenuButtonView!
+    
+    // Temporarily store the destination text on the poi card
     var cardDestination: String?
     
     // for displaying path with SceneKit
@@ -186,12 +188,18 @@ class ARViewController: UIViewController {
             }
             return
         }
-        if segue.identifier == "arToDesignerWithDirect" {
+        if segue.identifier == segueToDirectName {
             guard let dest = segue.destination as? RouteDesignerViewController else { return }
             if let destName = cardDestination {
                 let currentUserPoint = geoManager.getLastUpdatedUserPoint()
                 dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
-                dest.getDirections(origin: "\(currentUserPoint.latitude) \(currentUserPoint.longitude)", destination: destName, waypoints: nil, removeAllPoints: true, at: 0, completion: dest.getGpsRoutesUponCompletionOfGoogle(result:))
+                dest.searchBar.text = destName
+                dest.getDirections(origin: "\(currentUserPoint.latitude) \(currentUserPoint.longitude)",
+                    destination: destName,
+                    waypoints: nil,
+                    removeAllPoints: true,
+                    at: 0,
+                    completion: dest.getGpsRoutesUponCompletionOfGoogle(result:))
             }
         }
     }

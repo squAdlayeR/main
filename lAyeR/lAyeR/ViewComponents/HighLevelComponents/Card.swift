@@ -122,15 +122,6 @@ extension Card {
         })
     }
     
-    func segueToDesigner() {
-        guard self is PoiCard else { return }
-        let poiCard = self as! PoiCard
-        if let name = poiCard.name, let superController = superViewController as? ARViewController {
-            superController.cardDestination = name
-            superViewController.performSegue(withIdentifier: "arToDesignerWithDirect", sender: nil)
-        }
-    }
-    
     /// Updates the distance that will be displayed on marker card
     /// - Parameter distance: thte distance that will be displayed
     func update(_ distance: Double) {

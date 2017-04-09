@@ -128,6 +128,7 @@ let contactIcon: String = "contact"
 let websiteIcon: String = "website"
 let ratingsIcon: String = "ratings"
 let statusIcon: String = "status"
+let segueToDirectName: String = "arToDesignerWithDirect"
 
 /// MiniMap
 let miniMapZoomLevel: Float = 15.5
