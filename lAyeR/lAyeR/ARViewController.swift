@@ -57,8 +57,6 @@ class ARViewController: UIViewController {
     let scene = SCNScene()
     var scnView: SCNView!
     var arrowNodes: [SCNNode] = []
-    let gap = 1.8
-    let arrowColor = UIColor(red: 0, green: 0.9098, blue: 0.9098, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +65,10 @@ class ARViewController: UIViewController {
         fov = Double(captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
         monitorNearbyPOIsUpdate()
         monitorCurrentLocationUpdate()
+        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
+        
         prepareMenu()
         prepareMiniMap()
         prepareScene()
