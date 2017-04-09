@@ -29,7 +29,8 @@ class GPSTracker {
             return
         }
         let deltaDistance = GeoUtil.getCoordinateDistance(prevLocation, currentLocation)
-        guard deltaDistance > 10 else { return }
+        /// acceptable threshold
+        guard deltaDistance > 10 && deltaDistance < 25 else { return }
         self.prevLocation = currentLocation
         let prev = GeoPoint(prevLocation.latitude.truncate(places: 4),
                             prevLocation.longitude.truncate(places: 4))
@@ -37,6 +38,8 @@ class GPSTracker {
                             currentLocation.longitude.truncate(places: 4))
         DatabaseManager.instance.sendLocationInfoToDatabase(from: prev, to: curr)
         DatabaseManager.instance.sendLocationInfoToDatabase(from: curr, to: prev) // bi-directions
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: GeoPoint(prev.latitude, curr.longitude), to: GeoPoint(curr.latitude, prev.longitude))
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: GeoPoint(curr.latitude, prev.longitude), to: GeoPoint(prev.latitude, curr.longitude))
     }
     
     func reset() {
