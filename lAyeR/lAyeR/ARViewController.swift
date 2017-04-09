@@ -19,8 +19,10 @@ class ARViewController: UIViewController {
     let framePerSecond = 60
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
-                                                                        Constant.nearbyPOIsUpdatedNotificationName)
-    
+                                                                    Constant.nearbyPOIsUpdatedNotificationName)
+    // Defines the notification name for user location update
+    private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
+                                                                        Constant.userLocationUpdatedNotificationName)
     // for displaying camera view
     var videoDataOutput: AVCaptureVideoDataOutput!
     var videoDataOutputQueue: DispatchQueue!
@@ -31,7 +33,11 @@ class ARViewController: UIViewController {
     var done = false
     
     var cameraView: UIView!
-    var checkpointCardControllers: [CheckpointCardController] = []
+    var checkpointCardControllers: [CheckpointCardController] = [] {
+        didSet {
+            miniMapController.checkpointCardControllers = checkpointCardControllers
+        }
+    }
     private var currentPoiCardControllers: [PoiCardController] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
@@ -39,26 +45,32 @@ class ARViewController: UIViewController {
     let motionManager = DeviceMotionManager.getInstance()
     let geoManager = GeoManager.getInstance()
 
+    // Defined for view control
     let menuController = MenuViewController()
+    let miniMapController = MiniMapViewController()
+    var updateSuccessAlertController: BasicAlertController!
+    var mainMenuButton: MenuButtonView!
+
     
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
     let scene = SCNScene()
     var scnView: SCNView!
     var arrowNodes: [SCNNode] = []
-    let gap = 1.8
-    let arrowColor = UIColor(red: 0, green: 0.9098, blue: 0.9098, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addCameraView()
         setupAVCapture()
-        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
+        fov = Double(captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
         monitorNearbyPOIsUpdate()
+        monitorCurrentLocationUpdate()
+        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
-        prepareMenu()
         
+        prepareMenu()
+        prepareMiniMap()
         prepareScene()
     }
     
@@ -72,11 +84,34 @@ class ARViewController: UIViewController {
         view.insertSubview(cameraView, at: 0)
     }
     
+    /// Prepares the minimap view
+    private func prepareMiniMap() {
+        miniMapController.prepareMiniMapView(inside: view)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(toggleMiniMapSize))
+        miniMapController.view.addGestureRecognizer(tap)
+    }
+    
+    func toggleMiniMapSize() {
+        miniMapController.toggleMiniMapSize()
+    }
+    
     private func monitorNearbyPOIsUpdate() {
         NotificationCenter.default.addObserver(forName: nearbyPOIsUpdatedNotificationName, object: nil, queue: nil,
                                                using: { [unowned self] _ in
             self.displayLastUpdatedPOIs()
         })
+    }
+    
+    /// Monitors the update of the current user location
+    private func monitorCurrentLocationUpdate() {
+        NotificationCenter.default.addObserver(self, selector: #selector(observeUserLocationChange(_:)),
+                                               name: userLocationUpdatedNotificationName, object: nil)
+    }
+    
+    func observeUserLocationChange(_ notification: NSNotification) {
+        if let currentLocation = notification.object as? GeoPoint {
+            miniMapController.updateMiniMap(with: currentLocation)
+        }
     }
     
     private func displayLastUpdatedPOIs() {
@@ -92,15 +127,19 @@ class ARViewController: UIViewController {
         }
         
         // add the new POI and create corresponding card that appears in the updated list but not the previous list
+        let group = DispatchGroup()
         for newPoi in lastUpdatedPOIs {
             if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
-                guard let name = newPoi.name else {
-                    break
+                group.enter()
+                let poiCard = PoiCard(center: self.view.center, distance: 0, type: newPoi.types.first!, superView: self.view)
+                geoManager.getDetailedPOIInfo(newPoi) { poi in
+                    if let name = poi.name { poiCard.setPoiName(name) }
+                    if let address = poi.vicinity { poiCard.setPoiAddress(address) }
+                    if let rating = poi.rating { poiCard.setPoiRating(rating) }
+                    if let website = poi.website { poiCard.setPoiWebsite(website) }
+                    if let contact = poi.contact { poiCard.setPoiContacet(contact) }
+                    group.leave()
                 }
-                let poiCard = PoiCard(center: view.center, distance: 0, type: newPoi.types.first!, superView: view)
-                poiCard.setPoiName(name)
-                poiCard.setPoiDescription("Oops! This place of interest has no specific information. ")
-                poiCard.setPoiAddress(newPoi.vicinity!)
                 newPOICardControllers.append(PoiCardController(poi: newPoi, card: poiCard))
             }
         }
@@ -136,10 +175,6 @@ class ARViewController: UIViewController {
         }
         
         updateScene()
-    }
-    
-    @IBAction func forceUpdateButtonDown(_ sender: UIButton) {
-        geoManager.forceUpdateUserPoint()
     }
     
     @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}

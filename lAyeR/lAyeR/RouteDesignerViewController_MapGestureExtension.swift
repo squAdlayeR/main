@@ -100,8 +100,14 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
         if TESTING { assert(checkRep()) }
         infoWindow.removeFromSuperview()
-        if selectingRoute {
-            selectRoute(coordinate: coordinate)
+        if selectingLayerRoute {
+            selectRoute(coordinate: coordinate, forType: 0)
+            if selectedRoute {
+                focusOnOneRoute()
+            }
+        }
+        if selectingGpsRoute {
+            selectRoute(coordinate: coordinate, forType: 1)
             if selectedRoute {
                 focusOnOneRoute()
             }
@@ -112,8 +118,10 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         if TESTING { assert(checkRep()) }
         infoWindow.removeFromSuperview()
-        if selectingRoute {
-            selectRoute(coordinate: coordinate)
+        if selectingLayerRoute {
+            selectRoute(coordinate: coordinate, forType: 0)
+        } else if selectingGpsRoute {
+            selectRoute(coordinate: coordinate, forType: 1)
         } else {
             addPath(coordinate: coordinate, isControlPoint: true, at: markers.count)
         }

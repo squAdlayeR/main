@@ -16,7 +16,8 @@ import GoogleMaps
 class GeoManager: NSObject, CLLocationManagerDelegate {
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
                                                                         Constant.nearbyPOIsUpdatedNotificationName)
-    
+    private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
+                                                                        Constant.userLocationUpdatedNotificationName)
     private static var instance: GeoManager?
     private let locationManager: CLLocationManager = CLLocationManager()
     private var appSettings: AppSettings = AppSettings.getInstance()
@@ -46,6 +47,9 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         }
         let currentLocation = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         userPoint = currentLocation
+        
+        // Update user's location for mini map
+        NotificationCenter.default.post(name: self.userLocationUpdatedNotificationName, object: self.userPoint)
         
         /// Sets a threshold for poi query
         guard GeoUtil.getCoordinateDistance(userPoint, currentLocation) > 25 else { return }

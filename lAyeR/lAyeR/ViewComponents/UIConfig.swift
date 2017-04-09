@@ -53,6 +53,8 @@ let titleFontName: String = "HomenajeMod-Regular"
 let titleFontSize: CGFloat = 30
 let titlePadding: CGFloat = 30
 let titlePlaceHolder: String = "Place holder"
+let successTitle: String = "Success"
+let locationUpdateSuccessText = "Current location have been updated!"
 
 /// Buttons
 let buttonFontName: String = "HomenajeMod-Regular"
@@ -79,10 +81,11 @@ let suggestedMarkerWidth: CGFloat = 75
 let directLabelText: String = "Direct"
 let poiTitle = "POI"
 let poiAddressLabel = "ADDRESS"
+let poiPriceLevelLabel = "PRICE LEVEL"
+let poiRatingLabel = "RATING"
+let poiOpenHoursLabel = "OPENING HOURS"
 let poiContactLabel = "CONTACT"
 let poiWebsiteLabel = "WEBSITE"
-let poiRatingLabel = "RATING"
-let poiOpenStatusLabel = "NOW OPEN"
 
 /// Informative view
 let infoPanelTitleFontColor: UIColor = UIColor.gray
@@ -93,6 +96,9 @@ let titleText: String = "Detailed information"
 let infoBlockPadding: CGFloat = 10
 let infoBlockPaddingTop: CGFloat = 5
 let infoBlockBorderRadius: CGFloat = 5
+let infoBlockPlaceHolder: String = "Not specified"
+let infoBlockFullStar = "★"
+let infoBlockHalfStar = "☆"
 
 /// Menu view
 let menuButtonIconPaddingPercent: CGFloat = 0.2
@@ -101,11 +107,13 @@ let menuAnimatingDuration: TimeInterval = 0.8
 let menuButtonAnimationDelay: TimeInterval = 0.05
 let menuSpringCoefficient: CGFloat = 0.8
 let menuLeftPaddingPercent: CGFloat = 0.15
-let mapIconName: String = "map.png"
-let profileIconName: String = "profile.png"
-let settingsIconName: String = "settings.png"
+let designerIconName: String = "search"
+let miniMapIconName: String = "map"
+let profileIconName: String = "profile"
+let settingsIconName: String = "settings"
 let menuButtonRaidus: CGFloat = 50
-let menuButtonBackgroundImage = "menuButton.png"
+let menuButtonBackgroundImage = "menuButton"
+let menuButtonIcon = "menu"
 
 /// Input view
 let inputFieldFontSize: CGFloat = 26
@@ -119,3 +127,11 @@ let contactIcon: String = "contact"
 let websiteIcon: String = "website"
 let ratingsIcon: String = "ratings"
 let statusIcon: String = "status"
+
+/// MiniMap
+let miniMapZoomLevel: Float = 15.5
+let miniMapAlpha: CGFloat = 0.8
+let miniMapSizePercentage: CGFloat = 0.35
+let miniMapPaddingTop: CGFloat = 30
+let miniMapPaddingRight: CGFloat = 20
+let miniMapBorderRadius: CGFloat = 15
