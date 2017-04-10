@@ -22,12 +22,13 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
         
         if mapView.isHidden {
             mapView.isHidden = false
-            mapView.camera = camera
+            if usingCurrentLocationAsSource {
+                mapView.camera = camera
+            }
             myLocation = location
             // locationManager.stopUpdatingLocation()
         } else {
             myLocation = location
-            mapView.animate(to: camera)
             changeStartLocation()
         }
     }
