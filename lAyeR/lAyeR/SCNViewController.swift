@@ -14,17 +14,17 @@ import SceneKit.ModelIO
 class SCNViewController: UIViewController {
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
-    let scene = SCNScene()
-    var scnView: SCNView!
-    var arrowNodes: [SCNNode] = []
-    let motionManager = DeviceMotionManager.getInstance()
-    let geoManager = GeoManager.getInstance()
-    var route: Route!
+    private let scene = SCNScene()
+    private var scnView: SCNView!
+    private var arrowNodes: [SCNNode] = []
+    private let motionManager = DeviceMotionManager.getInstance()
+    private let geoManager = GeoManager.getInstance()
+    private var route: Route!
     
     var checkpointCardControllers: [CheckpointCardController] = []
     
     
-    var firstCheckpoint: GeoPoint? {
+    private var firstCheckpoint: GeoPoint? {
         guard checkpointCardControllers.count > 0 else {
             return nil
         }
@@ -195,7 +195,7 @@ class SCNViewController: UIViewController {
         }
     }
     
-    func animateMovingOn() {
+    private func animateMovingOn() {
         let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
             Constant.numArrowsDisplayedForward :
             arrowNodes.count
