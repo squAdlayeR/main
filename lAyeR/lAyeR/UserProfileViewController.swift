@@ -70,6 +70,10 @@ class UserProfileViewController: UIViewController {
         return .lightContent
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        //routeList.reloadData()
+    }
+    
     @IBAction func logout(_ sender: Any) {
         dataService.signOut()
         self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
@@ -205,6 +209,8 @@ class UserProfileViewController: UIViewController {
         routeList.delegate = self
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
+        routeList.rowHeight = UITableViewAutomaticDimension
+        routeList.estimatedRowHeight = 120
         view.addSubview(routeList)
         setUpButton(selectButton)
         setUpButton(exportButton)
