@@ -30,7 +30,7 @@ class DatabaseManager {
             self.formatter.maximumFractionDigits = 4
             self.formatter.minimumFractionDigits = 4
             let latEntry = String(format: "%.4f", from.latitude).replacingOccurrences(of: ".", with: "")//self.formatter.string(from: NSNumber(from.latitude))
-            let lonEntry = String(format: "%.4f", to.latitude).replacingOccurrences(of: ".", with: "")
+            let lonEntry = String(format: "%.4f", from.longitude).replacingOccurrences(of: ".", with: "")
             //let lonEntry = self.formatter.string(from: NSNumber(from.longitude))
             // add value here
             var latdict: [String: Any] = [:]
@@ -80,92 +80,53 @@ class DatabaseManager {
         let toLat = max(from.latitude, to.latitude)
         let fromLon = min(from.longitude, to.longitude)
         let toLon = max(from.longitude, to.longitude)
+        print(fromLon, toLon)
+        print("============")
         var trackPoints: Set<TrackPoint> = []
         DispatchQueue.global(qos: .background).async {
             // data service here
             FIRDatabase.database().reference().child("gpstrack").queryOrdered(byChild: "latitude").queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
                 // snapshot value is [[String: Any]] parse
-                guard let all = snapshot.value as? [[String: Any]] else {
-                    //on same latitude, rare but can happen
-                    guard let all = snapshot.value as? [String: Any] else {
-                        return
-                    }
-                    guard let latdictcontent = all.values.first as? [String: Any] else {
-                        return
-                    }
-                    print("1st ok")
-                    var lat: Double?
-                    var londicts: [[String: Any]] = []
-                    for latdictvalue in latdictcontent.values {
-                        if let latdictvalue = latdictvalue as? Double {
-                            lat = latdictvalue
-                            continue
-                        } else if let latdictvalue = latdictvalue as? [String: Any] {
-                            londicts.append(latdictvalue)
-                            continue
-                        }
-                    }
-                    guard let latv = lat else {
-                        return
-                    }
-                    print("2nd ok")
-                    for londict in londicts {
-                        guard let lon = londict["longitude"] as? Double else {
-                            return
-                        }
-                        print("3rd ok")
-                        let trackPoint = TrackPoint(latv, lon)
-                        if let _ = londict["up"] { trackPoint.up = true }
-                        if let _ = londict["down"] { trackPoint.up = true }
-                        if let _ = londict["left"] { trackPoint.up = true }
-                        if let _ = londict["right"] { trackPoint.up = true }
-                        if trackPoint.longitude < toLon && trackPoint.latitude > fromLon {
-                            trackPoints.insert(trackPoint)
-                        }
-                    }
+                //print(snapshot.value)
+                guard let all = snapshot.value as? [String: Any] else {
                     return
                 }
-                print("0th ok")
-                for latdict in all {
-                    guard let latdictcontent = latdict.values.first as? [String: Any] else {
+                for candidate in all.values {
+                    guard let latdict = candidate as? [String: Any],
+                          let lat = latdict["latitude"] as? Double else {
                         continue
                     }
-                    print("1st ok")
-                    var lat: Double?
                     var londicts: [[String: Any]] = []
-                    for latdictvalue in latdictcontent.values {
-                        if let latdictvalue = latdictvalue as? Double {
-                            lat = latdictvalue
-                            continue
-                        } else if let latdictvalue = latdictvalue as? [String: Any] {
+                    for latdictvalue in latdict.values {
+                        if let latdictvalue = latdictvalue as? [String: Any] {
                             londicts.append(latdictvalue)
-                            continue
                         }
                     }
-                    guard let latv = lat else {
-                        return
-                    }
-                    print("2nd ok")
                     for londict in londicts {
                         guard let lon = londict["longitude"] as? Double else {
-                            return
+                            continue
                         }
-                        print("3rd ok")
-                        let trackPoint = TrackPoint(latv, lon)
-                        if let _ = londict["up"] { trackPoint.up = true }
-                        if let _ = londict["down"] { trackPoint.up = true }
-                        if let _ = londict["left"] { trackPoint.up = true }
-                        if let _ = londict["right"] { trackPoint.up = true }
-                        if trackPoint.longitude < toLon && trackPoint.latitude > fromLon {
+                        let trackPoint = TrackPoint(lat, lon)
+                        if let _ = londict["up"] {
+                            trackPoint.up = true }
+                        if let _ = londict["down"] {
+                            trackPoint.down = true }
+                        if let _ = londict["left"] {
+                            trackPoint.left = true }
+                        if let _ = londict["right"] {
+                            trackPoint.right = true }
+                        if trackPoint.longitude < toLon && trackPoint.longitude > fromLon {
+                            print(lat, lon)
                             trackPoints.insert(trackPoint)
                         }
                     }
                 }
+                DispatchQueue.main.async {
+                    //completion block
+                    print(trackPoints.count)
+                    completion(trackPoints)
+                }
             })
-            DispatchQueue.main.async {
-                //completion block
-                completion(trackPoints)
-            }
         }
     }
     
