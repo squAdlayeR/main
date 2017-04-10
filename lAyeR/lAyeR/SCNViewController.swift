@@ -106,7 +106,7 @@ class SCNViewController: UIViewController {
             
             let userPoint = geoManager.getLastUpdatedUserPoint()
             if GeoUtil.getCoordinateDistance(userPoint, route.checkPoints[index]) < Constant.arrivalDistanceThreshold {
-                nextCheckpointIndex = index
+                nextCheckpointIndex = index + 1
             }
         }
     }
