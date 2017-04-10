@@ -89,24 +89,21 @@ class ARViewController: UIViewController {
     }
     
     private func monitorNearbyPOIsUpdate() {
-        NotificationCenter.default.addObserver(forName: nearbyPOIsUpdatedNotificationName, object: nil, queue: nil,
-                                               using: { [unowned self] _ in
+        NotificationCenter.default.addObserver(forName: nearbyPOIsUpdatedNotificationName, object: nil, queue: nil, using: { [unowned self] _ in
+            
             self.displayLastUpdatedPOIs()
         })
     }
     
     /// Monitors the update of the current user location
     private func monitorCurrentLocationUpdate() {
-        NotificationCenter.default.addObserver(self, selector: #selector(observeUserLocationChange(_:)),
-                                               name: userLocationUpdatedNotificationName, object: nil)
-    }
-    
-    func observeUserLocationChange(_ notification: NSNotification) {
-        if let currentLocation = notification.object as? GeoPoint {
-            miniMapController.updateMiniMap(with: currentLocation)
+        NotificationCenter.default.addObserver(forName: userLocationUpdatedNotificationName, object: nil, queue: nil, using: { [unowned self] _ in
+            
+            let userPoint = geoManager.getLastUpdatedUserPoint()
+            miniMapController.updateMiniMap(with: userPoint)
             updateCheckpointCardDisplay()
             scnViewController.updateArrowNodes()
-        }
+        })
     }
     
     private func updateCheckpointCardDisplay() {
@@ -116,30 +113,36 @@ class ARViewController: UIViewController {
             guard index >= 0 && index <= controlRoute.size - 1 else {
                 continue
             }
-            
-            let nextCheckpoint = controlRoute.checkPoints[index]
-            if GeoUtil.getCoordinateDistance(userPoint, nextCheckpoint) < Constant.arrivalDistanceThreshold {
-                if index == controlRoute.size - 1 {
+
+            if doesArrive(at: controlRoute.checkPoints[index]) {
+                if index == controlRoute.size - 1 {  // arrive at the last checkpoint
                     handleArrival()
                 } else {
-                    nextCheckpointIndex = index
+                    // arrive at index
+                    // so the next checkpoint index should be index + 1
+                    nextCheckpointIndex = index + 1
                     displayCheckpointCards(nextCheckpointIndex: nextCheckpointIndex)
                 }
                 break
             }
         }
-
     }
     
+    private func doesArrive(at checkPoint: CheckPoint) -> Bool {
+        return GeoUtil.getCoordinateDistance(userPoint, nextCheckpoint) < Constant.arrivalDistanceThreshold
+    }
+    
+    /**
+     Display the card of the checkpoint at the given index,
+     as well as several previous checkpoints and several following checkpoints
+     */
     func displayCheckpointCards(nextCheckpointIndex: Int) {
-        let maxIndex = controlRoute.size - 1
-        
         checkpointCardControllers.removeAll()
         
         let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
         let endIndex = nextCheckpointIndex + Constant.numCheckpointDisplayedForward
         for i in startIndex ..< endIndex {
-            guard i >= 0 && i <= maxIndex else {
+            guard i >= 0 && i <= controlRoute.size - 1 else {
                 continue
             }
             let checkpoint = controlRoute.checkPoints[i]
