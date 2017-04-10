@@ -1,21 +1,46 @@
 //
-//  ARViewController_CameraBackgroundExtension.swift
+//  CameraViewController.swift
 //  lAyeR
 //
-//  Created by luoyuyang on 22/03/17.
+//  Created by luoyuyang on 10/04/17.
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import AVFoundation
 import Foundation
+import AVFoundation
 import UIKit
 
-extension ARViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+class CameraController: ViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+
+    private var videoDataOutput: AVCaptureVideoDataOutput!
+    private var videoDataOutputQueue: DispatchQueue!
+    private var cameraViewLayer: AVCaptureVideoPreviewLayer!
+    var captureDevice: AVCaptureDevice!
+    private let session = AVCaptureSession()
+    private var currentFrame: CIImage!
+    private var done = false
+    
+    private var cameraView: UIView!
+    
     override func viewDidAppear(_ animated: Bool) {
         UIApplication.shared.delegate?.window??.rootViewController = self
         if !done {
             session.startRunning()
         }
+    }
+    
+    func setupCameraView() {
+        guard let superview = parent?.view else {
+            return
+        }
+        addCameraView(to: superview)
+        setupAVCapture()
+    }
+    
+    private func addCameraView(to view: UIView) {
+        cameraView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        cameraView.contentMode = .scaleAspectFit
+        view.insertSubview(cameraView, at: 0)
     }
     
     func setupAVCapture() {
