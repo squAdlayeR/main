@@ -30,12 +30,16 @@ extension RouteDesignerViewController: UITableViewDelegate, UITableViewDataSourc
             self.sourceBar.text = self.sourceText
             selectingSource = false
             self.selectPlacesView.isHidden = true
-            self.placeAutocomplete(query: self.searchBar.text!) {(results2, error2) -> Void in
-                if error2 != nil {
-                    self.cantFindDestinationLocation()
-                    return
+            if self.useDestCoordinates {
+                self.startSearch(destination: searchBar.text!)
+            } else {
+                self.placeAutocomplete(query: self.searchBar.text!) {(results2, error2) -> Void in
+                    if error2 != nil {
+                        self.cantFindDestinationLocation()
+                        return
+                    }
+                    self.dealWithSuggestedDestinations(results: results2)
                 }
-                self.dealWithSuggestedDestinations(results: results2)
             }
         } else {
             self.selectPlacesView.isHidden = true

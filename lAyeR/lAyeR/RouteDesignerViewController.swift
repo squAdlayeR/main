@@ -42,6 +42,10 @@ class RouteDesignerViewController: UIViewController {
     
     // State of Dragging
     var dragMarkerIdx: Int?
+    var sourcePinLocation: CGPoint?
+    var searchPinLocation: CGPoint?
+    var useSourceCoordinates = false
+    var useDestCoordinates = false
     
     // State of Designing Routes
     var manualRouteType = true
@@ -94,8 +98,11 @@ class RouteDesignerViewController: UIViewController {
         if let importedRoutes = importedRoutes {
             load(routes: importedRoutes)
         }
-        
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        getPinLocations()
     }
     
     override func didReceiveMemoryWarning() {
@@ -111,6 +118,8 @@ class RouteDesignerViewController: UIViewController {
     @IBOutlet weak var layerRoutesButton: UIButton!
     @IBOutlet weak var gpsRoutesButton: UIButton!
     @IBOutlet weak var currentLocationIcon: UIImageView!
+    @IBOutlet weak var sourcePin: UIImageView!
+    @IBOutlet weak var searchPin: UIImageView!
     
     // ---------------- Check Rep --------------------//
     
@@ -216,6 +225,23 @@ class RouteDesignerViewController: UIViewController {
         panGesture.maximumNumberOfTouches = 1
         mapView.isUserInteractionEnabled = true
         mapView.addGestureRecognizer(panGesture)
+        
+        let sourcePinGesture = UIPanGestureRecognizer(target: self, action: #selector(dragSourcePin(gestureRecognizer:)))
+        sourcePinGesture.minimumNumberOfTouches = 1
+        sourcePinGesture.maximumNumberOfTouches = 1
+        sourcePin.isUserInteractionEnabled = true
+        sourcePin.addGestureRecognizer(sourcePinGesture)
+        
+        let searchPinGesture = UIPanGestureRecognizer(target: self, action: #selector(dragSearchPin(gestureRecognizer:)))
+        searchPinGesture.minimumNumberOfTouches = 1
+        searchPinGesture.maximumNumberOfTouches = 1
+        searchPin.isUserInteractionEnabled = true
+        searchPin.addGestureRecognizer(searchPinGesture)
+    }
+    
+    func getPinLocations() {
+        sourcePinLocation = sourcePin.center
+        searchPinLocation = searchPin.center
     }
     
     func addTapCurrentLocationGesture() {
@@ -226,6 +252,32 @@ class RouteDesignerViewController: UIViewController {
     
     func tappedCurrentLocation(gestureRecognizer: UITapGestureRecognizer) {
         sourceBar.text = currentLocationText
+    }
+    
+    // ---------------- Pin Gestures --------------------//
+    
+    func dragSourcePin(gestureRecognizer: UIPanGestureRecognizer) {
+        if (gestureRecognizer.state != .ended) && (gestureRecognizer.state != .failed) {
+            gestureRecognizer.view?.center = gestureRecognizer.location(in: self.view)
+        } else {
+            useSourceCoordinates = true
+            let point = gestureRecognizer.location(in: self.view)
+            let coordinate = mapView.projection.coordinate(for: point)
+            sourceBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
+            sourcePin.center = sourcePinLocation!
+        }
+    }
+    
+    func dragSearchPin(gestureRecognizer: UIPanGestureRecognizer) {
+        if (gestureRecognizer.state != .ended) && (gestureRecognizer.state != .failed) {
+            gestureRecognizer.view?.center = gestureRecognizer.location(in: self.view)
+        } else {
+            useDestCoordinates = true
+            let point = gestureRecognizer.location(in: self.view)
+            let coordinate = mapView.projection.coordinate(for: point)
+            searchBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
+            searchPin.center = searchPinLocation!
+        }
     }
     
     // ---------------- GPX --------------------//
@@ -344,54 +396,74 @@ class RouteDesignerViewController: UIViewController {
         if searchBar.text != nil && searchBar.text != "" && sourceBar.text != nil && sourceBar.text != "" {
             if sourceBar.text! == currentLocationText && myLocation != nil {
                 usingCurrentLocationAsSource = true
-                placeAutocomplete(query: searchBar.text!) {(results, error) -> Void in
-                    if error != nil {
-                        self.cantFindDestinationLocation()
-                        return
-                    }
+                if useDestCoordinates {
                     self.sourceText = "\(self.myLocation!.coordinate.latitude) \(self.myLocation!.coordinate.longitude)"
-                    self.dealWithSuggestedDestinations(results: results)
+                    self.startSearch(destination: searchBar.text!)
+                } else {
+                    placeAutocomplete(query: searchBar.text!) {(results, error) -> Void in
+                        if error != nil {
+                            self.cantFindDestinationLocation()
+                            return
+                        }
+                        self.sourceText = "\(self.myLocation!.coordinate.latitude) \(self.myLocation!.coordinate.longitude)"
+                        self.dealWithSuggestedDestinations(results: results)
+                    }
                 }
             } else {
                 usingCurrentLocationAsSource = false
-                placeAutocomplete(query: sourceBar.text!) {(results, error) -> Void in
-                    if error != nil {
-                        self.cantFindSourceLocation()
-                        return
+                if useSourceCoordinates {
+                    self.sourceText = sourceBar.text!
+                    if useDestCoordinates {
+                        self.startSearch(destination: searchBar.text!)
+                    } else {
+                        placeAutocomplete(query: searchBar.text!) {(results, error) -> Void in
+                            if error != nil {
+                                self.cantFindDestinationLocation()
+                                return
+                            }
+                            self.dealWithSuggestedDestinations(results: results)
+                        }
                     }
-                    if let results = results {
-                        if results.isEmpty {
+                } else {
+                    placeAutocomplete(query: sourceBar.text!) {(results, error) -> Void in
+                        if error != nil {
                             self.cantFindSourceLocation()
                             return
                         }
-                        if results.count == 1 {
-                            self.sourceText = results[0].attributedPrimaryText.string
-                            if results[0].attributedSecondaryText != nil {
-                                self.sourceText += " "
-                                self.sourceText += results[0].attributedSecondaryText!.string
+                        if let results = results {
+                            if results.isEmpty {
+                                self.cantFindSourceLocation()
+                                return
                             }
-                            self.sourceBar.text = self.sourceText
-                            self.placeAutocomplete(query: self.searchBar.text!) {(results2, error2) -> Void in
-                                if error2 != nil {
-                                    self.cantFindDestinationLocation()
-                                    return
+                            if results.count == 1 {
+                                self.sourceText = results[0].attributedPrimaryText.string
+                                if results[0].attributedSecondaryText != nil {
+                                    self.sourceText += " "
+                                    self.sourceText += results[0].attributedSecondaryText!.string
                                 }
-                                self.dealWithSuggestedDestinations(results: results2)
-                            }
-                        } else {
-                            self.suggestedPlaces.removeAll()
-                            self.selectingSource = true
-                            for result in results {
-                                var description = result.attributedPrimaryText.string
-                                if result.attributedSecondaryText != nil {
-                                    description += " "
-                                    description += result.attributedSecondaryText!.string
+                                self.sourceBar.text = self.sourceText
+                                self.placeAutocomplete(query: self.searchBar.text!) {(results2, error2) -> Void in
+                                    if error2 != nil {
+                                        self.cantFindDestinationLocation()
+                                        return
+                                    }
+                                    self.dealWithSuggestedDestinations(results: results2)
                                 }
-                                self.suggestedPlaces.append(description)
+                            } else {
+                                self.suggestedPlaces.removeAll()
+                                self.selectingSource = true
+                                for result in results {
+                                    var description = result.attributedPrimaryText.string
+                                    if result.attributedSecondaryText != nil {
+                                        description += " "
+                                        description += result.attributedSecondaryText!.string
+                                    }
+                                    self.suggestedPlaces.append(description)
+                                }
+                                self.selectPlacesInstructionLabel.text = self.selectSourceText
+                                self.suggestedPlacesTableView.reloadData()
+                                self.selectPlacesView.isHidden = false
                             }
-                            self.selectPlacesInstructionLabel.text = self.selectSourceText
-                            self.suggestedPlacesTableView.reloadData()
-                            self.selectPlacesView.isHidden = false
                         }
                     }
                 }
@@ -905,7 +977,6 @@ class RouteDesignerViewController: UIViewController {
         } else {
             draggingMarker(currentPoint: startPoint)
         }
-        
     }
     
     @IBAction func toggleRouteType(_ sender: Any) {
@@ -996,6 +1067,15 @@ class RouteDesignerViewController: UIViewController {
 }
 
 extension RouteDesignerViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == sourceBar {
+            useSourceCoordinates = false
+        } else if textField == searchBar {
+            useDestCoordinates = false
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
