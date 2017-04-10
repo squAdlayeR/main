@@ -27,6 +27,8 @@
 		2E742F9C1E9784D500651A74 /* RouteDesignerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E742F9B1E9784D500651A74 /* RouteDesignerModel.swift */; };
 		2E742F9E1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E742F9D1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift */; };
 		2E742FA01E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E742F9F1E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift */; };
+		2EA444771E9AE95300D80BB5 /* RouteDesignerViewController_PlaceSuggestionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA444761E9AE95300D80BB5 /* RouteDesignerViewController_PlaceSuggestionExtension.swift */; };
+		2EA444791E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA444781E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift */; };
 		2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
@@ -158,6 +160,8 @@
 		2E742F9B1E9784D500651A74 /* RouteDesignerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerModel.swift; sourceTree = "<group>"; };
 		2E742F9D1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_MapGestureExtension.swift; sourceTree = "<group>"; };
 		2E742F9F1E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_LocationManagerExtension.swift; sourceTree = "<group>"; };
+		2EA444761E9AE95300D80BB5 /* RouteDesignerViewController_PlaceSuggestionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_PlaceSuggestionExtension.swift; sourceTree = "<group>"; };
+		2EA444781E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_DesignMarkerLineExtension.swift; sourceTree = "<group>"; };
 		2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_AutoCompleteExtension.swift; sourceTree = "<group>"; };
 		3729F61BC8697E4035E5948D /* Pods-lAyeR-lAyeRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.release.xcconfig"; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -429,6 +433,8 @@
 				A21BBFB61E839BD600394531 /* MarkerPopupView.swift */,
 				2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */,
 				A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */,
+				2EA444781E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift */,
+				2EA444761E9AE95300D80BB5 /* RouteDesignerViewController_PlaceSuggestionExtension.swift */,
 				2E742F9F1E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift */,
 				2E742F9D1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift */,
 				2E742F9B1E9784D500651A74 /* RouteDesignerModel.swift */,
@@ -936,6 +942,7 @@
 				9DE4361D1E929F8500E1A0ED /* POICategoriesCell.swift in Sources */,
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
 				A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */,
+				2EA444771E9AE95300D80BB5 /* RouteDesignerViewController_PlaceSuggestionExtension.swift in Sources */,
 				2E742F9E1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift in Sources */,
 				528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */,
 				52DE2C411E995F4700671B6E /* TrackPoint.swift in Sources */,
@@ -990,6 +997,7 @@
 				528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */,
 				52B2298B1E974FB2009C733B /* GPXError.swift in Sources */,
 				A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */,
+				2EA444791E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,

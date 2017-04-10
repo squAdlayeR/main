@@ -55,4 +55,13 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         // print("Error: \(error)")
     }
+    
+    func changeStartLocation() {
+        if TESTING { assert(checkRep()) }
+        if !markers.isEmpty && usingCurrentLocationAsSource {
+            removeLine(at: 0)
+            addLine(from: myLocation!.coordinate, to: markers[0].position, at: 0)
+        }
+        if TESTING { assert(checkRep()) }
+    }
 }
