@@ -290,6 +290,12 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //tableView.deleteRows(at: [indexPath], with: .left)
+        }
+    }
+    
     func deselectAll() {
         for row in 0..<routeList.numberOfRows(inSection: 0) {
             let indexPath = IndexPath(row: row, section: 0)

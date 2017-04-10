@@ -53,5 +53,5 @@ class RouteListCell: UITableViewCell {
         overLay.layer.cornerRadius = 5
         overLay.layer.masksToBounds = true
     }
-
+    
 }
