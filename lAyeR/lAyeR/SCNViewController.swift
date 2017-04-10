@@ -19,16 +19,23 @@ class SCNViewController: UIViewController {
     private var arrowNodes: [SCNNode] = []
     private let motionManager = DeviceMotionManager.getInstance()
     private let geoManager = GeoManager.getInstance()
-    private var route: Route!
     
-    var checkpointCardControllers: [CheckpointCardController] = []
+    var route: Route!
     
+    var nextCheckpointIndex = 0
     
     private var firstCheckpoint: GeoPoint? {
-        guard checkpointCardControllers.count > 0 else {
+        guard route.size > 0 else {
             return nil
         }
-        return checkpointCardControllers[0].checkpoint
+        return route.checkPoints[0]
+    }
+   
+    private var nextCheckpoint: GeoPoint? {
+        guard nextCheckpointIndex >= 0 && nextCheckpointIndex <= route.size - 1 else {
+            return nil
+        }
+        return route.checkPoints[nextCheckpointIndex]
     }
     
     func setupScene() {
@@ -55,7 +62,7 @@ class SCNViewController: UIViewController {
      */
     func prepareNodes() {
         removeAllArrows()
-        setupArrowNodes()
+        updateArrowNodes()
         setupCameraNode()
     }
     
@@ -74,16 +81,17 @@ class SCNViewController: UIViewController {
         return arrowNode
     }
     
-    private func setupArrowNodes() {
-        guard let firstCheckpoint = firstCheckpoint else {
+    private func updateArrowNodes() {
+        guard let nextCheckpoint = nextCheckpoint else {
             return
         }
         let userPoint = geoManager.getLastUpdatedUserPoint()
         
-        var previousOffset = addArrows(from: userPoint, to: firstCheckpoint, firstOffset: 0.8)
-        for i in 0 ..< checkpointCardControllers.count - 1 {
-            let src = checkpointCardControllers[i].checkpoint
-            let dest = checkpointCardControllers[i + 1].checkpoint
+        var previousOffset = addArrows(from: userPoint, to: nextCheckpoint, firstOffset: 0.8)
+        
+        for i in 0 ..< route.size - 1 {
+            let src = route.checkPoints[i]
+            let dest = route.checkPoints[i + 1]
             previousOffset = addArrows(from: src, to: dest, firstOffset: previousOffset)
         }
     }
@@ -153,9 +161,8 @@ class SCNViewController: UIViewController {
         var transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-yaw), 0, 0, 1)
         transform = SCNMatrix4Rotate(transform, Float(pitch), 1, 0, 0)
         transform = SCNMatrix4Rotate(transform, Float(roll), 0, 1, 0)
-        
-        if checkpointCardControllers.count > 0 {
-            let source = checkpointCardControllers[0].checkpoint
+
+        if let source = firstCheckpoint {
             let userPoint = geoManager.getLastUpdatedUserPoint()
             let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
             let distance = GeoUtil.getCoordinateDistance(userPoint, source)
