@@ -389,9 +389,9 @@ class RouteDesignerViewController: UIViewController {
                 }
             }
         }
-        for layerRoute in layerRoutesLines {
-            for line in layerRoute {
-                if selectingLayerRoute {
+        if selectingLayerRoute {
+            for layerRoute in layerRoutesLines {
+                for line in layerRoute {
                     line.map = mapView
                     line.strokeColor = .gray
                 }
@@ -401,7 +401,37 @@ class RouteDesignerViewController: UIViewController {
     }
     
     @IBAction func showGpsRoutes(_ sender: Any) {
-        
+        if TESTING { assert(checkRep()) }
+        removeAllMarkersAndLines()
+        if gpsRoutesMarkers.count > 1 {
+            selectingGpsRoute = true
+            selectedRoute = false
+        } else {
+            selectingGpsRoute = false
+            selectedRoute = true
+        }
+        for gpsRoute in gpsRoutesMarkers {
+            for marker in gpsRoute {
+                let markerData = marker.userData as! CheckPoint
+                if selectingLayerRoute {
+                    if markerData.isControlPoint {
+                        marker.map = mapView
+                        marker.icon = GMSMarker.markerImage(with: .gray)
+                    }
+                } else {
+                    addPoint(coordinate: marker.position, isControlPoint: markerData.isControlPoint, at: markers.count)
+                }
+            }
+        }
+        if selectingGpsRoute {
+            for gpsRoute in gpsRoutesLines {
+                for line in gpsRoute {
+                    line.map = mapView
+                    line.strokeColor = .gray
+                }
+            }
+        }
+        if TESTING { assert(checkRep()) }
     }
     
     // LOADING ANIMATIONS

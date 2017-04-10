@@ -27,6 +27,8 @@
 		2E742F9C1E9784D500651A74 /* RouteDesignerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E742F9B1E9784D500651A74 /* RouteDesignerModel.swift */; };
 		2E742F9E1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E742F9D1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift */; };
 		2E742FA01E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E742F9F1E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift */; };
+		2EA4447B1E9B355900D80BB5 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */; };
+		2EA4447D1E9B36A000D80BB5 /* TrackPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */; };
 		2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
@@ -158,6 +160,8 @@
 		2E742F9B1E9784D500651A74 /* RouteDesignerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerModel.swift; sourceTree = "<group>"; };
 		2E742F9D1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_MapGestureExtension.swift; sourceTree = "<group>"; };
 		2E742F9F1E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_LocationManagerExtension.swift; sourceTree = "<group>"; };
+		2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointNode.swift; sourceTree = "<group>"; };
 		2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_AutoCompleteExtension.swift; sourceTree = "<group>"; };
 		3729F61BC8697E4035E5948D /* Pods-lAyeR-lAyeRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.release.xcconfig"; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -432,6 +436,8 @@
 				2E742F9F1E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift */,
 				2E742F9D1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift */,
 				2E742F9B1E9784D500651A74 /* RouteDesignerModel.swift */,
+				2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */,
+				2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */,
 				A21BBFB81E839BD600394531 /* TriangleView.swift */,
 				5249B1AD1E7264790048249D /* UserConfig.swift */,
 				5249B1A71E7264000048249D /* GeoPoint.swift */,
@@ -958,6 +964,7 @@
 				5249B1AE1E7264790048249D /* UserConfig.swift in Sources */,
 				A253FB511E92892C002C6ADC /* LocalStorageManagerProtocol.swift in Sources */,
 				9D19700E1E87FE7800C1DAA1 /* MenuButtonView.swift in Sources */,
+				2EA4447D1E9B36A000D80BB5 /* TrackPointNode.swift in Sources */,
 				9D1498FD1E800B080043DDB6 /* BasicAlertController.swift in Sources */,
 				9DAFF1F81E8E942600D09C11 /* RouteListCell.swift in Sources */,
 				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
@@ -989,6 +996,7 @@
 				528288BA1E9355B100163654 /* PoiCard.swift in Sources */,
 				528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */,
 				52B2298B1E974FB2009C733B /* GPXError.swift in Sources */,
+				2EA4447B1E9B355900D80BB5 /* PriorityQueue.swift in Sources */,
 				A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
