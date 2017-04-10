@@ -31,11 +31,9 @@ class POICategoriesCell: UITableViewCell {
     /// Prepares the category icon with specified icon name
     /// - Parameter imageName: the image name of the icon
     private func prepareIcon(with category: POICategory) {
-        let icon = UIImage(named: category.rawValue)
-        let tintIcon = icon?.withRenderingMode(.alwaysTemplate)
+        let icon = UIImage(named: "\(category.rawValue)-colored")
         self.category = category
-        categoryIcon.image = tintIcon
-        categoryIcon.tintColor = .black
+        categoryIcon.image = icon
     }
     
     override func awakeFromNib() {
