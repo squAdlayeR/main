@@ -21,6 +21,7 @@ extension RouteDesignerViewController {
             let route = createRoute(from: markers)
             arViewController.route = route
             arViewController.controlRoute = extractControlRoute(from: route)
+            arViewController.scnViewController.route = route
 
             arViewController.displayCheckpointCards(nextCheckpointIndex: 0)
             

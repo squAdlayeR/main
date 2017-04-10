@@ -28,7 +28,6 @@ class ARViewController: UIViewController {
     var checkpointCardControllers: [CheckpointCardController] = [] {
         didSet {
             miniMapController.checkpointCardControllers = checkpointCardControllers
-            scnViewController.checkpointCardControllers = checkpointCardControllers
         }
     }
     private var currentPoiCardControllers: [PoiCardController] = []
