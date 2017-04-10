@@ -74,6 +74,7 @@ class RouteDesignerViewController: UIViewController {
     // Segue
     var importedURL: URL?
     var importedRoutes: [Route]?
+    var importedSearchDestination: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
