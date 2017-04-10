@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KG1-mK-LJP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zxE-ce-dRU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -312,18 +312,18 @@
                                 <rect key="frame" x="0.0" y="291" width="375" height="376"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="routeListCell" id="1qr-Gj-SkB" customClass="RouteListCell" customModule="lAyeR" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="routeListCell" id="1qr-Gj-SkB" customClass="RouteListCell" customModule="lAyeR" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="148"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1qr-Gj-SkB" id="RhL-vr-Xf9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="1qr-Gj-SkB" id="RhL-vr-Xf9">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="147.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WfS-ph-vxd">
                                                     <rect key="frame" x="20" y="20.5" width="335" height="122"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZj-JJ-eHr">
-                                                    <rect key="frame" x="50" y="115.5" width="285" height="19.5"/>
+                                                    <rect key="frame" x="50" y="115.5" width="275" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -344,27 +344,37 @@
                                                         <constraint firstAttribute="height" constant="41" id="ufB-Kb-2gE"/>
                                                     </constraints>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvb-Rb-UiB">
+                                                    <rect key="frame" x="20" y="20" width="335" height="122.5"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rm5-n7-U0P" firstAttribute="leading" secondItem="RhL-vr-Xf9" secondAttribute="leadingMargin" constant="35" id="1bP-CR-cMo"/>
+                                                <constraint firstItem="xvb-Rb-UiB" firstAttribute="leading" secondItem="RhL-vr-Xf9" secondAttribute="leading" constant="20" id="2wd-QT-jId"/>
                                                 <constraint firstItem="WfS-ph-vxd" firstAttribute="leading" secondItem="RhL-vr-Xf9" secondAttribute="leading" constant="20" id="3tp-O4-fAk"/>
                                                 <constraint firstItem="rm5-n7-U0P" firstAttribute="top" secondItem="RhL-vr-Xf9" secondAttribute="topMargin" constant="65" id="7MR-Ov-OVY"/>
                                                 <constraint firstItem="WfS-ph-vxd" firstAttribute="top" secondItem="RhL-vr-Xf9" secondAttribute="top" constant="20" id="AKk-zl-34o"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="xNr-J7-FXN" secondAttribute="bottom" constant="0.5" id="FYK-X8-ynU"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="rm5-n7-U0P" secondAttribute="bottom" constant="30" id="GuI-hr-fFg"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="xNr-J7-FXN" secondAttribute="trailing" constant="25" id="JD1-HX-r73"/>
-                                                <constraint firstAttribute="trailing" secondItem="pZj-JJ-eHr" secondAttribute="trailing" constant="40" id="KQN-cQ-jnX"/>
+                                                <constraint firstAttribute="trailing" secondItem="pZj-JJ-eHr" secondAttribute="trailing" constant="50" id="KQN-cQ-jnX"/>
                                                 <constraint firstItem="pZj-JJ-eHr" firstAttribute="top" secondItem="rm5-n7-U0P" secondAttribute="bottom" constant="2" id="R7o-5I-cP9"/>
                                                 <constraint firstAttribute="bottom" secondItem="pZj-JJ-eHr" secondAttribute="bottom" constant="7.5" id="T1v-fm-H1A"/>
+                                                <constraint firstAttribute="bottom" secondItem="xvb-Rb-UiB" secondAttribute="bottom" id="TjN-Qv-I8y"/>
                                                 <constraint firstItem="pZj-JJ-eHr" firstAttribute="leading" secondItem="RhL-vr-Xf9" secondAttribute="leading" constant="50" id="m9r-vC-QAO"/>
+                                                <constraint firstItem="xvb-Rb-UiB" firstAttribute="top" secondItem="RhL-vr-Xf9" secondAttribute="top" constant="20" id="o5t-9V-5cy"/>
                                                 <constraint firstAttribute="trailing" secondItem="WfS-ph-vxd" secondAttribute="trailing" constant="20" id="p8Y-Mn-L5s"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="rm5-n7-U0P" secondAttribute="trailing" constant="35" id="rET-4X-VBx"/>
+                                                <constraint firstAttribute="trailing" secondItem="xvb-Rb-UiB" secondAttribute="trailing" constant="20" id="raA-7L-WBn"/>
                                                 <constraint firstAttribute="bottom" secondItem="WfS-ph-vxd" secondAttribute="bottom" id="yJJ-zU-Xwm"/>
+                                                <constraint firstItem="pZj-JJ-eHr" firstAttribute="centerX" secondItem="RhL-vr-Xf9" secondAttribute="centerX" id="znB-nq-3mK"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="backgroundImage" destination="WfS-ph-vxd" id="rUC-02-fDE"/>
                                             <outlet property="checkMark" destination="xNr-J7-FXN" id="j8f-PN-kY0"/>
+                                            <outlet property="overLay" destination="xvb-Rb-UiB" id="yaA-lr-569"/>
                                             <outlet property="routeDescription" destination="pZj-JJ-eHr" id="Qo3-Kq-U0l"/>
                                             <outlet property="routeName" destination="rm5-n7-U0P" id="jgg-o1-kcU"/>
                                         </connections>

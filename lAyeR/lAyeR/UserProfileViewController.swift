@@ -71,7 +71,8 @@ class UserProfileViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //routeList.reloadData()
+        routeList.rowHeight = UITableViewAutomaticDimension
+        routeList.estimatedRowHeight = 150
     }
     
     @IBAction func logout(_ sender: Any) {
@@ -209,12 +210,11 @@ class UserProfileViewController: UIViewController {
         routeList.delegate = self
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
-        routeList.rowHeight = UITableViewAutomaticDimension
-        routeList.estimatedRowHeight = 150
         view.addSubview(routeList)
         setUpButton(selectButton)
         setUpButton(exportButton)
         setUpButton(logoutButton)
+        routeList.reloadData()
     }
     
     private func setUpButton(_ btn: UIButton) {
@@ -253,8 +253,10 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         
         // TODO: Magic strings and numbers
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
-        cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
         
+        cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
+        cell.routeName.preferredMaxLayoutWidth = tableView.bounds.width
+        cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
         DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
             cell.backgroundImage.imageFromUrl(url: route.imagePath)
         }
