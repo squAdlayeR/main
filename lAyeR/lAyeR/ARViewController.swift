@@ -196,10 +196,9 @@ class ARViewController: UIViewController {
         if segue.identifier == "arToDesignerSegue" {
             guard let dest = segue.destination as? RouteDesignerViewController else { return }
             dest.removeAllMarkersAndLines()
-            for (idx, checkpointCard) in checkpointCardControllers.enumerated() {
-                let currentUserPoint = geoManager.getLastUpdatedUserPoint()
-                dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
-                let checkpoint = checkpointCard.checkpoint
+            let currentUserPoint = geoManager.getLastUpdatedUserPoint()
+            dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
+            for (idx, checkpoint) in route.checkPoints.enumerated() {
                 dest.addPoint(coordinate: CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude), isControlPoint: checkpoint.isControlPoint, at: idx)
             }
         }

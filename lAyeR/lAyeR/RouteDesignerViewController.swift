@@ -86,6 +86,7 @@ class RouteDesignerViewController: UIViewController {
         initializeMap()
         initializeSearch()
         initializeSuggestedPlaces()
+        initializeMarkersAndLines()
         
         addPanGesture()
         addTapCurrentLocationGesture()
@@ -184,7 +185,7 @@ class RouteDesignerViewController: UIViewController {
     
     // ---------------- Initializations --------------------//
     
-    func initializeLocationManager() {
+    private func initializeLocationManager() {
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -193,7 +194,7 @@ class RouteDesignerViewController: UIViewController {
         locationManager.delegate = self
     }
     
-    func initializeMap() {
+    private func initializeMap() {
         let camera = GMSCameraPosition.camera(withLatitude: 1.2950584,
                                               longitude: 103.7716573,
                                               zoom: zoomLevel)
@@ -210,7 +211,7 @@ class RouteDesignerViewController: UIViewController {
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 47, right: 0)
     }
     
-    func initializeSearch() {
+    private func initializeSearch() {
         searchBar.returnKeyType = UIReturnKeyType.done
         searchBar.delegate = self
         sourceBar.returnKeyType = UIReturnKeyType.done
@@ -219,11 +220,25 @@ class RouteDesignerViewController: UIViewController {
         stopLoadingGpsRoutesAnimation()
     }
     
-    func initializeSuggestedPlaces() {
+    private func initializeSuggestedPlaces() {
         suggestedPlacesTableView.delegate =   self
         suggestedPlacesTableView.dataSource =   self
         suggestedPlacesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         selectPlacesView.isHidden = true
+    }
+    
+    private func initializeMarkersAndLines() {
+        for marker in markers {
+            guard let checkpoint = marker.userData as? CheckPoint else {
+                continue
+            }
+            if checkpoint.isControlPoint {
+                marker.map = mapView
+            }
+        }
+        for line in lines {
+            line.map = mapView
+        }
     }
     
     // ---------------- Add Gestures --------------------//
