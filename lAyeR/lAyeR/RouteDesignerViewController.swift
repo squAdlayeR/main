@@ -78,6 +78,7 @@ class RouteDesignerViewController: UIViewController {
     // Segue
     var importedURL: URL?
     var importedRoutes: [Route]?
+    var importedSearchDestination: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +98,10 @@ class RouteDesignerViewController: UIViewController {
         
         if let importedRoutes = importedRoutes {
             load(routes: importedRoutes)
+        }
+        
+        if let importedSearchDestination = importedSearchDestination {
+            searchBar.text = importedSearchDestination
         }
     }
     
@@ -1050,7 +1055,7 @@ class RouteDesignerViewController: UIViewController {
                     break
                 }
                 let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // for demo only, hide out of screen
-                    distance: 0, superView: arViewController.view)
+                    distance: 0, superViewController: arViewController)
                 checkpointCard.setCheckpointName(checkpoint.name)
                 checkpointCard.setCheckpointDescription("Oops! This checkpoint has no specific description.")
                 arViewController.checkpointCardControllers.append(CheckpointCardController(checkpoint: checkpoint,

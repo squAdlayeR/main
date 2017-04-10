@@ -40,7 +40,7 @@ class MenuButtonView: UIView {
 //        backgroundImage.frame = CGRect(x: 0, y: 0,
 //                                       width: self.bounds.width,
 //                                       height: self.bounds.height)
-        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
         

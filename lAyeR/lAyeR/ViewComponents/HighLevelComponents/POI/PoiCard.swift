@@ -25,14 +25,18 @@ import UIKit
  */
 class PoiCard: Card {
     
+    // Defines name and address that will be used for query
+    var name: String?
+    var address: String?
+    
     /// Initializes the poi view controller
     /// - Parameters:
     ///     - center: the initial center of the marker
     ///     - distance: the distance between current place and that place
     ///     - type: the type of the poi
     ///     - superView: the view that this popup & marker is attached to
-    init(center: CGPoint, distance: Double, type: String, superView: UIView) {
-        super.init(center: center, distance: distance, superView: superView)
+    init(center: CGPoint, distance: Double, type: String, superViewController: UIViewController) {
+        super.init(center: center, distance: distance, superViewController: superViewController)
         initializeCardTitle()
         initializeCardButtons()
         initializeCardIcon(with: type)
@@ -43,13 +47,11 @@ class PoiCard: Card {
     private func initializeCardIcon(with type: String) {
         var sanitizedType = type
         if let category = POICategory(rawValue: type) {
-            let icon = ResourceManager.getImageView(by: category.rawValue)
-            self.markerCard.setIconImage(icon)
+            self.markerCard.setIcon(with: category)
             return
         }
         sanitizedType = otherIconType
-        let icon = ResourceManager.getImageView(by: sanitizedType)
-        self.markerCard.setIconImage(icon)
+        self.markerCard.setIcon(with: POICategory(rawValue: sanitizedType)!)
     }
     
     /// Initializes the card title
@@ -84,8 +86,20 @@ class PoiCard: Card {
         let newButton = UIButton()
         newButton.setTitle(directLabelText, for: .normal)
         newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
-        // TODO: add action here
+        newButton.addTarget(self, action: #selector(segueToDesigner), for: .touchUpInside)
         return newButton
+    }
+    
+    /// Defines the function that would trigger the segue to ar view controller
+    func segueToDesigner() {
+        if let superController = superViewController as? ARViewController {
+            self.closePopup()
+            var destQuery = String()
+            if let name = self.name { destQuery = destQuery.appending("\(name) ") }
+            if let address = self.address { destQuery = destQuery.appending(address) }
+            superController.cardDestination = destQuery
+            superViewController.performSegue(withIdentifier: segueToDirectName, sender: nil)
+        }
     }
     
 }
@@ -99,12 +113,14 @@ extension PoiCard {
     /// Sets the name of poi
     /// - Parameter name: the name of the poi
     func setPoiName(_ name: String) {
+        self.name = name
         self.popupController.addText(with: nameLabel, iconName: descriptionIcon, and: name)
     }
     
     /// Sets the address of poi
     /// - Parameter address: the address of the poi
     func setPoiAddress(_ address: String) {
+        self.address = address
         let sanitizedAddress = address.isEmpty ? infoBlockPlaceHolder : address
         self.popupController.addText(with: poiAddressLabel, iconName: addressIcon, and: sanitizedAddress)
     }

@@ -8,6 +8,6 @@
 
 import UIKit
 
-var otherIconType: String = "others"
+var otherIconType: String = "other"
 var imageExtension: String = ".png"
 

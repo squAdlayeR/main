@@ -141,6 +141,7 @@ extension BasicAlertController {
     /// - Parameter view: the view that will be holding the alert
     func presentAlert(within view: UIView) {
         view.addSubview(alertView)
+        alertView.layer.zPosition = alertViewZPosition
         alert.open()
     }
     

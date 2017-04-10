@@ -96,6 +96,7 @@ extension MiniMapViewController {
         view.layer.cornerRadius = miniMapBorderRadius
         view.layer.masksToBounds = true
         superView.addSubview(view)
+        view.layer.zPosition = alertViewZPosition
     }
     
     /// Draws the path that is directing to the destination
