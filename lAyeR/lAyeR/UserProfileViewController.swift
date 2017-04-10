@@ -73,6 +73,7 @@ class UserProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         routeList.rowHeight = UITableViewAutomaticDimension
         routeList.estimatedRowHeight = 150
+        routeList.reloadData()
     }
     
     @IBAction func logout(_ sender: Any) {
@@ -257,6 +258,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
         cell.routeName.preferredMaxLayoutWidth = tableView.bounds.width
         cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
+        
         DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
             cell.backgroundImage.imageFromUrl(url: route.imagePath)
         }

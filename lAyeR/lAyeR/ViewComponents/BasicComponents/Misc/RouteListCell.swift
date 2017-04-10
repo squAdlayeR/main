@@ -37,6 +37,7 @@ class RouteListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setImageOverlay()
+        selectionStyle = .none
     }
     
     /// Sets an overlay above the route screen shot so that the texts
