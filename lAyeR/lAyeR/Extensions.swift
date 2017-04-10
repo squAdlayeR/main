@@ -47,7 +47,12 @@ extension UIViewController {
                 guard completed else { return }
                 urls.forEach { GPXManager.delete(url: $0) } // clear cache
             }
+            if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height/2.0)
+            }
             present(activityViewController, animated: true, completion: nil)
+            
         } catch {
             showAlertMessage(message: "Fail to create .gpx files.")
         }

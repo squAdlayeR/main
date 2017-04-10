@@ -54,7 +54,11 @@ class UserProfileViewController: UIViewController {
         self.setBackButton()
         picker.delegate = self
         LoadingBadge.instance.showBadge(in: view)
-        dataService.retrieveUserProfile { profile in
+        dataService.retrieveUserProfile { profile, success in
+            guard success, let profile = profile else {
+                LoadingBadge.instance.hideBadge()
+                return
+            }
             self.userProfile = profile
             self.setUserInfo()
             self.setRouteList()

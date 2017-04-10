@@ -188,7 +188,10 @@ class DatabaseManager {
             }
             FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
             guard let uid = UserAuthenticator.instance.currentUser?.uid else { return }
-            self.getUserProfile(uid: uid) { userProfile in
+            self.getUserProfile(uid: uid) { userProfile, success in
+                guard success, let userProfile = userProfile else {
+                    return
+                }
                 userProfile.designedRoutes.append(route.name)
                 self.updateUserProfile(uid: uid, userProfile: userProfile)
             }
@@ -215,13 +218,18 @@ class DatabaseManager {
         FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
     }
     
-    func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile) -> ()) {
+    func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile?, _ success: Bool) -> ()) {
+        guard isConnected else {
+            completion(nil, false)
+            return
+        }
         FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             guard let value = snapshot.value as? [String: Any],
-                  let profile = UserProfile(JSON: value) else {
+                let profile = UserProfile(JSON: value) else {
+                    completion(nil, false)
                     return
             }
-            completion(profile)
+            completion(profile, true)
         }) { error in
             print(error.localizedDescription)
         }
@@ -306,6 +314,7 @@ class DatabaseManager {
                 print("called")
                 guard let connected = snapshot.value as? Bool, connected else {
                     self.isConnected = false
+                    UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.showAlertMessage(message: "Lost internet connection.")
                     return
                 }
                 self.isConnected = true
