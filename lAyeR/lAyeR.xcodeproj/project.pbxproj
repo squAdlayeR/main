@@ -111,12 +111,12 @@
 		A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */; };
 		A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB541E92985B002C6ADC /* ArrowView.swift */; };
 		A253FB591E93D2F1002C6ADC /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB581E93D2F1002C6ADC /* RealmModels.swift */; };
-		A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */; };
 		A258B3231E97A86F008B1C81 /* arrow14.obj in Resources */ = {isa = PBXBuildFile; fileRef = A258B3221E97A86F008B1C81 /* arrow14.obj */; };
 		A25E65831E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */; };
 		A25E65851E9B737D00011885 /* SCNVector3_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */; };
 		A25E65891E9B7B8400011885 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65881E9B7B8400011885 /* CameraController.swift */; };
 		A25E658B1E9BA50100011885 /* ARViewController_SegueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E658A1E9BA50100011885 /* ARViewController_SegueExtension.swift */; };
+		A25E658D1E9BB37800011885 /* SCNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E658C1E9BB37800011885 /* SCNViewController.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -250,12 +250,12 @@
 		A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmLocalStorageManager.swift; sourceTree = "<group>"; };
 		A253FB541E92985B002C6ADC /* ArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		A253FB581E93D2F1002C6ADC /* RealmModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
-		A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_SCNKitExtension.swift; sourceTree = "<group>"; };
 		A258B3221E97A86F008B1C81 /* arrow14.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arrow14.obj; sourceTree = "<group>"; };
 		A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_SegueExtesnsion.swift; sourceTree = "<group>"; };
 		A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCNVector3_Extension.swift; sourceTree = "<group>"; };
 		A25E65881E9B7B8400011885 /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		A25E658A1E9BA50100011885 /* ARViewController_SegueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_SegueExtension.swift; sourceTree = "<group>"; };
+		A25E658C1E9BB37800011885 /* SCNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCNViewController.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -654,9 +654,9 @@
 			isa = PBXGroup;
 			children = (
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
-				A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */,
 				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
 				A25E658A1E9BA50100011885 /* ARViewController_SegueExtension.swift */,
+				A25E658C1E9BB37800011885 /* SCNViewController.swift */,
 				A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */,
 				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
 				A25E65881E9B7B8400011885 /* CameraController.swift */,
@@ -993,6 +993,7 @@
 				9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */,
+				A25E658D1E9BB37800011885 /* SCNViewController.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				9D11C3671E99254300C33207 /* MiniMapStyling.swift in Sources */,
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,

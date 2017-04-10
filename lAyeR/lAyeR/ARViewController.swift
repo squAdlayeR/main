@@ -28,6 +28,7 @@ class ARViewController: UIViewController {
     var checkpointCardControllers: [CheckpointCardController] = [] {
         didSet {
             miniMapController.checkpointCardControllers = checkpointCardControllers
+            scnViewController.checkpointCardControllers = checkpointCardControllers
         }
     }
     private var currentPoiCardControllers: [PoiCardController] = []
@@ -50,10 +51,7 @@ class ARViewController: UIViewController {
     var cardDestination: String?
     
     // for displaying path with SceneKit
-    let cameraNode = SCNNode()
-    let scene = SCNScene()
-    var scnView: SCNView!
-    var arrowNodes: [SCNNode] = []
+    let scnViewController = SCNViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +69,9 @@ class ARViewController: UIViewController {
         
         prepareMenu()
         prepareMiniMap()
-        prepareScene()
+        
+        addChildViewController(scnViewController)
+        scnViewController.setupScene()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -190,7 +190,7 @@ class ARViewController: UIViewController {
                                          superView: view, fov: fov)
         }
         
-        updateScene()
+        scnViewController.updateScene()
     }
     
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
@@ -220,6 +220,10 @@ class ARViewController: UIViewController {
             checkpointCardControllers.append(cardController)
         }
 
+    }
+    
+    func prepareNodes() {
+        scnViewController.prepareNodes()
     }
     
     private func handleArrival() {
