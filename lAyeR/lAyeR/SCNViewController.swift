@@ -1,8 +1,8 @@
 //
-//  ARViewController_SCNKitExtension.swift
+//  SCNViewController.swift
 //  lAyeR
 //
-//  Created by luoyuyang on 05/04/17.
+//  Created by luoyuyang on 10/04/17.
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
@@ -11,12 +11,19 @@ import UIKit
 import SceneKit
 import SceneKit.ModelIO
 
-/*
- The origin of the coordinate is the start point
- The positive direction of x axis points to the East
- The negative direction of z axis points to the North
- */
-extension ARViewController {
+class SCNViewController: UIViewController {
+    // for displaying path with SceneKit
+    let cameraNode = SCNNode()
+    let scene = SCNScene()
+    var scnView: SCNView!
+    var arrowNodes: [SCNNode] = []
+    let motionManager = DeviceMotionManager.getInstance()
+    let geoManager = GeoManager.getInstance()
+    var route: Route!
+    
+    var checkpointCardControllers: [CheckpointCardController] = []
+    
+    
     var firstCheckpoint: GeoPoint? {
         guard checkpointCardControllers.count > 0 else {
             return nil
@@ -24,12 +31,20 @@ extension ARViewController {
         return checkpointCardControllers[0].checkpoint
     }
     
-    func prepareScene() {
+    func setupScene() {
+        guard let arViewController = parent as? ARViewController else {
+            return
+        }
         scnView = SCNView(frame: view.frame)
         scnView.backgroundColor = UIColor.clear
         scnView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
-        view.insertSubview(scnView, at: 2)
+        
+        view.addSubview(scnView)
+        arViewController.view.insertSubview(view, at: 2)
+        
         scnView.scene = scene
+        
+        route = arViewController.route
         
         prepareNodes()
     }
@@ -99,7 +114,7 @@ extension ARViewController {
         var currentOffset = firstOffset
         while currentOffset <= srcDestDistance {
             let arrow = getArrowSCNNode()
-        
+            
             let rotationTransformation = SCNMatrix4Rotate(arrow.transform,
                                                           -Float(GeoUtil.getAzimuth(between: src, dest)),
                                                           0, 1, 0)
@@ -182,8 +197,8 @@ extension ARViewController {
     
     func animateMovingOn() {
         let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
-                    Constant.numArrowsDisplayedForward :
-                    arrowNodes.count
+            Constant.numArrowsDisplayedForward :
+            arrowNodes.count
         
         let pr: CGFloat = (1 - Constant.arrowDefaultColorR) / 0.18
         let pg: CGFloat = (1 - Constant.arrowDefaultColorG) / 0.18
@@ -203,39 +218,21 @@ extension ARViewController {
                                     blue: 1 - pb * time, alpha: 1)
                 node.geometry!.firstMaterial!.emission.contents = color
             })
-        ])
+            ])
         
         let floatAction = SCNAction.sequence([
             SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
             SCNAction.moveBy(x: 0, y: -0.08, z: 0, duration: 0.28),
-        ])
+            ])
         
         for i in 0 ..< count {
             arrowNodes[i].runAction(SCNAction.sequence([
                 SCNAction.wait(duration: Double(i) * 0.38),
                 SCNAction.group([changeColorAction, floatAction])  // parallely
-            ]))
+                ]))
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
