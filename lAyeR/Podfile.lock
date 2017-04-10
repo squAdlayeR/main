@@ -54,6 +54,7 @@ PODS:
   - RealmSwift (2.4.3):
     - Realm (= 2.4.3)
   - TBXML (1.5)
+  - TOCropViewController (2.0.11)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
@@ -66,6 +67,7 @@ DEPENDENCIES:
   - iOS-GPX-Framework (from `http://github.com/merlos/iOS-GPX-Framework`)
   - ObjectMapper (~> 2.2)
   - RealmSwift
+  - TOCropViewController
 
 EXTERNAL SOURCES:
   iOS-GPX-Framework:
@@ -94,7 +96,8 @@ SPEC CHECKSUMS:
   Realm: e08d60b0048ccccd3949c8c28a92c4db5712d7e9
   RealmSwift: 30d49739ccb3385d201242736ca4dda56aec9dfc
   TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
+  TOCropViewController: fe91aaab9e95d72ac38654d1174c8c8339585ee5
 
-PODFILE CHECKSUM: fbbdca2c18bfdb80e83dbcb2d80be2e5d76973f4
+PODFILE CHECKSUM: 9610d5d7d50dec18cc3141805c93b48e5e067755
 
 COCOAPODS: 1.1.1

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KG1-mK-LJP">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KG1-mK-LJP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -17,9 +17,6 @@
         </array>
         <array key="DINPro-Regular_13937.ttf">
             <string>DINPro-Regular</string>
-        </array>
-        <array key="HomenajeMod-Bold.otf">
-            <string>HomenajeMod-Bold</string>
         </array>
     </customFonts>
     <scenes>
@@ -307,7 +304,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="148"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1qr-Gj-SkB" id="RhL-vr-Xf9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="147.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WfS-ph-vxd">
@@ -389,94 +386,12 @@
                         <outlet property="userName" destination="ddY-IV-1hb" id="sZ8-J2-fwn"/>
                         <segue destination="KG1-mK-LJP" kind="presentation" identifier="userProfileToLogin" id="mFQ-Cb-EzA"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="userProfileToDesigner" id="lyp-VT-xjG"/>
-                        <segue destination="GL3-r2-iHy" kind="presentation" identifier="userProfileToIconCrop" id="nrF-8p-SeT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dKX-7P-lyc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ikf-BB-RQf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="9" y="1193"/>
-        </scene>
-        <!--Icon Crop View Controller-->
-        <scene sceneID="qQw-ml-gh2">
-            <objects>
-                <viewController id="GL3-r2-iHy" customClass="IconCropViewController" customModule="lAyeR" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="pLp-6r-Ag4"/>
-                        <viewControllerLayoutGuide type="bottom" id="RB4-pr-uGA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="D9B-V1-lb8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gan-37-h6t">
-                                <rect key="frame" x="16" y="20" width="54" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HomenajeMod-Bold" family="HomenajeMod" pointSize="40"/>
-                                <state key="normal" title="&lt;">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="ccU-hW-QLM" kind="unwind" unwindAction="unwindSegueToUserProfileWithSegue:" id="ETU-s2-tw8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Bh-uZ-Fhm">
-                                <rect key="frame" x="303" y="20" width="51" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="DINPro-Medium" family="DINPro" pointSize="22"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="savePressed:" destination="GL3-r2-iHy" eventType="touchUpInside" id="DMn-YH-JPp"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gc7-zq-raR">
-                                <rect key="frame" x="0.0" y="597" width="375" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mJ-mC-5xX">
-                                        <rect key="frame" x="226" y="13" width="48" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="camera"/>
-                                        <connections>
-                                            <action selector="cameraPressed:" destination="GL3-r2-iHy" eventType="touchUpInside" id="sjy-L1-anE"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8a-f3-RgI">
-                                        <rect key="frame" x="100" y="11" width="54" height="49"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="album"/>
-                                        <connections>
-                                            <action selector="albumPressed:" destination="GL3-r2-iHy" eventType="touchUpInside" id="up7-7E-7s1"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pul-Cp-7FJ">
-                                <rect key="frame" x="18" y="77" width="338" height="513"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view alpha="0.14999999999999999" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BD1-SD-Vfg">
-                                <rect key="frame" x="87" y="233" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                    </view>
-                    <connections>
-                        <outlet property="backButton" destination="Gan-37-h6t" id="HjB-98-uaC"/>
-                        <outlet property="cropArea" destination="BD1-SD-Vfg" id="sKX-1a-3pp"/>
-                        <outlet property="placeholder" destination="pul-Cp-7FJ" id="qjq-O5-laJ"/>
-                        <outlet property="saveButton" destination="8Bh-uZ-Fhm" id="NMI-Bb-BPH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ahL-Hq-ldC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="ccU-hW-QLM" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="885.60000000000002" y="1191.4542728635683"/>
         </scene>
         <!--App Settings View Controller-->
         <scene sceneID="OLt-nL-KM9">
@@ -548,7 +463,7 @@
                                         <rect key="frame" x="0.0" y="28" width="322" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W8M-rU-QKp" id="zpC-6J-JCa">
-                                            <rect key="frame" x="0.0" y="0.0" width="322" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="322" height="50.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZi-vI-iaz">
@@ -949,8 +864,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="album" width="256" height="256"/>
-        <image name="camera" width="256" height="256"/>
         <image name="checkmark" width="256" height="256"/>
         <image name="current_location" width="256" height="256"/>
         <image name="pin" width="366" height="592"/>
@@ -958,5 +871,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="J0J-J1-3xV"/>
         <segue reference="L6E-9q-XGj"/>
+        <segue reference="lyp-VT-xjG"/>
     </inferredMetricsTieBreakers>
 </document>

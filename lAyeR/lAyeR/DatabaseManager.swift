@@ -11,8 +11,124 @@ import FirebaseDatabase
 
 class DatabaseManager {
     
+    
+    let formatter = NumberFormatter()
+    
+    private(set) var isConnected: Bool = false //check connectivity
     static let instance = DatabaseManager()
     private(set) var currentUserProfile: UserProfile?
+    
+    func startObserveGPSTrack() {
+        FIRDatabase.database().reference().child("gpstrack").observe(.childAdded, with: { snapshot in
+            print("data received")
+        })
+    }
+    
+    func sendLocationInfoToDatabase(from: GeoPoint, to: GeoPoint) {
+        DispatchQueue.global(qos: .background).async {
+            // get the value
+            self.formatter.maximumFractionDigits = 4
+            self.formatter.minimumFractionDigits = 4
+            let latEntry = String(format: "%.4f", from.latitude).replacingOccurrences(of: ".", with: "")//self.formatter.string(from: NSNumber(from.latitude))
+            let lonEntry = String(format: "%.4f", from.longitude).replacingOccurrences(of: ".", with: "")
+            //let lonEntry = self.formatter.string(from: NSNumber(from.longitude))
+            // add value here
+            var latdict: [String: Any] = [:]
+            latdict["latitude"] = from.latitude
+            var londict: [String: Any] = [:]
+            londict["longitude"] = from.longitude
+            if from.latitude < to.latitude { londict["up"] = true }
+            if from.latitude > to.latitude { londict["down"] = true }
+            if from.longitude > to.longitude { londict["left"] = true }
+            if from.longitude < to.longitude { londict["right"] = true }
+            latdict[lonEntry] = londict
+            // get dirs
+            FIRDatabase.database().reference().child("gpstrack").observeSingleEvent(of: .value, with: { snapshot in
+                if snapshot.hasChild(latEntry) {
+                    // update value here
+                    let latRef = FIRDatabase.database().reference().child("gpstrack").child(latEntry)
+                    let latSnapshot = snapshot.childSnapshot(forPath: latEntry)
+                    if latSnapshot.hasChild(lonEntry) {
+                        let lonRef = latRef.child(lonEntry)
+                        if let _ = londict["up"] {
+                            lonRef.child("up").setValue(true)
+                        }
+                        if let _ = londict["down"] {
+                            lonRef.child("down").setValue(true)
+                        }
+                        if let _ = londict["left"] {
+                            lonRef.child("left").setValue(true)
+                        }
+                        if let _ = londict["right"] {
+                            lonRef.child("right").setValue(true)
+                        }
+                    } else {
+                        latRef.child(lonEntry).setValue(londict)
+                    }
+                } else {
+                    FIRDatabase.database().reference().child("gpstrack").child(latEntry).setValue(latdict)
+                }
+            })
+            DispatchQueue.main.async {
+                print("data sent")
+            }
+        }
+    }
+    
+    func getRectFromDatabase(from: GeoPoint, to: GeoPoint, completion: @escaping (_ trackPoints: Set<TrackPoint>) -> ()) {
+        let fromLat = min(from.latitude, to.latitude)
+        let toLat = max(from.latitude, to.latitude)
+        let fromLon = min(from.longitude, to.longitude)
+        let toLon = max(from.longitude, to.longitude)
+        print(fromLon, toLon)
+        print("============")
+        var trackPoints: Set<TrackPoint> = []
+        DispatchQueue.global(qos: .background).async {
+            // data service here
+            FIRDatabase.database().reference().child("gpstrack").queryOrdered(byChild: "latitude").queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
+                // snapshot value is [[String: Any]] parse
+                //print(snapshot.value)
+                guard let all = snapshot.value as? [String: Any] else {
+                    return
+                }
+                for candidate in all.values {
+                    guard let latdict = candidate as? [String: Any],
+                          let lat = latdict["latitude"] as? Double else {
+                        continue
+                    }
+                    var londicts: [[String: Any]] = []
+                    for latdictvalue in latdict.values {
+                        if let latdictvalue = latdictvalue as? [String: Any] {
+                            londicts.append(latdictvalue)
+                        }
+                    }
+                    for londict in londicts {
+                        guard let lon = londict["longitude"] as? Double else {
+                            continue
+                        }
+                        let trackPoint = TrackPoint(lat, lon)
+                        if let _ = londict["up"] {
+                            trackPoint.up = true }
+                        if let _ = londict["down"] {
+                            trackPoint.down = true }
+                        if let _ = londict["left"] {
+                            trackPoint.left = true }
+                        if let _ = londict["right"] {
+                            trackPoint.right = true }
+                        if trackPoint.longitude < toLon && trackPoint.longitude > fromLon {
+                            print(lat, lon)
+                            trackPoints.insert(trackPoint)
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    //completion block
+                    print(trackPoints.count)
+                    completion(trackPoints)
+                }
+            })
+        }
+    }
     
     func addUserProfileToDatabase(uid: String, userProfile: UserProfile) {
         
@@ -33,7 +149,10 @@ class DatabaseManager {
             }
             FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
             guard let uid = UserAuthenticator.instance.currentUser?.uid else { return }
-            self.getUserProfile(uid: uid) { userProfile in
+            self.getUserProfile(uid: uid) { userProfile, success in
+                guard success, let userProfile = userProfile else {
+                    return
+                }
                 userProfile.designedRoutes.append(route.name)
                 self.updateUserProfile(uid: uid, userProfile: userProfile)
             }
@@ -60,13 +179,18 @@ class DatabaseManager {
         FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
     }
     
-    func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile) -> ()) {
+    func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile?, _ success: Bool) -> ()) {
+        guard isConnected else {
+            completion(nil, false)
+            return
+        }
         FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             guard let value = snapshot.value as? [String: Any],
-                  let profile = UserProfile(JSON: value) else {
+                let profile = UserProfile(JSON: value) else {
+                    completion(nil, false)
                     return
             }
-            completion(profile)
+            completion(profile, true)
         }) { error in
             print(error.localizedDescription)
         }
@@ -74,17 +198,21 @@ class DatabaseManager {
     
     /// Use in user profile.
     func getRoute(withName routeName: String, completion: @escaping (_ route: Route) -> ()) {
-        FIRDatabase.database().reference().child("routes").child(routeName).observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? [String: Any],
-                let points = value["checkPoints"] as? [[String: Any]],
-                let name = value["name"] as? String,
-                let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint],
-                let image = value["imagePath"] as? String else { return }
-            let route = Route(name, checkPoints)
-            route.setImage(path: image)
-            completion(route)
-        }) { error in
-            print(error.localizedDescription)
+        DispatchQueue.global(qos: .background).async {
+            FIRDatabase.database().reference().child("routes").child(routeName).observeSingleEvent(of: .value, with: { snapshot in
+                guard let value = snapshot.value as? [String: Any],
+                    let points = value["checkPoints"] as? [[String: Any]],
+                    let name = value["name"] as? String,
+                    let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint],
+                    let image = value["imagePath"] as? String else { return }
+                let route = Route(name, checkPoints)
+                route.setImage(path: image)
+                DispatchQueue.main.async {
+                    completion(route)
+                }
+            }) { error in
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -138,5 +266,29 @@ class DatabaseManager {
         }) { error in
             print(error.localizedDescription)
         }
+    }
+    
+    func checkConnectivity() {
+        DispatchQueue.global(qos: .background).async {
+            let connectedRef = FIRDatabase.database().reference(withPath: ".info/connected")
+            connectedRef.observe(.value, with: { snapshot in
+                print("called")
+                guard let connected = snapshot.value as? Bool, connected else {
+                    self.isConnected = false
+                    UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.showAlertMessage(message: "Lost internet connection.")
+                    return
+                }
+                self.isConnected = true
+            })
+        }
+    }
+    
+}
+
+extension Double
+{
+    func truncate(places : Int)-> Double
+    {
+        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
     }
 }

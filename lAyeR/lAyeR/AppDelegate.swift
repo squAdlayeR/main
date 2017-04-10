@@ -25,11 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(AppConfig.apiKey)
         FIRApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
+        GPSTracker.instance.start()
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         guard let currentUser = FIRAuth.auth()?.currentUser else {
             return true
         }
+        DatabaseManager.instance.checkConnectivity()
+        //DatabaseManager.instance.startObserveGPSTrack()
         self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
         if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
             self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
@@ -72,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         
         // Upload GPS tracking data here.
+        GPSTracker.instance.reset()
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
