@@ -81,7 +81,9 @@ class SCNViewController: UIViewController {
         return arrowNode
     }
     
-    private func updateArrowNodes() {
+    func updateArrowNodes() {
+        updateNextCheckpointIndex()
+        
         guard let nextCheckpoint = nextCheckpoint else {
             return
         }
@@ -93,6 +95,19 @@ class SCNViewController: UIViewController {
             let src = route.checkPoints[i]
             let dest = route.checkPoints[i + 1]
             previousOffset = addArrows(from: src, to: dest, firstOffset: previousOffset)
+        }
+    }
+    
+    private func updateNextCheckpointIndex() {
+        for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
+            guard index >= 0 && index <= route.size - 1 else {
+                return
+            }
+            
+            let userPoint = geoManager.getLastUpdatedUserPoint()
+            if GeoUtil.getCoordinateDistance(userPoint, route.checkPoints[index]) < Constant.arrivalDistanceThreshold {
+                nextCheckpointIndex = index
+            }
         }
     }
     

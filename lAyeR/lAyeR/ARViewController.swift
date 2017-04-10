@@ -105,6 +105,7 @@ class ARViewController: UIViewController {
         if let currentLocation = notification.object as? GeoPoint {
             miniMapController.updateMiniMap(with: currentLocation)
             updateCheckpointCardDisplay()
+            scnViewController.updateArrowNodes()
         }
     }
     
@@ -124,9 +125,31 @@ class ARViewController: UIViewController {
                     nextCheckpointIndex = index
                     displayCheckpointCards(nextCheckpointIndex: nextCheckpointIndex)
                 }
+                break
             }
         }
 
+    }
+    
+    func displayCheckpointCards(nextCheckpointIndex: Int) {
+        let maxIndex = controlRoute.size - 1
+        
+        checkpointCardControllers.removeAll()
+        
+        let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
+        let endIndex = nextCheckpointIndex + Constant.numCheckpointDisplayedForward
+        for i in startIndex ..< endIndex {
+            guard i >= 0 && i <= maxIndex else {
+                continue
+            }
+            let checkpoint = controlRoute.checkPoints[i]
+            let cardController = createCheckpointCardController(of: checkpoint)
+            if i == nextCheckpointIndex {
+                cardController.setSelected(true)
+            }
+            checkpointCardControllers.append(cardController)
+        }
+        
     }
     
     private func displayLastUpdatedPOIs() {
@@ -198,27 +221,6 @@ class ARViewController: UIViewController {
         checkpointCard.setCheckpointName(checkpoint.name)
         checkpointCard.setCheckpointDescription("Oops! This checkpoint has no specific description.")
         return CheckpointCardController(checkpoint: checkpoint, card: checkpointCard)
-    }
-    
-    func displayCheckpointCards(nextCheckpointIndex: Int) {
-        let maxIndex = controlRoute.size - 1
-        
-        checkpointCardControllers.removeAll()
-        
-        let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
-        let endIndex = nextCheckpointIndex + Constant.numCheckpointDisplayedForward
-        for i in startIndex ..< endIndex {
-            guard i >= 0 && i <= maxIndex else {
-                continue
-            }
-            let checkpoint = controlRoute.checkPoints[i]
-            let cardController = createCheckpointCardController(of: checkpoint)
-            if i == nextCheckpointIndex {
-                cardController.setSelected(true)
-            }
-            checkpointCardControllers.append(cardController)
-        }
-
     }
     
     func prepareNodes() {
