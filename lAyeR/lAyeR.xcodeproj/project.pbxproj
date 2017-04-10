@@ -114,6 +114,7 @@
 		A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */; };
 		A258B3231E97A86F008B1C81 /* arrow14.obj in Resources */ = {isa = PBXBuildFile; fileRef = A258B3221E97A86F008B1C81 /* arrow14.obj */; };
 		A25E65831E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */; };
+		A25E65851E9B737D00011885 /* SCNVector3_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -250,6 +251,7 @@
 		A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_SCNKitExtension.swift; sourceTree = "<group>"; };
 		A258B3221E97A86F008B1C81 /* arrow14.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arrow14.obj; sourceTree = "<group>"; };
 		A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_SegueExtesnsion.swift; sourceTree = "<group>"; };
+		A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCNVector3_Extension.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 				A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */,
 				A28540481E70E4DF00CF51B7 /* Vector3D.swift */,
 				A285404A1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift */,
+				A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -996,6 +999,7 @@
 				52BD49761E8A8DFA00B4B750 /* DatabaseManager.swift in Sources */,
 				9DE4361F1E92A90000E1A0ED /* CameraViewController.swift in Sources */,
 				5249B1C51E74D8070048249D /* Parser.swift in Sources */,
+				A25E65851E9B737D00011885 /* SCNVector3_Extension.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
 				528288BA1E9355B100163654 /* PoiCard.swift in Sources */,
 				528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */,
