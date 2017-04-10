@@ -22,7 +22,7 @@ extension RouteDesignerViewController {
             arViewController.route = route
             arViewController.controlRoute = extractControlRoute(from: route)
 
-            arViewController.updateCheckpointCardDisplay(nextCheckpointIndex: 0)
+            arViewController.displayCheckpointCards(nextCheckpointIndex: 0)
             
             arViewController.prepareNodes()
             

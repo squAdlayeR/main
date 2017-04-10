@@ -156,7 +156,7 @@ extension ARViewController {
     
     private func updateOpacity() {
         // show arorws in the decreasing opacity
-        let opacityGap = Constant.arrowOpacity / Double(Constant.numDisplayedArrow)
+        let opacityGap = Constant.arrowOpacity / Double(Constant.numArrowsDisplayedForward)
         for i in 0 ..< arrowNodes.count {
             let opacity = Constant.arrowOpacity - Double(i) * opacityGap
             arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
@@ -181,8 +181,8 @@ extension ARViewController {
     }
     
     func animateMovingOn() {
-        let count = arrowNodes.count > Constant.numDisplayedArrow ?
-                    Constant.numDisplayedArrow :
+        let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
+                    Constant.numArrowsDisplayedForward :
                     arrowNodes.count
         
         let pr: CGFloat = (1 - Constant.arrowDefaultColorR) / 0.18
