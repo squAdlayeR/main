@@ -105,21 +105,29 @@ class ARViewController: UIViewController {
     func observeUserLocationChange(_ notification: NSNotification) {
         if let currentLocation = notification.object as? GeoPoint {
             miniMapController.updateMiniMap(with: currentLocation)
-            
-            guard (nextCheckpointIndex <= controlRoute.size - 1 && nextCheckpointIndex >= 0) else {
-                return
+            updateCheckpointCardDisplay()
+        }
+    }
+    
+    private func updateCheckpointCardDisplay() {
+        let userPoint = geoManager.getLastUpdatedUserPoint()
+        
+        for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
+            guard index >= 0 && index <= controlRoute.size - 1 else {
+                continue
             }
-            let userPoint = geoManager.getLastUpdatedUserPoint()
-            let nextCheckpoint = controlRoute.checkPoints[nextCheckpointIndex]
+            
+            let nextCheckpoint = controlRoute.checkPoints[index]
             if GeoUtil.getCoordinateDistance(userPoint, nextCheckpoint) < Constant.arrivalDistanceThreshold {
-                if nextCheckpointIndex == controlRoute.size - 1 {
+                if index == controlRoute.size - 1 {
                     handleArrival()
                 } else {
-                    nextCheckpointIndex += 1
-                    updateCheckpointCardDisplay(nextCheckpointIndex: nextCheckpointIndex)
+                    nextCheckpointIndex = index
+                    displayCheckpointCards(nextCheckpointIndex: nextCheckpointIndex)
                 }
             }
         }
+
     }
     
     private func displayLastUpdatedPOIs() {
@@ -193,7 +201,7 @@ class ARViewController: UIViewController {
         return CheckpointCardController(checkpoint: checkpoint, card: checkpointCard)
     }
     
-    func updateCheckpointCardDisplay(nextCheckpointIndex: Int) {
+    func displayCheckpointCards(nextCheckpointIndex: Int) {
         let maxIndex = controlRoute.size - 1
         
         checkpointCardControllers.removeAll()
