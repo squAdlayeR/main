@@ -22,11 +22,20 @@ class SCNViewController: UIViewController {
     
     var route: Route!
     
+    var nextCheckpointIndex = 0
+    
     private var firstCheckpoint: GeoPoint? {
         guard route.size > 0 else {
             return nil
         }
         return route.checkPoints[0]
+    }
+   
+    private var nextCheckpoint: GeoPoint? {
+        guard nextCheckpointIndex >= 0 && nextCheckpointIndex <= route.size - 1 else {
+            return nil
+        }
+        return route.checkPoints[nextCheckpointIndex]
     }
     
     func setupScene() {
@@ -53,7 +62,7 @@ class SCNViewController: UIViewController {
      */
     func prepareNodes() {
         removeAllArrows()
-        setupArrowNodes()
+        updateArrowNodes()
         setupCameraNode()
     }
     
@@ -72,13 +81,14 @@ class SCNViewController: UIViewController {
         return arrowNode
     }
     
-    private func setupArrowNodes() {
-        guard let firstCheckpoint = firstCheckpoint else {
+    private func updateArrowNodes() {
+        guard let nextCheckpoint = nextCheckpoint else {
             return
         }
         let userPoint = geoManager.getLastUpdatedUserPoint()
         
-        var previousOffset = addArrows(from: userPoint, to: firstCheckpoint, firstOffset: 0.8)
+        var previousOffset = addArrows(from: userPoint, to: nextCheckpoint, firstOffset: 0.8)
+        
         for i in 0 ..< route.size - 1 {
             let src = route.checkPoints[i]
             let dest = route.checkPoints[i + 1]
