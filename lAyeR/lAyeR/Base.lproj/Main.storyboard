@@ -39,7 +39,7 @@
                     <connections>
                         <segue destination="ZZQ-e4-cj1" kind="presentation" identifier="settingsSegue" id="yhm-TZ-iKu"/>
                         <segue destination="zxE-ce-dRU" kind="presentation" identifier="arToUserProfile" id="gmy-Fg-dkd"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="arToDegisnerSegue" id="L6E-9q-XGj"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="arToDesignerSegue" id="L6E-9q-XGj"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="arToDesignerImport" id="7sy-DA-cOn"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="arToDesignerWithDirect" id="fJV-sB-RVH"/>
                     </connections>
@@ -957,6 +957,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J0J-J1-3xV"/>
-        <segue reference="fJV-sB-RVH"/>
+        <segue reference="L6E-9q-XGj"/>
     </inferredMetricsTieBreakers>
 </document>

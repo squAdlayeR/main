@@ -188,6 +188,16 @@ class ARViewController: UIViewController {
             }
             return
         }
+        if segue.identifier == "arToDesignerSegue" {
+            guard let dest = segue.destination as? RouteDesignerViewController else { return }
+            dest.removeAllMarkersAndLines()
+            for (idx, checkpointCard) in checkpointCardControllers.enumerated() {
+                let currentUserPoint = geoManager.getLastUpdatedUserPoint()
+                dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
+                let checkpoint = checkpointCard.checkpoint
+                dest.addPoint(coordinate: CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude), isControlPoint: checkpoint.isControlPoint, at: idx)
+            }
+        }
         if segue.identifier == segueToDirectName {
             guard let dest = segue.destination as? RouteDesignerViewController else { return }
             if let destName = cardDestination {
@@ -199,7 +209,7 @@ class ARViewController: UIViewController {
                     waypoints: nil,
                     removeAllPoints: true,
                     at: 0,
-                    completion: dest.getGpsRoutesUponCompletionOfGoogle(result:))
+                    completion: dest.getLayerAndGpsRoutesUponCompletionOfGoogle(result:))
             }
         }
     }

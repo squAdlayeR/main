@@ -134,7 +134,7 @@ extension ARViewController {
     /// Opens the map designer page
     func openDesigner() {
         menuController.remove()
-        self.performSegue(withIdentifier: "arToDegisnerSegue", sender: nil)
+        self.performSegue(withIdentifier: "arToDesignerSegue", sender: nil)
     }
     
     /// Force updates the user current location and nearby pois
