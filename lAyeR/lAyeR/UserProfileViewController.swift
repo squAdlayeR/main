@@ -172,6 +172,10 @@ class UserProfileViewController: UIViewController {
         alert.addAction(cancel)
         alert.addAction(album)
         alert.addAction(camera)
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+            alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.width/2.0, y: self.view.bounds.height, width: 1, height: 1)
+        }
         present(alert, animated: true, completion: nil)
     }
     
