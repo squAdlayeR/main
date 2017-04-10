@@ -210,7 +210,7 @@ class UserProfileViewController: UIViewController {
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
         routeList.rowHeight = UITableViewAutomaticDimension
-        routeList.estimatedRowHeight = 120
+        routeList.estimatedRowHeight = 150
         view.addSubview(routeList)
         setUpButton(selectButton)
         setUpButton(exportButton)
