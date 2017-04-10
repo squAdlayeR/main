@@ -16,6 +16,7 @@ import SceneKit
 class ARViewController: UIViewController {
 
     var route: Route = Route("initial empty route")
+    var controlRoute: Route = Route("the route formed by all the control points")
     var nextCheckpointIndex = 0
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
@@ -105,13 +106,13 @@ class ARViewController: UIViewController {
         if let currentLocation = notification.object as? GeoPoint {
             miniMapController.updateMiniMap(with: currentLocation)
             
-            guard (nextCheckpointIndex <= route.size - 1 && nextCheckpointIndex >= 0) else {
+            guard (nextCheckpointIndex <= controlRoute.size - 1 && nextCheckpointIndex >= 0) else {
                 return
             }
             let userPoint = geoManager.getLastUpdatedUserPoint()
-            let nextCheckpoint = route.checkPoints[nextCheckpointIndex]
+            let nextCheckpoint = controlRoute.checkPoints[nextCheckpointIndex]
             if GeoUtil.getCoordinateDistance(userPoint, nextCheckpoint) < Constant.arrivalDistanceThreshold {
-                if nextCheckpointIndex == route.size - 1 {
+                if nextCheckpointIndex == controlRoute.size - 1 {
                     handleArrival()
                 } else {
                     nextCheckpointIndex += 1
@@ -184,40 +185,6 @@ class ARViewController: UIViewController {
         updateScene()
     }
     
-    @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "arToDesignerImport" {
-            if let url = sender as? URL, let dest = segue.destination as? RouteDesignerViewController {
-                dest.importedURL = url
-            }
-            return
-        }
-        if segue.identifier == "arToDesignerSegue" {
-            guard let dest = segue.destination as? RouteDesignerViewController else { return }
-            dest.removeAllMarkersAndLines()
-            let currentUserPoint = geoManager.getLastUpdatedUserPoint()
-            dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
-            for (idx, checkpoint) in route.checkPoints.enumerated() {
-                dest.addPoint(coordinate: CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude), isControlPoint: checkpoint.isControlPoint, at: idx)
-            }
-        }
-        if segue.identifier == segueToDirectName {
-            guard let dest = segue.destination as? RouteDesignerViewController else { return }
-            if let destName = cardDestination {
-                let currentUserPoint = geoManager.getLastUpdatedUserPoint()
-                dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
-                dest.importedSearchDestination = destName
-                dest.getDirections(origin: "\(currentUserPoint.latitude) \(currentUserPoint.longitude)",
-                    destination: destName,
-                    waypoints: nil,
-                    removeAllPoints: true,
-                    at: 0,
-                    completion: dest.getLayerAndGpsRoutesUponCompletionOfGoogle(result:))
-            }
-        }
-    }
-    
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
         let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // hide out of screen
                                             distance: 0, superViewController: self)
@@ -227,7 +194,7 @@ class ARViewController: UIViewController {
     }
     
     func updateCheckpointCardDisplay(nextCheckpointIndex: Int) {
-        let maxIndex = route.size - 1
+        let maxIndex = controlRoute.size - 1
         
         checkpointCardControllers.removeAll()
         
@@ -237,7 +204,7 @@ class ARViewController: UIViewController {
             guard i >= 0 && i <= maxIndex else {
                 continue
             }
-            let checkpoint = route.checkPoints[i]
+            let checkpoint = controlRoute.checkPoints[i]
             let cardController = createCheckpointCardController(of: checkpoint)
             if i == nextCheckpointIndex {
                 cardController.setSelected(true)

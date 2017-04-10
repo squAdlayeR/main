@@ -115,6 +115,7 @@
 		A25E65831E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */; };
 		A25E65851E9B737D00011885 /* SCNVector3_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */; };
 		A25E65891E9B7B8400011885 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65881E9B7B8400011885 /* CameraController.swift */; };
+		A25E658B1E9BA50100011885 /* ARViewController_SegueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E658A1E9BA50100011885 /* ARViewController_SegueExtension.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -252,6 +253,7 @@
 		A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_SegueExtesnsion.swift; sourceTree = "<group>"; };
 		A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCNVector3_Extension.swift; sourceTree = "<group>"; };
 		A25E65881E9B7B8400011885 /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		A25E658A1E9BA50100011885 /* ARViewController_SegueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_SegueExtension.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 				A2AF0AB91E70103800B4478C /* ARViewController.swift */,
 				A253FB6A1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift */,
 				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
+				A25E658A1E9BA50100011885 /* ARViewController_SegueExtension.swift */,
 				A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */,
 				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
 				A25E65881E9B7B8400011885 /* CameraController.swift */,
@@ -978,6 +981,7 @@
 				528288B21E92690C00163654 /* AppSettings.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2E742F9C1E9784D500651A74 /* RouteDesignerModel.swift in Sources */,
+				A25E658B1E9BA50100011885 /* ARViewController_SegueExtension.swift in Sources */,
 				2E742FA01E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */,

@@ -46,7 +46,6 @@ class CheckpointCardController {
         }
         if selected {
             superView.addSubview(arrow)
-            card.setBlurEffect(true)
         } else {
             arrow.removeFromSuperview()
         }

@@ -18,7 +18,9 @@ extension RouteDesignerViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let arViewController = segue.destination as? ARViewController {
 
-            arViewController.route = createRoute(from: markers)
+            let route = createRoute(from: markers)
+            arViewController.route = route
+            arViewController.controlRoute = extractControlRoute(from: route)
 
             arViewController.updateCheckpointCardDisplay(nextCheckpointIndex: 0)
             
@@ -37,5 +39,15 @@ extension RouteDesignerViewController {
             route.append(checkpoint)
         }
         return route
+    }
+    
+    private func extractControlRoute(from route: Route) -> Route {
+        let controlRoute = Route("the route formed by control points")
+        for checkpoint in route.checkPoints {
+            if checkpoint.isControlPoint {
+                controlRoute.append(checkpoint)
+            }
+        }
+        return controlRoute
     }
 }
