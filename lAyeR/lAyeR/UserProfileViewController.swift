@@ -70,6 +70,10 @@ class UserProfileViewController: UIViewController {
         return .lightContent
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        //routeList.reloadData()
+    }
+    
     @IBAction func logout(_ sender: Any) {
         dataService.signOut()
         self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
@@ -172,6 +176,10 @@ class UserProfileViewController: UIViewController {
         alert.addAction(cancel)
         alert.addAction(album)
         alert.addAction(camera)
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+            alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.width/2.0, y: self.view.bounds.height, width: 1, height: 1)
+        }
         present(alert, animated: true, completion: nil)
     }
     
@@ -201,6 +209,8 @@ class UserProfileViewController: UIViewController {
         routeList.delegate = self
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
+        routeList.rowHeight = UITableViewAutomaticDimension
+        routeList.estimatedRowHeight = 120
         view.addSubview(routeList)
         setUpButton(selectButton)
         setUpButton(exportButton)
