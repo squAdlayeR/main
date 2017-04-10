@@ -15,12 +15,15 @@ import SceneKit
 
 class ARViewController: UIViewController {
 
+    var route: Route = Route("initial empty route")
+    var nextCheckpointIndex = 0
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
                                                                         Constant.nearbyPOIsUpdatedNotificationName)
     private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
                                                                         Constant.userLocationUpdatedNotificationName)
 
+    // for displaying checkpoint card and poi card
     var checkpointCardControllers: [CheckpointCardController] = [] {
         didSet {
             miniMapController.checkpointCardControllers = checkpointCardControllers
@@ -53,12 +56,15 @@ class ARViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         addChildViewController(cameraViewController)
         cameraViewController.setupCameraView()
-        fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
+        
         monitorNearbyPOIsUpdate()
         monitorCurrentLocationUpdate()
+        
         fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
+        
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
         
@@ -98,6 +104,20 @@ class ARViewController: UIViewController {
     func observeUserLocationChange(_ notification: NSNotification) {
         if let currentLocation = notification.object as? GeoPoint {
             miniMapController.updateMiniMap(with: currentLocation)
+            
+            guard (nextCheckpointIndex <= route.size - 1 && nextCheckpointIndex >= 0) else {
+                return
+            }
+            let userPoint = geoManager.getLastUpdatedUserPoint()
+            let nextCheckpoint = route.checkPoints[nextCheckpointIndex]
+            if GeoUtil.getCoordinateDistance(userPoint, nextCheckpoint) < Constant.arrivalDistanceThreshold {
+                if nextCheckpointIndex == route.size - 1 {
+                    handleArrival()
+                } else {
+                    nextCheckpointIndex += 1
+                    updateCheckpointCardDisplay(nextCheckpointIndex: nextCheckpointIndex)
+                }
+            }
         }
     }
     
@@ -189,7 +209,47 @@ class ARViewController: UIViewController {
         }
     }
     
+    private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
+        let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // hide out of screen
+                                            distance: 0, superViewController: self)
+        checkpointCard.setCheckpointName(checkpoint.name)
+        checkpointCard.setCheckpointDescription("Oops! This checkpoint has no specific description.")
+        return CheckpointCardController(checkpoint: checkpoint, card: checkpointCard)
+    }
+    
+    func updateCheckpointCardDisplay(nextCheckpointIndex: Int) {
+        let maxIndex = route.size - 1
+        
+        checkpointCardControllers.removeAll()
+        
+        let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
+        let endIndex = nextCheckpointIndex + Constant.numCheckpointDisplayedForward
+        for i in startIndex ..< endIndex {
+            guard i >= 0 && i <= maxIndex else {
+                continue
+            }
+            let checkpoint = route.checkPoints[i]
+            let cardController = createCheckpointCardController(of: checkpoint)
+            if i == nextCheckpointIndex {
+                cardController.setSelected(true)
+            }
+            checkpointCardControllers.append(cardController)
+        }
+
+    }
+    
+    private func handleArrival() {
+        // TODO: use this method to inform user arrival
+    }
 }
+
+
+
+
+
+
+
+
 
 
 

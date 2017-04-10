@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import GoogleMaps
+import GooglePlaces
 
 
 extension RouteDesignerViewController {
@@ -15,23 +17,25 @@ extension RouteDesignerViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let arViewController = segue.destination as? ARViewController {
-            arViewController.checkpointCardControllers.removeAll()
-            for marker in markers {
-                guard let checkpoint = marker.userData as? CheckPoint else {
-                    break
-                }
-                let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // for demo only, hide out of screen
-                    distance: 0, superViewController: arViewController)
-                checkpointCard.setCheckpointName(checkpoint.name)
-                checkpointCard.setCheckpointDescription("Oops! This checkpoint has no specific description.")
-                arViewController.checkpointCardControllers.append(CheckpointCardController(checkpoint: checkpoint,
-                                                                                           card: checkpointCard))
-            }
-            if (!markers.isEmpty) {
-                arViewController.checkpointCardControllers[0].setSelected(true)
-            }
+
+            arViewController.route = createRoute(from: markers)
+
+            arViewController.updateCheckpointCardDisplay(nextCheckpointIndex: 0)
+            
             arViewController.prepareNodes()
+            
             //TODO: force update the POI in ARView
         }
+    }
+    
+    private func createRoute(from markers: [GMSMarker]) -> Route {
+        let route = Route("the name of the route")
+        for marker in markers {
+            guard let checkpoint = marker.userData as? CheckPoint else {
+                continue
+            }
+            route.append(checkpoint)
+        }
+        return route
     }
 }

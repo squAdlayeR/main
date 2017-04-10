@@ -32,6 +32,10 @@ class Constant {
                                            blue: arrowDefaultColorB,
                                            alpha: arrowDefaultColorAlpha)
     static let framePerSecond = 60
+    
+    static let numCheckpointDisplayedForward = 3
+    static let numCheckpointDisplayedBackward = 2
+    static let arrivalDistanceThreshold: Double = 38
 }
 
 
