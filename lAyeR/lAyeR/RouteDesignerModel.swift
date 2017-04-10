@@ -109,7 +109,7 @@ class RouteDesignerModel {
     
     // ---------------- A* Search Algorithm --------------------//
     
-    enum Direction {
+    private enum Direction {
         case up
         case down
         case left
@@ -143,6 +143,7 @@ class RouteDesignerModel {
         let startNode = TrackPointNode(trackPoint: source, parent: nil, g: 0, f: manhattanDistance(from: source, to: dest))
         var openSet = PriorityQueue(ascending: true, startingValues: [startNode])
         var closedSet = Dictionary<TrackPoint, Double>()
+        closedSet[source] = 0.0
         
         while !openSet.isEmpty {
             let currentNode = openSet.pop()!
@@ -150,33 +151,46 @@ class RouteDesignerModel {
             if currentTrackPoint == dest {
                 return backtrack(from: currentNode)
             }
+            // print ("Current Node: \(currentTrackPoint.latitude) \(currentTrackPoint.longitude)")
             let newcost = currentNode.g + coordinateInterval
             if currentTrackPoint.up {
-                let nextTrackPoint = getNextTrackPoint(from: currentTrackPoint, dir: .up)
-                if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
-                    closedSet[nextTrackPoint] = newcost
-                    openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .up))
+                if nextTrackPointIdx != nil {
+                    let nextTrackPoint = trackPoints[nextTrackPointIdx!]
+                    if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
+                        closedSet[nextTrackPoint] = newcost
+                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                    }
                 }
             }
             if currentTrackPoint.down {
-                let nextTrackPoint = getNextTrackPoint(from: currentTrackPoint, dir: .down)
-                if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
-                    closedSet[nextTrackPoint] = newcost
-                    openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .down))
+                if nextTrackPointIdx != nil {
+                    let nextTrackPoint = trackPoints[nextTrackPointIdx!]
+                    if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
+                        closedSet[nextTrackPoint] = newcost
+                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                    }
                 }
             }
             if currentTrackPoint.right {
-                let nextTrackPoint = getNextTrackPoint(from: currentTrackPoint, dir: .right)
-                if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
-                    closedSet[nextTrackPoint] = newcost
-                    openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .right))
+                if nextTrackPointIdx != nil {
+                    let nextTrackPoint = trackPoints[nextTrackPointIdx!]
+                    if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
+                        closedSet[nextTrackPoint] = newcost
+                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                    }
                 }
             }
             if currentTrackPoint.left {
-                let nextTrackPoint = getNextTrackPoint(from: currentTrackPoint, dir: .left)
-                if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
-                    closedSet[nextTrackPoint] = newcost
-                    openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .left))
+                if nextTrackPointIdx != nil {
+                    let nextTrackPoint = trackPoints[nextTrackPointIdx!]
+                    if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
+                        closedSet[nextTrackPoint] = newcost
+                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                    }
                 }
             }
         }
@@ -193,16 +207,16 @@ class RouteDesignerModel {
         let maxLon = max(source.longitude, dest.longitude)
         let bottomLeft = GeoPoint(minLat - queryRadiusInCoordinates, minLon - queryRadiusInCoordinates)
         let topRight = GeoPoint(maxLat + queryRadiusInCoordinates, maxLon + queryRadiusInCoordinates)
-        print("QUERY FROM: \(bottomLeft.latitude) \(bottomLeft.longitude)")
-        print("QUERY TO: \(topRight.latitude) \(topRight.longitude)")
+        // print("QUERY FROM: \(bottomLeft.latitude) \(bottomLeft.longitude)")
+        // print("QUERY TO: \(topRight.latitude) \(topRight.longitude)")
         DatabaseManager.instance.getRectFromDatabase(from: bottomLeft, to: topRight) { (trackPoints) -> () in
             var sourceTp: TrackPoint?
             var destTp: TrackPoint?
             var smallestSourceDist = queryRadiusInCoordinates
             var smallestDestDist = queryRadiusInCoordinates
-            print ("Number of Points: \(trackPoints.count)")
+            // print ("Number of Points: \(trackPoints.count)")
             for onePoint in trackPoints {
-                print ("ONE POINT: \(onePoint.latitude) \(onePoint.longitude)")
+                print ("ONE POINT: \(onePoint.latitude) \(onePoint.longitude) \(onePoint.up) \(onePoint.down) \(onePoint.left) \(onePoint.right)")
                 let sourceDist = self.euclideanDistance(from: onePoint, to: source)
                 if sourceDist < queryRadiusInCoordinates && sourceDist < smallestSourceDist {
                     smallestSourceDist = sourceDist
@@ -217,6 +231,8 @@ class RouteDesignerModel {
             if sourceTp == nil || destTp == nil || sourceTp == destTp {
                 completion([Route]())
             } else {
+                // print ("SOURCE: \(sourceTp!.latitude) \(sourceTp!.longitude)")
+                // print ("DESTINATION: \(destTp!.latitude) \(destTp!.longitude)")
                 completion(self.aStarSearch(from: sourceTp!, to: destTp!, using: trackPoints))
             }
         }
