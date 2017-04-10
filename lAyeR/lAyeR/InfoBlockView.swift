@@ -21,7 +21,7 @@ class InfoBlockView: UIView {
     ///     - width: the width of the info block view
     init(label: String, iconName: String, content: String, width: CGFloat) {
         let infoBlock = InfoBlock(label: label,
-                                  imageName: iconName,
+                                  imageName: "\(iconName)-colored",
                                   content: content,
                                   width: width - infoBlockPadding * 2)
         let initialFrame = CGRect(x: 0, y: 0, width: width, height: infoBlock.bounds.height + infoBlockPaddingTop * 3)
