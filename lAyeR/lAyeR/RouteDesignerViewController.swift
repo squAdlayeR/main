@@ -115,6 +115,10 @@ class RouteDesignerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     @IBOutlet weak var loadingLayerRoutesIcon: UIActivityIndicatorView!
     @IBOutlet weak var loadingGpsRoutesIcon: UIActivityIndicatorView!
     @IBOutlet weak var sourceBar: UITextField!

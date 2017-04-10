@@ -6,7 +6,7 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import AVFoundation
+
 import CoreMotion
 import Foundation
 import MapKit
@@ -14,25 +14,16 @@ import UIKit
 import SceneKit
 
 class ARViewController: UIViewController {
-    
-    // setting constants
-    let framePerSecond = 60
+
+    var route: Route = Route("initial empty route")
+    var nextCheckpointIndex = 0
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
-                                                                    Constant.nearbyPOIsUpdatedNotificationName)
-    // Defines the notification name for user location update
+                                                                        Constant.nearbyPOIsUpdatedNotificationName)
     private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
                                                                         Constant.userLocationUpdatedNotificationName)
-    // for displaying camera view
-    var videoDataOutput: AVCaptureVideoDataOutput!
-    var videoDataOutputQueue: DispatchQueue!
-    var cameraViewLayer: AVCaptureVideoPreviewLayer!
-    var captureDevice: AVCaptureDevice!
-    let session = AVCaptureSession()
-    var currentFrame: CIImage!
-    var done = false
-    
-    var cameraView: UIView!
+
+    // for displaying checkpoint card and poi card
     var checkpointCardControllers: [CheckpointCardController] = [] {
         didSet {
             miniMapController.checkpointCardControllers = checkpointCardControllers
@@ -44,6 +35,9 @@ class ARViewController: UIViewController {
 
     let motionManager = DeviceMotionManager.getInstance()
     let geoManager = GeoManager.getInstance()
+    
+    // for camera view
+    let cameraViewController = CameraController()
 
     // Defined for view control
     let menuController = MenuViewController()
@@ -62,12 +56,15 @@ class ARViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addCameraView()
-        setupAVCapture()
-        fov = Double(captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
+        
+        addChildViewController(cameraViewController)
+        cameraViewController.setupCameraView()
+        
         monitorNearbyPOIsUpdate()
         monitorCurrentLocationUpdate()
-        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
+        
+        fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
+        
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
         
@@ -78,12 +75,6 @@ class ARViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    private func addCameraView() {
-        cameraView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-        cameraView.contentMode = .scaleAspectFit
-        view.insertSubview(cameraView, at: 0)
     }
     
     /// Prepares the minimap view
@@ -113,6 +104,20 @@ class ARViewController: UIViewController {
     func observeUserLocationChange(_ notification: NSNotification) {
         if let currentLocation = notification.object as? GeoPoint {
             miniMapController.updateMiniMap(with: currentLocation)
+            
+            guard (nextCheckpointIndex <= route.size - 1 && nextCheckpointIndex >= 0) else {
+                return
+            }
+            let userPoint = geoManager.getLastUpdatedUserPoint()
+            let nextCheckpoint = route.checkPoints[nextCheckpointIndex]
+            if GeoUtil.getCoordinateDistance(userPoint, nextCheckpoint) < Constant.arrivalDistanceThreshold {
+                if nextCheckpointIndex == route.size - 1 {
+                    handleArrival()
+                } else {
+                    nextCheckpointIndex += 1
+                    updateCheckpointCardDisplay(nextCheckpointIndex: nextCheckpointIndex)
+                }
+            }
         }
     }
     
@@ -155,7 +160,7 @@ class ARViewController: UIViewController {
      */
     private func startObservingDeviceMotion() {
         displayLink.add(to: .current, forMode: .defaultRunLoopMode)
-        displayLink.preferredFramesPerSecond = framePerSecond
+        displayLink.preferredFramesPerSecond = Constant.framePerSecond
     }
     
     @objc private func updateLoop() {
@@ -204,7 +209,47 @@ class ARViewController: UIViewController {
         }
     }
     
+    private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
+        let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // hide out of screen
+                                            distance: 0, superViewController: self)
+        checkpointCard.setCheckpointName(checkpoint.name)
+        checkpointCard.setCheckpointDescription("Oops! This checkpoint has no specific description.")
+        return CheckpointCardController(checkpoint: checkpoint, card: checkpointCard)
+    }
+    
+    func updateCheckpointCardDisplay(nextCheckpointIndex: Int) {
+        let maxIndex = route.size - 1
+        
+        checkpointCardControllers.removeAll()
+        
+        let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
+        let endIndex = nextCheckpointIndex + Constant.numCheckpointDisplayedForward
+        for i in startIndex ..< endIndex {
+            guard i >= 0 && i <= maxIndex else {
+                continue
+            }
+            let checkpoint = route.checkPoints[i]
+            let cardController = createCheckpointCardController(of: checkpoint)
+            if i == nextCheckpointIndex {
+                cardController.setSelected(true)
+            }
+            checkpointCardControllers.append(cardController)
+        }
+
+    }
+    
+    private func handleArrival() {
+        // TODO: use this method to inform user arrival
+    }
 }
+
+
+
+
+
+
+
+
 
 
 
