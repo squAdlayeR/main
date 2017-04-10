@@ -115,6 +115,7 @@
 		A258B3231E97A86F008B1C81 /* arrow14.obj in Resources */ = {isa = PBXBuildFile; fileRef = A258B3221E97A86F008B1C81 /* arrow14.obj */; };
 		A25E65831E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */; };
 		A25E65851E9B737D00011885 /* SCNVector3_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */; };
+		A25E65891E9B7B8400011885 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E65881E9B7B8400011885 /* CameraController.swift */; };
 		A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */; };
 		A281F4BC1E8BF5CE00196850 /* ARViewController_MenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */; };
 		A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */; };
@@ -252,6 +253,7 @@
 		A258B3221E97A86F008B1C81 /* arrow14.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arrow14.obj; sourceTree = "<group>"; };
 		A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_SegueExtesnsion.swift; sourceTree = "<group>"; };
 		A25E65841E9B737D00011885 /* SCNVector3_Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCNVector3_Extension.swift; sourceTree = "<group>"; };
+		A25E65881E9B7B8400011885 /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		A27C23D51E812D1C0063F371 /* ViewLayoutAdjustable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLayoutAdjustable.swift; sourceTree = "<group>"; };
 		A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController_MenuExtension.swift; sourceTree = "<group>"; };
 		A28540461E70DD5000CF51B7 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -654,6 +656,7 @@
 				A281F4BB1E8BF5CE00196850 /* ARViewController_MenuExtension.swift */,
 				A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */,
 				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
+				A25E65881E9B7B8400011885 /* CameraController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -956,6 +959,7 @@
 				52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */,
 				2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
+				A25E65891E9B7B8400011885 /* CameraController.swift in Sources */,
 				528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */,

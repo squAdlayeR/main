@@ -31,6 +31,7 @@ class Constant {
                                            green: arrowDefaultColorG,
                                            blue: arrowDefaultColorB,
                                            alpha: arrowDefaultColorAlpha)
+    static let framePerSecond = 60
 }
 
 

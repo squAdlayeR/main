@@ -6,7 +6,7 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import AVFoundation
+
 import CoreMotion
 import Foundation
 import MapKit
@@ -14,25 +14,13 @@ import UIKit
 import SceneKit
 
 class ARViewController: UIViewController {
-    
-    // setting constants
-    let framePerSecond = 60
+
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
-                                                                    Constant.nearbyPOIsUpdatedNotificationName)
-    // Defines the notification name for user location update
+                                                                        Constant.nearbyPOIsUpdatedNotificationName)
     private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
                                                                         Constant.userLocationUpdatedNotificationName)
-    // for displaying camera view
-    var videoDataOutput: AVCaptureVideoDataOutput!
-    var videoDataOutputQueue: DispatchQueue!
-    var cameraViewLayer: AVCaptureVideoPreviewLayer!
-    var captureDevice: AVCaptureDevice!
-    let session = AVCaptureSession()
-    var currentFrame: CIImage!
-    var done = false
-    
-    var cameraView: UIView!
+
     var checkpointCardControllers: [CheckpointCardController] = [] {
         didSet {
             miniMapController.checkpointCardControllers = checkpointCardControllers
@@ -44,6 +32,9 @@ class ARViewController: UIViewController {
 
     let motionManager = DeviceMotionManager.getInstance()
     let geoManager = GeoManager.getInstance()
+    
+    // for camera view
+    let cameraViewController = CameraController()
 
     // Defined for view control
     let menuController = MenuViewController()
@@ -62,12 +53,12 @@ class ARViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addCameraView()
-        setupAVCapture()
-        fov = Double(captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
+        addChildViewController(cameraViewController)
+        cameraViewController.setupCameraView()
+        fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
         monitorNearbyPOIsUpdate()
         monitorCurrentLocationUpdate()
-        fov = Double(captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
+        fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
         
@@ -78,12 +69,6 @@ class ARViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    private func addCameraView() {
-        cameraView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-        cameraView.contentMode = .scaleAspectFit
-        view.insertSubview(cameraView, at: 0)
     }
     
     /// Prepares the minimap view
@@ -155,7 +140,7 @@ class ARViewController: UIViewController {
      */
     private func startObservingDeviceMotion() {
         displayLink.add(to: .current, forMode: .defaultRunLoopMode)
-        displayLink.preferredFramesPerSecond = framePerSecond
+        displayLink.preferredFramesPerSecond = Constant.framePerSecond
     }
     
     @objc private func updateLoop() {
