@@ -13,9 +13,21 @@ import MapKit
 import UIKit
 import SceneKit
 
+
+enum Mode {
+    case navigation
+    case explore
+}
+
+
 class ARViewController: UIViewController {
 
-    var route: Route = Route("initial empty route")
+    private var mode: Mode = .navigation
+    var route: Route = Route("initial empty route") {
+        didSet {
+            miniMapController.route = route
+        }
+    }
     var controlRoute: Route = Route("the route formed by all the control points")
     var nextCheckpointIndex = 0
     var fov: Double!
@@ -25,11 +37,7 @@ class ARViewController: UIViewController {
                                                                         Constant.userLocationUpdatedNotificationName)
 
     // for displaying checkpoint card and poi card
-    var checkpointCardControllers: [CheckpointCardController] = [] {
-        didSet {
-            miniMapController.checkpointCardControllers = checkpointCardControllers
-        }
-    }
+    var checkpointCardControllers: [CheckpointCardController] = []
     private var currentPoiCardControllers: [PoiCardController] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
@@ -71,7 +79,15 @@ class ARViewController: UIViewController {
         
         addChildViewController(scnViewController)
         scnViewController.setupScene()
+        
+        geoManager.forceUpdateUserNearbyPOIS()
     }
+    
+    
+    func setMode(to mode: Mode) {
+        self.mode = mode
+    }
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -92,20 +108,26 @@ class ARViewController: UIViewController {
     private func monitorNearbyPOIsUpdate() {
         NotificationCenter.default.addObserver(forName: nearbyPOIsUpdatedNotificationName, object: nil, queue: nil, using: { [unowned self] _ in
             
-            self.displayLastUpdatedPOIs()
+            if self.mode == .explore {
+                self.displayLastUpdatedPOIs()
+            }
         })
     }
     
     /// Monitors the update of the current user location
     private func monitorCurrentLocationUpdate() {
-        NotificationCenter.default.addObserver(forName: userLocationUpdatedNotificationName, object: nil, queue: nil, using: { [unowned self] _ in
-            
-            let userPoint = self.geoManager.getLastUpdatedUserPoint()
-            self.miniMapController.updateMiniMap(with: userPoint)
-            self.updateCheckpointCardDisplay()
-            //self.scnViewController.updateArrowNodes()
-        })
+        NotificationCenter.default.addObserver(self, selector: #selector(observeUserLocationChange(_:)),
+                                               name: userLocationUpdatedNotificationName, object: nil)
     }
+    
+    func observeUserLocationChange(_ notification: NSNotification) {
+        if let currentLocation = notification.object as? GeoPoint {
+            miniMapController.updateMiniMap(with: currentLocation)
+            updateCheckpointCardDisplay()
+            scnViewController.updateArrowNodes()
+        }
+    }
+    
     
     /// when detect user location changed, check whether should update the checkpoint card displayed
     func updateCheckpointCardDisplay() {
@@ -118,6 +140,7 @@ class ARViewController: UIViewController {
             displayCheckpointCards(nextCheckpointIndex: nextCheckpointIndex)
         }
     }
+    
     
     private func updateNextCheckpointIndex() {
         for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
@@ -134,20 +157,40 @@ class ARViewController: UIViewController {
         }
     }
     
+    
     /// Check whether the user current location is close enough to the specified point 
     /// to be considered as arriving at that point
-    private func doesArrive(at checkpoint: CheckPoint) -> Bool {
+    private func doesArrive(at controlPoint: CheckPoint) -> Bool {
         let userPoint = geoManager.getLastUpdatedUserPoint()
-        return GeoUtil.getCoordinateDistance(userPoint, checkpoint) < Constant.arrivalDistanceThreshold
+        return GeoUtil.getCoordinateDistance(userPoint, controlPoint) < Constant.arrivalDistanceThreshold
     }
+    
     
     /**
      Display the card of the checkpoint at the given index,
      as well as several previous checkpoints and several following checkpoints
      */
     private func displayCheckpointCards(nextCheckpointIndex: Int) {
-        //checkpointCardControllers.removeAll()
         
+        let newCheckpointCardControllers = getCheckpointsToDisplay(withNextCheckpointAt: nextCheckpointIndex)
+
+        // remove the obsolete checkpoint controllers
+        for controller in checkpointCardControllers {
+            if !newCheckpointCardControllers.contains(where: {$0.checkpoint == controller.checkpoint}) {
+                checkpointCardControllers.remove(at: checkpointCardControllers.index(where: {$0.checkpoint == controller.checkpoint})!)
+            }
+        }
+        
+        // add the new checkpoint controllers
+        for controller in newCheckpointCardControllers {
+            if !checkpointCardControllers.contains(where: {$0.checkpoint == controller.checkpoint}) {
+                checkpointCardControllers.append(controller)
+            }
+        }
+    }
+    
+    
+    private func getCheckpointsToDisplay(withNextCheckpointAt nextCheckpointIndex: Int) -> [CheckpointCardController] {
         var newCheckpointCardControllers: [CheckpointCardController] = []
         let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
         let endIndex = nextCheckpointIndex + Constant.numCheckpointDisplayedForward
@@ -162,19 +205,9 @@ class ARViewController: UIViewController {
             }
             newCheckpointCardControllers.append(cardController)
         }
-        
-        for controller in checkpointCardControllers {
-            if !newCheckpointCardControllers.contains(where: {$0.checkpoint == controller.checkpoint}) {
-                checkpointCardControllers.remove(at: checkpointCardControllers.index(where: {$0.checkpoint == controller.checkpoint})!)
-            }
-        }
-        
-        for controller in newCheckpointCardControllers {
-            if !checkpointCardControllers.contains(where: {$0.checkpoint == controller.checkpoint}) {
-                checkpointCardControllers.append(controller)
-            }
-        }
+        return newCheckpointCardControllers
     }
+    
     
     private func displayLastUpdatedPOIs() {
         let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
@@ -221,22 +254,20 @@ class ARViewController: UIViewController {
     @objc private func updateLoop() {
         let userPoint = geoManager.getLastUpdatedUserPoint()
 
-        var count = 0
-        for checkPointCardController in checkpointCardControllers {
-            if count == 3 {  // TODO: put this constant into AppSettings
-                break
+        switch mode {
+        case .navigation:
+            for checkPointCardController in checkpointCardControllers {
+                checkPointCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
+                                                    superView: view, fov: fov)
             }
-            checkPointCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
-                                                superView: view, fov: fov)
-            count += 1
+        case .explore:
+            for poiCardController in currentPoiCardControllers {
+                poiCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
+                                             superView: view, fov: fov)
+            }
         }
         
-        for poiCardController in currentPoiCardControllers {
-            poiCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
-                                         superView: view, fov: fov)
-        }
-        
-        //scnViewController.updateSceneCameraOrientation()
+        scnViewController.updateSceneCameraOrientation()
     }
     
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {

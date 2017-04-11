@@ -25,7 +25,7 @@ class MiniMapViewController: UIViewController, GMSMapViewDelegate {
     var isExpanded = false
     
     // Defines the checkpoints that will be shown on the minimap
-    var checkpointCardControllers: [CheckpointCardController] = [] {
+    var route: Route = Route("route to be shown in minimap") {
         didSet { drawPath() }
     }
 
@@ -102,10 +102,12 @@ extension MiniMapViewController {
     /// Draws the path that is directing to the destination
     func drawPath() {
         mapViewS.clear()
-        guard checkpointCardControllers.count > 0 else { return }
-        for index in 0..<checkpointCardControllers.count - 1 {
-            let from = getCLLocation(of: checkpointCardControllers[index].checkpoint)
-            let to = getCLLocation(of: checkpointCardControllers[index + 1].checkpoint)
+        guard route.size > 0 else { return }
+        let clUserPoint = getCLLocation(of: geoManager.getLastUpdatedUserPoint())
+        createPath(from: clUserPoint, to: getCLLocation(of: route.checkPoints[0]))
+        for index in 0 ..< route.size - 1 {
+            let from = getCLLocation(of: route.checkPoints[index])
+            let to = getCLLocation(of: route.checkPoints[index + 1])
             createPath(from: from, to: to)
         }
     }
@@ -113,8 +115,8 @@ extension MiniMapViewController {
     /// Gets the CL location of a check point
     /// - Parameter checkpoint: the check point that is to get location
     /// - Returns: the corresponding CL location
-    private func getCLLocation(of checkpoint: CheckPoint) -> CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude)
+    private func getCLLocation(of geoPoint: GeoPoint) -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
     }
     
     /// Creates a path between point one and point two.

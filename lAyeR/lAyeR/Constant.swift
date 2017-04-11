@@ -39,7 +39,7 @@ class Constant {
     static let numArrowsDisplayedForward = 18
     static let numArrowsDisplayedBackward = 12
     
-    static let arrivalDistanceThreshold: Double = 18
+    static let arrivalDistanceThreshold: Double = 10
     static let checkCloseRange = 1
 }
 
