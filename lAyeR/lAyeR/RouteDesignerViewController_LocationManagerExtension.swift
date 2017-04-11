@@ -19,16 +19,13 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
                                               longitude: location.coordinate.longitude,
                                               zoom: zoomLevel)
-        
+        myLocation = location
         if mapView.isHidden {
             mapView.isHidden = false
             if usingCurrentLocationAsSource {
                 mapView.camera = camera
             }
-            myLocation = location
-            // locationManager.stopUpdatingLocation()
         } else {
-            myLocation = location
             changeStartLocation()
         }
     }
@@ -53,15 +50,13 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
     
     // Handle location manager errors.
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingLocation()
         // print("Error: \(error)")
     }
     
     func changeStartLocation() {
         if TESTING { assert(checkRep()) }
         if !markers.isEmpty && usingCurrentLocationAsSource {
-            removeLine(at: 0)
-            addLine(from: myLocation!.coordinate, to: markers[0].position, at: 0)
+            modifyLine(at: 0)
         }
         if TESTING { assert(checkRep()) }
     }

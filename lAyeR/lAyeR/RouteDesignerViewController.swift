@@ -190,7 +190,6 @@ class RouteDesignerViewController: UIViewController {
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
-        locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
     }
