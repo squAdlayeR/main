@@ -88,9 +88,7 @@ class DatabaseManager {
             FIRDatabase.database().reference().child("gpstrack").queryOrdered(byChild: "latitude").queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
                 // snapshot value is [[String: Any]] parse
                 //print(snapshot.value)
-                guard let all = snapshot.value as? [String: Any] else {
-                    return
-                }
+                if let all = snapshot.value as? [String: Any] {
                 for candidate in all.values {
                     guard let latdict = candidate as? [String: Any],
                           let lat = latdict["latitude"] as? Double else {
@@ -119,6 +117,7 @@ class DatabaseManager {
                             print(lat, lon)
                             trackPoints.insert(trackPoint)
                         }
+                    }
                     }
                 }
                 DispatchQueue.main.async {
