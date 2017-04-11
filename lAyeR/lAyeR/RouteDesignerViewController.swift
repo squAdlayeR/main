@@ -548,6 +548,7 @@ class RouteDesignerViewController: UIViewController {
     
     @IBAction func showLayerRoutes(_ sender: Any) {
         if TESTING { assert(checkRep()) }
+        focusOnOneRoute()
         removeAllMarkersAndLines()
         if layerRoutesMarkers.count > 1 {
             selectingLayerRoute = true
@@ -582,6 +583,7 @@ class RouteDesignerViewController: UIViewController {
     
     @IBAction func showGpsRoutes(_ sender: Any) {
         if TESTING { assert(checkRep()) }
+        focusOnOneRoute()
         removeAllMarkersAndLines()
         if gpsRoutesMarkers.count > 1 {
             selectingGpsRoute = true
@@ -590,7 +592,6 @@ class RouteDesignerViewController: UIViewController {
             selectingGpsRoute = false
             selectedRoute = true
         }
-        print("NUM OF POINTS: \(gpsRoutesMarkers.count)")
         for gpsRoute in gpsRoutesMarkers {
             for marker in gpsRoute {
                 let markerData = marker.userData as! CheckPoint
@@ -688,10 +689,10 @@ class RouteDesignerViewController: UIViewController {
         for (idx, route) in routes.enumerated() {
             var isSimilar = false
             for index in 0..<idx {
-//                if GeoUtil.isSimilar(route1: route, route2: routes[index], threshold: self.similarityThreshold) {
-//                    isSimilar = true
-//                    break
-//                }
+                if GeoUtil.isSimilar(route1: route, route2: routes[index], threshold: self.similarityThreshold) {
+                    isSimilar = true
+                    break
+                }
             }
             if isSimilar {
                 continue

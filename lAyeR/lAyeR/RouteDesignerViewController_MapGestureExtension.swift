@@ -134,6 +134,11 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
             searchPin.alpha = 0.5
             useDestCoordinates = true
         }
+        if selectingLayerRoute {
+            selectRoute(coordinate: coordinate, forType: 0)
+        } else if selectingGpsRoute {
+            selectRoute(coordinate: coordinate, forType: 1)
+        }
         if TESTING { assert(checkRep()) }
     }
 }
