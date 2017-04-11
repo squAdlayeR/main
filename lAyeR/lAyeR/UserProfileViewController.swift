@@ -250,6 +250,10 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     
     /// Returns the total number of cells in the data table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return userProfile?.designedRoutes.count ?? 0
     }
     
@@ -259,7 +263,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         // TODO: Magic strings and numbers
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
         
-        cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
+        cell.routeName.text = userProfile?.designedRoutes[indexPath.section]
         cell.routeName.preferredMaxLayoutWidth = tableView.bounds.width
         cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
         
@@ -310,8 +314,8 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
                     return
             }
             let uid = currentUser.uid
-            let name = userProfile.designedRoutes[indexPath.row]
-            userProfile.designedRoutes.remove(at: indexPath.row)
+            let name = userProfile.designedRoutes[indexPath.section]
+            userProfile.designedRoutes.remove(at: indexPath.section)
             tableView.deleteRows(at: [indexPath], with: .left)
             // Error handling here
             DatabaseManager.instance.removeRouteFromDatabase(routeName: name)
@@ -321,13 +325,21 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func deselectAll() {
-        for row in 0..<routeList.numberOfRows(inSection: 0) {
-            let indexPath = IndexPath(row: row, section: 0)
+        for sec in 0..<routeList.numberOfSections {
+            let indexPath = IndexPath(row: 0, section: sec)
             guard let cell = routeList.cellForRow(at: indexPath) as? RouteListCell,
                 let name = cell.routeName.text else { continue }
             cell.checkMark.isHidden = true
             selectedRouteNames.remove(name)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
     }
     
 }

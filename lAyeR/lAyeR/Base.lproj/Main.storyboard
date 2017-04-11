@@ -419,7 +419,7 @@
                                                     <rect key="frame" x="20" y="20" width="335" height="122"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvb-Rb-UiB">
-                                                    <rect key="frame" x="20" y="20" width="335" height="122"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="142"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZj-JJ-eHr">
@@ -459,7 +459,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="pZj-JJ-eHr" secondAttribute="bottom" constant="7.5" id="T1v-fm-H1A"/>
                                                 <constraint firstAttribute="bottom" secondItem="xvb-Rb-UiB" secondAttribute="bottom" id="TjN-Qv-I8y"/>
                                                 <constraint firstItem="pZj-JJ-eHr" firstAttribute="leading" secondItem="RhL-vr-Xf9" secondAttribute="leading" constant="50" id="m9r-vC-QAO"/>
-                                                <constraint firstItem="xvb-Rb-UiB" firstAttribute="top" secondItem="RhL-vr-Xf9" secondAttribute="top" constant="20" id="o5t-9V-5cy"/>
+                                                <constraint firstItem="xvb-Rb-UiB" firstAttribute="top" secondItem="RhL-vr-Xf9" secondAttribute="top" id="o5t-9V-5cy"/>
                                                 <constraint firstAttribute="trailing" secondItem="WfS-ph-vxd" secondAttribute="trailing" constant="20" id="p8Y-Mn-L5s"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="rm5-n7-U0P" secondAttribute="trailing" constant="35" id="rET-4X-VBx"/>
                                                 <constraint firstAttribute="trailing" secondItem="xvb-Rb-UiB" secondAttribute="trailing" constant="20" id="raA-7L-WBn"/>
@@ -591,7 +591,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHM-Gw-YUr">
-                                        <rect key="frame" x="132" y="37" width="111" height="38.5"/>
+                                        <rect key="frame" x="132" y="36.5" width="111" height="38.5"/>
                                         <fontDescription key="fontDescription" name="DINPro-Medium" family="DINPro" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

@@ -276,7 +276,8 @@ class ARViewController: UIViewController {
         let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // hide out of screen
                                             distance: 0, superViewController: self)
         checkpointCard.setCheckpointName(checkpoint.name)
-        checkpointCard.setCheckpointDescription("Oops! This checkpoint has no specific description.")
+        let sanitizedDescription = checkpoint.description == "" ? "Oops! This checkpoint has no specific description." : checkpoint.description
+        checkpointCard.setCheckpointDescription(sanitizedDescription)
         return CheckpointCardController(checkpoint: checkpoint, card: checkpointCard)
     }
     
