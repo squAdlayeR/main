@@ -38,6 +38,9 @@ class GPSTracker {
                             prevLocation.longitude.truncate(places: 4))
         let curr = GeoPoint(currentLocation.latitude.truncate(places: 4),
                             currentLocation.longitude.truncate(places: 4))
+        guard fabs(prev.latitude-curr.latitude) <= 0.0001 && fabs(prev.longitude-curr.longitude) <= 0.0001 else {
+            return //accross grid
+        }
         DatabaseManager.instance.sendLocationInfoToDatabase(from: prev, to: curr)
         DatabaseManager.instance.sendLocationInfoToDatabase(from: curr, to: prev) // bi-directions
         DatabaseManager.instance.sendLocationInfoToDatabase(from: GeoPoint(prev.latitude, curr.longitude), to: GeoPoint(curr.latitude, prev.longitude))
