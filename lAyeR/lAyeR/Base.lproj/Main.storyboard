@@ -898,6 +898,13 @@
                                         <rect key="frame" x="0.0" y="65" width="375" height="602"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cancel" translatesAutoresizingMaskIntoConstraints="NO" id="NIo-aN-G4J">
+                                        <rect key="frame" x="338" y="24" width="29" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="29" id="BkA-Uc-5wt"/>
+                                            <constraint firstAttribute="width" constant="29" id="nK4-go-X1t"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -907,6 +914,8 @@
                                     <constraint firstItem="ndC-YS-GIz" firstAttribute="top" secondItem="5Xx-9A-Ae7" secondAttribute="top" constant="20" id="DsN-gL-HP7"/>
                                     <constraint firstItem="kL1-5c-gyz" firstAttribute="top" secondItem="ndC-YS-GIz" secondAttribute="bottom" constant="8" id="MKk-Tm-sjQ"/>
                                     <constraint firstAttribute="trailing" secondItem="kL1-5c-gyz" secondAttribute="trailing" id="kOM-qs-5eF"/>
+                                    <constraint firstItem="NIo-aN-G4J" firstAttribute="top" secondItem="5Xx-9A-Ae7" secondAttribute="top" constant="24" id="njh-73-tYJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="NIo-aN-G4J" secondAttribute="trailing" constant="8" id="o2G-0E-rNq"/>
                                     <constraint firstItem="ndC-YS-GIz" firstAttribute="leading" secondItem="5Xx-9A-Ae7" secondAttribute="leading" id="q9A-ul-DDl"/>
                                 </constraints>
                             </view>
@@ -926,6 +935,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cancelSearchButton" destination="NIo-aN-G4J" id="Ser-te-t9S"/>
                         <outlet property="currentLocationIcon" destination="2J1-WC-wMJ" id="vbP-ha-FOi"/>
                         <outlet property="googleRouteButton" destination="vld-tD-ceB" id="fL6-2q-sGm"/>
                         <outlet property="gpsRoutesButton" destination="lO1-4a-Qsl" id="NQm-vg-RlC"/>
@@ -945,12 +955,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="xLN-0U-Ncz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-156" y="-291"/>
+            <point key="canvasLocation" x="-156" y="-291.00449775112446"/>
         </scene>
     </scenes>
     <resources>
         <image name="album" width="256" height="256"/>
         <image name="camera" width="256" height="256"/>
+        <image name="cancel" width="512" height="512"/>
         <image name="checkmark" width="256" height="256"/>
         <image name="current_location" width="256" height="256"/>
         <image name="pin" width="366" height="592"/>

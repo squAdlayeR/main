@@ -130,6 +130,7 @@ class RouteDesignerViewController: UIViewController {
     @IBOutlet weak var currentLocationIcon: UIImageView!
     @IBOutlet weak var sourcePin: UIImageView!
     @IBOutlet weak var searchPin: UIImageView!
+    @IBOutlet weak var cancelSearchButton: UIImageView!
     
     // ---------------- Check Rep --------------------//
     
@@ -272,10 +273,18 @@ class RouteDesignerViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedCurrentLocation(gestureRecognizer:)))
         currentLocationIcon.isUserInteractionEnabled = true
         currentLocationIcon.addGestureRecognizer(tapGesture)
+        
+        let cancelSearchTapGesture = UITapGestureRecognizer(target: self, action: #selector(cancelSearch(gestureRecognizer:)))
+        cancelSearchButton.isUserInteractionEnabled = true
+        cancelSearchButton.addGestureRecognizer(cancelSearchTapGesture)
     }
     
     func tappedCurrentLocation(gestureRecognizer: UITapGestureRecognizer) {
         sourceBar.text = currentLocationText
+    }
+    
+    func cancelSearch(gestureRecognizer: UITapGestureRecognizer) {
+        self.selectPlacesView.isHidden = true
     }
     
     // ---------------- Pin Gestures --------------------//
