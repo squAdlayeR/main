@@ -81,7 +81,6 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         for type in appSettings.selectedPOICategrories {
             group.enter()
             let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, type, userPoint)
-            print(userPoint.latitude, userPoint.longitude)
             Alamofire.request(url).responseJSON { [unowned self] response in
                 if let json = response.result.value as? [String: Any] {
                     candidates.append(contentsOf: Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers)))
