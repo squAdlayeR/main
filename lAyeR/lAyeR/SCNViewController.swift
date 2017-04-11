@@ -103,7 +103,9 @@ class SCNViewController: UIViewController {
         updateSize()
         updateOpacity()
         
-        animateMovingOn()
+        if isAnimating {
+            animateMovingOn()
+        }
     }
     
     
