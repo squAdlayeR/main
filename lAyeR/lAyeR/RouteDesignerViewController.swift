@@ -48,6 +48,8 @@ class RouteDesignerViewController: UIViewController {
     var searchPinLocation: CGPoint?
     var useSourceCoordinates = false
     var useDestCoordinates = false
+    var selectingSourceCoordinate = false
+    var selectingSearchCoordinate = false
     
     // State of Designing Routes
     var manualRouteType = true
@@ -84,6 +86,7 @@ class RouteDesignerViewController: UIViewController {
     var importedURL: URL?
     var importedRoutes: [Route]?
     var importedSearchDestination: String?
+    var viewControllerNavigatedFrom:AnyObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +97,7 @@ class RouteDesignerViewController: UIViewController {
         initializeMarkersAndLines()
         
         addPanGesture()
-        addTapCurrentLocationGesture()
+        addTapGesture()
         
         historyOfMarkers.append(markers)
         
@@ -223,6 +226,10 @@ class RouteDesignerViewController: UIViewController {
         sourceBar.delegate = self
         stopLoadingLayerRoutesAnimation()
         stopLoadingGpsRoutesAnimation()
+        
+        googleRouteButton.isEnabled = false
+        layerRoutesButton.isEnabled = false
+        gpsRoutesButton.isEnabled = false
     }
     
     private func initializeSuggestedPlaces() {
@@ -254,18 +261,6 @@ class RouteDesignerViewController: UIViewController {
         panGesture.maximumNumberOfTouches = 1
         mapView.isUserInteractionEnabled = true
         mapView.addGestureRecognizer(panGesture)
-        
-        let sourcePinGesture = UIPanGestureRecognizer(target: self, action: #selector(dragSourcePin(gestureRecognizer:)))
-        sourcePinGesture.minimumNumberOfTouches = 1
-        sourcePinGesture.maximumNumberOfTouches = 1
-        sourcePin.isUserInteractionEnabled = true
-        sourcePin.addGestureRecognizer(sourcePinGesture)
-        
-        let searchPinGesture = UIPanGestureRecognizer(target: self, action: #selector(dragSearchPin(gestureRecognizer:)))
-        searchPinGesture.minimumNumberOfTouches = 1
-        searchPinGesture.maximumNumberOfTouches = 1
-        searchPin.isUserInteractionEnabled = true
-        searchPin.addGestureRecognizer(searchPinGesture)
     }
     
     func getPinLocations() {
@@ -273,7 +268,7 @@ class RouteDesignerViewController: UIViewController {
         searchPinLocation = searchPin.center
     }
     
-    func addTapCurrentLocationGesture() {
+    func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedCurrentLocation(gestureRecognizer:)))
         currentLocationIcon.isUserInteractionEnabled = true
         currentLocationIcon.addGestureRecognizer(tapGesture)
@@ -281,6 +276,16 @@ class RouteDesignerViewController: UIViewController {
         let cancelSearchTapGesture = UITapGestureRecognizer(target: self, action: #selector(cancelSearch(gestureRecognizer:)))
         cancelSearchButton.isUserInteractionEnabled = true
         cancelSearchButton.addGestureRecognizer(cancelSearchTapGesture)
+        
+        let sourcePinGesture = UITapGestureRecognizer(target: self, action: #selector(tapSourcePin(gestureRecognizer:)))
+        sourcePin.isUserInteractionEnabled = true
+        sourcePin.addGestureRecognizer(sourcePinGesture)
+        sourcePin.alpha = 0.5
+        
+        let searchPinGesture = UITapGestureRecognizer(target: self, action: #selector(tapSearchPin(gestureRecognizer:)))
+        searchPin.isUserInteractionEnabled = true
+        searchPin.addGestureRecognizer(searchPinGesture)
+        searchPin.alpha = 0.5
     }
     
     func tappedCurrentLocation(gestureRecognizer: UITapGestureRecognizer) {
@@ -293,28 +298,26 @@ class RouteDesignerViewController: UIViewController {
     
     // ---------------- Pin Gestures --------------------//
     
-    func dragSourcePin(gestureRecognizer: UIPanGestureRecognizer) {
-        if (gestureRecognizer.state != .ended) && (gestureRecognizer.state != .failed) {
-            gestureRecognizer.view?.center = gestureRecognizer.location(in: self.view)
+    func tapSourcePin(gestureRecognizer: UIPanGestureRecognizer) {
+        if !selectingSourceCoordinate {
+            selectingSourceCoordinate = true
+            sourcePin.alpha = 1.0
         } else {
-            useSourceCoordinates = true
-            let point = gestureRecognizer.location(in: self.view)
-            let coordinate = mapView.projection.coordinate(for: point)
-            sourceBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
-            sourcePin.center = sourcePinLocation!
+            selectingSourceCoordinate = false
+            sourcePin.alpha = 0.5
         }
+        selectingSearchCoordinate = false
     }
     
-    func dragSearchPin(gestureRecognizer: UIPanGestureRecognizer) {
-        if (gestureRecognizer.state != .ended) && (gestureRecognizer.state != .failed) {
-            gestureRecognizer.view?.center = gestureRecognizer.location(in: self.view)
+    func tapSearchPin(gestureRecognizer: UIPanGestureRecognizer) {
+        if !selectingSearchCoordinate {
+            selectingSearchCoordinate = true
+            searchPin.alpha = 1.0
         } else {
-            useDestCoordinates = true
-            let point = gestureRecognizer.location(in: self.view)
-            let coordinate = mapView.projection.coordinate(for: point)
-            searchBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
-            searchPin.center = searchPinLocation!
+            selectingSearchCoordinate = false
+            searchPin.alpha = 0.5
         }
+        selectingSourceCoordinate = false
     }
     
     // ---------------- GPX --------------------//
@@ -349,7 +352,7 @@ class RouteDesignerViewController: UIViewController {
         if TESTING { assert(checkRep()) }
     }
     
-    // ---------------- Undo Last Action --------------------//
+    // ---------------- Undo Last Action and Remove All --------------------//
     
     @IBAction func undo(_ sender: UIButton) {
         if TESTING { assert(checkRep()) }
@@ -363,6 +366,25 @@ class RouteDesignerViewController: UIViewController {
         }
         if TESTING { assert(checkRep()) }
     }
+    
+    @IBAction func removeAll(_ sender: Any) {
+        if usingCurrentLocationAsSource {
+            if markers.count > 1 {
+                while markers.count > 1 {
+                    deletePoint(at: 0)
+                }
+                historyOfMarkers.append(markers)
+            }
+        } else {
+            if markers.count > 2 {
+                while markers.count > 2 {
+                    deletePoint(at: 1)
+                }
+                historyOfMarkers.append(markers)
+            }
+        }
+    }
+    
     
     // ---------------- Main Search Functions --------------------//
     
@@ -386,7 +408,6 @@ class RouteDesignerViewController: UIViewController {
                     }
                 }
             } else {
-                usingCurrentLocationAsSource = false
                 if useSourceCoordinates {
                     self.sourceText = sourceBar.text!
                     if useDestCoordinates {
@@ -687,7 +708,6 @@ class RouteDesignerViewController: UIViewController {
                 }
                 self.stopLoadingGpsRoutesAnimation()
             }
-            
         } else {
             stopLoadingGpsRoutesAnimation()
             gpsRoutesButton.isEnabled = false
@@ -1010,6 +1030,11 @@ class RouteDesignerViewController: UIViewController {
             if self.TESTING { assert(self.checkRep()) }
             if result {
                 if removeAllPoints {
+                    if self.sourceBar.text == self.currentLocationText {
+                        self.usingCurrentLocationAsSource = true
+                    } else {
+                        self.usingCurrentLocationAsSource = false
+                    }
                     self.removeAllMarkersAndLines()
                 }
                 

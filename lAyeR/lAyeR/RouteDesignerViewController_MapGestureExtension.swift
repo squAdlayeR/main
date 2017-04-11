@@ -119,6 +119,17 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         if TESTING { assert(checkRep()) }
         infoWindow.removeFromSuperview()
+        if selectingSourceCoordinate {
+            sourceBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
+            selectingSourceCoordinate = false
+            sourcePin.alpha = 0.5
+            useSourceCoordinates = true
+        } else if selectingSearchCoordinate {
+            searchBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
+            selectingSearchCoordinate = false
+            searchPin.alpha = 0.5
+            useDestCoordinates = true
+        }
         if TESTING { assert(checkRep()) }
     }
 }
