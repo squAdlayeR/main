@@ -11,7 +11,6 @@ import FirebaseDatabase
 
 class DatabaseManager {
     
-    
     let formatter = NumberFormatter()
     
     private(set) var isConnected: Bool = false //check connectivity

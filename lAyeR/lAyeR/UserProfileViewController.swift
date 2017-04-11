@@ -263,6 +263,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         
         DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
             cell.backgroundImage.imageFromUrl(url: route.imagePath)
+            cell.routeDescription.text = "Distance: \(route.distance.truncate(places: 2)) m"
         }
         return cell
     }
@@ -295,6 +296,19 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //tableView.deleteRows(at: [indexPath], with: .left)
+            guard let currentUser = UserAuthenticator.instance.currentUser,
+                let userProfile = userProfile else {
+                // might lost connection here, operation can't be done.
+                    return
+            }
+            let uid = currentUser.uid
+            let name = userProfile.designedRoutes[indexPath.row]
+            userProfile.designedRoutes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+            // Error handling here
+            DatabaseManager.instance.removeRouteFromDatabase(routeName: name)
+            DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: userProfile)
+            // Error handling ends here.
         }
     }
     
