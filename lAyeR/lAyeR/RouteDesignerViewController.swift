@@ -590,6 +590,7 @@ class RouteDesignerViewController: UIViewController {
             selectingGpsRoute = false
             selectedRoute = true
         }
+        print("NUM OF POINTS: \(gpsRoutesMarkers.count)")
         for gpsRoute in gpsRoutesMarkers {
             for marker in gpsRoute {
                 let markerData = marker.userData as! CheckPoint

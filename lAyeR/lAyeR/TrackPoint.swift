@@ -8,6 +8,7 @@
 
 import Foundation
 import ObjectMapper
+import CoreLocation
 
 class TrackPoint: CheckPoint {
     var up: Bool = false
@@ -34,19 +35,39 @@ class TrackPoint: CheckPoint {
         left <- map["left"]
         right <- map["right"]
     }
+    
+    struct TrackPointStruct {
+        var latitude: Double
+        var longitude: Double
+        init(_ latitude: Double, _ longitude: Double) {
+            self.latitude = latitude
+            self.longitude = longitude
+        }
+    }
+    
+    func convertToStruct() -> TrackPointStruct {
+        return TrackPointStruct(latitude, longitude)
+    }
 
 }
 
 
 extension TrackPoint: Hashable {
+//    override func isEqual(object: AnyObject?) -> Bool {
+//        guard let obj = object as? TrackPoint else {
+//            return false
+//        }
+//        return obj.latitude == latitude && obj.longitude == longitude
+//    }
     var hashValue: Int {
-        let latInt = Int(self.latitude * 10000)
-        let lonInt = Int(self.longitude * 10000)
-        return latInt + lonInt
+        let latInt = Int(self.latitude * 1000)
+        let lonInt = Int(self.longitude * 1000)
+        return "\(latInt),\(lonInt)".hashValue
     }
-    
-    static func ==(lhs: TrackPoint, rhs: TrackPoint) -> Bool {
-        return lhs.longitude == rhs.longitude
-            && lhs.latitude == rhs.latitude
-    }
+
+}
+
+func ==(lhs: TrackPoint, rhs: TrackPoint) -> Bool {
+    print ("EQUATABLE")
+    return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
 }
