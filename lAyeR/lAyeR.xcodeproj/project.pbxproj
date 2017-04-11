@@ -14,6 +14,7 @@
 		2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */; };
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
 		2C4C38001E97BC7B0069A0A2 /* InfoBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C37FF1E97BC7B0069A0A2 /* InfoBlockView.swift */; };
+		2C51ADB71E9C83AD0007E980 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C51ADB61E9C83AD0007E980 /* Assets.xcassets */; };
 		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
 		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
 		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
@@ -151,6 +152,7 @@
 		2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lAyeRTests.swift; sourceTree = "<group>"; };
 		2C3119B11E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C4C37FF1E97BC7B0069A0A2 /* InfoBlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBlockView.swift; sourceTree = "<group>"; };
+		2C51ADB61E9C83AD0007E980 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
 		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
 		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		2C3119991E670A5F00FF6334 /* lAyeR */ = {
 			isa = PBXGroup;
 			children = (
+				2C51ADB61E9C83AD0007E980 /* Assets.xcassets */,
 				528288CB1E96789300163654 /* GPSTracker */,
 				52830F301E8FE422009DFD02 /* lAyeR.entitlements */,
 				A21BBFBC1E83AB7500394531 /* Constant.swift */,
@@ -827,6 +830,7 @@
 				2CE2FD171E71BE0400BB83FD /* HomenajeMod-Bold.otf in Resources */,
 				A258B3231E97A86F008B1C81 /* arrow14.obj in Resources */,
 				2CDDE8EA1E94F29D008A5115 /* DINPro-Regular_13937.ttf in Resources */,
+				2C51ADB71E9C83AD0007E980 /* Assets.xcassets in Resources */,
 				2C7813891E7544C000851188 /* dialog_close.wav in Resources */,
 				2CDDE8E81E94F29D008A5115 /* DINPro-Light_13935.ttf in Resources */,
 				2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */,
@@ -1013,7 +1017,6 @@
 				528288C41E94F4F800163654 /* LoadingBadge.swift in Sources */,
 				52B2298B1E974FB2009C733B /* GPXError.swift in Sources */,
 				2EA4447B1E9B355900D80BB5 /* PriorityQueue.swift in Sources */,
-				A253FB6B1E9537F6002C6ADC /* ARViewController_SCNKitExtension.swift in Sources */,
 				2EA444791E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
