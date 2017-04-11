@@ -326,21 +326,23 @@ class RouteDesignerViewController: UIViewController {
     }
     
     func load(routes: [Route]) {
-        // load routes
-        for route in routes {
-            if route.checkPoints.count < 2 { continue }
-            var oneMarkers = [GMSMarker]()
-            var oneLines = [GMSPolyline]()
-            var from = CLLocationCoordinate2D(latitude: route.source!.latitude, longitude: route.source!.longitude)
-            for checkpoint in route.checkPoints {
-                let to = CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude)
-                self.addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: checkpoint.isControlPoint, using: &oneMarkers, show: true)
-                self.addLine(from: from, to: to, at: oneLines.count, using: &oneLines, show: true)
-                from = to
+        if TESTING { assert(checkRep()) }
+        focusOnOneRoute()
+        removeAllMarkersAndLines()
+        if !routes.isEmpty {
+            if routes[0].checkPoints.count < 2 { return }
+            usingCurrentLocationAsSource = false
+            for (idx, checkpoint) in routes[0].checkPoints.enumerated() {
+                addPoint(coordinate: CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude), isControlPoint: checkpoint.isControlPoint, at: idx)
             }
-            self.layerRoutesMarkers.append(oneMarkers)
-            self.layerRoutesLines.append(oneLines)
+            
+            // Shift Map to see Loaded Route
+            let camera = GMSCameraPosition.camera(withLatitude: routes[0].checkPoints[0].latitude,
+                                                  longitude: routes[0].checkPoints[0].longitude,
+                                                  zoom: zoomLevel)
+            mapView.animate(to: camera)
         }
+        if TESTING { assert(checkRep()) }
     }
     
     @IBAction func export(_ sender: Any) {
@@ -578,9 +580,9 @@ class RouteDesignerViewController: UIViewController {
                 }
             }
         }
-        for layerRoute in layerRoutesLines {
-            for line in layerRoute {
-                if selectingLayerRoute {
+        if selectingLayerRoute {
+            for layerRoute in layerRoutesLines {
+                for line in layerRoute {
                     line.map = mapView
                     line.strokeColor = .gray
                 }
@@ -590,7 +592,37 @@ class RouteDesignerViewController: UIViewController {
     }
     
     @IBAction func showGpsRoutes(_ sender: Any) {
-        
+        if TESTING { assert(checkRep()) }
+        removeAllMarkersAndLines()
+        if gpsRoutesMarkers.count > 1 {
+            selectingGpsRoute = true
+            selectedRoute = false
+        } else {
+            selectingGpsRoute = false
+            selectedRoute = true
+        }
+        for gpsRoute in gpsRoutesMarkers {
+            for marker in gpsRoute {
+                let markerData = marker.userData as! CheckPoint
+                if selectingLayerRoute {
+                    if markerData.isControlPoint {
+                        marker.map = mapView
+                        marker.icon = GMSMarker.markerImage(with: .gray)
+                    }
+                } else {
+                    addPoint(coordinate: marker.position, isControlPoint: markerData.isControlPoint, at: markers.count)
+                }
+            }
+        }
+        if selectingGpsRoute {
+            for gpsRoute in gpsRoutesLines {
+                for line in gpsRoute {
+                    line.map = mapView
+                    line.strokeColor = .gray
+                }
+            }
+        }
+        if TESTING { assert(checkRep()) }
     }
     
     // ---------------- For Map Type --------------------//
@@ -815,6 +847,20 @@ class RouteDesignerViewController: UIViewController {
         }
         for layerRoute in layerRoutesLines {
             for line in layerRoute {
+                line.map = nil
+            }
+        }
+        selectingGpsRoute = false
+        for gpsRoute in gpsRoutesMarkers {
+            for marker in gpsRoute {
+                let markerData = marker.userData as! CheckPoint
+                if markerData.isControlPoint {
+                    marker.map = nil
+                }
+            }
+        }
+        for gpsRoute in gpsRoutesLines {
+            for line in gpsRoute {
                 line.map = nil
             }
         }

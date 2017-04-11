@@ -1,8 +1,8 @@
 //
-//  ARViewController_SCNKitExtension.swift
+//  SCNViewController.swift
 //  lAyeR
 //
-//  Created by luoyuyang on 05/04/17.
+//  Created by luoyuyang on 10/04/17.
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
@@ -11,25 +11,47 @@ import UIKit
 import SceneKit
 import SceneKit.ModelIO
 
-/*
- The origin of the coordinate is the start point
- The positive direction of x axis points to the East
- The negative direction of z axis points to the North
- */
-extension ARViewController {
-    var firstCheckpoint: GeoPoint? {
-        guard checkpointCardControllers.count > 0 else {
+class SCNViewController: UIViewController {
+    // for displaying path with SceneKit
+    let cameraNode = SCNNode()
+    private let scene = SCNScene()
+    private var scnView: SCNView!
+    private var arrowNodes: [SCNNode] = []
+    private let motionManager = DeviceMotionManager.getInstance()
+    private let geoManager = GeoManager.getInstance()
+    
+    var route: Route!
+    
+    var nextCheckpointIndex = 0
+    
+    private var firstCheckpoint: GeoPoint? {
+        guard route.size > 0 else {
             return nil
         }
-        return checkpointCardControllers[0].checkpoint
+        return route.checkPoints[0]
+    }
+   
+    private var nextCheckpoint: GeoPoint? {
+        guard nextCheckpointIndex >= 0 && nextCheckpointIndex <= route.size - 1 else {
+            return nil
+        }
+        return route.checkPoints[nextCheckpointIndex]
     }
     
-    func prepareScene() {
+    func setupScene() {
+        guard let arViewController = parent as? ARViewController else {
+            return
+        }
         scnView = SCNView(frame: view.frame)
         scnView.backgroundColor = UIColor.clear
         scnView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
-        view.insertSubview(scnView, at: 2)
+        
+        view.addSubview(scnView)
+        arViewController.view.insertSubview(view, at: 2)
+        
         scnView.scene = scene
+        
+        route = arViewController.route
         
         prepareNodes()
     }
@@ -40,7 +62,7 @@ extension ARViewController {
      */
     func prepareNodes() {
         removeAllArrows()
-        setupArrowNodes()
+        updateArrowNodes()
         setupCameraNode()
     }
     
@@ -59,17 +81,33 @@ extension ARViewController {
         return arrowNode
     }
     
-    private func setupArrowNodes() {
-        guard let firstCheckpoint = firstCheckpoint else {
+    func updateArrowNodes() {
+        updateNextCheckpointIndex()
+        
+        guard let nextCheckpoint = nextCheckpoint else {
             return
         }
         let userPoint = geoManager.getLastUpdatedUserPoint()
         
-        var previousOffset = addArrows(from: userPoint, to: firstCheckpoint, firstOffset: 0.8)
-        for i in 0 ..< checkpointCardControllers.count - 1 {
-            let src = checkpointCardControllers[i].checkpoint
-            let dest = checkpointCardControllers[i + 1].checkpoint
+        var previousOffset = addArrows(from: userPoint, to: nextCheckpoint, firstOffset: 0.8)
+        
+        for i in 0 ..< route.size - 1 {
+            let src = route.checkPoints[i]
+            let dest = route.checkPoints[i + 1]
             previousOffset = addArrows(from: src, to: dest, firstOffset: previousOffset)
+        }
+    }
+    
+    private func updateNextCheckpointIndex() {
+        for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
+            guard index >= 0 && index <= route.size - 1 else {
+                return
+            }
+            
+            let userPoint = geoManager.getLastUpdatedUserPoint()
+            if GeoUtil.getCoordinateDistance(userPoint, route.checkPoints[index]) < Constant.arrivalDistanceThreshold {
+                nextCheckpointIndex = index
+            }
         }
     }
     
@@ -99,7 +137,7 @@ extension ARViewController {
         var currentOffset = firstOffset
         while currentOffset <= srcDestDistance {
             let arrow = getArrowSCNNode()
-        
+            
             let rotationTransformation = SCNMatrix4Rotate(arrow.transform,
                                                           -Float(GeoUtil.getAzimuth(between: src, dest)),
                                                           0, 1, 0)
@@ -138,9 +176,8 @@ extension ARViewController {
         var transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-yaw), 0, 0, 1)
         transform = SCNMatrix4Rotate(transform, Float(pitch), 1, 0, 0)
         transform = SCNMatrix4Rotate(transform, Float(roll), 0, 1, 0)
-        
-        if checkpointCardControllers.count > 0 {
-            let source = checkpointCardControllers[0].checkpoint
+
+        if let source = firstCheckpoint {
             let userPoint = geoManager.getLastUpdatedUserPoint()
             let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
             let distance = GeoUtil.getCoordinateDistance(userPoint, source)
@@ -156,7 +193,7 @@ extension ARViewController {
     
     private func updateOpacity() {
         // show arorws in the decreasing opacity
-        let opacityGap = Constant.arrowOpacity / Double(Constant.numDisplayedArrow)
+        let opacityGap = Constant.arrowOpacity / Double(Constant.numArrowsDisplayedForward)
         for i in 0 ..< arrowNodes.count {
             let opacity = Constant.arrowOpacity - Double(i) * opacityGap
             arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
@@ -180,10 +217,10 @@ extension ARViewController {
         }
     }
     
-    func animateMovingOn() {
-        let count = arrowNodes.count > Constant.numDisplayedArrow ?
-                    Constant.numDisplayedArrow :
-                    arrowNodes.count
+    private func animateMovingOn() {
+        let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
+            Constant.numArrowsDisplayedForward :
+            arrowNodes.count
         
         let pr: CGFloat = (1 - Constant.arrowDefaultColorR) / 0.18
         let pg: CGFloat = (1 - Constant.arrowDefaultColorG) / 0.18
@@ -203,39 +240,21 @@ extension ARViewController {
                                     blue: 1 - pb * time, alpha: 1)
                 node.geometry!.firstMaterial!.emission.contents = color
             })
-        ])
+            ])
         
         let floatAction = SCNAction.sequence([
             SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
             SCNAction.moveBy(x: 0, y: -0.08, z: 0, duration: 0.28),
-        ])
+            ])
         
         for i in 0 ..< count {
             arrowNodes[i].runAction(SCNAction.sequence([
                 SCNAction.wait(duration: Double(i) * 0.38),
                 SCNAction.group([changeColorAction, floatAction])  // parallely
-            ]))
+                ]))
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

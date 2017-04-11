@@ -30,35 +30,28 @@ class RouteListCell: UITableViewCell {
     // Connects the check mark for selection
     @IBOutlet weak var checkMark: UIImageView!
     
+    // Connects the overLay
+    @IBOutlet weak var overLay: UIView!
     
     /// This will be called when the table cell is loaded.
     override func awakeFromNib() {
         super.awakeFromNib()
         setImageOverlay()
-        disableSelectionStyling()
+        selectionStyle = .none
     }
     
     /// Sets an overlay above the route screen shot so that the texts
     /// in the front can be seen
-    private func setImageOverlay() {
-        let overlay = UIView(frame: backgroundImage.bounds)
-        overlay.backgroundColor = UIColor(red: CGFloat(48 / 255),
+    func setImageOverlay() {
+        overLay.backgroundColor = UIColor(red: CGFloat(48 / 255),
                                           green: CGFloat(52 / 255),
                                           blue: CGFloat(65 / 255),
                                           alpha: 0.5)
         backgroundImage.layer.cornerRadius = 5
         backgroundImage.layer.masksToBounds = true
         backgroundImage.contentMode = .scaleAspectFill
-        backgroundImage.addSubview(overlay)
+        overLay.layer.cornerRadius = 5
+        overLay.layer.masksToBounds = true
     }
     
-    /// Disables the selection styling
-    private func disableSelectionStyling() {
-        selectionStyle = .none
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
 }

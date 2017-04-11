@@ -51,6 +51,18 @@ class RegisterViewController: UIViewController {
         setCloseKeyboardAction()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        usernameField.center = usernameFieldSample.center
+        emailField.center = emailFieldSample.center
+        passwordField.center = passwordFieldSample.center
+        passwordConfirmField.center = confirmPasswordSample.center
+        vibrancyEffectView.contentView.addSubview(usernameField)
+        vibrancyEffectView.contentView.addSubview(passwordField)
+        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
+        vibrancyEffectView.contentView.addSubview(emailField)
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -87,7 +99,7 @@ class RegisterViewController: UIViewController {
     private func setupUsernameInput() {
         usernameField = createTextField(with: usernameFieldSample, and: "username")
         usernameField.delegate = self
-        vibrancyEffectView.contentView.addSubview(usernameField)
+        //vibrancyEffectView.contentView.addSubview(usernameField)
     }
     
     /// Sets up the email input field
@@ -95,7 +107,7 @@ class RegisterViewController: UIViewController {
         emailField = createTextField(with: emailFieldSample, and: "email address")
         emailField.keyboardType = .emailAddress
         emailField.delegate = self
-        vibrancyEffectView.contentView.addSubview(emailField)
+        //vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     /// Sets up the password input field
@@ -103,7 +115,7 @@ class RegisterViewController: UIViewController {
         passwordField = createTextField(with: passwordFieldSample, and: "password")
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
-        vibrancyEffectView.contentView.addSubview(passwordField)
+        //vibrancyEffectView.contentView.addSubview(passwordField)
     }
     
     /// Sets up the password confirmation field
@@ -111,7 +123,7 @@ class RegisterViewController: UIViewController {
         passwordConfirmField = createTextField(with: confirmPasswordSample, and: "confirm password")
         passwordConfirmField.isSecureTextEntry = true
         passwordConfirmField.delegate = self
-        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
+        //vibrancyEffectView.contentView.addSubview(passwordConfirmField)
     }
     
     /// Creates a input field with specified sample fields and their placeholders
@@ -210,10 +222,12 @@ extension RegisterViewController {
         dataService.createUser(email: email, password: password) {
             (user, error) in
             if let error = error {
+                LoadingBadge.instance.hideBadge()
                 self.handleSignUpError(error: error)
                 return
             }
             guard let uid = user?.uid else {
+                LoadingBadge.instance.hideBadge()
                 self.showErrorAlert(message: "Failed to create user.")
                 return
             }

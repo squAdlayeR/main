@@ -47,6 +47,7 @@ class LoginViewController: UIViewController {
     
     // Data service instance, used to validate login
     let dataService = DataServiceManager.instance
+    var fbLoginButton: FBSDKLoginButton!
     
     override func viewDidLoad() {
         FBSDKProfile.enableUpdates(onAccessTokenChange: true)
@@ -66,6 +67,11 @@ class LoginViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.delegate?.window??.rootViewController = self
+        emailField.center = emailFieldSample.center
+        passwordField.center = passwordFieldSample.center
+        fbLoginButton.center = FBButtonPlaceHolder.center
+        vibrancyEffectView.contentView.addSubview(emailField)
+        vibrancyEffectView.contentView.addSubview(passwordField)
     }
     
     /// Sets up the camera view for background image
@@ -108,7 +114,7 @@ class LoginViewController: UIViewController {
         emailField = createTextField(with: emailFieldSample, and: "email address")
         emailField.keyboardType = .emailAddress
         emailField.delegate = self
-        vibrancyEffectView.contentView.addSubview(emailField)
+        //vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     /// Sets up the password input
@@ -116,7 +122,7 @@ class LoginViewController: UIViewController {
         passwordField = createTextField(with: passwordFieldSample, and: "password")
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
-        vibrancyEffectView.contentView.addSubview(passwordField)
+        //vibrancyEffectView.contentView.addSubview(passwordField)
     }
     
     /// Creates a input field with specified sample fields and their placeholders
@@ -194,6 +200,7 @@ extension LoginViewController {
         dataService.signInUser(email: email, password: password) {
             (user, error) in
             if let error = error {
+                LoadingBadge.instance.hideBadge()
                 self.handleSignInError(error: error)
                 return
             }
@@ -255,11 +262,14 @@ extension LoginViewController {
 extension LoginViewController: FBSDKLoginButtonDelegate {
     
     func setUpFBLoginButton() {
-        let loginButton = FBSDKLoginButton()
-        loginButton.delegate = self
-        loginButton.center = FBButtonPlaceHolder.center
-        loginButton.readPermissions = ["public_profile", "email", "user_friends"]
-        view.addSubview(loginButton)
+        fbLoginButton = FBSDKLoginButton()
+        fbLoginButton.delegate = self
+        //print(FBButtonPlaceHolder.center)
+        //print(loginButton.center)
+        //loginButton.center = FBButtonPlaceHolder.center
+        //loginButton.frame = FBButtonPlaceHolder.frame
+        fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        view.addSubview(fbLoginButton)
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
@@ -274,6 +284,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             DispatchQueue.global().async {
                 if let error = error {
+                    LoadingBadge.instance.hideBadge()
                     self.handleSignInError(error: error)
                     return
                 }

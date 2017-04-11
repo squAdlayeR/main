@@ -12,14 +12,13 @@ import CoreLocation
 class GPSTracker {
     
     static let instance = GPSTracker()
-    
     private var timer: Timer?
     private var prevLocation: GeoPoint?
     private var geoManager = GeoManager.getInstance()
     private let defaultLocation = GeoPoint(0, 0)
     
     func start() {
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(track), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(track), userInfo: nil, repeats: true)
     }
     
     @objc func track() {
@@ -30,8 +29,17 @@ class GPSTracker {
             return
         }
         let deltaDistance = GeoUtil.getCoordinateDistance(prevLocation, currentLocation)
-        guard deltaDistance > 10 else { return }
+        /// acceptable threshold
+        guard deltaDistance > 10 && deltaDistance < 25 else { return }
         self.prevLocation = currentLocation
+        let prev = GeoPoint(prevLocation.latitude.truncate(places: 4),
+                            prevLocation.longitude.truncate(places: 4))
+        let curr = GeoPoint(currentLocation.latitude.truncate(places: 4),
+                            currentLocation.longitude.truncate(places: 4))
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: prev, to: curr)
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: curr, to: prev) // bi-directions
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: GeoPoint(prev.latitude, curr.longitude), to: GeoPoint(curr.latitude, prev.longitude))
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: GeoPoint(curr.latitude, prev.longitude), to: GeoPoint(prev.latitude, curr.longitude))
     }
     
     func reset() {

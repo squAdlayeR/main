@@ -20,7 +20,7 @@ class Constant {
     static let pathArrowName = "arrow14"
     static let pathArrowExtension = "obj"
     static let movingOnActionKey: String = "movingOnAction"
-    static let numDisplayedArrow = 18
+
     static let arrowGap = 1.8  // Unit: meter
     static let arrowOpacity = 0.38
     static let arrowDefaultColorR: CGFloat = 0
@@ -33,9 +33,13 @@ class Constant {
                                            alpha: arrowDefaultColorAlpha)
     static let framePerSecond = 60
     
-    static let numCheckpointDisplayedForward = 3
-    static let numCheckpointDisplayedBackward = 2
+    static let numCheckpointDisplayedForward = 1
+    static let numCheckpointDisplayedBackward = 1
+    static let numArrowsDisplayedForward = 18
+    static let numArrowsDisplayedBackward = 12
     static let arrivalDistanceThreshold: Double = 38
+    
+    static let checkCloseRange = 8
 }
 
 

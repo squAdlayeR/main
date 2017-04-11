@@ -13,10 +13,10 @@ class UserProfile: Mappable {
     
     private(set) var username: String = "lAyeRuser"
     private(set) var email: String
-    private(set) var avatarRef: String
+    var avatarRef: String
     var designedRoutes: [String] = []
     
-    init(email: String, avatarRef: String = "profilePlaceholder.png", username: String) {
+    init(email: String, avatarRef: String = "profile.png", username: String) {
         self.email = email
         self.avatarRef = avatarRef
         self.username = username

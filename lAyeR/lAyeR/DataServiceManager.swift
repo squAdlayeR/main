@@ -39,13 +39,16 @@ class DataServiceManager {
         userAuthenticator.signOut()
     }
     
-    func retrieveUserProfile(completion: @escaping (_ userProfile: UserProfile) -> ()) {
-        guard let user = userAuthenticator.currentUser else { return }
-        if let userProfile = databaseManager.currentUserProfile,
-            userProfile.email == user.email { //same user
-            completion(userProfile)
+    func retrieveUserProfile(completion: @escaping (_ userProfile: UserProfile?, _ success: Bool) -> ()) {
+        guard let user = userAuthenticator.currentUser else {
+            completion(nil, false)
             return
         }
+//        if let userProfile = databaseManager.currentUserProfile,
+//            userProfile.email == user.email { //same user
+//            completion(userProfile)
+//            return
+//        }
         databaseManager.getUserProfile(uid: user.uid, completion: completion)
     }
 

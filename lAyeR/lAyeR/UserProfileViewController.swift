@@ -7,6 +7,7 @@
 //
 import FBSDKCoreKit
 import FBSDKLoginKit
+import TOCropViewController
 import UIKit
 
 /**
@@ -38,6 +39,7 @@ class UserProfileViewController: UIViewController {
     // Connects the back button
     @IBOutlet weak var backButton: UIButton!
     
+    let picker = UIImagePickerController()
 
     var selectedRouteNames: Set<String> = []
     var selectionMode: Bool = false
@@ -50,8 +52,13 @@ class UserProfileViewController: UIViewController {
         self.setCameraView()
         self.setBlur()
         self.setBackButton()
+        picker.delegate = self
         LoadingBadge.instance.showBadge(in: view)
-        dataService.retrieveUserProfile { profile in
+        dataService.retrieveUserProfile { profile, success in
+            guard success, let profile = profile else {
+                LoadingBadge.instance.hideBadge()
+                return
+            }
             self.userProfile = profile
             self.setUserInfo()
             self.setRouteList()
@@ -61,6 +68,12 @@ class UserProfileViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        routeList.rowHeight = UITableViewAutomaticDimension
+        routeList.estimatedRowHeight = 150
+        routeList.reloadData()
     }
     
     @IBAction func logout(_ sender: Any) {
@@ -138,10 +151,9 @@ class UserProfileViewController: UIViewController {
     private func setUserAvata() {
         
         // TODO: magic string and magic number
-        let avatarName = "profilePlaceholder.png"
+        let avatarName = "profile.png"
         // TODO: Change after image cropping
-        if userProfile?.avatarRef != avatarName,
-           let url = userProfile?.avatarRef {
+        if let url = userProfile?.avatarRef {
             avatar.imageFromUrl(url: url)
         } else {
             avatar.image = UIImage(named: avatarName)
@@ -155,7 +167,34 @@ class UserProfileViewController: UIViewController {
     }
     
     func changeIcon() {
-        self.performSegue(withIdentifier: "userProfileToIconCrop", sender: nil)
+        let alert = UIAlertController(title: "Choose Photo from ", message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let album = UIAlertAction(title: "My Album", style: .default, handler: { _ in
+            self.openAlbum()
+        })
+        let camera = UIAlertAction(title: "Take Photo", style: .default, handler: { _ in
+            self.openCamera()
+        })
+        alert.addAction(cancel)
+        alert.addAction(album)
+        alert.addAction(camera)
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+            alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.width/2.0, y: self.view.bounds.height, width: 1, height: 1)
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func openCamera() {
+        picker.allowsEditing = false
+        picker.sourceType = .camera
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func openAlbum() {
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
     }
     
     /// Sets user related texts including user name and location info
@@ -176,6 +215,7 @@ class UserProfileViewController: UIViewController {
         setUpButton(selectButton)
         setUpButton(exportButton)
         setUpButton(logoutButton)
+        routeList.reloadData()
     }
     
     private func setUpButton(_ btn: UIButton) {
@@ -214,8 +254,11 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         
         // TODO: Magic strings and numbers
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
+        
         cell.routeName.text = userProfile?.designedRoutes[indexPath.item]
-        // TODO: To be implemented
+        cell.routeName.preferredMaxLayoutWidth = tableView.bounds.width
+        cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
+        
         DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
             cell.backgroundImage.imageFromUrl(url: route.imagePath)
         }
@@ -247,6 +290,12 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //tableView.deleteRows(at: [indexPath], with: .left)
+        }
+    }
+    
     func deselectAll() {
         for row in 0..<routeList.numberOfRows(inSection: 0) {
             let indexPath = IndexPath(row: row, section: 0)
@@ -259,13 +308,60 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     
 }
 
+extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        dismiss(animated: true) {
+            let cropper = TOCropViewController(croppingStyle: TOCropViewCroppingStyle.circular, image: pickedImage)
+            cropper.delegate = self
+            self.present(cropper, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension UserProfileViewController: TOCropViewControllerDelegate {
+    
+    func cropViewController(_ cropViewController: TOCropViewController, didFinishCancelled cancelled: Bool) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func cropViewController(_ cropViewController: TOCropViewController, didCropToCircularImage image: UIImage, with cropRect: CGRect, angle: Int) {
+        dismiss(animated: true) { _ in
+            self.refreshProfile(with: image)
+        }
+    }
+    
+    func refreshProfile(with image: UIImage) {
+        do {
+            let url = try GPXManager.save(name: "user-icon", image: image)
+            self.avatar.imageFromUrl(url: url.absoluteString)
+            self.userProfile?.avatarRef = url.absoluteString
+            DispatchQueue.global(qos: .background).async {
+                DatabaseManager.instance.addUserProfileToDatabase(uid: UserAuthenticator.instance.currentUser!.uid, userProfile: self.userProfile!)
+            }
+        } catch {
+            self.showAlertMessage(message: "Failed to save the icon.")
+        }
+    }
+    
+}
+
 extension UIImageView {
+    
     public func imageFromUrl(url: String) {
         guard let url = URL(string: url) else { return }
         DispatchQueue.global().async {
-            let data = try? Data(contentsOf: url)
+            guard let data = try? Data(contentsOf: url) else { return }
             DispatchQueue.main.async {
-                self.image = UIImage(data: data!)
+                self.image = UIImage(data: data)
             }
         }
     }
