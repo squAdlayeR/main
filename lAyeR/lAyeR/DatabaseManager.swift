@@ -28,9 +28,8 @@ class DatabaseManager {
             // get the value
             self.formatter.maximumFractionDigits = 4
             self.formatter.minimumFractionDigits = 4
-            let latEntry = String(format: "%.4f", from.latitude).replacingOccurrences(of: ".", with: "")//self.formatter.string(from: NSNumber(from.latitude))
+            let latEntry = String(format: "%.4f", from.latitude).replacingOccurrences(of: ".", with: "")
             let lonEntry = String(format: "%.4f", from.longitude).replacingOccurrences(of: ".", with: "")
-            //let lonEntry = self.formatter.string(from: NSNumber(from.longitude))
             // add value here
             var latdict: [String: Any] = [:]
             latdict["latitude"] = from.latitude
@@ -85,38 +84,35 @@ class DatabaseManager {
         DispatchQueue.global(qos: .background).async {
             // data service here
             FIRDatabase.database().reference().child("gpstrack").queryOrdered(byChild: "latitude").queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
-                // snapshot value is [[String: Any]] parse
-                //print(snapshot.value)
                 if let all = snapshot.value as? [String: Any] {
-                for candidate in all.values {
-                    guard let latdict = candidate as? [String: Any],
-                          let lat = latdict["latitude"] as? Double else {
-                        continue
-                    }
-                    var londicts: [[String: Any]] = []
-                    for latdictvalue in latdict.values {
-                        if let latdictvalue = latdictvalue as? [String: Any] {
-                            londicts.append(latdictvalue)
+                    for candidate in all.values {
+                        guard let latdict = candidate as? [String: Any],
+                            let lat = latdict["latitude"] as? Double else {
+                                continue
                         }
-                    }
-                    for londict in londicts {
-                        guard let lon = londict["longitude"] as? Double else {
-                            continue
+                        var londicts: [[String: Any]] = []
+                        for latdictvalue in latdict.values {
+                            if let latdictvalue = latdictvalue as? [String: Any] {
+                                londicts.append(latdictvalue)
+                            }
                         }
-                        let trackPoint = TrackPoint(lat, lon)
-                        if let _ = londict["up"] {
-                            trackPoint.up = true }
-                        if let _ = londict["down"] {
-                            trackPoint.down = true }
-                        if let _ = londict["left"] {
-                            trackPoint.left = true }
-                        if let _ = londict["right"] {
-                            trackPoint.right = true }
-                        if trackPoint.longitude <= toLon && trackPoint.longitude >= fromLon {
-                            print(lat, lon)
-                            trackPoints.insert(trackPoint)
+                        for londict in londicts {
+                            guard let lon = londict["longitude"] as? Double else {
+                                continue
+                            }
+                            let trackPoint = TrackPoint(lat, lon)
+                            if let _ = londict["up"] {
+                                trackPoint.up = true }
+                            if let _ = londict["down"] {
+                                trackPoint.down = true }
+                            if let _ = londict["left"] {
+                                trackPoint.left = true }
+                            if let _ = londict["right"] {
+                                trackPoint.right = true }
+                            if trackPoint.longitude <= toLon && trackPoint.longitude >= fromLon {
+                                trackPoints.insert(trackPoint)
+                            }
                         }
-                    }
                     }
                 }
                 DispatchQueue.main.async {
@@ -195,18 +191,23 @@ class DatabaseManager {
     }
     
     /// Use in user profile.
-    func getRoute(withName routeName: String, completion: @escaping (_ route: Route) -> ()) {
+    func getRoute(withName routeName: String, completion: @escaping (_ route: Route?) -> ()) {
         DispatchQueue.global(qos: .background).async {
             FIRDatabase.database().reference().child("routes").child(routeName).observeSingleEvent(of: .value, with: { snapshot in
-                guard let value = snapshot.value as? [String: Any],
+                if let value = snapshot.value as? [String: Any],
                     let points = value["checkPoints"] as? [[String: Any]],
                     let name = value["name"] as? String,
                     let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint],
-                    let image = value["imagePath"] as? String else { return }
-                let route = Route(name, checkPoints)
-                route.setImage(path: image)
-                DispatchQueue.main.async {
-                    completion(route)
+                    let image = value["imagePath"] as? String {
+                    let route = Route(name, checkPoints)
+                    route.setImage(path: image)
+                    DispatchQueue.main.async {
+                        completion(route)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
                 }
             }) { error in
                 print(error.localizedDescription)
@@ -218,6 +219,7 @@ class DatabaseManager {
     func getRoutes(between source: GeoPoint, and destination: GeoPoint, inRange range: Double, completion: @escaping (_ routes: [Route]) -> ()) {
         FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? [String: [String: Any]] else {
+                completion([])
                 return
             }
             var routes: [Route] = []
@@ -226,7 +228,10 @@ class DatabaseManager {
                     let name = result["name"] as? String else {
                         continue
                 }
-                guard let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint] else { return }
+                guard let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint] else {
+                    completion([])
+                    return
+                }
                 let route = Route(name, checkPoints)
                 var sourceIndex = -1
                 var destIndex = -1
