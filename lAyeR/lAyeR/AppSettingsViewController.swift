@@ -19,6 +19,9 @@ class AppSettingsViewController: UIViewController {
     
     @IBOutlet weak var topbanner: UIView!
     
+    // Connects the scroll view panel
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     // Connects the main title of the settings
     @IBOutlet weak var settingTitle: UILabel!
     
@@ -48,60 +51,31 @@ class AppSettingsViewController: UIViewController {
     // Gets the app settings
     var appSettingsInstance = AppSettings.getInstance()
     
-    // Gest the geo manager instance
+    // Gets the geo manager instance
     var geoManager = GeoManager.getInstance()
     
     /// Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCategoriesTable()
-        setupScrollView()
-        addIntoScrollView()
         setupTopBanner()
         loadCurrentApplicationSetting()
     }
     
-    /// Sets up the sroll view for display. The scroll view
-    /// should have the same size as view
-    private func setupScrollView() {
-        scrollContentView = UIScrollView()
-        scrollContentView.frame = view.bounds
-        let contentSize = CGSize(width: view.bounds.width,
-                                    height: categoriesTable.frame.origin.y
-                                        + categoriesTable.frame.height)
-        scrollContentView.contentSize = contentSize
-        view.addSubview(scrollContentView)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let contentSize = CGSize(width: categoriesTable.frame.width,
+                                 height: categoriesTable.frame.origin.y + categoriesTable.rowHeight * CGFloat(poiCategories.count))
+        scrollView.contentSize = contentSize
+        
     }
     
     /// Sets up the categrories table for selection
     private func setupCategoriesTable() {
         categoriesTable.delegate = self
         categoriesTable.dataSource = self
+        categoriesTable.tableFooterView = UIView(frame: .zero)
         categoriesTable.reloadData()
-    }
-    
-    /// Adds the elements into scroll view one by one
-    private func addIntoScrollView() {
-//        addToScrollView(settingTitle)
-        addToScrollView(poiSubtitle)
-        addToScrollView(detectionRadiusText)
-        addToScrollView(radiusSlider)
-        addToScrollView(detectionRadius)
-        addToScrollView(numberOfMarkerSlider)
-        addToScrollView(numberOfMarkerText)
-        addToScrollView(numberOfMarker)
-        addToScrollView(categoriesText)
-        addToScrollView(categoriesTable)
-//        addToScrollView(doneButton)
-    }
-    
-    /// Adds a specific view element into the scroll view
-    /// - Parameter view: the view that will be added into the scroll view
-    private func addToScrollView(_ view: UIView) {
-        let originalFrame = view.frame
-        view.removeFromSuperview()
-        view.frame = originalFrame
-        scrollContentView.addSubview(view)
     }
     
     private func setupTopBanner() {
@@ -112,7 +86,7 @@ class AppSettingsViewController: UIViewController {
     
     /// Loads the current application settings from storage
     private func loadCurrentApplicationSetting() {
-        RealmLocalStorageManager.getInstance().loadAppSettings()
+        //RealmLocalStorageManager.getInstance().loadAppSettings()
         loadCurrentSlider()
         loadCurrentCategoriesTable()
     }
