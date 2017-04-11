@@ -133,6 +133,9 @@ class RouteDesignerViewController: UIViewController {
         
         topBanner.addSubview(blurView)
         topBanner.sendSubview(toBack: blurView)
+        
+        gpsRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
+        layerRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
         prepareBottomBanner()
     }
     
