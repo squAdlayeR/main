@@ -176,7 +176,7 @@ extension BasicAlert {
     /// - Note: the function need to add @escaping since inCompletion
     ///     may refer to some functions that has reference to `self`
     func close(inCompletion: @escaping () -> Void) {
-        ResourceManager.playSound(with: closeSound)
+        //ResourceManager.playSound(with: closeSound)
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
             guard self != nil else { return }
             self!.transform = CGAffineTransform(scaleX: 0.1, y: 1)

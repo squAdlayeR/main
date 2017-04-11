@@ -32,6 +32,8 @@ class SCNViewController: UIViewController {
     
     var nextCheckpointIndex = 0
     
+    var isAnimating: Bool = true
+    
     private var firstCheckpoint: GeoPoint? {
         guard route.size > 0 else {
             return nil
@@ -100,6 +102,8 @@ class SCNViewController: UIViewController {
         
         updateSize()
         updateOpacity()
+        
+        animateMovingOn()
     }
     
     
@@ -238,14 +242,17 @@ class SCNViewController: UIViewController {
     
     
     private func updateSize() {
+        guard arrowNodes.count > 0 else {
+            return
+        }
+        let firstArrow = arrowNodes[0]
         for arrow in arrowNodes {
-            let dx = arrow.position.x - cameraNode.position.x
-            let dy = arrow.position.y - cameraNode.position.y
+            let dx = arrow.position.x - firstArrow.position.x
+            let dy = arrow.position.y - firstArrow.position.y
             let distance = Double(sqrt(dx * dx + dy * dy))
             
             let largerPercentage: Double = distance / (2 * Constant.arrowGap * Double(Constant.numArrowsDisplayedForward))
-            
-            print(largerPercentage)
+
             let x = Double(arrow.scale.x)
             let y = Double(arrow.scale.y)
             let z = arrow.scale.z
@@ -284,7 +291,11 @@ class SCNViewController: UIViewController {
         
         // check that click on at least one object
         if hitResults.count > 0 {
-            animateMovingOn()
+            if isAnimating {
+                stopAnimation()
+            } else {
+                animateMovingOn()
+            }
         }
     }
     
@@ -320,13 +331,36 @@ class SCNViewController: UIViewController {
         ])
         
         for i in 0 ..< count {
-            arrowNodes[i].runAction(SCNAction.sequence([
+            let oneIteration = SCNAction.sequence([
+                SCNAction.group([changeColorAction, floatAction]),  // parallely
+                SCNAction.wait(duration: Double(count) * 0.18)
+            ])
+        
+            let foreverIteration = SCNAction.sequence([
                 SCNAction.wait(duration: Double(i) * 0.38),
-                SCNAction.group([changeColorAction, floatAction])  // parallely
-            ]))
+                SCNAction.repeatForever(oneIteration)
+            ])
+            
+            arrowNodes[i].runAction(foreverIteration, forKey: Constant.arrowActionKey)
         }
+        isAnimating = true
+    }
+    
+    private func stopAnimation() {
+        let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
+            Constant.numArrowsDisplayedForward :
+            arrowNodes.count
+        for i in 0 ..< count {
+            arrowNodes[i].removeAction(forKey: Constant.arrowActionKey)
+        }
+        isAnimating = false
     }
 }
+
+
+
+
+
 
 
 
