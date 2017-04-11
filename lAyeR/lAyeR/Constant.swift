@@ -41,6 +41,8 @@ class Constant {
     
     static let arrivalDistanceThreshold: Double = 10
     static let checkCloseRange = 1
+    
+    static let arrowActionKey = "arrowAction"
 }
 
 
