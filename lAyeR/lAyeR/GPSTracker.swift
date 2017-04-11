@@ -18,7 +18,7 @@ class GPSTracker {
     private let defaultLocation = GeoPoint(0, 0)
     
     func start() {
-        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(track), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(track), userInfo: nil, repeats: true)
     }
     
     @objc func track() {
@@ -30,7 +30,7 @@ class GPSTracker {
         }
         let deltaDistance = GeoUtil.getCoordinateDistance(prevLocation, currentLocation)
         /// acceptable threshold
-        guard deltaDistance > 10 && deltaDistance < 25 else { return }
+        guard deltaDistance > 5 && deltaDistance < 15 else { return }
         self.prevLocation = currentLocation
         let prev = GeoPoint(prevLocation.latitude.truncate(places: 4),
                             prevLocation.longitude.truncate(places: 4))
