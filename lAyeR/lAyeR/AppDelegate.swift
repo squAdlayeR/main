@@ -25,13 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(AppConfig.apiKey)
         FIRApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        GPSTracker.instance.start()
+        //GPSTracker.instance.start()
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         guard let currentUser = FIRAuth.auth()?.currentUser else {
             return true
         }
         DatabaseManager.instance.checkConnectivity()
         //DatabaseManager.instance.startObserveGPSTrack()
+        GPSTracker.instance.start()
         self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
         if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
             self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
