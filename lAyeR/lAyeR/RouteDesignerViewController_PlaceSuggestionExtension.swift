@@ -19,6 +19,8 @@ extension RouteDesignerViewController: UITableViewDelegate, UITableViewDataSourc
         let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
         
         cell.textLabel?.text = suggestedPlaces[indexPath.row]
+        cell.textLabel?.font = UIFont(name: alterDefaultFontRegular, size: 18)
+        cell.textLabel?.textColor = UIColor.darkGray
         
         return cell
         
