@@ -22,6 +22,8 @@ class RouteDesignerViewController: UIViewController {
     // Similarity Threshold defines whether or not two routes that are too similar are both shown
     let threshold = 45.0
     let similarityThreshold = 0.001
+    let turnAngleThreshold = 2.5 // Automatically determine control point
+    let distanceThreshold = 0.01
     let currentLocationText = "Current Location"
     let checkpointDefaultDescription = ""
     let checkpointDefaultName = "Checkpoint"
@@ -133,6 +135,7 @@ class RouteDesignerViewController: UIViewController {
     @IBOutlet weak var currentLocationIcon: UIImageView!
     @IBOutlet weak var sourcePin: UIImageView!
     @IBOutlet weak var searchPin: UIImageView!
+    @IBOutlet weak var cancelSearchButton: UIImageView!
     
     // ---------------- Check Rep --------------------//
     
@@ -192,7 +195,6 @@ class RouteDesignerViewController: UIViewController {
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
-        locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
     }
@@ -275,10 +277,18 @@ class RouteDesignerViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedCurrentLocation(gestureRecognizer:)))
         currentLocationIcon.isUserInteractionEnabled = true
         currentLocationIcon.addGestureRecognizer(tapGesture)
+        
+        let cancelSearchTapGesture = UITapGestureRecognizer(target: self, action: #selector(cancelSearch(gestureRecognizer:)))
+        cancelSearchButton.isUserInteractionEnabled = true
+        cancelSearchButton.addGestureRecognizer(cancelSearchTapGesture)
     }
     
     func tappedCurrentLocation(gestureRecognizer: UITapGestureRecognizer) {
         sourceBar.text = currentLocationText
+    }
+    
+    func cancelSearch(gestureRecognizer: UITapGestureRecognizer) {
+        self.selectPlacesView.isHidden = true
     }
     
     // ---------------- Pin Gestures --------------------//
@@ -1012,6 +1022,7 @@ class RouteDesignerViewController: UIViewController {
                         self.addPoint(coordinate: path!.coordinate(at: idx), isControlPoint: false, at: markersIdx+Int(idx-1))
                     }
                 }
+                self.addControlPointsToMarkers()
                 if removeAllPoints {
                     self.googleRouteMarkers = self.markers
                 }

@@ -200,6 +200,15 @@ extension RouteDesignerViewController {
         addLine(from: from, to: to, at: idx, using: &lines, show: true)
     }
     
+    func makeMarkerControlPoint(at idx: Int) {
+        if idx >= 0 && idx < markers.count {
+            let checkpoint = markers[idx].userData as! CheckPoint
+            checkpoint.isControlPoint = true
+            markers[idx].userData = checkpoint
+            markers[idx].map = mapView
+        }
+    }
+    
     func removeMarker(at idx: Int) {
         if idx >= 0 && idx < markers.count {
             markers[idx].map = nil

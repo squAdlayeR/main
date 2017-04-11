@@ -151,12 +151,14 @@ class RouteDesignerModel {
             if currentTrackPoint == dest {
                 return backtrack(from: currentNode)
             }
-            // print ("Current Node: \(currentTrackPoint.latitude) \(currentTrackPoint.longitude)")
+            print ("Current Node: \(currentTrackPoint.latitude) \(currentTrackPoint.longitude)")
             let newcost = currentNode.g + coordinateInterval
             if currentTrackPoint.up {
+                print("CAN GO UP")
                 let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .up))
                 if nextTrackPointIdx != nil {
                     let nextTrackPoint = trackPoints[nextTrackPointIdx!]
+                    print ("Exist Node Up: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
                     if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
                         closedSet[nextTrackPoint] = newcost
                         openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
@@ -164,9 +166,11 @@ class RouteDesignerModel {
                 }
             }
             if currentTrackPoint.down {
+                print("CAN GO DOWN")
                 let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .down))
                 if nextTrackPointIdx != nil {
                     let nextTrackPoint = trackPoints[nextTrackPointIdx!]
+                    print ("Exist Node Down: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
                     if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
                         closedSet[nextTrackPoint] = newcost
                         openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
@@ -174,9 +178,11 @@ class RouteDesignerModel {
                 }
             }
             if currentTrackPoint.right {
+                print("CAN GO RIGHT")
                 let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .right))
                 if nextTrackPointIdx != nil {
                     let nextTrackPoint = trackPoints[nextTrackPointIdx!]
+                    print ("Exist Node Right: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
                     if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
                         closedSet[nextTrackPoint] = newcost
                         openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
@@ -184,9 +190,11 @@ class RouteDesignerModel {
                 }
             }
             if currentTrackPoint.left {
+                print("CAN GO LEFT")
                 let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .left))
                 if nextTrackPointIdx != nil {
                     let nextTrackPoint = trackPoints[nextTrackPointIdx!]
+                    print ("Exist Node Left: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
                     if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
                         closedSet[nextTrackPoint] = newcost
                         openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
@@ -231,8 +239,8 @@ class RouteDesignerModel {
             if sourceTp == nil || destTp == nil || sourceTp == destTp {
                 completion([Route]())
             } else {
-                // print ("SOURCE: \(sourceTp!.latitude) \(sourceTp!.longitude)")
-                // print ("DESTINATION: \(destTp!.latitude) \(destTp!.longitude)")
+                print ("SOURCE: \(sourceTp!.latitude) \(sourceTp!.longitude)")
+                print ("DESTINATION: \(destTp!.latitude) \(destTp!.longitude)")
                 completion(self.aStarSearch(from: sourceTp!, to: destTp!, using: trackPoints))
             }
         }
