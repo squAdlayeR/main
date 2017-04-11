@@ -92,7 +92,9 @@ class UserProfileViewController: UIViewController {
         for name in selectedRouteNames {
             group.enter()
             DatabaseManager.instance.getRoute(withName: name) { route in
-                routes.append(route)
+                if let route = route {
+                    routes.append(route)
+                }
                 group.leave()
             }
         }
@@ -262,8 +264,10 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
         
         DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
-            cell.backgroundImage.imageFromUrl(url: route.imagePath)
-            cell.routeDescription.text = "Distance: \(route.distance.truncate(places: 2)) m"
+            if let route = route {
+                cell.backgroundImage.imageFromUrl(url: route.imagePath)
+                cell.routeDescription.text = "Distance: \(route.distance.truncate(places: 2)) m"
+            }
         }
         return cell
     }
@@ -279,7 +283,11 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
             DatabaseManager.instance.getRoute(withName: name) { route in
                 //segue
                 LoadingBadge.instance.hideBadge()
-                self.performSegue(withIdentifier: "userProfileToDesigner", sender: route)
+                if let route = route {
+                    self.performSegue(withIdentifier: "userProfileToDesigner", sender: route)
+                } else {
+                    self.showAlertMessage(message: "Load route failed!")
+                }
             }
         }
     }

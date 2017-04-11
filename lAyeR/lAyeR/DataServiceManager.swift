@@ -44,11 +44,6 @@ class DataServiceManager {
             completion(nil, false)
             return
         }
-//        if let userProfile = databaseManager.currentUserProfile,
-//            userProfile.email == user.email { //same user
-//            completion(userProfile)
-//            return
-//        }
         databaseManager.getUserProfile(uid: user.uid, completion: completion)
     }
 
