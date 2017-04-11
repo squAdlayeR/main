@@ -349,7 +349,7 @@ class RouteDesignerViewController: UIViewController {
         if TESTING { assert(checkRep()) }
     }
     
-    // ---------------- Undo Last Action --------------------//
+    // ---------------- Undo Last Action and Remove All --------------------//
     
     @IBAction func undo(_ sender: UIButton) {
         if TESTING { assert(checkRep()) }
@@ -363,6 +363,13 @@ class RouteDesignerViewController: UIViewController {
         }
         if TESTING { assert(checkRep()) }
     }
+    
+    @IBAction func removeAll(_ sender: Any) {
+        while markers.count > 2 {
+            deletePoint(at: 1)
+        }
+    }
+    
     
     // ---------------- Main Search Functions --------------------//
     
