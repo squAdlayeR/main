@@ -31,6 +31,7 @@
 		2EA444791E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA444781E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift */; };
 		2EA4447B1E9B355900D80BB5 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */; };
 		2EA4447D1E9B36A000D80BB5 /* TrackPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */; };
+		2EA4447F1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4447E1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift */; };
 		2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
@@ -169,6 +170,7 @@
 		2EA444781E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_DesignMarkerLineExtension.swift; sourceTree = "<group>"; };
 		2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointNode.swift; sourceTree = "<group>"; };
+		2EA4447E1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_ControlPointAutomationExtension.swift; sourceTree = "<group>"; };
 		2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_AutoCompleteExtension.swift; sourceTree = "<group>"; };
 		3729F61BC8697E4035E5948D /* Pods-lAyeR-lAyeRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.release.xcconfig"; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 				2EA444761E9AE95300D80BB5 /* RouteDesignerViewController_PlaceSuggestionExtension.swift */,
 				2E742F9F1E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift */,
 				2E742F9D1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift */,
+				2EA4447E1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift */,
 				A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */,
 				2E742F9B1E9784D500651A74 /* RouteDesignerModel.swift */,
 				2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */,
@@ -1026,6 +1029,7 @@
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */,
 				2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */,
+				2EA4447F1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift in Sources */,
 				5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */,
 				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
 				52BD49721E8A8D0000B4B750 /* DataServiceManager.swift in Sources */,

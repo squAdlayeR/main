@@ -22,6 +22,8 @@ class RouteDesignerViewController: UIViewController {
     // Similarity Threshold defines whether or not two routes that are too similar are both shown
     let threshold = 45.0
     let similarityThreshold = 0.001
+    let turnAngleThreshold = 2.5 // Automatically determine control point
+    let distanceThreshold = 0.01
     let currentLocationText = "Current Location"
     let checkpointDefaultDescription = ""
     let checkpointDefaultName = "Checkpoint"
@@ -1080,6 +1082,7 @@ class RouteDesignerViewController: UIViewController {
                         self.addPoint(coordinate: path!.coordinate(at: idx), isControlPoint: false, at: markersIdx+Int(idx-1))
                     }
                 }
+                self.addControlPointsToMarkers()
                 if removeAllPoints {
                     self.googleRouteMarkers = self.markers
                 }
