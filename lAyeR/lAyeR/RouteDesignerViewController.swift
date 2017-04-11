@@ -240,7 +240,7 @@ class RouteDesignerViewController: UIViewController {
         mapView.isHidden = true
         mapView.settings.scrollGestures = true
         mapView.settings.consumesGesturesInView = false
-        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 47, right: 0)
+        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 55, right: 0)
     }
     
     private func initializeSearch() {
@@ -331,6 +331,7 @@ class RouteDesignerViewController: UIViewController {
             sourcePin.alpha = 0.5
         }
         selectingSearchCoordinate = false
+        searchPin.alpha = 0.5
     }
     
     func tapSearchPin(gestureRecognizer: UIPanGestureRecognizer) {
@@ -342,6 +343,7 @@ class RouteDesignerViewController: UIViewController {
             searchPin.alpha = 0.5
         }
         selectingSourceCoordinate = false
+        sourcePin.alpha = 0.5
     }
     
     // ---------------- GPX --------------------//
@@ -590,7 +592,7 @@ class RouteDesignerViewController: UIViewController {
         for gpsRoute in gpsRoutesMarkers {
             for marker in gpsRoute {
                 let markerData = marker.userData as! CheckPoint
-                if selectingLayerRoute {
+                if selectingGpsRoute {
                     if markerData.isControlPoint {
                         marker.map = mapView
                         marker.icon = GMSMarker.markerImage(with: .gray)
