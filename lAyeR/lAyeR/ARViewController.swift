@@ -103,7 +103,7 @@ class ARViewController: UIViewController {
             let userPoint = self.geoManager.getLastUpdatedUserPoint()
             self.miniMapController.updateMiniMap(with: userPoint)
             self.updateCheckpointCardDisplay()
-            self.scnViewController.updateArrowNodes()
+            //self.scnViewController.updateArrowNodes()
         })
     }
     
@@ -236,7 +236,7 @@ class ARViewController: UIViewController {
                                          superView: view, fov: fov)
         }
         
-        scnViewController.updateSceneCameraOrientation()
+        //scnViewController.updateSceneCameraOrientation()
     }
     
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
