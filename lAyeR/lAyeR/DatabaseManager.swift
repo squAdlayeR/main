@@ -113,7 +113,7 @@ class DatabaseManager {
                             trackPoint.left = true }
                         if let _ = londict["right"] {
                             trackPoint.right = true }
-                        if trackPoint.longitude < toLon && trackPoint.longitude > fromLon {
+                        if trackPoint.longitude <= toLon && trackPoint.longitude >= fromLon {
                             print(lat, lon)
                             trackPoints.insert(trackPoint)
                         }
