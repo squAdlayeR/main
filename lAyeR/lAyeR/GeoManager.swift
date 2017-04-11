@@ -22,6 +22,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
     private let locationManager: CLLocationManager = CLLocationManager()
     private var appSettings: AppSettings = AppSettings.getInstance()
     private var userPoint: GeoPoint = GeoPoint(0, 0)
+    private var prevPoint: GeoPoint?
     private var pois: [POI] = []
 
     static func getInstance() -> GeoManager {
@@ -45,35 +46,25 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         guard let userLocation = locations.last else {
             return
         }
+        print(TrackPoint(1.2929, 103.4444) == TrackPoint(1.2929, 103.4444))
         let currentLocation = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         userPoint = currentLocation
-        
+        if prevPoint != nil {
+            if GeoUtil.getCoordinateDistance(currentLocation, prevPoint!) > 25 {
+                prevPoint = userPoint
+            }
+        } else {
+            prevPoint = userPoint
+            NotificationCenter.default.post(name: self.userLocationUpdatedNotificationName, object: self.userPoint)
+            forceUpdateUserNearbyPOIS()
+            return
+        }
         // Update user's location for mini map
         NotificationCenter.default.post(name: self.userLocationUpdatedNotificationName, object: self.userPoint)
         
         /// Sets a threshold for poi query
-        guard GeoUtil.getCoordinateDistance(userPoint, currentLocation) > 25 else { return }
-        let group = DispatchGroup()
-        var candidates: [POI] = []
-        for type in appSettings.selectedPOICategrories {
-            group.enter()
-            let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, type, userPoint)
-            Alamofire.request(url).responseJSON { [unowned self] response in
-                guard let json = response.result.value as? [String: Any] else {
-                    return
-                }
-                candidates.append(contentsOf: Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers)))
-                group.leave()
-            }
-        }
-        group.notify(queue: .main) {
-            //self.pois = candidates
-            candidates.sort(by: { pt1, pt2 in
-                GeoUtil.getCoordinateDistance(self.userPoint, pt1) < GeoUtil.getCoordinateDistance(self.userPoint, pt2)
-            })
-            self.pois = Array(candidates.prefix(self.appSettings.maxNumberOfMarkers))
-            NotificationCenter.default.post(name: self.nearbyPOIsUpdatedNotificationName, object: nil)
-        }
+        guard GeoUtil.getCoordinateDistance(prevPoint!, currentLocation) > 25 else { return }
+        forceUpdateUserNearbyPOIS()
     }
     
     func getLastUpdatedUserPoint() -> GeoPoint {
@@ -90,11 +81,11 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         for type in appSettings.selectedPOICategrories {
             group.enter()
             let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, type, userPoint)
+            print(userPoint.latitude, userPoint.longitude)
             Alamofire.request(url).responseJSON { [unowned self] response in
-                guard let json = response.result.value as? [String: Any] else {
-                    return
+                if let json = response.result.value as? [String: Any] {
+                    candidates.append(contentsOf: Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers)))
                 }
-                candidates.append(contentsOf: Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers)))
                 group.leave()
             }
         }
