@@ -103,7 +103,7 @@ class ARViewController: UIViewController {
             let userPoint = self.geoManager.getLastUpdatedUserPoint()
             self.miniMapController.updateMiniMap(with: userPoint)
             self.updateCheckpointCardDisplay()
-            //self.scnViewController.updateArrowNodes()
+            self.scnViewController.updateArrowNodes()
         })
     }
     
@@ -136,9 +136,9 @@ class ARViewController: UIViewController {
     
     /// Check whether the user current location is close enough to the specified point 
     /// to be considered as arriving at that point
-    private func doesArrive(at checkpoint: CheckPoint) -> Bool {
+    private func doesArrive(at controlPoint: CheckPoint) -> Bool {
         let userPoint = geoManager.getLastUpdatedUserPoint()
-        return GeoUtil.getCoordinateDistance(userPoint, checkpoint) < Constant.arrivalDistanceThreshold
+        return GeoUtil.getCoordinateDistance(userPoint, controlPoint) < Constant.arrivalDistanceThreshold
     }
     
     /**
@@ -146,7 +146,6 @@ class ARViewController: UIViewController {
      as well as several previous checkpoints and several following checkpoints
      */
     private func displayCheckpointCards(nextCheckpointIndex: Int) {
-        //checkpointCardControllers.removeAll()
         
         var newCheckpointCardControllers: [CheckpointCardController] = []
         let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
@@ -236,7 +235,7 @@ class ARViewController: UIViewController {
                                          superView: view, fov: fov)
         }
         
-        //scnViewController.updateSceneCameraOrientation()
+        scnViewController.updateSceneCameraOrientation()
     }
     
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
