@@ -67,7 +67,8 @@ class Card: NSObject {
         let alertWidth = newAlertController.alert.infoPanel.bounds.width
         let alertHeight = newAlertController.alert.infoPanel.bounds.height
         newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
-                                                               height: alertHeight))
+                                                               height: alertHeight,
+                                                               hasSubTitle: true))
         newAlertController.setBlurEffect(true)
         self.popupController = newAlertController
     }

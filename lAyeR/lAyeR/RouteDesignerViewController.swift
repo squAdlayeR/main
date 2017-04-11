@@ -72,6 +72,9 @@ class RouteDesignerViewController: UIViewController {
     var tappedMarker = GMSMarker()
     var infoWindow = MarkerPopupView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
     
+    // save window for save / export
+    var storeRoutePopupController: BasicAlertController!
+    
     // Suggested Places for Table View
     var suggestedPlaces = [String]()
     
@@ -336,31 +339,6 @@ class RouteDesignerViewController: UIViewController {
         if TESTING { assert(checkRep()) }
     }
     
-    @IBAction func export(_ sender: Any) {
-        let alert = UIAlertController(title: "Name of Route", message: "Enter a Unique Name", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Enter Route Name"
-        }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
-        alert.addAction(UIAlertAction(title: "Export", style: .default, handler: { [weak alert] (_) in
-            let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
-            if (textField.text != nil && textField.text != "") {
-                let route = Route(textField.text!)
-                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, self.checkpointDefaultName, self.checkpointDefaultDescription, true))
-                for marker in self.markers {
-                    let markerData = marker.userData as! CheckPoint
-                    route.append(markerData)
-                }
-                self.share(routes: [route])
-            } else {
-                let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to your route", preferredStyle: .alert)
-                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
-                self.present(resultAlert, animated: true, completion: nil)
-            }
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     // ---------------- Undo Last Action --------------------//
     
     @IBAction func undo(_ sender: UIButton) {
@@ -374,44 +352,6 @@ class RouteDesignerViewController: UIViewController {
             }
         }
         if TESTING { assert(checkRep()) }
-    }
-    
-    // ---------------- Save Routes (to local storage and db) --------------------//
-    
-    @IBAction func save(_ sender: Any) {
-        let alert = UIAlertController(title: "Name of Route", message: "Enter a Unique Name", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Enter Route Name"
-        }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
-        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
-            let textField = alert!.textFields![0]
-            if (textField.text != nil && textField.text != "") {
-                let route = Route(textField.text!)
-                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, self.checkpointDefaultName, self.checkpointDefaultDescription, true))
-                for marker in self.markers {
-                    let markerData = marker.userData as! CheckPoint
-                    route.append(markerData)
-                }
-                do {
-                    let url = try GPXManager.save(name: route.name, image: self.viewCapture(view: self.mapView))
-                    route.setImage(path: url.absoluteString)
-                } catch {
-                }
-                // TODO: separate local storage and server
-                self.routeDesignerModel.saveToLocal(route: route)
-                self.routeDesignerModel.saveToDB(route: route)
-                
-                let resultAlert = UIAlertController(title: "Saved Successfully", message: "Congrats", preferredStyle: .alert)
-                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
-                self.present(resultAlert, animated: true, completion: nil)
-            } else {
-                let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to your route", preferredStyle: .alert)
-                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
-                self.present(resultAlert, animated: true, completion: nil)
-            }
-        }))
-        self.present(alert, animated: true, completion: nil)
     }
     
     // ---------------- Main Search Functions --------------------//

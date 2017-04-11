@@ -15,6 +15,7 @@
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
 		2C4C38001E97BC7B0069A0A2 /* InfoBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C37FF1E97BC7B0069A0A2 /* InfoBlockView.swift */; };
 		2C51ADB71E9C83AD0007E980 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C51ADB61E9C83AD0007E980 /* Assets.xcassets */; };
+		2C51ADB91E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */; };
 		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
 		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
 		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
@@ -153,6 +154,7 @@
 		2C3119B11E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C4C37FF1E97BC7B0069A0A2 /* InfoBlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBlockView.swift; sourceTree = "<group>"; };
 		2C51ADB61E9C83AD0007E980 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_UIInteraction.swift; sourceTree = "<group>"; };
 		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
 		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
 		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 				52DE2C401E995F4700671B6E /* TrackPoint.swift */,
 				A21BBFB61E839BD600394531 /* MarkerPopupView.swift */,
 				A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */,
+				2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */,
 				2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */,
 				2EA444781E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift */,
 				2EA444761E9AE95300D80BB5 /* RouteDesignerViewController_PlaceSuggestionExtension.swift */,
@@ -997,6 +1000,7 @@
 				9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */,
+				2C51ADB91E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift in Sources */,
 				A25E658D1E9BB37800011885 /* SCNViewController.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				9D11C3671E99254300C33207 /* MiniMapStyling.swift in Sources */,

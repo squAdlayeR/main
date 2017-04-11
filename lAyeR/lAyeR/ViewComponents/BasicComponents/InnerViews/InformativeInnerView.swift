@@ -19,14 +19,17 @@ class InformativeInnerView: UIView {
     
     // Defines the real inner view stack
     private var innerViewStack: UIView!
+    
+    private var hasSubTitle = true
 
     /// Initialization
     /// - Parameters:
     ///     - width: the bounded width of the inner view
     ///     - height: the bounded height of the inner view
-    init(width: CGFloat, height: CGFloat) {
+    init(width: CGFloat, height: CGFloat, hasSubTitle: Bool) {
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         super.init(frame: frame)
+        self.hasSubTitle = hasSubTitle
         initializeElements()
         initializeContent()
     }
@@ -50,8 +53,10 @@ class InformativeInnerView: UIView {
         scrollView.contentSize = innerViewStack.bounds.size
         scrollView.addSubview(innerViewStack)
         self.addSubview(scrollView)
-        let subtitle = createSubtitle()
-        insertSubInfo(subtitle)
+        if hasSubTitle {
+            let subtitle = createSubtitle()
+            insertSubInfo(subtitle)
+        }
     }
     
     /// Creates a subtitle for the inner view.
@@ -73,12 +78,14 @@ class InformativeInnerView: UIView {
     /// - Parameter view: the view that will be inserted into the view stack
     func insertSubInfo(_ view: UIView) {
         if let lastSubview = innerViewStack.subviews.last {
+            print(view.frame)
             view.frame.origin = CGPoint(x: 0,
                                         y: lastSubview.frame.origin.y
                                             + lastSubview.frame.height
                                             + innerViewStackMargin)
             view.frame.size = CGSize(width: view.bounds.width,
                                      height: view.bounds.height + innerViewStackMargin)
+            print(view.frame.size)
         }
         innerViewStack.addSubview(view)
         updateFrame()
