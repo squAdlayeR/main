@@ -34,12 +34,13 @@ class Constant {
     static let framePerSecond = 60
     
     static let numCheckpointDisplayedForward = 1
-    static let numCheckpointDisplayedBackward = 1
+    static let numCheckpointDisplayedBackward = 0
+    
     static let numArrowsDisplayedForward = 18
     static let numArrowsDisplayedBackward = 12
-    static let arrivalDistanceThreshold: Double = 38
     
-    static let checkCloseRange = 8
+    static let arrivalDistanceThreshold: Double = 18
+    static let checkCloseRange = 1
 }
 
 

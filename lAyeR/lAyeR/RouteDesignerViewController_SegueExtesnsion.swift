@@ -21,13 +21,14 @@ extension RouteDesignerViewController {
             let route = createRoute(from: markers)
             arViewController.route = route
             arViewController.controlRoute = extractControlRoute(from: route)
+            arViewController.nextCheckpointIndex = 0
+            arViewController.updateCheckpointCardDisplay()
+            
             arViewController.scnViewController.route = route
-
-            arViewController.displayCheckpointCards(nextCheckpointIndex: 0)
+            arViewController.scnViewController.nextCheckpointIndex = 0
+            arViewController.scnViewController.prepareNodes()
             
-            arViewController.prepareNodes()
-            
-            //TODO: force update the POI in ARView
+            GeoManager.getInstance().forceUpdateUserNearbyPOIS()
         }
     }
     
@@ -52,3 +53,6 @@ extension RouteDesignerViewController {
         return controlRoute
     }
 }
+
+
+
