@@ -129,8 +129,6 @@ class RouteDesignerViewController: UIViewController {
         startButton.layer.cornerRadius = 7
         startButton.layer.masksToBounds = true
         
-        mapTypeButton.setTitle("Map View", for: .normal)
-        
         topBanner.addSubview(blurView)
         topBanner.sendSubview(toBack: blurView)
         

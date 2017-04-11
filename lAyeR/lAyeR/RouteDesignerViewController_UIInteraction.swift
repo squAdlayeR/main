@@ -53,6 +53,7 @@ extension RouteDesignerViewController {
     
     private func createToggleMapButton() -> UIButton {
         mapTypeButton.removeFromSuperview()
+        mapTypeButton.setTitle("Map View", for: .normal)
         stylizeButton(mapTypeButton)
         return mapTypeButton
     }
