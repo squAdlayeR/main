@@ -93,7 +93,7 @@ class RouteDesignerViewController: UIViewController {
         initializeSearch()
         initializeSuggestedPlaces()
         initializeMarkersAndLines()
-        
+        prepareBottomBanner()
         addPanGesture()
         addTapCurrentLocationGesture()
         
@@ -137,6 +137,7 @@ class RouteDesignerViewController: UIViewController {
     @IBOutlet weak var sourcePin: UIImageView!
     @IBOutlet weak var searchPin: UIImageView!
     @IBOutlet weak var cancelSearchButton: UIImageView!
+    @IBOutlet weak var mostBottomBanner: UIView!
     
     // ---------------- Check Rep --------------------//
     
