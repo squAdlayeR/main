@@ -98,6 +98,7 @@ class SCNViewController: UIViewController {
         
         displayArrowsWithNextCheckpoint(at: nextCheckpointIndex)
         
+        updateSize()
         updateOpacity()
     }
     
@@ -235,6 +236,24 @@ class SCNViewController: UIViewController {
         cameraNode.transform = transform
     }
     
+    
+    private func updateSize() {
+        for arrow in arrowNodes {
+            let dx = arrow.position.x - cameraNode.position.x
+            let dy = arrow.position.y - cameraNode.position.y
+            let distance = Double(sqrt(dx * dx + dy * dy))
+            
+            let largerPercentage: Double = distance / (2 * Constant.arrowGap * Double(Constant.numArrowsDisplayedForward))
+            
+            print(largerPercentage)
+            let x = Double(arrow.scale.x)
+            let y = Double(arrow.scale.y)
+            let z = arrow.scale.z
+            let newX = Float(x * (1.0 + largerPercentage))
+            let newY = Float(y * (1.0 + largerPercentage))
+            arrow.scale = SCNVector3(x: newX, y: newY, z: z)
+        }
+    }
     
     private func updateOpacity() {
         // show arorws in the decreasing opacity
