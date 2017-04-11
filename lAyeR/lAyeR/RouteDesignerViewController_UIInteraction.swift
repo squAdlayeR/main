@@ -18,28 +18,67 @@ extension RouteDesignerViewController {
         let alertFrame = CGRect(x: 0, y: 0, width: suggestedPopupWidth, height: suggestedPopupHeight)
         storeRoutePopupController = BasicAlertController(title: "Store Your Route", frame: alertFrame)
         storeRoutePopupController.alertView.center = view.center
-        addInnerView()
-        storeRoutePopupController.addButtonToAlert(createCloseButton())
+        addInnerViewToStorePopup()
+        storeRoutePopupController.addButtonToAlert(createCloseStoreButton())
         storeRoutePopupController.presentAlert(within: view)
     }
     
+    @IBAction func optionsIsPressed(_ sender: Any) {
+        let alertFrame = CGRect(x: 0, y: 0, width: suggestedPopupWidth, height: suggestedPopupHeight)
+        optionsPopupController = BasicAlertController(title: "Options", frame: alertFrame)
+        optionsPopupController.alertView.center = view.center
+        addInnerViewToOptionPopup()
+        optionsPopupController.addButtonToAlert(createCloseOptionButton())
+        optionsPopupController.presentAlert(within: view)
+    }
+    
     /// Adds inner view to the popup
-    private func addInnerView() {
+    private func addInnerViewToStorePopup() {
         let innerView = InformativeInnerView(width: infoPanelBounds.width,
                                              height: infoPanelBounds.height,
-                                             hasSubTitle: false)
+                                             subtitle: "Choose a method to store route")
         storeRoutePopupController.addViewToAlert(innerView)
         innerView.insertSubInfo(createSaveButton())
         innerView.insertSubInfo(createExportButton())
     }
     
+    private func addInnerViewToOptionPopup() {
+        let innerView = InformativeInnerView(width: infoPanelBounds.width,
+                                             height: infoPanelBounds.height,
+                                             subtitle: "Click to change mode")
+        optionsPopupController.addViewToAlert(innerView)
+        innerView.insertSubInfo(createToggleMapButton())
+        innerView.insertSubInfo(createSwitcher())
+    }
+    
+    private func createToggleMapButton() -> UIButton {
+        mapTypeButton.removeFromSuperview()
+        stylizeButton(mapTypeButton)
+        return mapTypeButton
+    }
+    
+    private func createSwitcher() -> UIButton {
+        toggleRouteButton.removeFromSuperview()
+        toggleRouteButton.setTitle("Use Manual Design", for: .normal)
+        stylizeButton(toggleRouteButton)
+        return toggleRouteButton
+    }
+    
     /// Creates a close button
     /// - Returns: a close button which will close the popup if it is clicked
-    private func createCloseButton() -> UIButton {
+    private func createCloseStoreButton() -> UIButton {
         let newButton = UIButton()
         newButton.setTitle("Cancel", for: .normal)
         newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
-        newButton.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
+        newButton.addTarget(self, action: #selector(closeStoreRoutePopup), for: .touchUpInside)
+        return newButton
+    }
+    
+    private func createCloseOptionButton() -> UIButton {
+        let newButton = UIButton()
+        newButton.setTitle("Close", for: .normal)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.addTarget(self, action: #selector(closeOptionPopup), for: .touchUpInside)
         return newButton
     }
     
@@ -67,6 +106,7 @@ extension RouteDesignerViewController {
     /// - Parameter button: the button that is to add styling
     private func stylizeButton(_ button: UIButton) {
         button.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        button.titleLabel?.textColor = defaultFontColor
         button.frame = CGRect(x: 0, y: 0,
                               width: infoPanelBounds.width - innerViewSidePadding * 2,
                               height: 50)
@@ -76,13 +116,17 @@ extension RouteDesignerViewController {
     }
     
     /// Closes the popup
-    func closePopup() {
+    func closeStoreRoutePopup() {
         storeRoutePopupController.closeAlert()
+    }
+    
+    func closeOptionPopup() {
+        optionsPopupController.closeAlert()
     }
     
     /// Saves the route
     func saveRoute() {
-        closePopup()
+        closeStoreRoutePopup()
         let alert = UIAlertController(title: "Saving Route to Cloud", message: "Enter a Unique Name", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "Enter Route Name"
@@ -120,7 +164,7 @@ extension RouteDesignerViewController {
     
     /// exports the route
     func exportRoute() {
-        closePopup()
+        closeStoreRoutePopup()
         let alert = UIAlertController(title: "Exporting Route", message: "Enter a Unique Name", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "Enter Route Name"
@@ -147,6 +191,9 @@ extension RouteDesignerViewController {
     
     /// Calculates info panel bounds
     private var infoPanelBounds: CGRect {
+        guard storeRoutePopupController != nil else {
+            return optionsPopupController.alert.infoPanel.bounds
+        }
         return storeRoutePopupController.alert.infoPanel.bounds
     }
 

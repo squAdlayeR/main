@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0585E01E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0585DF1E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift */; };
 		2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F5C481E97A28100EAECFF /* POICategory.swift */; };
 		2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199A1E670A5F00FF6334 /* AppDelegate.swift */; };
 		2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199C1E670A5F00FF6334 /* ViewController.swift */; };
@@ -143,6 +144,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C0585DF1E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_PrepareViewExtension.swift; sourceTree = "<group>"; };
 		2C1F5C481E97A28100EAECFF /* POICategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POICategory.swift; sourceTree = "<group>"; };
 		2C3119971E670A5F00FF6334 /* lAyeR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lAyeR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C31199A1E670A5F00FF6334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				2E742F9D1E98407800651A74 /* RouteDesignerViewController_MapGestureExtension.swift */,
 				2EA4447E1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift */,
 				A25E65821E9B71E600011885 /* RouteDesignerViewController_SegueExtesnsion.swift */,
+				2C0585DF1E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift */,
 				2E742F9B1E9784D500651A74 /* RouteDesignerModel.swift */,
 				2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */,
 				2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */,
@@ -1041,6 +1044,7 @@
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
 				528288CF1E9682E700163654 /* GPSTrackerParser.swift in Sources */,
 				52B229901E978284009C733B /* Extensions.swift in Sources */,
+				2C0585E01E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift in Sources */,
 				52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */,
 				A21BBFBD1E83AB7500394531 /* Constant.swift in Sources */,
 				528288DE1E969F2D00163654 /* GPXManager.swift in Sources */,
