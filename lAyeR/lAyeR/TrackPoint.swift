@@ -40,7 +40,9 @@ class TrackPoint: CheckPoint {
 
 extension TrackPoint: Hashable {
     var hashValue: Int {
-        return self.latitude.hashValue ^ self.longitude.hashValue
+        let latInt = Int(self.latitude * 10000)
+        let lonInt = Int(self.longitude * 10000)
+        return latInt + lonInt
     }
     
     static func ==(lhs: TrackPoint, rhs: TrackPoint) -> Bool {
