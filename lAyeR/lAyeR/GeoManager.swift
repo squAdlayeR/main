@@ -46,7 +46,6 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         guard let userLocation = locations.last else {
             return
         }
-        print(TrackPoint(1.2929, 103.4444) == TrackPoint(1.2929, 103.4444))
         let currentLocation = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         userPoint = currentLocation
         if prevPoint != nil {
@@ -65,6 +64,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         /// Sets a threshold for poi query
         guard GeoUtil.getCoordinateDistance(prevPoint!, currentLocation) > 25 else { return }
         forceUpdateUserNearbyPOIS()
+
     }
     
     func getLastUpdatedUserPoint() -> GeoPoint {
