@@ -201,7 +201,7 @@ class SCNViewController: UIViewController {
     /**
      remove all arrow nodes from memory
      */
-    private func removeAllArrows() {
+    func removeAllArrows() {
         for arrow in arrowNodes {
             arrow.removeFromParentNode()
         }

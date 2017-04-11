@@ -11,9 +11,13 @@ import UIKit
 import MapKit
 
 extension ARViewController {
-    @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}
+    @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {
+        currentPoiCardControllers.removeAll()
+    }
     
     @IBAction func unwindFromRouteDesigner(segue: UIStoryboardSegue) {
+        scnViewController.removeAllArrows()
+        checkpointCardControllers.removeAll()
         setMode(to: .explore)
     }
     
