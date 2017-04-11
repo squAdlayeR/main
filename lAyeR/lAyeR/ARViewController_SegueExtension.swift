@@ -13,7 +13,9 @@ import MapKit
 extension ARViewController {
     @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {}
     
-    @IBAction func unwindFromRouteDesigner(segue: UIStoryboardSegue) {}
+    @IBAction func unwindFromRouteDesigner(segue: UIStoryboardSegue) {
+        setMode(to: .explore)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "arToDesignerImport" {
