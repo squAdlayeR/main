@@ -78,6 +78,7 @@ class RouteDesignerViewController: UIViewController {
     
     // save window for save / export
     var storeRoutePopupController: BasicAlertController!
+    var optionsPopupController: BasicAlertController!
     
     // Suggested Places for Table View
     var suggestedPlaces = [String]()
@@ -95,7 +96,6 @@ class RouteDesignerViewController: UIViewController {
         initializeSearch()
         initializeSuggestedPlaces()
         initializeMarkersAndLines()
-        prepareBottomBanner()
         addPanGesture()
         addTapGesture()
         
@@ -112,6 +112,28 @@ class RouteDesignerViewController: UIViewController {
         if let importedSearchDestination = importedSearchDestination {
             searchBar.text = importedSearchDestination
         }
+    }
+    
+    @IBOutlet weak var topBanner: UIView!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
+    override func viewDidAppear(_ animated: Bool) {
+        let blur = UIBlurEffect(style: .dark)
+        let blurView = UIVisualEffectView(effect: blur)
+        blurView.frame = topBanner.bounds
+        
+        goButton.layer.cornerRadius = 5
+        goButton.layer.masksToBounds = true
+        
+        startButton.layer.cornerRadius = 7
+        startButton.layer.masksToBounds = true
+        
+        mapTypeButton.setTitle("Map View", for: .normal)
+        
+        topBanner.addSubview(blurView)
+        topBanner.sendSubview(toBack: blurView)
+        prepareBottomBanner()
     }
     
     override func viewDidLayoutSubviews() {
@@ -192,6 +214,7 @@ class RouteDesignerViewController: UIViewController {
         }
         return true
     }
+
     
     // ---------------- Initializations --------------------//
     
@@ -1020,8 +1043,15 @@ class RouteDesignerViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var toggleRouteButton: UIButton!
     @IBAction func toggleRouteType(_ sender: Any) {
-        manualRouteType = !manualRouteType
+        if manualRouteType {
+            toggleRouteButton.setTitle("Use Google Route", for: .normal)
+            manualRouteType = false
+        } else {
+            toggleRouteButton.setTitle("Use Manual Design", for: .normal)
+            manualRouteType = true
+        }
     }
     
     // ---------------- Google Directions Helper Function --------------------//

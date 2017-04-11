@@ -15,14 +15,8 @@ extension RouteDesignerViewController {
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = mostBottomBanner.bounds
         
-        let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: blurEffect))
-        vibrancyView.frame = blurEffectView.bounds
-        for subview in mostBottomBanner.subviews {
-            subview.removeFromSuperview()
-            vibrancyView.contentView.addSubview(subview)
-        }
         mostBottomBanner.addSubview(blurEffectView)
-        mostBottomBanner.addSubview(vibrancyView)
+        mostBottomBanner.sendSubview(toBack: blurEffectView)
     }
 
 }

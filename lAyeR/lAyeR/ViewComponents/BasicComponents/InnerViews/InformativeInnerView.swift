@@ -20,16 +20,16 @@ class InformativeInnerView: UIView {
     // Defines the real inner view stack
     private var innerViewStack: UIView!
     
-    private var hasSubTitle = true
+    private var subtitle: String!
 
     /// Initialization
     /// - Parameters:
     ///     - width: the bounded width of the inner view
     ///     - height: the bounded height of the inner view
-    init(width: CGFloat, height: CGFloat, hasSubTitle: Bool) {
+    init(width: CGFloat, height: CGFloat, subtitle: String) {
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         super.init(frame: frame)
-        self.hasSubTitle = hasSubTitle
+        self.subtitle = subtitle
         initializeElements()
         initializeContent()
     }
@@ -53,15 +53,13 @@ class InformativeInnerView: UIView {
         scrollView.contentSize = innerViewStack.bounds.size
         scrollView.addSubview(innerViewStack)
         self.addSubview(scrollView)
-        if hasSubTitle {
-            let subtitle = createSubtitle()
-            insertSubInfo(subtitle)
-        }
+        let subtitle = createSubtitle(with: self.subtitle)
+        insertSubInfo(subtitle)
     }
     
     /// Creates a subtitle for the inner view.
     /// - Returns: the designed subtitle
-    private func createSubtitle() -> UILabel {
+    private func createSubtitle(with subtitle: String) -> UILabel {
         let label = UILabel()
         let frame = CGRect(x: 0, y: innerViewStackMargin,
                            width: self.bounds.width - innerViewSidePadding * 2,
@@ -69,7 +67,7 @@ class InformativeInnerView: UIView {
         label.frame = frame
         label.font = UIFont(name: alterDefaultFontRegular, size: defaultFontSize)
         label.textColor = infoPanelTitleFontColor
-        label.text = titleText
+        label.text = subtitle
         label.textAlignment = NSTextAlignment.center
         return label
     }
