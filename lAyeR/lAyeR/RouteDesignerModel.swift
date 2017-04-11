@@ -116,38 +116,43 @@ class RouteDesignerModel {
         case right
     }
     
-    private func getNextTrackPoint(from: TrackPoint, dir: Direction) -> TrackPoint {
+    private func getNextTrackPoint(from: TrackPointStruct, dir: Direction) -> TrackPointStruct {
         switch (dir) {
-        case .up:    return TrackPoint(from.latitude + coordinateInterval, from.longitude)
-        case .down:  return TrackPoint(from.latitude - coordinateInterval, from.longitude)
-        case .left:  return TrackPoint(from.latitude, from.longitude - coordinateInterval)
-        case .right: return TrackPoint(from.latitude, from.longitude + coordinateInterval)
+        case .up:    return TrackPointStruct(from.latitude + coordinateInterval, from.longitude)
+        case .down:  return TrackPointStruct(from.latitude - coordinateInterval, from.longitude)
+        case .left:  return TrackPointStruct(from.latitude, from.longitude - coordinateInterval)
+        case .right: return TrackPointStruct(from.latitude, from.longitude + coordinateInterval)
         }
     }
     
     private func backtrack(from dest: TrackPointNode) -> [Route] {
         var currentTp = dest
         let ans = Route("GPS Route")
-        while currentTp.parent != nil {
-            ans.insert(currentTp.trackPoint, at: 0)
+        var allRoutes = [Route]()
+        
+        if currentTp.parent != nil {
+            ans.insert(CheckPoint(currentTp.trackPoint.latitude, currentTp.trackPoint.longitude, "", "", true), at: 0)
             currentTp = currentTp.parent!
         }
-        ans.insert(currentTp.trackPoint, at: 0)
-        var allRoutes = [Route]()
+        
+        while currentTp.parent != nil {
+            ans.insert(CheckPoint(currentTp.trackPoint.latitude, currentTp.trackPoint.longitude, "", "", false), at: 0)
+            currentTp = currentTp.parent!
+        }
+        
+        ans.insert(CheckPoint(currentTp.trackPoint.latitude, currentTp.trackPoint.longitude, "", "", false), at: 0)
+        
         allRoutes.append(ans)
         return allRoutes
         
     }
     
-    private func aStarSearch(from source: TrackPoint, to dest: TrackPoint, using trackPoints: Set<TrackPoint>) -> [Route] {
-        let startNode = TrackPointNode(trackPoint: source, parent: nil, g: 0, f: manhattanDistance(from: source, to: dest))
+    private func aStarSearch(from source: TrackPointStruct, to dest: TrackPointStruct, using trackPointStructs: Set<TrackPointStruct>) -> [Route] {
+        let startNode = TrackPointNode(trackPoint: source, parent: nil, g: 0, f: manhattanDistance(from: GeoPoint(source.latitude, source.longitude), to: GeoPoint(dest.latitude, dest.longitude)))
         var openSet = PriorityQueue(ascending: true, startingValues: [startNode])
-        var closedSet = Dictionary<TrackPoint, Double>()
+        var closedSet = Dictionary<TrackPointStruct, Double>()
         closedSet[source] = 0.0
         
-        for onePoint in trackPoints {
-            print ("TWO POINT: \(onePoint.latitude) \(onePoint.longitude) \(onePoint.up) \(onePoint.down) \(onePoint.left) \(onePoint.right)")
-        }
         
         while !openSet.isEmpty {
             let currentNode = openSet.pop()!
@@ -155,67 +160,50 @@ class RouteDesignerModel {
             if currentTrackPoint == dest {
                 return backtrack(from: currentNode)
             }
-            print ("Current Node: \(currentTrackPoint.latitude) \(currentTrackPoint.longitude)")
             let newcost = currentNode.g + coordinateInterval
             
             let useUp = getNextTrackPoint(from: currentTrackPoint, dir: .up)
-            let upTrackPointIdx = trackPoints.index(of: useUp)
-            if currentTrackPoint.up || (upTrackPointIdx != nil && trackPoints[upTrackPointIdx!].down) {
-                print("CAN GO UP")
-                print ("\(useUp.latitude) \(useUp.longitude) \(useUp.hashValue) \(trackPoints.contains(useUp))")
-                print ("IDX: \(upTrackPointIdx)")
+            let upTrackPointIdx = trackPointStructs.index(of: useUp)
+            if currentTrackPoint.up {
                 if upTrackPointIdx != nil {
-                    let nextTrackPoint = trackPoints[upTrackPointIdx!]
-                    print ("Exist Node Up: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
+                    let nextTrackPoint = trackPointStructs[upTrackPointIdx!]
                     if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
                         closedSet[nextTrackPoint] = newcost
-                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: GeoPoint(nextTrackPoint.latitude, nextTrackPoint.longitude), to: GeoPoint(dest.latitude, dest.longitude))))
                     }
                 }
             }
             
             let useDown = getNextTrackPoint(from: currentTrackPoint, dir: .down)
-            let downTrackPointIdx = trackPoints.index(of: useDown)
-            if currentTrackPoint.down || (downTrackPointIdx != nil && trackPoints[downTrackPointIdx!].up) {
-                print("CAN GO DOWN")
-                print ("\(useDown.latitude) \(useDown.longitude) \(useDown.hashValue) \(trackPoints.contains(useDown))")
-                print ("IDX: \(downTrackPointIdx)")
+            let downTrackPointIdx = trackPointStructs.index(of: useDown)
+            if currentTrackPoint.down {
                 if downTrackPointIdx != nil {
-                    let nextTrackPoint = trackPoints[downTrackPointIdx!]
-                    print ("Exist Node Up: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
+                    let nextTrackPoint = trackPointStructs[downTrackPointIdx!]
                     if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
                         closedSet[nextTrackPoint] = newcost
-                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: GeoPoint(nextTrackPoint.latitude, nextTrackPoint.longitude), to: GeoPoint(dest.latitude, dest.longitude))))
                     }
                 }
             }
             let useLeft = getNextTrackPoint(from: currentTrackPoint, dir: .left)
-            let leftTrackPointIdx = trackPoints.index(of: useLeft)
-            if currentTrackPoint.left || (leftTrackPointIdx != nil && trackPoints[leftTrackPointIdx!].right) {
-                print("CAN GO LEFT")
-                print ("\(useLeft.latitude) \(useLeft.longitude) \(useLeft.hashValue) \(trackPoints.contains(useLeft))")
-                print ("IDX: \(leftTrackPointIdx)")
+            let leftTrackPointIdx = trackPointStructs.index(of: useLeft)
+            if currentTrackPoint.left {
                 if leftTrackPointIdx != nil {
-                    let nextTrackPoint = trackPoints[leftTrackPointIdx!]
-                    print ("Exist Node Up: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
+                    let nextTrackPoint = trackPointStructs[leftTrackPointIdx!]
                     if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
                         closedSet[nextTrackPoint] = newcost
-                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: GeoPoint(nextTrackPoint.latitude, nextTrackPoint.longitude), to: GeoPoint(dest.latitude, dest.longitude))))
                     }
                 }
             }
             let useRight = getNextTrackPoint(from: currentTrackPoint, dir: .right)
-            let rightTrackPointIdx = trackPoints.index(of: useRight)
-            if currentTrackPoint.right || (rightTrackPointIdx != nil && trackPoints[rightTrackPointIdx!].left) {
-                print("CAN GO RIGHT")
-                print ("\(useRight.latitude) \(useRight.longitude) \(useRight.hashValue) \(trackPoints.contains(useRight))")
-                print ("IDX: \(rightTrackPointIdx)")
+            let rightTrackPointIdx = trackPointStructs.index(of: useRight)
+            if currentTrackPoint.right {
                 if rightTrackPointIdx != nil {
-                    let nextTrackPoint = trackPoints[rightTrackPointIdx!]
-                    print ("Exist Node Up: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
+                    let nextTrackPoint = trackPointStructs[rightTrackPointIdx!]
                     if closedSet[nextTrackPoint] == nil || closedSet[nextTrackPoint]! > newcost {
                         closedSet[nextTrackPoint] = newcost
-                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: nextTrackPoint, to: dest)))
+                        openSet.push(TrackPointNode(trackPoint: nextTrackPoint, parent: currentNode, g: newcost, f: manhattanDistance(from: GeoPoint(nextTrackPoint.latitude, nextTrackPoint.longitude), to: GeoPoint(dest.latitude, dest.longitude))))
                     }
                 }
             }
@@ -233,57 +221,118 @@ class RouteDesignerModel {
         let maxLon = max(source.longitude, dest.longitude)
         let bottomLeft = GeoPoint(minLat - queryRadiusInCoordinates, minLon - queryRadiusInCoordinates)
         let topRight = GeoPoint(maxLat + queryRadiusInCoordinates, maxLon + queryRadiusInCoordinates)
-        // print("QUERY FROM: \(bottomLeft.latitude) \(bottomLeft.longitude)")
-        // print("QUERY TO: \(topRight.latitude) \(topRight.longitude)")
+        
         DatabaseManager.instance.getRectFromDatabase(from: bottomLeft, to: topRight) { (trackPoints) -> () in
-            // DEBUG PURPOSES TO DRAW ENTIRE GRAPH
+            
+//            For Debugging Purposes. Draws the entire grid graph
 //            var routes = [Route]()
 //            for onePoint in trackPoints {
 //                if onePoint.up {
 //                    let oneRoute = Route("")
 //                    oneRoute.append(onePoint)
-//                    let nextPoint = self.getNextTrackPoint(from: onePoint, dir: .up)
-//                    oneRoute.append(nextPoint)
+//                    let nextPoint = self.getNextTrackPoint(from: onePoint.convertToStruct(), dir: .up)
+//                    oneRoute.append(CheckPoint(nextPoint.latitude, nextPoint.longitude, "\(nextPoint.latitude), \(nextPoint.longitude)", "", false))
 //                    routes.append(oneRoute)
 //                }
 //                if onePoint.down {
 //                    let oneRoute = Route("")
 //                    oneRoute.append(onePoint)
-//                    let nextPoint = self.getNextTrackPoint(from: onePoint, dir: .down)
-//                    oneRoute.append(nextPoint)
+//                    let nextPoint = self.getNextTrackPoint(from: onePoint.convertToStruct(), dir: .down)
+//                    oneRoute.append(CheckPoint(nextPoint.latitude, nextPoint.longitude, "\(nextPoint.latitude), \(nextPoint.longitude)", "", false))
 //                    routes.append(oneRoute)
 //                }
 //                if onePoint.left {
 //                    let oneRoute = Route("")
 //                    oneRoute.append(onePoint)
-//                    let nextPoint = self.getNextTrackPoint(from: onePoint, dir: .left)
-//                    oneRoute.append(nextPoint)
+//                    let nextPoint = self.getNextTrackPoint(from: onePoint.convertToStruct(), dir: .left)
+//                    oneRoute.append(CheckPoint(nextPoint.latitude, nextPoint.longitude, "\(nextPoint.latitude), \(nextPoint.longitude)", "", false))
 //                    routes.append(oneRoute)
 //                }
 //                if onePoint.right {
 //                    let oneRoute = Route("")
 //                    oneRoute.append(onePoint)
-//                    let nextPoint = self.getNextTrackPoint(from: onePoint, dir: .right)
-//                    oneRoute.append(nextPoint)
+//                    let nextPoint = self.getNextTrackPoint(from: onePoint.convertToStruct(), dir: .right)
+//                    oneRoute.append(CheckPoint(nextPoint.latitude, nextPoint.longitude, "\(nextPoint.latitude), \(nextPoint.longitude)", "", false))
 //                    routes.append(oneRoute)
 //                }
 //                
 //            }
-//            print ("Routes Count \(routes.count)")
 //            completion(routes)
-            var sourceTp: TrackPoint?
-            var destTp: TrackPoint?
+            
+            
+            // Convert into TrackPointStruct for Set.contains
+            var trackPointStructs = Set<TrackPointStruct>()
+            for onePoint in trackPoints {
+                trackPointStructs.insert(onePoint.convertToStruct())
+            }
+            let tempTrackPointStructs = trackPointStructs
+            
+            // Ensure that required graph properties are upheld
+            // 1. Bidirectional
+            // 2. Edge goes from one existing vertex to another existing vertex
+            for onePoint in tempTrackPointStructs {
+                if onePoint.up {
+                    let useUp = self.getNextTrackPoint(from: onePoint, dir: .up)
+                    if trackPointStructs.contains(useUp) {
+                        var oldPoint = trackPointStructs[trackPointStructs.index(of: useUp)!]
+                        oldPoint.down = true
+                        trackPointStructs.update(with: oldPoint)
+                    } else {
+                        var newPoint = TrackPointStruct(useUp.latitude, useUp.longitude)
+                        newPoint.down = true
+                        trackPointStructs.insert(newPoint)
+                    }
+                }
+                if onePoint.down {
+                    let useDown = self.getNextTrackPoint(from: onePoint, dir: .down)
+                    if trackPointStructs.contains(useDown) {
+                        var oldPoint = trackPointStructs[trackPointStructs.index(of: useDown)!]
+                        oldPoint.up = true
+                        trackPointStructs.update(with: oldPoint)
+                    } else {
+                        var newPoint = TrackPointStruct(useDown.latitude, useDown.longitude)
+                        newPoint.up = true
+                        trackPointStructs.insert(newPoint)
+                    }
+                }
+                if onePoint.left {
+                    let useLeft = self.getNextTrackPoint(from: onePoint, dir: .left)
+                    if trackPointStructs.contains(useLeft) {
+                        var oldPoint = trackPointStructs[trackPointStructs.index(of: useLeft)!]
+                        oldPoint.right = true
+                        trackPointStructs.update(with: oldPoint)
+                    } else {
+                        var newPoint = TrackPointStruct(useLeft.latitude, useLeft.longitude)
+                        newPoint.right = true
+                        trackPointStructs.insert(newPoint)
+                    }
+                }
+                if onePoint.right {
+                    let useRight = self.getNextTrackPoint(from: onePoint, dir: .right)
+                    if trackPointStructs.contains(useRight) {
+                        var oldPoint = trackPointStructs[trackPointStructs.index(of: useRight)!]
+                        oldPoint.left = true
+                        trackPointStructs.update(with: oldPoint)
+                    } else {
+                        var newPoint = TrackPointStruct(useRight.latitude, useRight.longitude)
+                        newPoint.left = true
+                        trackPointStructs.insert(newPoint)
+                    }
+                }
+            }
+            
+            var sourceTp: TrackPointStruct?
+            var destTp: TrackPointStruct?
             var smallestSourceDist = queryRadiusInCoordinates
             var smallestDestDist = queryRadiusInCoordinates
             // print ("Number of Points: \(trackPoints.count)")
-            for onePoint in trackPoints {
-                print ("ONE POINT: \(onePoint.latitude) \(onePoint.longitude) \(onePoint.up) \(onePoint.down) \(onePoint.left) \(onePoint.right) \(onePoint.hashValue)")
-                let sourceDist = self.euclideanDistance(from: onePoint, to: source)
+            for onePoint in trackPointStructs {
+                let sourceDist = self.euclideanDistance(from: GeoPoint(onePoint.latitude, onePoint.longitude), to: source)
                 if sourceDist < queryRadiusInCoordinates && sourceDist < smallestSourceDist {
                     smallestSourceDist = sourceDist
                     sourceTp = onePoint
                 }
-                let destDist = self.euclideanDistance(from: onePoint, to: dest)
+                let destDist = self.euclideanDistance(from: GeoPoint(onePoint.latitude, onePoint.longitude), to: dest)
                 if destDist < queryRadiusInCoordinates && destDist < smallestDestDist {
                     smallestDestDist = destDist
                     destTp = onePoint
@@ -292,9 +341,7 @@ class RouteDesignerModel {
             if sourceTp == nil || destTp == nil || sourceTp == destTp {
                 completion([Route]())
             } else {
-                print ("SOURCE: \(sourceTp!.latitude) \(sourceTp!.longitude)")
-                print ("DESTINATION: \(destTp!.latitude) \(destTp!.longitude)")
-                completion(self.aStarSearch(from: sourceTp!, to: destTp!, using: trackPoints))
+                completion(self.aStarSearch(from: sourceTp!, to: destTp!, using: trackPointStructs))
             }
         }
     }

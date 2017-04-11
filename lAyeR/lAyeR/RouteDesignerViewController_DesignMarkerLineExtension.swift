@@ -169,9 +169,9 @@ extension RouteDesignerViewController {
         if TESTING { assert(checkRep()) }
     }
     
-    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool, using markersList: inout [GMSMarker], show: Bool) {
+    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool, using markersList: inout [GMSMarker], show: Bool, markerName: String) {
         let marker = GMSMarker(position: coordinate)
-        marker.title = checkpointDefaultName
+        marker.title = markerName
         marker.userData = CheckPoint(coordinate.latitude, coordinate.longitude, marker.title!, "", isControlPoint)
         if isControlPoint && show {
             marker.map = mapView
@@ -179,8 +179,12 @@ extension RouteDesignerViewController {
         markersList.insert(marker, at: idx)
     }
     
+    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool, using markersList: inout [GMSMarker], show: Bool) {
+        addMarker(coordinate: coordinate, at: idx, isControlPoint: isControlPoint, using: &markers, show: true, markerName: checkpointDefaultName)
+    }
+    
     func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool) {
-        addMarker(coordinate: coordinate, at: idx, isControlPoint: isControlPoint, using: &markers, show: true)
+        addMarker(coordinate: coordinate, at: idx, isControlPoint: isControlPoint, using: &markers, show: true, markerName: checkpointDefaultName)
     }
     
     func addLine(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, at idx: Int, using linesList: inout [GMSPolyline], show: Bool) {

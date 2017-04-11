@@ -36,38 +36,58 @@ class TrackPoint: CheckPoint {
         right <- map["right"]
     }
     
-    struct TrackPointStruct {
-        var latitude: Double
-        var longitude: Double
-        init(_ latitude: Double, _ longitude: Double) {
-            self.latitude = latitude
-            self.longitude = longitude
-        }
-    }
-    
     func convertToStruct() -> TrackPointStruct {
-        return TrackPointStruct(latitude, longitude)
+        return TrackPointStruct(latitude, longitude, up, down, left, right)
     }
 
 }
 
+struct TrackPointStruct {
+    var latitude: Double
+    var longitude: Double
+    
+    var up: Bool = false
+    var down: Bool = false
+    var left: Bool = false
+    var right: Bool = false
+    
+    init(_ latitude: Double, _ longitude: Double, _ up: Bool, _ down: Bool, _ left: Bool, _ right: Bool) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.up = up
+        self.down = down
+        self.left = left
+        self.right = right
+    }
+    
+    init(_ latitude: Double, _ longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+}
+
+extension TrackPointStruct: Hashable {
+    var hashValue: Int {
+        let latInt = Int(round(self.latitude * 10000))
+        let lonInt = Int(round(self.longitude * 10000))
+        return "\(latInt),\(lonInt)".hashValue
+    }
+    
+    static func ==(lhs: TrackPointStruct, rhs: TrackPointStruct) -> Bool {
+        return abs(lhs.latitude - rhs.latitude) < 0.00001 && abs(lhs.longitude - rhs.longitude) < 0.00001
+    }
+}
 
 extension TrackPoint: Hashable {
-//    override func isEqual(object: AnyObject?) -> Bool {
-//        guard let obj = object as? TrackPoint else {
-//            return false
-//        }
-//        return obj.latitude == latitude && obj.longitude == longitude
-//    }
+
     var hashValue: Int {
-        let latInt = Int(self.latitude * 1000)
-        let lonInt = Int(self.longitude * 1000)
+        let latInt = Int(round(self.latitude * 10000))
+        let lonInt = Int(round(self.longitude * 10000))
         return "\(latInt),\(lonInt)".hashValue
     }
 
 }
 
 func ==(lhs: TrackPoint, rhs: TrackPoint) -> Bool {
-    print ("EQUATABLE")
-    return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    return abs(lhs.latitude - rhs.latitude) < 0.00001 && abs(lhs.longitude - rhs.longitude) < 0.00001
 }

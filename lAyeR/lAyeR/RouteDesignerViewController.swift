@@ -688,10 +688,10 @@ class RouteDesignerViewController: UIViewController {
         for (idx, route) in routes.enumerated() {
             var isSimilar = false
             for index in 0..<idx {
-                if GeoUtil.isSimilar(route1: route, route2: routes[index], threshold: self.similarityThreshold) {
-                    isSimilar = true
-                    break
-                }
+//                if GeoUtil.isSimilar(route1: route, route2: routes[index], threshold: self.similarityThreshold) {
+//                    isSimilar = true
+//                    break
+//                }
             }
             if isSimilar {
                 continue
@@ -702,9 +702,9 @@ class RouteDesignerViewController: UIViewController {
             for (index, checkpoint) in route.checkPoints.enumerated() {
                 let to = CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude)
                 if index + 1 != route.checkPoints.count {
-                    addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: checkpoint.isControlPoint, using: &oneMarkers, show: false)
+                    addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: checkpoint.isControlPoint, using: &oneMarkers, show: false, markerName: checkpoint.name == "" ? checkpointDefaultName : checkpoint.name)
                 } else {
-                    addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: true, using: &oneMarkers, show: false)
+                    addMarker(coordinate: to, at: oneMarkers.count, isControlPoint: true, using: &oneMarkers, show: false, markerName: checkpoint.name == "" ? checkpointDefaultName : checkpoint.name)
                 }
                 addLine(from: from, to: to, at: oneLines.count, using: &oneLines, show: false)
                 from = to

@@ -9,11 +9,11 @@
 import Foundation
 
 class TrackPointNode: Comparable, Hashable {
-    let trackPoint: TrackPoint
+    let trackPoint: TrackPointStruct
     let parent: TrackPointNode?
     let g: Double // cost
     let f: Double // heuristic
-    init(trackPoint: TrackPoint, parent: TrackPointNode?, g: Double, f: Double) {
+    init(trackPoint: TrackPointStruct, parent: TrackPointNode?, g: Double, f: Double) {
         self.trackPoint = trackPoint
         self.parent = parent
         self.g = g
