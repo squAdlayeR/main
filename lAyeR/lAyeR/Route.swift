@@ -94,4 +94,13 @@ class Route: Mappable {
     private func _checkRep() -> Bool {
         return checkPoints.count >= 2
     }
+    
+    var distance: Double {
+        var dist = 0.0
+        if size < 1 { return dist }
+        for i in 0..<size-1 {
+            dist += GeoUtil.getCoordinateDistance(checkPoints[i], checkPoints[i+1])
+        }
+        return dist
+    }
 }

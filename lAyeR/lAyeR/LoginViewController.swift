@@ -309,5 +309,13 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
     public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "loginToAR" {
+            if let dest = segue.destination as? ARViewController {
+                dest.firstLaunch = true
+            }
+        }
+    }
 }
 
