@@ -76,14 +76,12 @@ class InformativeInnerView: UIView {
     /// - Parameter view: the view that will be inserted into the view stack
     func insertSubInfo(_ view: UIView) {
         if let lastSubview = innerViewStack.subviews.last {
-            print(view.frame)
             view.frame.origin = CGPoint(x: 0,
                                         y: lastSubview.frame.origin.y
                                             + lastSubview.frame.height
                                             + innerViewStackMargin)
             view.frame.size = CGSize(width: view.bounds.width,
                                      height: view.bounds.height + innerViewStackMargin)
-            print(view.frame.size)
         }
         innerViewStack.addSubview(view)
         updateFrame()

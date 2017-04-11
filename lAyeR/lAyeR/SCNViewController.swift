@@ -11,6 +11,14 @@ import UIKit
 import SceneKit
 import SceneKit.ModelIO
 
+
+
+/*
+ The origin of the coordinate is the start point
+ The positive direction of x axis points to the East
+ The negative direction of z axis points to the North
+ */
+
 class SCNViewController: UIViewController {
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
@@ -86,20 +94,35 @@ class SCNViewController: UIViewController {
     func updateArrowNodes() {
         updateNextCheckpointIndex()
         
-        guard let nextCheckpoint = nextCheckpoint else {
-            return
-        }
-        let userPoint = geoManager.getLastUpdatedUserPoint()
+        removeAllArrows()
         
-        var previousOffset = addArrows(from: userPoint, to: nextCheckpoint, firstOffset: 0.8)
-        
-        for i in 0 ..< route.size - 1 {
-            let src = route.checkPoints[i]
-            let dest = route.checkPoints[i + 1]
-            previousOffset = addArrows(from: src, to: dest, firstOffset: previousOffset)
-        }
+        displayArrowsWithNextCheckpoint(at: nextCheckpointIndex)
         
         updateOpacity()
+    }
+    
+    
+    func displayArrowsWithNextCheckpoint(at index: Int) {
+        guard index >= 0 && index <= route.size - 1 else {
+            return
+        }
+        let nextCheckpoint = route.checkPoints[index]
+        let userPoint = geoManager.getLastUpdatedUserPoint()
+        
+        var (previousOffset, leftCount) = addArrows(from: userPoint, to: nextCheckpoint,
+                                                    firstOffset: 0.8,
+                                                    leftCount: Constant.numArrowsDisplayedForward)
+        
+        for index in index ..< route.size - 1 {
+            if leftCount <= 0 {
+                break
+            }
+            let src = route.checkPoints[index]
+            let dest = route.checkPoints[index + 1]
+            (previousOffset, leftCount) = addArrows(from: src , to: dest,
+                                                    firstOffset: previousOffset,
+                                                    leftCount: leftCount)
+        }
     }
     
     
@@ -110,28 +133,29 @@ class SCNViewController: UIViewController {
                 return
             }
             
-            let userPoint = geoManager.getLastUpdatedUserPoint()
-            if GeoUtil.getCoordinateDistance(userPoint, route.checkPoints[index]) < Constant.arrivalDistanceThreshold {
+            if doesArrive(at: route.checkPoints[index]) {
                 nextCheckpointIndex = index + 1
             }
         }
     }
     
-    private func setupCameraNode() {
-        cameraNode.camera = SCNCamera()
-        scene.rootNode.addChildNode(cameraNode)
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
+    private func doesArrive(at checkpoint: CheckPoint) -> Bool {
+        let userPoint = geoManager.getLastUpdatedUserPoint()
+        return GeoUtil.getCoordinateDistance(userPoint, checkpoint) < Constant.arrivalDistanceThreshold
     }
-    
     
     /**
      add arrows starting from the source to the destination
      - Parameters: firstOffset  the distance in meters from the source to the first arrow
      */
-    func addArrows(from src: GeoPoint, to dest: GeoPoint, firstOffset: Double) -> Double {
+    func addArrows(from src: GeoPoint, to dest: GeoPoint,
+                   firstOffset: Double, leftCount: Int) -> (Double, Int) {
+        
         guard let firstPoint = firstCheckpoint else {
-            return 0
+            return (0, leftCount)
         }
+        
+        var leftCount = leftCount
         
         let srcDestDistance = GeoUtil.getCoordinateDistance(src, dest)
         let srcDestAzimuth = GeoUtil.getAzimuth(between: src, dest)
@@ -142,7 +166,8 @@ class SCNViewController: UIViewController {
         let srcPosition = azimuthDistanceToCoordinate(azimuth: originSrcAzimuth, distance: originSrcDistance)
         
         var currentOffset = firstOffset
-        while currentOffset <= srcDestDistance {
+        
+        while currentOffset <= srcDestDistance && leftCount > 0 {
             let arrow = getArrowSCNNode()
             
             let rotationTransformation = SCNMatrix4Rotate(arrow.transform,
@@ -160,15 +185,23 @@ class SCNViewController: UIViewController {
             scene.rootNode.addChildNode(arrow)
             
             currentOffset += Constant.arrowGap
+            leftCount -= 1
         }
-        return currentOffset - srcDestDistance
+        return (currentOffset - srcDestDistance, leftCount)
+    }
+    
+    
+    private func setupCameraNode() {
+        cameraNode.camera = SCNCamera()
+        scene.rootNode.addChildNode(cameraNode)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
     
     
     /**
      remove all arrow nodes from memory
      */
-    private func removeAllArrows() {
+    func removeAllArrows() {
         for arrow in arrowNodes {
             arrow.removeFromParentNode()
         }
@@ -189,6 +222,7 @@ class SCNViewController: UIViewController {
         transform = SCNMatrix4Rotate(transform, Float(pitch), 1, 0, 0)
         transform = SCNMatrix4Rotate(transform, Float(roll), 0, 1, 0)
 
+        // udpate the location of the camera node
         if let source = firstCheckpoint {
             let userPoint = geoManager.getLastUpdatedUserPoint()
             let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
@@ -259,18 +293,18 @@ class SCNViewController: UIViewController {
                                     blue: 1 - pb * time, alpha: 1)
                 node.geometry!.firstMaterial!.emission.contents = color
             })
-            ])
+        ])
         
         let floatAction = SCNAction.sequence([
             SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
             SCNAction.moveBy(x: 0, y: -0.08, z: 0, duration: 0.28),
-            ])
+        ])
         
         for i in 0 ..< count {
             arrowNodes[i].runAction(SCNAction.sequence([
                 SCNAction.wait(duration: Double(i) * 0.38),
                 SCNAction.group([changeColorAction, floatAction])  // parallely
-                ]))
+            ]))
         }
     }
 }

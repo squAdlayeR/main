@@ -19,18 +19,20 @@ class MarkerPopupView: UIView {
         super.init(frame : frame)
         
         topView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 100))
-        topView.backgroundColor = UIColor.white
+        topView.backgroundColor = UIColor.black
+        topView.layer.cornerRadius = 18
+        topView.layer.masksToBounds = true
         topView.alpha = 0.7
         self.addSubview(topView)
         
         arrow = TriangleView(frame: CGRect(x: self.frame.size.width/2-8, y: 100, width: 16, height: 10))
-        arrow.backgroundColor = UIColor.white
+        arrow.backgroundColor = UIColor.black
         arrow.alpha = 0.7
         self.addSubview(arrow)
         
         label = UILabel(frame: CGRect(x: 0, y: 12, width: self.frame.size.width, height: 30))
         label.text = "Checkpoint"
-        label.textColor = UIColor.black
+        label.textColor = UIColor.white
         label.numberOfLines = 0
         label.textAlignment = NSTextAlignment.center
         topView.addSubview(label)

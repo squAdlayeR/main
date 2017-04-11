@@ -72,6 +72,7 @@ class LoginViewController: UIViewController {
         fbLoginButton.center = FBButtonPlaceHolder.center
         vibrancyEffectView.contentView.addSubview(emailField)
         vibrancyEffectView.contentView.addSubview(passwordField)
+        view.addSubview(fbLoginButton)
     }
     
     /// Sets up the camera view for background image
@@ -269,7 +270,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
         //loginButton.center = FBButtonPlaceHolder.center
         //loginButton.frame = FBButtonPlaceHolder.frame
         fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
-        view.addSubview(fbLoginButton)
+        //view.addSubview(fbLoginButton)
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
@@ -309,5 +310,6 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
     public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         
     }
+    
 }
 
