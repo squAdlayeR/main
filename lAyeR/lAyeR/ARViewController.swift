@@ -88,6 +88,7 @@ class ARViewController: UIViewController {
         miniMapController.toggleMiniMapSize()
     }
     
+    /// Monitors the update of the nearby Point of Interest
     private func monitorNearbyPOIsUpdate() {
         NotificationCenter.default.addObserver(forName: nearbyPOIsUpdatedNotificationName, object: nil, queue: nil, using: { [unowned self] _ in
             
@@ -99,44 +100,52 @@ class ARViewController: UIViewController {
     private func monitorCurrentLocationUpdate() {
         NotificationCenter.default.addObserver(forName: userLocationUpdatedNotificationName, object: nil, queue: nil, using: { [unowned self] _ in
             
-            let userPoint = geoManager.getLastUpdatedUserPoint()
-            miniMapController.updateMiniMap(with: userPoint)
-            updateCheckpointCardDisplay()
-            scnViewController.updateArrowNodes()
+            let userPoint = self.geoManager.getLastUpdatedUserPoint()
+            self.miniMapController.updateMiniMap(with: userPoint)
+            self.updateCheckpointCardDisplay()
+            self.scnViewController.updateArrowNodes()
         })
     }
     
-    private func updateCheckpointCardDisplay() {
-        let userPoint = geoManager.getLastUpdatedUserPoint()
+    /// when detect user location changed, check whether should update the checkpoint card displayed
+    func updateCheckpointCardDisplay() {
+        updateNextCheckpointIndex()
         
+        if nextCheckpointIndex > controlRoute.size - 1 {
+            // arrive at the last checkpoint
+            handleArrival()
+        } else {
+            displayCheckpointCards(nextCheckpointIndex: nextCheckpointIndex)
+        }
+    }
+    
+    private func updateNextCheckpointIndex() {
         for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
             guard index >= 0 && index <= controlRoute.size - 1 else {
                 continue
             }
-
+            
             if doesArrive(at: controlRoute.checkPoints[index]) {
-                if index == controlRoute.size - 1 {  // arrive at the last checkpoint
-                    handleArrival()
-                } else {
-                    // arrive at index
-                    // so the next checkpoint index should be index + 1
-                    nextCheckpointIndex = index + 1
-                    displayCheckpointCards(nextCheckpointIndex: nextCheckpointIndex)
-                }
+                // arrive at index
+                // so the next checkpoint index should be index + 1
+                nextCheckpointIndex = index + 1
                 break
             }
         }
     }
     
-    private func doesArrive(at checkPoint: CheckPoint) -> Bool {
-        return GeoUtil.getCoordinateDistance(userPoint, nextCheckpoint) < Constant.arrivalDistanceThreshold
+    /// Check whether the user current location is close enough to the specified point 
+    /// to be considered as arriving at that point
+    private func doesArrive(at checkpoint: CheckPoint) -> Bool {
+        let userPoint = geoManager.getLastUpdatedUserPoint()
+        return GeoUtil.getCoordinateDistance(userPoint, checkpoint) < Constant.arrivalDistanceThreshold
     }
     
     /**
      Display the card of the checkpoint at the given index,
      as well as several previous checkpoints and several following checkpoints
      */
-    func displayCheckpointCards(nextCheckpointIndex: Int) {
+    private func displayCheckpointCards(nextCheckpointIndex: Int) {
         checkpointCardControllers.removeAll()
         
         let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
@@ -215,7 +224,7 @@ class ARViewController: UIViewController {
                                          superView: view, fov: fov)
         }
         
-        scnViewController.updateScene()
+        scnViewController.updateSceneCameraOrientation()
     }
     
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
@@ -224,10 +233,6 @@ class ARViewController: UIViewController {
         checkpointCard.setCheckpointName(checkpoint.name)
         checkpointCard.setCheckpointDescription("Oops! This checkpoint has no specific description.")
         return CheckpointCardController(checkpoint: checkpoint, card: checkpointCard)
-    }
-    
-    func prepareNodes() {
-        scnViewController.prepareNodes()
     }
     
     private func handleArrival() {

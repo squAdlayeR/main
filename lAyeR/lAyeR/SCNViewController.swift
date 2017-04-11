@@ -38,6 +38,7 @@ class SCNViewController: UIViewController {
         return route.checkPoints[nextCheckpointIndex]
     }
     
+    
     func setupScene() {
         guard let arViewController = parent as? ARViewController else {
             return
@@ -62,6 +63,7 @@ class SCNViewController: UIViewController {
      */
     func prepareNodes() {
         removeAllArrows()
+        cameraNode.removeFromParentNode()
         updateArrowNodes()
         setupCameraNode()
     }
@@ -96,8 +98,12 @@ class SCNViewController: UIViewController {
             let dest = route.checkPoints[i + 1]
             previousOffset = addArrows(from: src, to: dest, firstOffset: previousOffset)
         }
+        
+        updateOpacity()
     }
     
+    
+    /// update the index of the next checkpoint according to the user current location
     private func updateNextCheckpointIndex() {
         for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
             guard index >= 0 && index <= route.size - 1 else {
@@ -116,6 +122,7 @@ class SCNViewController: UIViewController {
         scene.rootNode.addChildNode(cameraNode)
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
+    
     
     /**
      add arrows starting from the source to the destination
@@ -157,6 +164,7 @@ class SCNViewController: UIViewController {
         return currentOffset - srcDestDistance
     }
     
+    
     /**
      remove all arrow nodes from memory
      */
@@ -167,7 +175,11 @@ class SCNViewController: UIViewController {
         arrowNodes = []
     }
     
-    func updateScene() {
+    
+    /**
+     update the orientation of the camera node according to the data from the device motion manager
+     */
+    func updateSceneCameraOrientation() {
         let pitch = motionManager.getVerticalAngle()
         let yaw = motionManager.getYawAngle()
         let roll = motionManager.getHorzAngleRelToNorth()
@@ -187,9 +199,8 @@ class SCNViewController: UIViewController {
         }
         
         cameraNode.transform = transform
-        
-        updateOpacity()
     }
+    
     
     private func updateOpacity() {
         // show arorws in the decreasing opacity
@@ -201,11 +212,18 @@ class SCNViewController: UIViewController {
     }
     
     
+    /**
+     given the azimuth and the distance of a certain point
+     transform to the corresponding coordinate
+     with positive x axis pointing to the East
+     positive y axis pointing to the North
+     */
     private func azimuthDistanceToCoordinate(azimuth: Double, distance: Double) -> SCNVector3 {
         let x = distance * sin(azimuth)  // positive: to East
         let y = distance * cos(azimuth)  // positive: to North
         return SCNVector3(x: Float(x), y: 0, z: Float(-y))
     }
+    
     
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         let tappedPoint = gestureRecognize.location(in: scnView)
@@ -216,6 +234,7 @@ class SCNViewController: UIViewController {
             animateMovingOn()
         }
     }
+    
     
     private func animateMovingOn() {
         let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
