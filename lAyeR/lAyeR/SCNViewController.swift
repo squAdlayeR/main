@@ -222,16 +222,16 @@ class SCNViewController: UIViewController {
         transform = SCNMatrix4Rotate(transform, Float(pitch), 1, 0, 0)
         transform = SCNMatrix4Rotate(transform, Float(roll), 0, 1, 0)
 
-//        // udpate the location of the camera node
-//        if let source = firstCheckpoint {
-//            let userPoint = geoManager.getLastUpdatedUserPoint()
-//            let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
-//            let distance = GeoUtil.getCoordinateDistance(userPoint, source)
-//            let v = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
-//            
-//            transform = SCNMatrix4Translate(transform, -(v.x), 0, -(v.z))
-//        }
-//        
+        // udpate the location of the camera node
+        if let source = firstCheckpoint {
+            let userPoint = geoManager.getLastUpdatedUserPoint()
+            let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
+            let distance = GeoUtil.getCoordinateDistance(userPoint, source)
+            let v = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
+            
+            transform = SCNMatrix4Translate(transform, -(v.x), 0, -(v.z))
+        }
+        
         cameraNode.transform = transform
     }
     
