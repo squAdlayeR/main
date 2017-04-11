@@ -30,8 +30,10 @@ class GPSTracker {
         }
         let deltaDistance = GeoUtil.getCoordinateDistance(prevLocation, currentLocation)
         /// acceptable threshold
-        guard deltaDistance > 5 && deltaDistance < 15 else { return }
         self.prevLocation = currentLocation
+        guard deltaDistance > 5 && deltaDistance < 15 else {
+            return
+        }
         let prev = GeoPoint(prevLocation.latitude.truncate(places: 4),
                             prevLocation.longitude.truncate(places: 4))
         let curr = GeoPoint(currentLocation.latitude.truncate(places: 4),
