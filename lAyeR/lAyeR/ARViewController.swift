@@ -22,7 +22,7 @@ enum Mode {
 
 class ARViewController: UIViewController {
 
-    private var mode: Mode = .navigation
+    private var mode: Mode = .explore
     var route: Route = Route("initial empty route") {
         didSet {
             miniMapController.route = route
@@ -38,7 +38,7 @@ class ARViewController: UIViewController {
 
     // for displaying checkpoint card and poi card
     var checkpointCardControllers: [CheckpointCardController] = []
-    private var currentPoiCardControllers: [PoiCardController] = []
+    var currentPoiCardControllers: [PoiCardController] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
 
@@ -123,8 +123,10 @@ class ARViewController: UIViewController {
     func observeUserLocationChange(_ notification: NSNotification) {
         if let currentLocation = notification.object as? GeoPoint {
             miniMapController.updateMiniMap(with: currentLocation)
-            updateCheckpointCardDisplay()
-            scnViewController.updateArrowNodes()
+            if mode == .navigation {
+                updateCheckpointCardDisplay()
+                scnViewController.updateArrowNodes()
+            }
         }
     }
     

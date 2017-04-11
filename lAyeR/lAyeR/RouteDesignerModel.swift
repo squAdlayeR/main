@@ -145,6 +145,10 @@ class RouteDesignerModel {
         var closedSet = Dictionary<TrackPoint, Double>()
         closedSet[source] = 0.0
         
+        for onePoint in trackPoints {
+            print ("TWO POINT: \(onePoint.latitude) \(onePoint.longitude) \(onePoint.up) \(onePoint.down) \(onePoint.left) \(onePoint.right)")
+        }
+        
         while !openSet.isEmpty {
             let currentNode = openSet.pop()!
             let currentTrackPoint = currentNode.trackPoint
@@ -155,7 +159,10 @@ class RouteDesignerModel {
             let newcost = currentNode.g + coordinateInterval
             if currentTrackPoint.up {
                 print("CAN GO UP")
+                let use = getNextTrackPoint(from: currentTrackPoint, dir: .up)
+                print ("\(use.latitude) \(use.longitude) \(use.hashValue) \(trackPoints.contains(use))")
                 let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .up))
+                print ("IDX: \(nextTrackPointIdx)")
                 if nextTrackPointIdx != nil {
                     let nextTrackPoint = trackPoints[nextTrackPointIdx!]
                     print ("Exist Node Up: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
@@ -167,7 +174,10 @@ class RouteDesignerModel {
             }
             if currentTrackPoint.down {
                 print("CAN GO DOWN")
+                let use = getNextTrackPoint(from: currentTrackPoint, dir: .down)
+                print ("\(use.latitude) \(use.longitude) \(use.hashValue) \(trackPoints.contains(use))")
                 let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .down))
+                print ("IDX: \(nextTrackPointIdx)")
                 if nextTrackPointIdx != nil {
                     let nextTrackPoint = trackPoints[nextTrackPointIdx!]
                     print ("Exist Node Down: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
@@ -179,7 +189,10 @@ class RouteDesignerModel {
             }
             if currentTrackPoint.right {
                 print("CAN GO RIGHT")
+                let use = getNextTrackPoint(from: currentTrackPoint, dir: .right)
+                print ("\(use.latitude) \(use.longitude) \(use.hashValue) \(trackPoints.contains(use))")
                 let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .right))
+                print ("IDX: \(nextTrackPointIdx)")
                 if nextTrackPointIdx != nil {
                     let nextTrackPoint = trackPoints[nextTrackPointIdx!]
                     print ("Exist Node Right: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
@@ -191,7 +204,10 @@ class RouteDesignerModel {
             }
             if currentTrackPoint.left {
                 print("CAN GO LEFT")
+                let use = getNextTrackPoint(from: currentTrackPoint, dir: .left)
+                print ("\(use.latitude) \(use.longitude) \(use.hashValue) \(trackPoints.contains(use))")
                 let nextTrackPointIdx = trackPoints.index(of: getNextTrackPoint(from: currentTrackPoint, dir: .left))
+                print ("IDX: \(nextTrackPointIdx)")
                 if nextTrackPointIdx != nil {
                     let nextTrackPoint = trackPoints[nextTrackPointIdx!]
                     print ("Exist Node Left: \(nextTrackPoint.latitude) \(nextTrackPoint.longitude)")
@@ -224,7 +240,7 @@ class RouteDesignerModel {
             var smallestDestDist = queryRadiusInCoordinates
             // print ("Number of Points: \(trackPoints.count)")
             for onePoint in trackPoints {
-                print ("ONE POINT: \(onePoint.latitude) \(onePoint.longitude) \(onePoint.up) \(onePoint.down) \(onePoint.left) \(onePoint.right)")
+                print ("ONE POINT: \(onePoint.latitude) \(onePoint.longitude) \(onePoint.up) \(onePoint.down) \(onePoint.left) \(onePoint.right) \(onePoint.hashValue)")
                 let sourceDist = self.euclideanDistance(from: onePoint, to: source)
                 if sourceDist < queryRadiusInCoordinates && sourceDist < smallestSourceDist {
                     smallestSourceDist = sourceDist

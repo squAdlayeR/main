@@ -59,8 +59,12 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         let alert = UIAlertController(title: "Edit CheckPoint", message: "Enter Name and Description of CheckPoint", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "Enter CheckPoint Name"
+            let markerCheckpoint = self.tappedMarker.userData as! CheckPoint
+            textField.text = markerCheckpoint.name
         }
         alert.addTextField { (textField) in
+            let markerCheckpoint = self.tappedMarker.userData as! CheckPoint
+            textField.text = markerCheckpoint.description
             textField.placeholder = "Enter CheckPoint Description"
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .default))

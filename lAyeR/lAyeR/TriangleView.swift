@@ -19,7 +19,7 @@ class TriangleView: UIView {
         bezierPath.close()
         
         // Apply Color
-        UIColor.white.setFill()
+        UIColor.black.setFill()
         bezierPath.fill()
         
         // Mask to Path
