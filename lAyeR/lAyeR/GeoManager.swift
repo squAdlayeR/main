@@ -45,6 +45,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         guard let userLocation = locations.last else {
             return
         }
+        
         let currentLocation = GeoPoint(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
         userPoint = currentLocation
         
@@ -53,6 +54,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         
         /// Sets a threshold for poi query
         guard GeoUtil.getCoordinateDistance(userPoint, currentLocation) > 25 else { return }
+        
         let group = DispatchGroup()
         var candidates: [POI] = []
         for type in appSettings.selectedPOICategrories {

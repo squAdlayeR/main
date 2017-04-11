@@ -15,7 +15,11 @@ import SceneKit
 
 class ARViewController: UIViewController {
 
-    var route: Route = Route("initial empty route")
+    var route: Route = Route("initial empty route") {
+        didSet {
+            miniMapController.route = route
+        }
+    }
     var controlRoute: Route = Route("the route formed by all the control points")
     var nextCheckpointIndex = 0
     var fov: Double!
@@ -25,11 +29,7 @@ class ARViewController: UIViewController {
                                                                         Constant.userLocationUpdatedNotificationName)
 
     // for displaying checkpoint card and poi card
-    var checkpointCardControllers: [CheckpointCardController] = [] {
-        didSet {
-            miniMapController.checkpointCardControllers = checkpointCardControllers
-        }
-    }
+    var checkpointCardControllers: [CheckpointCardController] = []
     private var currentPoiCardControllers: [PoiCardController] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
@@ -71,7 +71,11 @@ class ARViewController: UIViewController {
         
         addChildViewController(scnViewController)
         scnViewController.setupScene()
+        
+        geoManager.forceUpdateUserNearbyPOIS()
     }
+    
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -98,13 +102,16 @@ class ARViewController: UIViewController {
     
     /// Monitors the update of the current user location
     private func monitorCurrentLocationUpdate() {
-        NotificationCenter.default.addObserver(forName: userLocationUpdatedNotificationName, object: nil, queue: nil, using: { [unowned self] _ in
-            
-            let userPoint = self.geoManager.getLastUpdatedUserPoint()
-            self.miniMapController.updateMiniMap(with: userPoint)
-            self.updateCheckpointCardDisplay()
-            self.scnViewController.updateArrowNodes()
-        })
+        NotificationCenter.default.addObserver(self, selector: #selector(observeUserLocationChange(_:)),
+                                               name: userLocationUpdatedNotificationName, object: nil)
+    }
+    
+    func observeUserLocationChange(_ notification: NSNotification) {
+        if let currentLocation = notification.object as? GeoPoint {
+            miniMapController.updateMiniMap(with: currentLocation)
+            updateCheckpointCardDisplay()
+            scnViewController.updateArrowNodes()
+        }
     }
     
     /// when detect user location changed, check whether should update the checkpoint card displayed
