@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if url.isFileURL {
             if self.window?.rootViewController is ARViewController {
+                self.window?.rootViewController?.presentedViewController?.dismiss(animated: false, completion: nil)
                 self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
             }
         }

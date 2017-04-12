@@ -326,15 +326,10 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
             print(indexPath)
             let uid = currentUser.uid
             let name = userProfile.designedRoutes[indexPath.section]
-            print("here")
             userProfile.designedRoutes.remove(at: indexPath.section)
-            print("here")
-            //tableView.deleteRows(at: [indexPath], with: .left)
             tableView.deleteSections(IndexSet(integer: indexPath.section), with: UITableViewRowAnimation.left)
             // Error handling here
-            print("ok")
             DatabaseManager.instance.removeRouteFromDatabase(routeName: name)
-            print("ok")
             DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: userProfile)
             // Error handling ends here.
         }

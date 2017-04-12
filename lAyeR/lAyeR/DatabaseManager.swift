@@ -306,9 +306,10 @@ class DatabaseManager {
                     self.isConnected = false
                     DispatchQueue.main.async {
                         let currentViewController = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController
+                        if count < 2 { return } // possibly initializing stage
                         if currentViewController != nil {
                             currentViewController?.showAlertMessage(message: "Lost connection to database.")
-                        } else if count > 2 {
+                        } else {
                             UIApplication.shared.keyWindow?.rootViewController?.showAlertMessage(message: "Lost connection to database.")
                         }
                     }
