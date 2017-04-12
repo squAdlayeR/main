@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GPSTracker.instance.start()
         self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
         if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
+            self.window?.rootViewController?.presentedViewController?.dismiss(animated: false, completion: nil)
             self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
             return true
         }
@@ -86,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if url.isFileURL {
             if self.window?.rootViewController is ARViewController {
+                self.window?.rootViewController?.presentedViewController?.dismiss(animated: false, completion: nil)
                 self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
             }
         }
@@ -94,6 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         if url.isFileURL {
+            self.window?.rootViewController?.presentedViewController?.dismiss(animated: false, completion: nil)
             if self.window?.rootViewController is ARViewController {
                 self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
             }
