@@ -136,6 +136,9 @@ extension Card {
         popupController.setBlurEffect(isBlurMode)
     }
     
+    func setMarkderAlpha(to alpha: CGFloat) {
+        markerCard.alpha = alpha
+    }
 }
 
 /**
