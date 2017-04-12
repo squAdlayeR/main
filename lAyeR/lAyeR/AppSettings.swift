@@ -28,7 +28,6 @@ class AppSettings: NSObject {
     
     // categories of pois for display
     private(set) var selectedPOICategrories: Set<String>
-    
     /// The method that ensures there is only one instance for app settings
     /// - Returns: the instance for `AppSettings`
     static func getInstance() -> AppSettings {
@@ -43,7 +42,7 @@ class AppSettings: NSObject {
     private override init() {
         maxNumberOfMarkers = 10
         radiusOfDetection = 500
-        selectedPOICategrories = []
+        selectedPOICategrories = ["restaurant", "atm", "bus_station"]
         super.init()
     }
     
