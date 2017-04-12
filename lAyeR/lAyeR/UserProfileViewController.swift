@@ -279,7 +279,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
             if let route = route {
                 cell.backgroundImage.imageFromUrl(url: route.imagePath)
-                cell.routeDescription.text = "Distance: \(route.distance.truncate(places: 2)) m"
+                cell.routeDescription.text = "Distance: \(Int(route.distance)) m"
             }
         }
         return cell
@@ -322,12 +322,19 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
                 // might lost connection here, operation can't be done.
                     return
             }
+            print("ok")
+            print(indexPath)
             let uid = currentUser.uid
             let name = userProfile.designedRoutes[indexPath.section]
+            print("here")
             userProfile.designedRoutes.remove(at: indexPath.section)
-            tableView.deleteRows(at: [indexPath], with: .left)
+            print("here")
+            //tableView.deleteRows(at: [indexPath], with: .left)
+            tableView.deleteSections(IndexSet(integer: indexPath.section), with: UITableViewRowAnimation.left)
             // Error handling here
+            print("ok")
             DatabaseManager.instance.removeRouteFromDatabase(routeName: name)
+            print("ok")
             DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: userProfile)
             // Error handling ends here.
         }

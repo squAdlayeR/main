@@ -25,8 +25,6 @@ extension UIViewController {
         UIGraphicsEndImageContext()
         return screenshot ?? UIImage()
     }
-    
-    
 }
 
 /// Using DocumentInteractionViewController
@@ -60,5 +58,12 @@ extension UIViewController {
     
 }
 
+extension UIButton {
+    
+    func addEvent(_ event: UIControlEvents, completion: @escaping () -> ()) {
+        completion()
+    }
+    
+}
 
 

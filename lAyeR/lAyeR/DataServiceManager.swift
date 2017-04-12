@@ -23,8 +23,8 @@ class DataServiceManager {
         databaseManager.addUserProfileToDatabase(uid: uid, userProfile: profile)
     }
     
-    func addRouteToDatabase(route: Route) {
-        databaseManager.addRouteToDatabase(route: route)
+    func addRouteToDatabase(route: Route, completion: @escaping (Bool) -> ()) {
+        databaseManager.addRouteToDatabase(route: route, completion: completion)
     }
     
     func createUser(email: String, password: String, completion: AuthenticationCallback?) {

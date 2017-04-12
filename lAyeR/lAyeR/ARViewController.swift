@@ -68,7 +68,7 @@ class ARViewController: UIViewController {
         
         monitorNearbyPOIsUpdate()
         monitorCurrentLocationUpdate()
-        DatabaseManager.instance.checkConnectivity()
+        
         
         fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         

@@ -149,11 +149,21 @@ extension RouteDesignerViewController {
                 }
                 // TODO: separate local storage and server
                 self.routeDesignerModel.saveToLocal(route: route)
-                self.routeDesignerModel.saveToDB(route: route)
+                self.routeDesignerModel.saveToDB(route: route){ bool in
+                    if bool {
+                        let resultAlert = UIAlertController(title: "Saved Successfully", message: "Congrats", preferredStyle: .alert)
+                        resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
+                        self.present(resultAlert, animated: true, completion: nil)
+                    } else {
+                        let resultAlert = UIAlertController(title: "Save Failed", message: "You have created a route with this name before, sure to overwrite?", preferredStyle: .alert)
+                        resultAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { _ in
+                            DatabaseManager.instance.updateRouteInDatabase(route: route)
+                        }))
+                        resultAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                        self.present(resultAlert, animated: true, completion: nil)
+                    }
+                }
                 
-                let resultAlert = UIAlertController(title: "Saved Successfully", message: "Congrats", preferredStyle: .alert)
-                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
-                self.present(resultAlert, animated: true, completion: nil)
             } else {
                 let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to your route", preferredStyle: .alert)
                 resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))

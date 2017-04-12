@@ -21,10 +21,10 @@ class RouteDesignerModel {
         RealmLocalStorageManager.getInstance().saveRoute(route)
     }
     
-    func saveToDB(route: Route) {
-        DataServiceManager.instance.addRouteToDatabase(route: route)
+    func saveToDB(route: Route,  completion: @escaping (Bool)->()) {
+        DataServiceManager.instance.addRouteToDatabase(route: route, completion: completion)
     }
-    
+
     // ---------------- Get Google Routes --------------------//
     
     func getDirections(origin: String!, destination: String!, waypoints: Array<String>?, at markersIdx: Int, completion: @escaping (_ result: Bool, _ path: GMSPath?)->()) {

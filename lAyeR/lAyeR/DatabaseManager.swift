@@ -16,6 +16,7 @@ class DatabaseManager {
     private(set) var isConnected: Bool = false //check connectivity
     static let instance = DatabaseManager()
     private(set) var currentUserProfile: UserProfile?
+    var connectivityCheckCount: Int = 0
     
     func startObserveGPSTrack() {
         FIRDatabase.database().reference().child("gpstrack").observe(.childAdded, with: { snapshot in
@@ -134,24 +135,40 @@ class DatabaseManager {
         FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
     }
     
-    func addRouteToDatabase(route: Route) {
-        
+    func updateRouteInDatabase(route: Route) {
+        guard let uid = UserAuthenticator.instance.currentUser?.uid else { return }
+        let combinedName = route.name + "||" + uid
+        FIRDatabase.database().reference().child("routes").child(combinedName).setValue(route.toJSON())
+    }
+    
+    func addRouteToDatabase(route: Route, completion: @escaping (_ success: Bool) -> ()) {
+        guard let uid = UserAuthenticator.instance.currentUser?.uid else {
+            completion(false)
+            return
+        }
+        let combinedName = route.name + "||" + uid
         FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.hasChild(route.name) {
-                print("route exists")
+            if snapshot.hasChild(combinedName) {
+                completion(false)
                 return
             }
-            FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
-            guard let uid = UserAuthenticator.instance.currentUser?.uid else { return }
-            self.getUserProfile(uid: uid) { userProfile, success in
-                guard success, let userProfile = userProfile else {
+            FIRDatabase.database().reference().child("routes").child(combinedName).setValue(route.toJSON(), withCompletionBlock: { error, ref in
+                guard error == nil else {
+                    completion(false)
                     return
                 }
-                userProfile.designedRoutes.append(route.name)
-                self.updateUserProfile(uid: uid, userProfile: userProfile)
-            }
+                completion(true)
+                DispatchQueue.main.async {
+                    self.getUserProfile(uid: uid) { userProfile, success in
+                        guard success, let userProfile = userProfile else {
+                            return
+                        }
+                        userProfile.designedRoutes.append(route.name)
+                        self.updateUserProfile(uid: uid, userProfile: userProfile)
+                    }
+                }
+            })
         })
-        
     }
     
     func verifyUserProfile(uid: String, completion: @escaping () -> ()) {
@@ -164,14 +181,13 @@ class DatabaseManager {
     }
     
     func removeRouteFromDatabase(routeName: String) {
-        FIRDatabase.database().reference().child("routes").child(routeName).removeValue()
+        guard let uid = UserAuthenticator.instance.currentUser?.uid else {
+            return
+        }
+        let combinedName = routeName + "||" + uid
+        FIRDatabase.database().reference().child("routes").child(combinedName).removeValue()
     }
-    
-    /// Currently, updates whole structure. Subject to change after
-    /// updating Route designer.
-    func updateRouteInDatabase(route: Route) {
-        FIRDatabase.database().reference().child("routes").child(route.name).setValue(route.toJSON())
-    }
+
     
     func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile?, _ success: Bool) -> ()) {
         guard isConnected else {
@@ -193,7 +209,13 @@ class DatabaseManager {
     /// Use in user profile.
     func getRoute(withName routeName: String, completion: @escaping (_ route: Route?) -> ()) {
         DispatchQueue.global(qos: .background).async {
-            FIRDatabase.database().reference().child("routes").child(routeName).observeSingleEvent(of: .value, with: { snapshot in
+            
+            guard let uid = UserAuthenticator.instance.currentUser?.uid else {
+                completion(nil)
+                return
+            }
+            let combinedName = routeName + "||" + uid
+            FIRDatabase.database().reference().child("routes").child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
                 if let value = snapshot.value as? [String: Any],
                     let points = value["checkPoints"] as? [[String: Any]],
                     let name = value["name"] as? String,
@@ -285,9 +307,9 @@ class DatabaseManager {
                     DispatchQueue.main.async {
                         let currentViewController = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController
                         if currentViewController != nil {
-                            currentViewController?.showAlertMessage(message: "Lost Internet connection.")
+                            currentViewController?.showAlertMessage(message: "Lost connection to database.")
                         } else if count > 2 {
-                            UIApplication.shared.keyWindow?.rootViewController?.showAlertMessage(message: "Lost internet connection.")
+                            UIApplication.shared.keyWindow?.rootViewController?.showAlertMessage(message: "Lost connection to database.")
                         }
                     }
                     return
