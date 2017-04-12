@@ -194,6 +194,7 @@ extension RouteDesignerViewController {
         let polyline = GMSPolyline(path: path)
         polyline.strokeWidth = 5.0
         polyline.geodesic = true
+        polyline.strokeColor = lineColor
         if show {
             polyline.map = mapView
         }

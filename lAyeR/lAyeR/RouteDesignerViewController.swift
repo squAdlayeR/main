@@ -29,6 +29,7 @@ class RouteDesignerViewController: UIViewController {
     let checkpointDefaultName = "Checkpoint"
     let selectDestinationText = "Please select destination"
     let selectSourceText = "Please select source"
+    let lineColor = UIColor(red: 0, green: 0.7098, blue: 0.7098, alpha: 1)
     
     // Location Variables
     var locationManager = CLLocationManager()
@@ -810,7 +811,7 @@ class RouteDesignerViewController: UIViewController {
         for (index, route) in aLines.enumerated() {
             for (index2, line) in route.enumerated() {
                 if idx == index {
-                    line.strokeColor = UIColor.blue
+                    line.strokeColor = lineColor
                     let marker = aMarkers[index][index2]
                     let markerData = marker.userData as! CheckPoint
                     marker.icon = GMSMarker.markerImage(with: .red)
