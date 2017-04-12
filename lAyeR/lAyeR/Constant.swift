@@ -15,7 +15,7 @@ class Constant {
     
     static let projectionPlaneDistance: CGFloat = 600
     
-    static let maxPushBackDistance: CGFloat = 380
+    static let maxPushBackDistance: CGFloat = 480
     static let maxSearchDistance: Double = 800
     static let pathArrowName = "arrow14"
     static let pathArrowExtension = "obj"
@@ -43,6 +43,13 @@ class Constant {
     static let checkCloseRange = 1
     
     static let arrowActionKey = "arrowAction"
+    
+    static let targetColorR: CGFloat = 1
+    static let targetColorG: CGFloat = 1
+    static let targetColorB: CGFloat = 1
+    
+    static let maxMarkerAlpha: CGFloat = 0.8
+    static let markerAlphaChangeRange: CGFloat = 0.38
 }
 
 

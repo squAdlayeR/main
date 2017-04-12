@@ -307,9 +307,9 @@ class SCNViewController: UIViewController {
             Constant.numArrowsDisplayedForward :
             arrowNodes.count
         
-        let pr: CGFloat = (1 - Constant.arrowDefaultColorR) / 0.18
-        let pg: CGFloat = (1 - Constant.arrowDefaultColorG) / 0.18
-        let pb: CGFloat = (1 - Constant.arrowDefaultColorB) / 0.18
+        let pr: CGFloat = (Constant.targetColorR - Constant.arrowDefaultColorR) / 0.18
+        let pg: CGFloat = (Constant.targetColorG - Constant.arrowDefaultColorG) / 0.18
+        let pb: CGFloat = (Constant.targetColorB - Constant.arrowDefaultColorB) / 0.18
         
         let changeColorAction = SCNAction.sequence([
             SCNAction.customAction(duration: 0.38, action: { (node, time) in
@@ -320,9 +320,9 @@ class SCNViewController: UIViewController {
             }),
             
             SCNAction.customAction(duration: 0.28, action: { (node, time) in
-                let color = UIColor(red: 1 - pr * time,
-                                    green: 1 - pg * time,
-                                    blue: 1 - pb * time, alpha: 1)
+                let color = UIColor(red: Constant.targetColorR - pr * time,
+                                    green: Constant.targetColorG - pg * time,
+                                    blue: Constant.targetColorB - pb * time, alpha: 1)
                 node.geometry!.firstMaterial!.emission.contents = color
             })
         ])
@@ -335,7 +335,7 @@ class SCNViewController: UIViewController {
         for i in 0 ..< count {
             let oneIteration = SCNAction.sequence([
                 SCNAction.group([changeColorAction, floatAction]),  // parallely
-                SCNAction.wait(duration: Double(count) * 0.18)
+                SCNAction.wait(duration: Double(count) * 0.24)
             ])
         
             let foreverIteration = SCNAction.sequence([

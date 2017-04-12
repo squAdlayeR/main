@@ -34,6 +34,12 @@ class PoiCardController {
                                                       superView: superView, fov: fov)
         card.applyViewAdjustment(layoutAdjustment)
         card.update(distance)
+        card.setMarkderAlpha(to: calculateAlpha(distance: layoutAdjustment.pushBackDistance))
+    }
+    
+    
+    private func calculateAlpha(distance: CGFloat) -> CGFloat {
+        return Constant.maxMarkerAlpha - Constant.markerAlphaChangeRange * distance / Constant.maxPushBackDistance
     }
     
     

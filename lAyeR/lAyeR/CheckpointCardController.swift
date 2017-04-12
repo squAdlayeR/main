@@ -64,6 +64,7 @@ class CheckpointCardController {
                                                   superView: superView, fov: fov)
         card.applyViewAdjustment(layoutAdjustment)
         card.update(distance)
+        card.setMarkderAlpha(to: calculateAlpha(distance: layoutAdjustment.pushBackDistance))
         
         guard selected else {
            return
@@ -75,6 +76,9 @@ class CheckpointCardController {
         }
     }
     
+    private func calculateAlpha(distance: CGFloat) -> CGFloat {
+        return Constant.maxMarkerAlpha - Constant.markerAlphaChangeRange * distance / Constant.maxPushBackDistance
+    }
     
     private func displayArrow() {
         guard let superView = card.superViewController.view else {
