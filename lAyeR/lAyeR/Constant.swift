@@ -43,6 +43,10 @@ class Constant {
     static let checkCloseRange = 1
     
     static let arrowActionKey = "arrowAction"
+    
+    static let targetColorR: CGFloat = 1
+    static let targetColorG: CGFloat = 1
+    static let targetColorB: CGFloat = 1
 }
 
 
