@@ -98,12 +98,13 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         
     }
     
-    func getDetailedPOIInfo(_ poi: POI, completion: @escaping (_ newPOI: POI) -> ()) {
+    func getDetailedPOIInfo(_ poi: POI, completion: @escaping (_ newPOI: POI?) -> ()) {
         guard let placeID = poi.placeID else { return }
         let url = Parser.parsePOIDetailSearchRequest(placeID)
         Alamofire.request(url).responseJSON { response in
             guard let json = response.result.value as? [String: Any],
                 let newPOI = Parser.parseDetailedPOI(json) else {
+                completion(nil)
                 return
             }
             completion(newPOI)

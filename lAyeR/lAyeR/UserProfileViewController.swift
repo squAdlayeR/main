@@ -39,6 +39,8 @@ class UserProfileViewController: UIViewController {
     // Connects the back button
     @IBOutlet weak var backButton: UIButton!
     
+    @IBOutlet weak var notification: UILabel!
+    
     let picker = UIImagePickerController()
 
     var selectedRouteNames: Set<String> = []
@@ -53,12 +55,19 @@ class UserProfileViewController: UIViewController {
         self.setBlur()
         self.setBackButton()
         picker.delegate = self
+        loadProfile()
+    }
+    
+    private func loadProfile() {
         LoadingBadge.instance.showBadge(in: view)
         dataService.retrieveUserProfile { profile, success in
             guard success, let profile = profile else {
+                self.notification.isHidden = false
+                self.vibrancyEffectView.contentView.addSubview(self.notification)
                 LoadingBadge.instance.hideBadge()
                 return
             }
+            self.notification.isHidden = true
             self.userProfile = profile
             self.setUserInfo()
             self.setRouteList()

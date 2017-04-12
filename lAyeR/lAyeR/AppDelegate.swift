@@ -21,17 +21,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        sleep(2)
+        
         GMSPlacesClient.provideAPIKey(AppConfig.apiKey)
         GMSServices.provideAPIKey(AppConfig.apiKey)
         FIRApp.configure()
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        //GPSTracker.instance.start()
+        sleep(3)
+        self.window?.makeKeyAndVisible()
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         guard let currentUser = FIRAuth.auth()?.currentUser else {
             return true
         }
-        DatabaseManager.instance.checkConnectivity()
+        
         //DatabaseManager.instance.startObserveGPSTrack()
         GPSTracker.instance.start()
         self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")

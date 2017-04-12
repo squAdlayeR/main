@@ -68,6 +68,7 @@ class ARViewController: UIViewController {
         
         monitorNearbyPOIsUpdate()
         monitorCurrentLocationUpdate()
+        DatabaseManager.instance.checkConnectivity()
         
         fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
         
@@ -230,11 +231,13 @@ class ARViewController: UIViewController {
                 group.enter()
                 let poiCard = PoiCard(center: self.view.center, distance: 0, type: newPoi.types.first!, superViewController: self)
                 geoManager.getDetailedPOIInfo(newPoi) { poi in
-                    if let name = poi.name { poiCard.setPoiName(name) }
-                    if let address = poi.vicinity { poiCard.setPoiAddress(address) }
-                    if let rating = poi.rating { poiCard.setPoiRating(rating) }
-                    if let website = poi.website { poiCard.setPoiWebsite(website) }
-                    if let contact = poi.contact { poiCard.setPoiContacet(contact) }
+                    if let poi = poi {
+                        if let name = poi.name { poiCard.setPoiName(name) }
+                        if let address = poi.vicinity { poiCard.setPoiAddress(address) }
+                        if let rating = poi.rating { poiCard.setPoiRating(rating) }
+                        if let website = poi.website { poiCard.setPoiWebsite(website) }
+                        if let contact = poi.contact { poiCard.setPoiContacet(contact) }
+                    }
                     group.leave()
                 }
                 newPOICardControllers.append(PoiCardController(poi: newPoi, card: poiCard))

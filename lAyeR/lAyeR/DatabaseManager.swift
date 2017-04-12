@@ -272,13 +272,24 @@ class DatabaseManager {
     }
     
     func checkConnectivity() {
+        var count = 0
         DispatchQueue.global(qos: .background).async {
             let connectedRef = FIRDatabase.database().reference(withPath: ".info/connected")
             connectedRef.observe(.value, with: { snapshot in
-                print("called")
-                guard let connected = snapshot.value as? Bool, connected else {
+                count += 1
+                guard let connected = snapshot.value as? Bool else {
+                    return
+                }
+                guard connected else {
                     self.isConnected = false
-                    UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.showAlertMessage(message: "Lost internet connection.")
+                    DispatchQueue.main.async {
+                        let currentViewController = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController
+                        if currentViewController != nil {
+                            currentViewController?.showAlertMessage(message: "Lost Internet connection.")
+                        } else if count > 2 {
+                            UIApplication.shared.keyWindow?.rootViewController?.showAlertMessage(message: "Lost internet connection.")
+                        }
+                    }
                     return
                 }
                 self.isConnected = true
