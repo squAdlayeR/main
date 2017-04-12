@@ -149,7 +149,9 @@ extension RouteDesignerViewController {
                 }
                 // TODO: separate local storage and server
                 self.routeDesignerModel.saveToLocal(route: route)
+                LoadingBadge.instance.showBadge(in: self.view)
                 self.routeDesignerModel.saveToDB(route: route){ bool in
+                    LoadingBadge.instance.hideBadge()
                     if bool {
                         let resultAlert = UIAlertController(title: "Saved Successfully", message: "Congrats", preferredStyle: .alert)
                         resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))

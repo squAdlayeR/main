@@ -158,7 +158,7 @@ class DatabaseManager {
                     return
                 }
                 completion(true)
-                DispatchQueue.main.async {
+                DispatchQueue.global(qos: .background).async {
                     self.getUserProfile(uid: uid) { userProfile, success in
                         guard success, let userProfile = userProfile else {
                             return
