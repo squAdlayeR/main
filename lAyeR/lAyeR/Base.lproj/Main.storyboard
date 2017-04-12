@@ -416,7 +416,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WfS-ph-vxd">
-                                                    <rect key="frame" x="20" y="20" width="335" height="122"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="142"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvb-Rb-UiB">
                                                     <rect key="frame" x="20" y="0.0" width="335" height="142"/>
@@ -450,7 +450,7 @@
                                                 <constraint firstItem="xvb-Rb-UiB" firstAttribute="leading" secondItem="RhL-vr-Xf9" secondAttribute="leading" constant="20" id="2wd-QT-jId"/>
                                                 <constraint firstItem="WfS-ph-vxd" firstAttribute="leading" secondItem="RhL-vr-Xf9" secondAttribute="leading" constant="20" id="3tp-O4-fAk"/>
                                                 <constraint firstItem="rm5-n7-U0P" firstAttribute="top" secondItem="RhL-vr-Xf9" secondAttribute="topMargin" constant="65" id="7MR-Ov-OVY"/>
-                                                <constraint firstItem="WfS-ph-vxd" firstAttribute="top" secondItem="RhL-vr-Xf9" secondAttribute="top" constant="20" id="AKk-zl-34o"/>
+                                                <constraint firstItem="WfS-ph-vxd" firstAttribute="top" secondItem="RhL-vr-Xf9" secondAttribute="top" id="AKk-zl-34o"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="xNr-J7-FXN" secondAttribute="bottom" constant="0.5" id="FYK-X8-ynU"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="rm5-n7-U0P" secondAttribute="bottom" constant="30" id="GuI-hr-fFg"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="xNr-J7-FXN" secondAttribute="trailing" constant="25" id="JD1-HX-r73"/>
@@ -520,7 +520,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check Internet connection." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9T-99-lKK">
-                                <rect key="frame" x="37.5" y="320.5" width="300" height="26"/>
+                                <rect key="frame" x="38" y="321" width="300" height="26"/>
                                 <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -600,7 +600,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHM-Gw-YUr">
-                                        <rect key="frame" x="132" y="37" width="111" height="38.5"/>
+                                        <rect key="frame" x="132" y="36.5" width="111" height="38.5"/>
                                         <fontDescription key="fontDescription" name="DINPro-Medium" family="DINPro" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
