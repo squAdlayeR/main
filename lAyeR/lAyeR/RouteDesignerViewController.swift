@@ -100,6 +100,25 @@ class RouteDesignerViewController: UIViewController {
         addPanGesture()
         addTapGesture()
         
+        let blur = UIBlurEffect(style: .dark)
+        let blurView = UIVisualEffectView(effect: blur)
+        blurView.frame = topBanner.bounds
+        
+        goButton.layer.cornerRadius = 5
+        goButton.layer.masksToBounds = true
+        
+        startButton.layer.cornerRadius = 7
+        startButton.layer.masksToBounds = true
+        
+        topBanner.addSubview(blurView)
+        topBanner.sendSubview(toBack: blurView)
+        
+        gpsRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
+        layerRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
+        prepareBottomBanner()
+
+        
+        
         historyOfMarkers.append(markers)
         
         if let importedURL = importedURL {
@@ -119,23 +138,28 @@ class RouteDesignerViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
-    override func viewDidAppear(_ animated: Bool) {
-        let blur = UIBlurEffect(style: .dark)
-        let blurView = UIVisualEffectView(effect: blur)
-        blurView.frame = topBanner.bounds
-        
-        goButton.layer.cornerRadius = 5
-        goButton.layer.masksToBounds = true
-        
-        startButton.layer.cornerRadius = 7
-        startButton.layer.masksToBounds = true
-        
-        topBanner.addSubview(blurView)
-        topBanner.sendSubview(toBack: blurView)
-        
-        gpsRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
-        layerRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
-        prepareBottomBanner()
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        let blur = UIBlurEffect(style: .dark)
+//        let blurView = UIVisualEffectView(effect: blur)
+//        blurView.frame = topBanner.bounds
+//        
+//        goButton.layer.cornerRadius = 5
+//        goButton.layer.masksToBounds = true
+//        
+//        startButton.layer.cornerRadius = 7
+//        startButton.layer.masksToBounds = true
+//        
+//        topBanner.addSubview(blurView)
+//        topBanner.sendSubview(toBack: blurView)
+//        
+//        gpsRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
+//        layerRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
+//        prepareBottomBanner()
+//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.layoutIfNeeded()
     }
     
     override func viewDidLayoutSubviews() {

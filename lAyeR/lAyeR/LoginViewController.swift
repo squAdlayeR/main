@@ -58,21 +58,29 @@ class LoginViewController: UIViewController {
         setupButtons()
         setCloseKeyboardAction()
         setUpFBLoginButton()
+        vibrancyEffectView.contentView.addSubview(emailField)
+        vibrancyEffectView.contentView.addSubview(passwordField)
+        view.addSubview(fbLoginButton)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.layoutIfNeeded()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.delegate?.window??.rootViewController = self
-        emailField.center = emailFieldSample.center
-        passwordField.center = passwordFieldSample.center
-        fbLoginButton.center = FBButtonPlaceHolder.center
-        vibrancyEffectView.contentView.addSubview(emailField)
-        vibrancyEffectView.contentView.addSubview(passwordField)
-        view.addSubview(fbLoginButton)
+//        emailField.center = emailFieldSample.center
+//        passwordField.center = passwordFieldSample.center
+//        fbLoginButton.center = FBButtonPlaceHolder.center
+//        vibrancyEffectView.contentView.addSubview(emailField)
+//        vibrancyEffectView.contentView.addSubview(passwordField)
+//        view.addSubview(fbLoginButton)
     }
     
     /// Sets up the camera view for background image
@@ -277,8 +285,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
         fbLoginButton.delegate = self
         //print(FBButtonPlaceHolder.center)
         //print(loginButton.center)
-        //loginButton.center = FBButtonPlaceHolder.center
-        //loginButton.frame = FBButtonPlaceHolder.frame
+        fbLoginButton.center = FBButtonPlaceHolder.center
         fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
         //view.addSubview(fbLoginButton)
     }

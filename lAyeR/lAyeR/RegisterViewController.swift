@@ -49,18 +49,27 @@ class RegisterViewController: UIViewController {
         setupText()
         setupText()
         setCloseKeyboardAction()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        usernameField.center = usernameFieldSample.center
-        emailField.center = emailFieldSample.center
-        passwordField.center = passwordFieldSample.center
-        passwordConfirmField.center = confirmPasswordSample.center
         vibrancyEffectView.contentView.addSubview(usernameField)
         vibrancyEffectView.contentView.addSubview(passwordField)
         vibrancyEffectView.contentView.addSubview(passwordConfirmField)
         vibrancyEffectView.contentView.addSubview(emailField)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.layoutIfNeeded()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        usernameField.center = usernameFieldSample.center
+//        emailField.center = emailFieldSample.center
+//        passwordField.center = passwordFieldSample.center
+//        passwordConfirmField.center = confirmPasswordSample.center
+//        vibrancyEffectView.contentView.addSubview(usernameField)
+//        vibrancyEffectView.contentView.addSubview(passwordField)
+//        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
+//        vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -232,6 +241,7 @@ extension RegisterViewController {
                 return
             }
             DispatchQueue.global(qos: .background).async {
+                UserAuthenticator.instance.signOut()
                 let profile = UserProfile(email: email, username: username)
                 self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
                 UserAuthenticator.instance.sendEmailVerification(completion: {

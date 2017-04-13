@@ -364,7 +364,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vz6-mu-KFg">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="vz6-mu-KFg">
                                 <rect key="frame" x="147.5" y="70" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="0M1-zL-vgO"/>
@@ -416,14 +416,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WfS-ph-vxd">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="140"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="142"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvb-Rb-UiB">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="140"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="142"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZj-JJ-eHr">
-                                                    <rect key="frame" x="50" y="115" width="275" height="17.5"/>
+                                                    <rect key="frame" x="50" y="115" width="275" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -438,7 +438,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="xNr-J7-FXN">
-                                                    <rect key="frame" x="295" y="90.5" width="47" height="41"/>
+                                                    <rect key="frame" x="295" y="92.5" width="47" height="41"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="47" id="h31-U5-3t2"/>
                                                         <constraint firstAttribute="height" constant="41" id="ufB-Kb-2gE"/>
@@ -520,7 +520,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check Internet connection." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9T-99-lKK">
-                                <rect key="frame" x="36" y="322" width="303.5" height="23.5"/>
+                                <rect key="frame" x="38" y="321" width="300" height="26"/>
                                 <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -600,7 +600,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHM-Gw-YUr">
-                                        <rect key="frame" x="132" y="39" width="111" height="35"/>
+                                        <rect key="frame" x="132" y="36.5" width="111" height="38.5"/>
                                         <fontDescription key="fontDescription" name="DINPro-Medium" family="DINPro" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -658,37 +658,37 @@
                                                 </connections>
                                             </slider>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e87-nt-8hV">
-                                                <rect key="frame" x="303" y="82" width="42" height="20"/>
+                                                <rect key="frame" x="303" y="81" width="42" height="22"/>
                                                 <fontDescription key="fontDescription" name="DINPro-Light" family="DINPro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="max number  of markers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsi-M4-rTS">
-                                                <rect key="frame" x="30" y="119" width="186" height="20"/>
+                                                <rect key="frame" x="30" y="119" width="186" height="22"/>
                                                 <fontDescription key="fontDescription" name="DINPro-Light" family="DINPro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="1" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="dYS-8h-E7d">
-                                                <rect key="frame" x="28" y="154" width="227" height="31"/>
+                                                <rect key="frame" x="28" y="156" width="227" height="31"/>
                                                 <connections>
                                                     <action selector="numberChanged:" destination="ZZQ-e4-cj1" eventType="valueChanged" id="KGA-hg-FAB"/>
                                                 </connections>
                                             </slider>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKt-zC-mgc">
-                                                <rect key="frame" x="30" y="199" width="82.5" height="20"/>
+                                                <rect key="frame" x="30" y="201" width="81" height="22"/>
                                                 <fontDescription key="fontDescription" name="DINPro-Light" family="DINPro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JcT-Nc-ESz">
-                                                <rect key="frame" x="303" y="159" width="42" height="20"/>
+                                                <rect key="frame" x="303" y="160" width="42" height="22"/>
                                                 <fontDescription key="fontDescription" name="DINPro-Light" family="DINPro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="51" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yzj-40-fGI">
-                                                <rect key="frame" x="30" y="239" width="315" height="428"/>
+                                                <rect key="frame" x="30" y="243" width="315" height="424"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" rowHeight="51" id="W8M-rU-QKp" customClass="POICategoriesCell" customModule="lAyeR" customModuleProvider="target">
@@ -1132,6 +1132,7 @@
         <image name="checkmark" width="256" height="256"/>
         <image name="current_location" width="256" height="256"/>
         <image name="pin" width="366" height="592"/>
+        <image name="profile" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J0J-J1-3xV"/>
