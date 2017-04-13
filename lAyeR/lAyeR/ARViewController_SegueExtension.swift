@@ -18,7 +18,7 @@ extension ARViewController {
     @IBAction func unwindFromRouteDesigner(segue: UIStoryboardSegue) {
         scnViewController.removeAllArrows()
         checkpointCardControllers.removeAll()
-        miniMapController.mapViewS.clear()
+        miniMapController.mapView.clear()
         setMode(to: .explore)
     }
     

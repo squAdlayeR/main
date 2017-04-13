@@ -93,7 +93,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             deviceInput = try AVCaptureDeviceInput(device: captureDevice)
         } catch let error {
             deviceInput = nil
-            print("error: \(error.localizedDescription)")
+            print("\(CameraViewConstants.errorMessagePrefix)\(error.localizedDescription)")
         }
         if self.session.canAddInput(deviceInput) {
             self.session.addInput(deviceInput)
@@ -104,11 +104,9 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     private func setupDataOutput() {
         videoDataOutput = AVCaptureVideoDataOutput()
         videoDataOutput.alwaysDiscardsLateVideoFrames = true
-        videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
+        videoDataOutputQueue = DispatchQueue(label: CameraViewConstants.dispatchQueueLabel)
         videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-        if session.canAddOutput(videoDataOutput) {
-            session.addOutput(videoDataOutput)
-        }
+        if session.canAddOutput(videoDataOutput) { session.addOutput(videoDataOutput) }
         videoDataOutput.connection(withMediaType: AVMediaTypeVideo).isEnabled = true
     }
     

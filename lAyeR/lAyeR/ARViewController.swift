@@ -25,7 +25,7 @@ class ARViewController: UIViewController {
     private var mode: Mode = .explore
     var route: Route = Route("initial empty route") {
         didSet {
-            miniMapController.route = route
+            miniMapController.setRoute(with: route)
         }
     }
     var controlRoute: Route = Route("the route formed by all the control points")

@@ -20,28 +20,23 @@ class POICategoriesCell: UITableViewCell {
     // Connects the category name
     @IBOutlet weak var categoryName: UILabel!
     
+    // Sets the represneting category of this cell. by default is other
     private(set) var category: POICategory = .other
     
     /// Prepares the display of cell with specified icon name and category name
+    /// - Parameter category: an enum that defines the category that the cell
+    ///     is representing
     func prepareDisplay(with category: POICategory) {
+        self.category = category
         categoryName.text = category.text
-        prepareIcon(with: category)
+        prepareIcon(with: category.rawValue)
     }
     
     /// Prepares the category icon with specified icon name
-    /// - Parameter imageName: the image name of the icon
-    private func prepareIcon(with category: POICategory) {
-        let icon = UIImage(named: "\(category.rawValue)-colored")
-        self.category = category
+    /// - Parameter categoryIconName: the image name of the icon
+    private func prepareIcon(with categoryIconName: String) {
+        let icon = UIImage(named: "\(category.rawValue)\(MiscConstants.coloredIconExtension)")
         categoryIcon.image = icon
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 
 }

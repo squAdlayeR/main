@@ -130,12 +130,5 @@ let ratingsIcon: String = "ratings"
 let statusIcon: String = "status"
 let segueToDirectName: String = "arToDesignerWithDirect"
 
-/// MiniMap
-let miniMapZoomLevel: Float = 15.5
-let miniMapAlpha: CGFloat = 0.8
-let miniMapSizePercentage: CGFloat = 0.35
-let miniMapPaddingTop: CGFloat = 30
-let miniMapPaddingRight: CGFloat = 20
-let miniMapBorderRadius: CGFloat = 15
-let miniMapStrokeColor: UIColor = UIColor(red: 0.1294, green: 0.7373, blue: 0.7882, alpha: 1)
-let miniMapStrokeWidth: CGFloat = 3.0
+
+
