@@ -9,30 +9,30 @@
 import UIKit
 
 /**
- This is a class designed for input text field. This is especially designed for
- lAyeR. To use it, you can specify a place holder and its size, then it will
- create a round corner text field with placeholder
+ This is a class designed for a custom input text field. This is especially 
+ designed for lAyeR. To use it, you can specify a place holder and its size, 
+ then it will create a round-corner text field with placeholder
  */
 class InputTextFeild: UITextField {
 
     /// Initializes the text field with place holder and size
     /// - Parameters:
     ///     - placeHolder: the place holder of the text field
-    ///     - size: the size of the buttom
+    ///     - size: the size of the text field
     init(placeHolder: String, size: CGSize) {
         super.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         self.placeholder = placeHolder
-        initializeStyling()
+        stylizeTextField()
     }
     
     /// Initializes the styling of the text field
-    private func initializeStyling() {
-        self.layer.borderWidth = defaultBorderWidth
-        self.layer.borderColor = UIColor.white.cgColor
+    private func stylizeTextField() {
+        self.layer.borderWidth = MiscConstants.textFieldBorderWidth
+        self.layer.borderColor = MiscConstants.textFieldBorderColor
         self.layer.cornerRadius = self.bounds.height / 2
         self.layer.masksToBounds = true
         self.backgroundColor = UIColor.clear
-        self.font = UIFont(name: alterDefaultFontRegular, size: inputFieldFontSize)
+        self.font = UIFont(name: alterDefaultFontRegular, size: MiscConstants.textFieldFontSize)
         self.textColor = defaultFontColor
         self.keyboardAppearance = .dark
     }
