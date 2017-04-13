@@ -80,6 +80,7 @@
 		9D0A2AE41E9F69A7008D6A21 /* MiniMapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE11E9F69A7008D6A21 /* MiniMapConstants.swift */; };
 		9D0A2AE61E9F69A7008D6A21 /* MiniMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE31E9F69A7008D6A21 /* MiniMapViewController.swift */; };
 		9D0A2AE81E9FBC25008D6A21 /* MiscConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE71E9FBC25008D6A21 /* MiscConstants.swift */; };
+		9D0A2AEA1E9FC8B0008D6A21 /* CameraViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE91E9FC8B0008D6A21 /* CameraViewConstants.swift */; };
 		9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11C35F1E98CD4400C33207 /* PriceLevel.swift */; };
 		9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */; };
 		9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */; };
@@ -223,6 +224,7 @@
 		9D0A2AE11E9F69A7008D6A21 /* MiniMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniMapConstants.swift; path = ViewComponents/BasicComponents/MiniMapView/MiniMapConstants.swift; sourceTree = "<group>"; };
 		9D0A2AE31E9F69A7008D6A21 /* MiniMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniMapViewController.swift; path = ViewComponents/BasicComponents/MiniMapView/MiniMapViewController.swift; sourceTree = "<group>"; };
 		9D0A2AE71E9FBC25008D6A21 /* MiscConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiscConstants.swift; path = ViewComponents/BasicComponents/Misc/MiscConstants.swift; sourceTree = "<group>"; };
+		9D0A2AE91E9FC8B0008D6A21 /* CameraViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewConstants.swift; sourceTree = "<group>"; };
 		9D11C35F1E98CD4400C33207 /* PriceLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceLevel.swift; sourceTree = "<group>"; };
 		9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/BottomBanner.swift; sourceTree = "<group>"; };
 		9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPanel.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/InfoPanel.swift; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 			isa = PBXGroup;
 			children = (
 				9DE4361E1E92A90000E1A0ED /* CameraViewController.swift */,
+				9D0A2AE91E9FC8B0008D6A21 /* CameraViewConstants.swift */,
 			);
 			name = CameraView;
 			sourceTree = "<group>";
@@ -1012,6 +1015,7 @@
 				9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */,
 				2C51ADB91E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift in Sources */,
 				A25E658D1E9BB37800011885 /* SCNViewController.swift in Sources */,
+				9D0A2AEA1E9FC8B0008D6A21 /* CameraViewConstants.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
 				9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */,
