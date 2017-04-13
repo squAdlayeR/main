@@ -497,11 +497,10 @@
 		528288AD1E9268EB00163654 /* ApplicationSettings */ = {
 			isa = PBXGroup;
 			children = (
-				9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */,
+				2C1F5C481E97A28100EAECFF /* POICategory.swift */,
 				528288AE1E92690C00163654 /* AppSettings.swift */,
 				528288AF1E92690C00163654 /* AppSettingsConstants.swift */,
 				528288B01E92690C00163654 /* AppSettingsViewController.swift */,
-				2C1F5C481E97A28100EAECFF /* POICategory.swift */,
 			);
 			name = ApplicationSettings;
 			sourceTree = "<group>";
@@ -612,8 +611,9 @@
 			isa = PBXGroup;
 			children = (
 				9D5693461E8BE66E00052F68 /* InputTextFeild.swift */,
-				9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */,
 				9D0A2AE71E9FBC25008D6A21 /* MiscConstants.swift */,
+				9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */,
+				9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */,
 			);
 			name = Misc;
 			sourceTree = "<group>";

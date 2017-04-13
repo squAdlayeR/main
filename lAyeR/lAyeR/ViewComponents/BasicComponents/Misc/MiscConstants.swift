@@ -21,5 +21,8 @@ class MiscConstants {
                                                          blue: CGFloat(65 / 255),
                                                          alpha: 0.5)
     static let cornerRadius: CGFloat = 5
+    
+    // For POI categories cell
+    static let coloredIconExtension = "-colored"
 
 }
