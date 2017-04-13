@@ -231,12 +231,23 @@ extension RegisterViewController {
                 self.showErrorAlert(message: "Failed to create user.")
                 return
             }
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .background).async {
                 let profile = UserProfile(email: email, username: username)
                 self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
+                UserAuthenticator.instance.sendEmailVerification(completion: {
+                    error in
+                    DispatchQueue.main.async {
+                        if error != nil {
+                            LoadingBadge.instance.hideBadge()
+                            self.showErrorAlert(message: "Failed to send verification email.")
+                            return
+                        }
+                        LoadingBadge.instance.hideBadge()
+                        self.showAlertMessage(message: "Email sent. Please verify your account.")
+                    }
+                    
+                })
             }
-            LoadingBadge.instance.hideBadge()
-            self.performSegue(withIdentifier: "registerToAR", sender: nil)
         }
     }
     

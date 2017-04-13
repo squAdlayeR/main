@@ -33,8 +33,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let currentUser = FIRAuth.auth()?.currentUser else {
             return true
         }
+        // search provider data
+        for data in currentUser.providerData {
+            if data.providerID == "facebook.com" {
+                break
+            }
+            if !currentUser.isEmailVerified {
+                return true
+            }
+        }
         
-        //DatabaseManager.instance.startObserveGPSTrack()
         GPSTracker.instance.start()
         self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
         if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {

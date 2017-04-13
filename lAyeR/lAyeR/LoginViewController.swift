@@ -205,6 +205,16 @@ extension LoginViewController {
                 self.handleSignInError(error: error)
                 return
             }
+            guard let user = user else {
+                LoadingBadge.instance.hideBadge()
+                self.showErrorAlert(message: "Sign In Failed.")
+                return
+            }
+            guard user.isEmailVerified else {
+                LoadingBadge.instance.hideBadge()
+                self.showErrorAlert(message: "Please verify your email.")
+                return
+            }
             LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
             
