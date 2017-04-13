@@ -27,6 +27,8 @@ class BasicAlertController {
     private(set) var alert: BasicAlert!
     private(set) var alertView: UIView!
     
+    var cover: UIView!
+    
     /// Initializes the alert controller
     init(title: String, frame: CGRect) {
         initializeAlertView(with: frame)
@@ -119,11 +121,13 @@ extension BasicAlertController {
     /// - Parameters:
     ///     - label: the label of the text content
     ///     - conetent: the text of the content
-    func addText(with label: String, and content: String) {
+    ///     - iconName: the name of the icon that will be displayed in the label
+    func addText(with label: String, iconName: String, and content: String) {
         if let innerView = alert.infoPanel.innerView as? InformativeInnerView {
-            let infoBlock = InfoBlock(label: label,
-                                      content: content,
-                                      width: innerView.bounds.width - innerViewSidePadding * 2)
+            let infoBlock = InfoBlockView(label: label,
+                                          iconName: iconName,
+                                          content: content,
+                                          width: innerView.bounds.width - innerViewSidePadding * 2)
             innerView.insertSubInfo(infoBlock)
         }
     }
@@ -138,13 +142,25 @@ extension BasicAlertController {
     /// Presents the alert inside a specified view
     /// - Parameter view: the view that will be holding the alert
     func presentAlert(within view: UIView) {
-        view.addSubview(alertView)
+        cover = UIView(frame: view.bounds)
+        cover.layer.zPosition = alertViewZPosition
+        alertView.addSubview(alert)
+        cover.addSubview(alertView)
+        view.addSubview(cover)
+//        alertView.layer.zPosition = alertViewZPosition
         alert.open()
     }
     
     /// Closes the alert
     func closeAlert() {
-        alert.close(inCompletion: { self.alertView.removeFromSuperview() })
+        alert.close(inCompletion: { [weak self] in
+            guard self != nil else { return }
+            self!.alert.removeFromSuperview()
+            self!.alertView.removeFromSuperview()
+            self!.cover.removeFromSuperview()
+        })
     }
     
 }
+
+

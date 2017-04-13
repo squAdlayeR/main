@@ -12,12 +12,24 @@ class CheckPoint: GeoPoint {
     
     private(set) var name: String = ""
     private(set) var description: String = ""
+    var isControlPoint = true
     
     init(_ latitude: Double, _ longitude: Double,
-         _ name: String, _ description: String = "") {
+         _ name: String, _ description: String = "",
+         _ isControlPoint: Bool = true) {
         self.name = name
         self.description = description
+        self.isControlPoint = isControlPoint
         super.init(latitude, longitude)
+    }
+    
+    init(_ geoPoint: GeoPoint,
+         _ name: String, _ description: String = "",
+         _ isControlPoint: Bool = false) {
+        self.name = name
+        self.description = description
+        self.isControlPoint = isControlPoint
+        super.init(geoPoint.latitude, geoPoint.longitude)
     }
     
    // override func encode(with aCoder: NSCoder) {
@@ -40,6 +52,7 @@ class CheckPoint: GeoPoint {
         }
         self.name = name
         self.description = map.JSON["description"] as? String ?? ""
+        self.isControlPoint = map.JSON["isControlPoint"] as? Bool ?? false
         super.init(map: map)
     }
     
@@ -47,6 +60,7 @@ class CheckPoint: GeoPoint {
         super.mapping(map: map)
         name <- map["name"]
         description <- map["description"]
+        isControlPoint <- map["isControlPoint"]
     }
     
 }

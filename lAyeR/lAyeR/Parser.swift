@@ -13,13 +13,20 @@ import ObjectMapper
 class Parser {
     
     /// Parses poi search request.
-    static func parsePOISearchRequest(_ radius: Double, _ type: String, _ location: GeoPoint) -> String {
+    static func parsePOISearchRequest(_ radius: Int, _ type: String, _ location: GeoPoint) -> String {
         let searchBase = AppConfig.mapQueryBaseURL
         let locationToken = "location=" + location.latitude.description + "," + location.longitude.description
         let radiusToken = "&radius=" + radius.description
-        let typeToken = "&type=" + type.description
+        let typeToken = "&type=" + type
         let keyToken = "&key=" + AppConfig.apiKey
         return searchBase + locationToken + radiusToken + typeToken + keyToken
+    }
+    
+    static func parsePOIDetailSearchRequest(_ placeID: String) -> String {
+        let searchbase = AppConfig.poiQueryBaseURL
+        let placeToken = "placeid=" + placeID
+        let keyToken = "&key=" + AppConfig.apiKey
+        return searchbase + placeToken + keyToken
     }
     
     static func parseJSONToPOIs(_ json: [String: Any]) -> [POI] {
@@ -41,6 +48,9 @@ class Parser {
             let longitude = location["lng"] as? Double
         else { return nil }
         let poi = POI(latitude, longitude)
+        if let placeID = jsonPOI["place_id"] as? String {
+            poi.setPlaceID(placeID)
+        }
         if let name = jsonPOI["name"] as? String {
             poi.setName(name)
         }
@@ -49,6 +59,32 @@ class Parser {
         }
         if let types = jsonPOI["types"] as? [String] {
             poi.setTypes(types)
+        }
+        return poi
+    }
+    
+    static func parseDetailedPOI(_ json: [String: Any]) -> POI? {
+        guard let jsonPOI = json["result"] as? [String: Any] else {
+            return nil
+        }
+        guard let poi = parseJSONToPOI(jsonPOI) else { return nil }
+        if let address = jsonPOI["formatted_address"] as? String {
+            poi.setVicinity(address)
+        }
+        if let priceLevel = jsonPOI["price"] as? Double {
+            poi.setPriceLevel(priceLevel)
+        }
+        if let openHours = jsonPOI["opening_hours"] as? [String: Any], let openNow = openHours["open_now"] as? Bool {
+            poi.setOpenNow(openNow)
+        }
+        if let rating = jsonPOI["rating"] as? Double {
+            poi.setRating(rating)
+        }
+        if let website = jsonPOI["website"] as? String {
+            poi.setWebsite(website)
+        }
+        if let contact = jsonPOI["international_phone_number"] as? String {
+            poi.setContact(contact)
         }
         return poi
     }
@@ -81,10 +117,13 @@ class Parser {
     static func parseJSONToCheckPoint(_ jsonCheckPoint: [String: Any]) -> CheckPoint? {
         guard let name = jsonCheckPoint["name"] as? String,
             let lat = jsonCheckPoint["latitude"] as? Double,
-            let lng = jsonCheckPoint["longitude"] as? Double else {
+            let lng = jsonCheckPoint["longitude"] as? Double,
+            let description = jsonCheckPoint["description"] as? String,
+            let isControlPoint = jsonCheckPoint["isControlPoint"] as? Bool else {
                return nil
+            
         }
-        return CheckPoint(lat, lng, name)
+        return CheckPoint(lat, lng, name, description, isControlPoint)
         //return CheckPoint(JSON: jsonCheckPoint)
     }
     

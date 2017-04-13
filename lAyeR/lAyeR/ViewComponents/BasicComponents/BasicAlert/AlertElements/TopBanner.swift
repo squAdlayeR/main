@@ -37,7 +37,7 @@ class TopBanner: UIView {
     
     // Sets blur mode. If it is true, blur view should
     // be shown.
-    var blurMode: Bool = false {
+    var blurMode: Bool = true {
         didSet {
             if blurMode {
                 backgroundImageView.isHidden = true
@@ -72,15 +72,16 @@ class TopBanner: UIView {
         backgroundImage.frame = imageFrame
         backgroundImageView = backgroundImage
         self.addSubview(backgroundImageView)
+        backgroundImageView.isHidden = blurMode
     }
     
     /// Initializes blur effect
     private func initBlurEffect() {
-        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         blurEffect.frame = imageFrame
         blurEffectView = blurEffect
         self.addSubview(blurEffectView)
-        blurEffectView.isHidden = true
+        blurEffectView.isHidden = !blurMode
     }
     
     /// Initializes title label of the top banner
@@ -95,7 +96,7 @@ class TopBanner: UIView {
         let newLable = UILabel()
         newLable.frame = titleFrame
         newLable.text = title
-        newLable.font = UIFont(name: titleFontName, size: titleFontSize)
+        newLable.font = UIFont(name: alterDefaultFontMedium, size: titleFontSize)
         newLable.textColor = titleFontColor
         newLable.textAlignment = NSTextAlignment.center
         return newLable

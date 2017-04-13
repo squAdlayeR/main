@@ -10,21 +10,42 @@ import Foundation
 import UIKit
 
 struct ARViewLayoutAdjustment {
-    var xOffset: CGFloat = 0
-    var yOffset: CGFloat = 0
+    var xPosition: CGFloat = 0
+    var yPosition: CGFloat = 0
     var yawRotationAngle: CGFloat = 0
     var horzRotationAngle: CGFloat = 0
-    var isOutOfView = false
     
-    let superView: UIView
+    private let superView: UIView
+    private let fov: Double  //  "fov" stands for field of view (angle in radian)
     
-    let deviceMotionManager: DeviceMotionManager
-    let azimuth: Double
+    private let deviceMotionManager: DeviceMotionManager
+    private let distance: Double
+    private let azimuth: Double
     
-    init(deviceMotionManager: DeviceMotionManager, azimuth: Double, superView: UIView) {
+    var pushBackDistance: CGFloat {
+        if (CGFloat(distance) > Constant.maxPushBackDistance) {
+            return Constant.maxPushBackDistance
+        } else {
+            return CGFloat(distance)
+        }
+    }
+    
+    var perspectiveYPosition: CGFloat {
+        let projectionPlaneDistance = Constant.projectionPlaneDistance
+        let projectionPlaneToTargeDistance = CGFloat(distance)
+        let eyeYPositioin = superView.bounds.height * 0.56
+        let range = superView.bounds.height * 0.18
+        let riseOffset = projectionPlaneDistance / (projectionPlaneDistance + projectionPlaneToTargeDistance) * range
+        return eyeYPositioin - riseOffset
+    }
+    
+    init(deviceMotionManager: DeviceMotionManager, distance: Double, azimuth: Double,
+         superView: UIView, fov: Double) {
         self.deviceMotionManager = deviceMotionManager
+        self.distance = distance
         self.azimuth = azimuth
         self.superView = superView
+        self.fov = fov
         calculateParameters()
     }
     
@@ -42,18 +63,16 @@ struct ARViewLayoutAdjustment {
         let visionHeight = superViewWidth * CGFloat(abs(yawSin)) + superViewHeight * CGFloat(abs(yawCos))
         
         // positive x direction is rigth
-        let horzOffset = CGFloat(sin(horzAngle)) * visionWidth
+        let horzOffset = CGFloat(horzAngle / fov) * visionWidth
         
         // positive y direction is down
         let verticalOffset = CGFloat(-sin(verticalAngle)) * visionHeight
         
-        xOffset = CGFloat(horzOffset) * CGFloat(yawCos) - CGFloat(verticalOffset) * CGFloat(yawSin)
-        yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
+        let xOffset = CGFloat(horzOffset) * CGFloat(yawCos) - CGFloat(verticalOffset) * CGFloat(yawSin)
+        let yOffset = -(CGFloat(verticalOffset) * CGFloat(yawCos) + CGFloat(horzOffset) * CGFloat(yawSin))
         
-        isOutOfView = false
-        if horzAngle > M_PI / 2 || horzAngle < -M_PI / 2 {
-            isOutOfView = true
-        }
+        xPosition = superView.bounds.width / 2 + xOffset
+        yPosition = perspectiveYPosition + yOffset
         
         yawRotationAngle = -(CGFloat)(yawAngle)
         horzRotationAngle = -(CGFloat)(horzAngle)
@@ -64,11 +83,10 @@ struct ARViewLayoutAdjustment {
      positive direction: roll left
      range: -pi ~ pi
      */
-    func getHorzAngle() -> Double {
+    private func getHorzAngle() -> Double {
         // the positive direction of azimuth is right, which is the opposite of rollAngle
         return angleWithinMinusPiToPi(deviceMotionManager.getHorzAngleRelToNorth() + azimuth)
     }
-    
     
     /// tranform an angle in the range from -2PI to 2PI to the equivalent one in the range from -PI to PI, both included
     private func angleWithinMinusPiToPi(_ angle: Double) -> Double {
@@ -80,4 +98,16 @@ struct ARViewLayoutAdjustment {
         return angle
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 

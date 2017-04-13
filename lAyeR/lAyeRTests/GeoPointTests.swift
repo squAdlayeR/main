@@ -32,11 +32,11 @@ class GeoPointTests: XCTestCase {
         XCTAssertFalse(point1 == point3, "Incorrect equivalence")
     }
     
-//    func test_init_fromMapping() {
-//        let point1 = GeoPoint(11, 111.233)
-//        let jsonPoint = point1.toJSONString(prettyPrint: true)
-//        XCTAssertNotNil(jsonPoint, "Failed convention to JSON.")
-//        let point2 = GeoPoint(JSONString: jsonPoint!)
-//        XCTAssertTrue(point1 == point2, "Incorrect convertion.")
-//    }
+    func test_init_fromMapping() {
+        let point1 = GeoPoint(11, 111.233)
+        let jsonPoint = point1.toJSONString(prettyPrint: true)
+        XCTAssertNotNil(jsonPoint, "Failed convention to JSON.")
+        let point2 = GeoPoint(JSONString: jsonPoint!)
+        XCTAssertTrue(point1 == point2, "Incorrect convertion.")
+    }
 }

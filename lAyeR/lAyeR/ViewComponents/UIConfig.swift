@@ -18,16 +18,24 @@ import UIKit
 let bottomBannerHeight: CGFloat = 80
 let defaultFont: String = "HomenajeMod-Regular"
 let defaultFontBold: String = "HomenajeMod-Bold"
+let alterDefaultFontLight: String = "DINPro-Light"
+let alterDefaultFontMedium: String = "DINPro-Medium"
+let alterDefaultFontRegular: String = "DINPro-Regular"
 let defaultFontColor: UIColor = UIColor.white
-let defaultFontSize: CGFloat = 14
-let labelFontSize: CGFloat = 18
+let defaultFontSize: CGFloat = 15
+let labelFontSize: CGFloat = 20
 let maxAlertHeight: CGFloat = 500
 let minAlertHeight: CGFloat = 250
 let topBannerHeight: CGFloat = 60
+let defaultBorderWidth: CGFloat = 1
+let lightBlue = UIColor(red: CGFloat(1.0 / 255), green: CGFloat(159.0 / 255),
+                        blue: CGFloat(232.0 / 255), alpha: 1)
+let labelIconWidth: CGFloat = 15
+let alertViewZPosition: CGFloat = 10000
 
 /// Labels
-let nameLabel: String = "name"
-let descriptionLabel: String = "description"
+let nameLabel: String = "NAME"
+let descriptionLabel: String = "DESCRIPTION"
 
 /// BackgroundImage
 let topBannerImage: String = "banner.png"
@@ -46,6 +54,8 @@ let titleFontName: String = "HomenajeMod-Regular"
 let titleFontSize: CGFloat = 30
 let titlePadding: CGFloat = 30
 let titlePlaceHolder: String = "Place holder"
+let successTitle: String = "Success"
+let locationUpdateSuccessText = "Current location have been updated!"
 
 /// Buttons
 let buttonFontName: String = "HomenajeMod-Regular"
@@ -63,26 +73,33 @@ let markerLabelPaddingPercent: CGFloat = 0.1
 let checkpointSubtitle: String = "Detailed information."
 let checkpointTitle: String = "Checkpoint"
 let confirmLabelText: String = "OK"
-let suggestedPopupHeight: CGFloat = 250
+let suggestedPopupHeight: CGFloat = 300
 let suggestedPopupWidth: CGFloat = 300
-let suggestedMarkerHeight: CGFloat = 70
-let suggestedMarkerWidth: CGFloat = 50
+let suggestedMarkerHeight: CGFloat = 100
+let suggestedMarkerWidth: CGFloat = 75
 
 /// POI View
 let directLabelText: String = "Direct"
-let poiTitle = "Point of Interests"
-let poiAddressLabel = "address"
-let poiContactLabel = "contact"
-let poiWebsiteLabel = "website"
-let poiRatingLabel = "rating"
-let poiOpenStatusLabel = "now open"
+let poiTitle = "POI"
+let poiAddressLabel = "ADDRESS"
+let poiPriceLevelLabel = "PRICE LEVEL"
+let poiRatingLabel = "RATING"
+let poiOpenHoursLabel = "OPENING HOURS"
+let poiContactLabel = "CONTACT"
+let poiWebsiteLabel = "WEBSITE"
 
 /// Informative view
 let infoPanelTitleFontColor: UIColor = UIColor.gray
 let infoPanelTitleHeight: CGFloat = 20
 let innerViewSidePadding: CGFloat = 20
-let innerViewStackMargin: CGFloat = 10
-let titleText: String = "Detailed infomation"
+let innerViewStackMargin: CGFloat = 5
+let titleText: String = "Detailed information"
+let infoBlockPadding: CGFloat = 10
+let infoBlockPaddingTop: CGFloat = 5
+let infoBlockBorderRadius: CGFloat = 5
+let infoBlockPlaceHolder: String = "Not specified"
+let infoBlockFullStar = "★"
+let infoBlockHalfStar = "☆"
 
 /// Menu view
 let menuButtonIconPaddingPercent: CGFloat = 0.2
@@ -91,8 +108,34 @@ let menuAnimatingDuration: TimeInterval = 0.8
 let menuButtonAnimationDelay: TimeInterval = 0.05
 let menuSpringCoefficient: CGFloat = 0.8
 let menuLeftPaddingPercent: CGFloat = 0.15
-let mapIconName: String = "map.png"
-let profileIconName: String = "profile.png"
-let settingsIconName: String = "settings.png"
+let designerIconName: String = "search"
+let miniMapIconName: String = "map"
+let profileIconName: String = "profile"
+let settingsIconName: String = "settings"
 let menuButtonRaidus: CGFloat = 50
-let menuButtonBackgroundImage = "menuButton.png"
+let menuButtonBackgroundImage = "menuButton"
+let menuButtonIcon = "menu"
+
+/// Input view
+let inputFieldFontSize: CGFloat = 26
+let inputFieldHight: CGFloat = 60
+
+/// Card
+let nameIcon: String = "name"
+let descriptionIcon: String = "info"
+let addressIcon: String = "address"
+let contactIcon: String = "contact"
+let websiteIcon: String = "website"
+let ratingsIcon: String = "ratings"
+let statusIcon: String = "status"
+let segueToDirectName: String = "arToDesignerWithDirect"
+
+/// MiniMap
+let miniMapZoomLevel: Float = 15.5
+let miniMapAlpha: CGFloat = 0.8
+let miniMapSizePercentage: CGFloat = 0.35
+let miniMapPaddingTop: CGFloat = 30
+let miniMapPaddingRight: CGFloat = 20
+let miniMapBorderRadius: CGFloat = 15
+let miniMapStrokeColor: UIColor = UIColor(red: 0.1294, green: 0.7373, blue: 0.7882, alpha: 1)
+let miniMapStrokeWidth: CGFloat = 3.0

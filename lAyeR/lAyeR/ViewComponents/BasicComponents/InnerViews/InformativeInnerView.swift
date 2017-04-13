@@ -19,14 +19,17 @@ class InformativeInnerView: UIView {
     
     // Defines the real inner view stack
     private var innerViewStack: UIView!
+    
+    private var subtitle: String!
 
     /// Initialization
     /// - Parameters:
     ///     - width: the bounded width of the inner view
     ///     - height: the bounded height of the inner view
-    init(width: CGFloat, height: CGFloat) {
+    init(width: CGFloat, height: CGFloat, subtitle: String) {
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         super.init(frame: frame)
+        self.subtitle = subtitle
         initializeElements()
         initializeContent()
     }
@@ -50,21 +53,21 @@ class InformativeInnerView: UIView {
         scrollView.contentSize = innerViewStack.bounds.size
         scrollView.addSubview(innerViewStack)
         self.addSubview(scrollView)
-        let subtitle = createSubtitle()
+        let subtitle = createSubtitle(with: self.subtitle)
         insertSubInfo(subtitle)
     }
     
     /// Creates a subtitle for the inner view.
     /// - Returns: the designed subtitle
-    private func createSubtitle() -> UILabel {
+    private func createSubtitle(with subtitle: String) -> UILabel {
         let label = UILabel()
-        let frame = CGRect(x: 0, y: 0,
+        let frame = CGRect(x: 0, y: innerViewStackMargin,
                            width: self.bounds.width - innerViewSidePadding * 2,
                            height: infoPanelTitleHeight)
         label.frame = frame
-        label.font = UIFont(name: defaultFont, size: defaultFontSize)
+        label.font = UIFont(name: alterDefaultFontRegular, size: defaultFontSize)
         label.textColor = infoPanelTitleFontColor
-        label.text = titleText
+        label.text = subtitle
         label.textAlignment = NSTextAlignment.center
         return label
     }
@@ -74,7 +77,11 @@ class InformativeInnerView: UIView {
     func insertSubInfo(_ view: UIView) {
         if let lastSubview = innerViewStack.subviews.last {
             view.frame.origin = CGPoint(x: 0,
-                                        y: lastSubview.frame.origin.y + lastSubview.frame.height + innerViewStackMargin)
+                                        y: lastSubview.frame.origin.y
+                                            + lastSubview.frame.height
+                                            + innerViewStackMargin)
+            view.frame.size = CGSize(width: view.bounds.width,
+                                     height: view.bounds.height + innerViewStackMargin)
         }
         innerViewStack.addSubview(view)
         updateFrame()

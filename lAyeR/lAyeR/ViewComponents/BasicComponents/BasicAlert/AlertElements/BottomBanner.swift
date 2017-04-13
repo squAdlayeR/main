@@ -28,7 +28,7 @@ class BottomBanner: UIView {
     
     // Sets blur mode. If it is true, blur view should
     // be shown.
-    var blurMode: Bool = false {
+    var blurMode: Bool = true {
         didSet {
             if blurMode {
                 backgroundImageView.isHidden = true
@@ -63,15 +63,16 @@ class BottomBanner: UIView {
         backgroundImage.frame = imageFrame
         backgroundImageView = backgroundImage
         self.addSubview(backgroundImageView)
+        backgroundImageView.isHidden = blurMode
     }
     
     /// Initializes blur effect
     private func initBlurEffect() {
-        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         blurEffect.frame = imageFrame
         blurEffectView = blurEffect
         self.addSubview(blurEffectView)
-        blurEffectView.isHidden = true
+        blurEffectView.isHidden = !blurMode
     }
     
     /// Initializes the buttons of the alert with specified buttons

@@ -36,7 +36,7 @@ class BasicAlert: UIView {
     var topBanner: TopBanner!
     
     // Specifies the blur mode of the alert
-    var blurMode: Bool = false {
+    var blurMode: Bool = true {
         didSet {
             if blurMode {
                 setSubviewsBlurMode(true)
@@ -53,6 +53,8 @@ class BasicAlert: UIView {
         super.init(frame: frame)
         initElements()
         prepareDisplay()
+        self.layer.cornerRadius = 20
+        self.layer.masksToBounds = true
     }
     
     /// Initializes banners and info panel
@@ -126,11 +128,12 @@ extension BasicAlert {
     func open() {
         prepareOpen()
         ResourceManager.playSound(with: openSound)
-        UIView.animate(withDuration: 0.15, animations: {
-            self.transform = CGAffineTransform(scaleX: 1, y: 1)
-            self.alpha = 1
-        }, completion: { isFinished in
-            self.openBanners()
+        UIView.animate(withDuration: 0.15, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self!.alpha = 1
+        }, completion: { [weak self] isFinished in
+            self?.openBanners()
         })
     }
     
@@ -147,21 +150,23 @@ extension BasicAlert {
     
     /// opens the banners and info panel
     func openBanners() {
-        UIView.animate(withDuration: 0.25, animations: {
-            self.alpha = 1
-            self.topBanner.open()
-            self.bottomBanner.open()
-            self.infoPanel.open()
-        }, completion: { isFinished in
-            self.showInfo()
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.alpha = 1
+            self!.topBanner.open()
+            self!.bottomBanner.open()
+            self!.infoPanel.open()
+        }, completion: { [weak self] isFinished in
+            self?.showInfo()
         })
     }
     
     /// displays info
     func showInfo() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.bottomBanner.showButtons()
-            self.infoPanel.showInfo()
+        UIView.animate(withDuration: 0.5, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.bottomBanner.showButtons()
+            self!.infoPanel.showInfo()
         })
     }
     
@@ -171,10 +176,11 @@ extension BasicAlert {
     /// - Note: the function need to add @escaping since inCompletion
     ///     may refer to some functions that has reference to `self`
     func close(inCompletion: @escaping () -> Void) {
-        ResourceManager.playSound(with: closeSound)
-        UIView.animate(withDuration: 0.15, animations: {
-            self.transform = CGAffineTransform(scaleX: 0.1, y: 1)
-            self.alpha = 0
+        //ResourceManager.playSound(with: closeSound)
+        UIView.animate(withDuration: 0.15, animations: { [weak self] in
+            guard self != nil else { return }
+            self!.transform = CGAffineTransform(scaleX: 0.1, y: 1)
+            self!.alpha = 0
         }, completion: { isFinished in
             inCompletion()
         })

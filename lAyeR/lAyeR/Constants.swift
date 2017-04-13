@@ -8,15 +8,6 @@
 
 import UIKit
 
-var iconSet: Set = ["atm",
-                    "bus_station",
-                    "cafe",
-                    "gym",
-                    "hospital",
-                    "library",
-                    "restaurant",
-                    "store",
-                    "university"]
-var otherIconType: String = "others"
+var otherIconType: String = "other"
 var imageExtension: String = ".png"
 
