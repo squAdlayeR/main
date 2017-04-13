@@ -36,22 +36,24 @@ class RouteListCell: UITableViewCell {
     /// This will be called when the table cell is loaded.
     override func awakeFromNib() {
         super.awakeFromNib()
-        setImageOverlay()
-        selectionStyle = .none
+        prepareImageOverlay()
+        stylizeListCell()
     }
     
     /// Sets an overlay above the route screen shot so that the texts
     /// in the front can be seen
-    func setImageOverlay() {
-        overLay.backgroundColor = UIColor(red: CGFloat(48 / 255),
-                                          green: CGFloat(52 / 255),
-                                          blue: CGFloat(65 / 255),
-                                          alpha: 0.5)
-        backgroundImage.layer.cornerRadius = 5
+    private func prepareImageOverlay() {
+        overLay.backgroundColor = MiscConstants.overlayBackgroundColor
+        backgroundImage.layer.cornerRadius = MiscConstants.cornerRadius
         backgroundImage.layer.masksToBounds = true
         backgroundImage.contentMode = .scaleAspectFill
-        overLay.layer.cornerRadius = 5
+        overLay.layer.cornerRadius = MiscConstants.cornerRadius
         overLay.layer.masksToBounds = true
+    }
+    
+    /// Defines styling of the list cell
+    private func stylizeListCell() {
+        selectionStyle = .none
     }
     
 }
