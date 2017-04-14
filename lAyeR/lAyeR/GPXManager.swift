@@ -6,10 +6,16 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
+/**
+ * GPXManager is used to save/load .gpx files.
+ */
 class GPXManager {
     
+    /// Loads .gpx files with file url into the app.
     static func load(with url: URL) throws -> [Route] {
-        let routes = try GPSTrackerParser.instace.parseGPXToRoute(url: url)
+        guard let routes = try? GPSTrackerParser.instace.parseGPXToRoute(url: url) else {
+            throw GPXError.readFailure
+        }
         return routes
     }
     

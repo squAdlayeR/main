@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GPSTrackerConstants {
+class GPSGPXConstants {
 
     static let defaultLocation: GeoPoint = GeoPoint(0, 0)
     static let timeInterval: TimeInterval = 1
@@ -16,5 +16,8 @@ class GPSTrackerConstants {
     static let minimumDeltaDistance: Double = 10
     static let maximumDeltaDistance: Double = 25
     static let precision: Int = 4
+    
+    static let fileCreator = "lAyeR"
+    static let defaultCheckPointName = "CheckPoint"
     
 }
