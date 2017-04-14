@@ -456,7 +456,7 @@
 		5249B1A41E7263A30048249D /* RouteDesigner */ = {
 			isa = PBXGroup;
 			children = (
-				52DE2C401E995F4700671B6E /* TrackPoint.swift */,
+				52C62D991EA0DED1006D968B /* DataModel */,
 				A21BBFB61E839BD600394531 /* MarkerPopupView.swift */,
 				A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */,
 				2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */,
@@ -473,12 +473,6 @@
 				2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */,
 				A21BBFB81E839BD600394531 /* TriangleView.swift */,
 				5249B1AD1E7264790048249D /* UserConfig.swift */,
-				5249B1A71E7264000048249D /* GeoPoint.swift */,
-				5249B1A91E72641C0048249D /* CheckPoint.swift */,
-				5249B1B11E7264AB0048249D /* POI.swift */,
-				5249B1A51E7263C40048249D /* Route.swift */,
-				5249B1B61E72FC660048249D /* GeoUtil.swift */,
-				A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */,
 			);
 			name = RouteDesigner;
 			sourceTree = "<group>";
@@ -548,6 +542,20 @@
 				52BD49751E8A8DFA00B4B750 /* DatabaseManager.swift */,
 			);
 			name = DataService;
+			sourceTree = "<group>";
+		};
+		52C62D991EA0DED1006D968B /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				52DE2C401E995F4700671B6E /* TrackPoint.swift */,
+				5249B1A71E7264000048249D /* GeoPoint.swift */,
+				5249B1A91E72641C0048249D /* CheckPoint.swift */,
+				5249B1B11E7264AB0048249D /* POI.swift */,
+				5249B1A51E7263C40048249D /* Route.swift */,
+				5249B1B61E72FC660048249D /* GeoUtil.swift */,
+				A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */,
+			);
+			name = DataModel;
 			sourceTree = "<group>";
 		};
 		8DA1E158E63E6E524E16F881 /* Pods */ = {

@@ -15,17 +15,17 @@ class Parser {
     /// Parses poi search request.
     static func parsePOISearchRequest(_ radius: Int, _ type: String, _ location: GeoPoint) -> String {
         let searchBase = AppConfig.mapQueryBaseURL
-        let locationToken = "location=" + location.latitude.description + "," + location.longitude.description
-        let radiusToken = "&radius=" + radius.description
-        let typeToken = "&type=" + type
-        let keyToken = "&key=" + AppConfig.apiKey
+        let locationToken = "location=\(location.latitude),\(location.longitude)"
+        let radiusToken = "&radius=\(radius)"
+        let typeToken = "&type=\(type)"
+        let keyToken = "&key=\(AppConfig.apiKey)"
         return searchBase + locationToken + radiusToken + typeToken + keyToken
     }
     
     static func parsePOIDetailSearchRequest(_ placeID: String) -> String {
         let searchbase = AppConfig.poiQueryBaseURL
-        let placeToken = "placeid=" + placeID
-        let keyToken = "&key=" + AppConfig.apiKey
+        let placeToken = "placeid=\(placeID)"
+        let keyToken = "&key=\(AppConfig.apiKey)"
         return searchbase + placeToken + keyToken
     }
     
@@ -35,18 +35,18 @@ class Parser {
         }
         var pois: [POI] = []
         for result in results {
-            guard let poi = parseJSONToPOI(result) else { continue }
+            guard let poi = parseJSONToPOI(result) else {
+                continue
+            }
             pois.append(poi)
         }
         return pois
     }
     
     static func parseJSONToPOI(_ jsonPOI: [String: Any]) -> POI? {
-        guard let geometry = jsonPOI["geometry"] as? [String: Any],
-            let location = geometry["location"] as? [String: Any],
-            let latitude = location["lat"] as? Double,
-            let longitude = location["lng"] as? Double
-        else { return nil }
+        guard let geometry = jsonPOI["geometry"] as? [String: Any], let location = geometry["location"] as? [String: Any], let latitude = location["lat"] as? Double, let longitude = location["lng"] as? Double else {
+            return nil
+        }
         let poi = POI(latitude, longitude)
         if let placeID = jsonPOI["place_id"] as? String {
             poi.setPlaceID(placeID)
@@ -67,7 +67,9 @@ class Parser {
         guard let jsonPOI = json["result"] as? [String: Any] else {
             return nil
         }
-        guard let poi = parseJSONToPOI(jsonPOI) else { return nil }
+        guard let poi = parseJSONToPOI(jsonPOI) else {
+            return nil
+        }
         if let address = jsonPOI["formatted_address"] as? String {
             poi.setVicinity(address)
         }
@@ -103,7 +105,9 @@ class Parser {
     
     static func parseJSONToRoute(_ jsonRoute: [String: Any]) -> Route? {
         guard let name = jsonRoute["name"] as? String,
-            let checkPoints = jsonRoute["checkPoints"] as? [[String: Any]] else { return nil }
+            let checkPoints = jsonRoute["checkPoints"] as? [[String: Any]] else {
+                return nil
+        }
         let route = Route(name)
         for point in checkPoints {
             guard let checkPoint = parseJSONToCheckPoint(point) else { continue
@@ -111,7 +115,6 @@ class Parser {
             route.append(checkPoint)
         }
         return route
-        //return Route(JSON: jsonRoute)
     }
     
     static func parseJSONToCheckPoint(_ jsonCheckPoint: [String: Any]) -> CheckPoint? {
@@ -125,9 +128,5 @@ class Parser {
         }
         return CheckPoint(lat, lng, name, description, isControlPoint)
         //return CheckPoint(JSON: jsonCheckPoint)
-    }
-    
-    static func parseRouteToJSONString(_ route: Route) -> String? {
-        return route.toJSONString(prettyPrint: true)
     }
 }

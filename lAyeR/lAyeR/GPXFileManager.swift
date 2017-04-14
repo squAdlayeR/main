@@ -111,6 +111,6 @@ class GPXFileManager {
             throw GPXError.noPathFound
         }
         let url = documentDirectory.appendingPathComponent("\(fileName).\(ext)")
-        return url.absoluteString
+        return url.relativePath
     }
 }
