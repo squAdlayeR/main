@@ -20,17 +20,17 @@ class InfoBlockView: UIView {
     ///     - content: the content of the info block
     ///     - width: the width of the info block view
     init(label: String, iconName: String, content: String, width: CGFloat) {
-        let infoBlock = InfoBlock(label: label,
-                                  imageName: "\(iconName)-colored",
+        let infoBlock = LabelTextBlock(label: label,
+                                  icon: "\(iconName)\(MiscConstants.coloredIconExtension)",
                                   content: content,
-                                  width: width - infoBlockPadding * 2)
-        let initialFrame = CGRect(x: 0, y: 0, width: width, height: infoBlock.bounds.height + infoBlockPaddingTop * 3)
+                                  width: width - InnerViewConstants.infoBlockSidePadding * 2)
+        let initialFrame = CGRect(x: 0, y: 0, width: width, height: infoBlock.bounds.height + InnerViewConstants.infoBlockPaddingTop * 3)
         super.init(frame: initialFrame)
         
         let blurEffectView = createBlurEffectView()
         self.addSubview(blurEffectView)
 
-        infoBlock.frame.origin = CGPoint(x: infoBlockPadding, y: infoBlockPaddingTop)
+        infoBlock.frame.origin = CGPoint(x: InnerViewConstants.infoBlockSidePadding, y: InnerViewConstants.infoBlockPaddingTop)
         blurEffectView.addSubview(infoBlock)
     }
     
@@ -40,7 +40,7 @@ class InfoBlockView: UIView {
         let blurEffect = UIBlurEffect(style: .regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
-        blurEffectView.layer.cornerRadius = infoBlockBorderRadius
+        blurEffectView.layer.cornerRadius = InnerViewConstants.infoBlockCornerRadius
         blurEffectView.layer.masksToBounds = true
         return blurEffectView
     }
