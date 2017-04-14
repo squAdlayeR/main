@@ -14,4 +14,6 @@ class BasicAlertConstants {
     static let titleFontSize: CGFloat = 30
     static let topBannerHeight: CGFloat = 60
     static let emptyString: String = ""
+    
+    static let bottomBannerHeight: CGFloat = 80
 }

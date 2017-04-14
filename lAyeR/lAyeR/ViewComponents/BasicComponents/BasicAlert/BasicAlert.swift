@@ -76,7 +76,10 @@ class BasicAlert: UIView {
     
     /// Creates a new bottom banner
     private func initBottomBanner() {
-        let newBottomBanner = BottomBanner(alert: self)
+        let newBottomBanner = BottomBanner(width: self.bounds.width,
+                                           height: BasicAlertConstants.bottomBannerHeight)
+        newBottomBanner.frame.origin = CGPoint(x: 0,
+                                               y: self.bounds.height / 2)
         bottomBanner = newBottomBanner
     }
     
@@ -100,7 +103,7 @@ class BasicAlert: UIView {
     
     /// Adds a button into the info the bottom banner
     func addButton(_ button: UIButton) {
-        bottomBanner.buttonsView.addArrangedSubview(button)
+        bottomBanner.addButton(button)
     }
     
     /// Sets the title of the alert
@@ -112,7 +115,6 @@ class BasicAlert: UIView {
     /// - Parameter isBlurMode: specifies the blur mode
     private func setSubviewsBlurMode(_ isBlurMode: Bool) {
         infoPanel.blurMode = isBlurMode
-        bottomBanner.blurMode = isBlurMode
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -146,7 +148,7 @@ extension BasicAlert {
         self.alpha = 0
         self.topBanner.transform = CGAffineTransform(translationX: 0, y: 0)
         self.bottomBanner.hideButtons()
-        self.bottomBanner.close()
+        self.bottomBanner.transform = CGAffineTransform(translationX: 0, y: 0)
         self.infoPanel.hideInfo()
         self.infoPanel.close()
     }
@@ -158,7 +160,8 @@ extension BasicAlert {
             self!.alpha = 1
             self!.topBanner.transform = CGAffineTransform(translationX: 0,
                                                           y: 0 - (self!.bounds.height / 2 - self!.topBanner.bounds.height))
-            self!.bottomBanner.open()
+            self!.bottomBanner.transform = CGAffineTransform(translationX: 0,
+                                                             y: self!.bounds.height / 2 - self!.bottomBanner.bounds.height)
             self!.infoPanel.open()
         }, completion: { [weak self] isFinished in
             self?.showInfo()
