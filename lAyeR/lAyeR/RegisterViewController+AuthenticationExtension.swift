@@ -24,25 +24,25 @@ extension RegisterViewController {
         let username = usernameField.text ?? ""
         /// Checks if any field is empty, show error alert.
         /// Proceeds otherwise.
-        guard allNonEmpty(email, password, passwordConfirm, username) else {
+        guard userAuthenticator.allNonEmpty([email, password, passwordConfirm, username]) else {
                 showAlertMessage(message: Messages.fillFieldsMessage)
                 return
         }
         /// Checks if password and password confirmation matches.
         /// If mismatch, show error alert. Proceeds otherwise.
-        guard isPasswordMatch(password, passwordConfirm) else {
+        guard userAuthenticator.isPasswordMatch(password, passwordConfirm) else {
             showAlertMessage(message: Messages.passwordMismatchMessage)
             return
         }
         /// Checks if password has a valid length.
         /// If invalid, show error alert. Proceeds otherwise.
-        guard isValidLength(password) && isValidLength(username) else {
+        guard userAuthenticator.isValidLength(password) && userAuthenticator.isValidLength(username) else {
             showAlertMessage(message: Messages.inputLengthMessage)
             return
         }
         /// Checks if user input contains only alphanumeric characters.
         /// If not, show error alert. Proceeds otherwise.
-        guard isValidInput(password) && isValidInput(username) else {
+        guard userAuthenticator.isValidInput(password) && userAuthenticator.isValidInput(username) else {
             showAlertMessage(message: Messages.inputFormatMessage)
             return
         }
@@ -50,50 +50,6 @@ extension RegisterViewController {
         /// Presents loading badge and requests to create user.
         LoadingBadge.instance.showBadge(in: view)
         createUser(email: email, password: password, username: username)
-    }
-    
-    /// Returns true if all fields are non-empty.
-    /// - Parameters:
-    ///     - email: String: input email
-    ///     - password: String: input password
-    ///     - passwordConfirm: String: input password confirmation
-    ///     - username: String: input username
-    /// - Returns:
-    ///     - Bool: True if all fields are filled.
-    private func allNonEmpty(_ email: String, _ password: String, _ passwordConfirm: String, _ username: String) -> Bool {
-        return !email.characters.isEmpty
-            && !password.characters.isEmpty
-            && !passwordConfirm.characters.isEmpty
-            && !username.characters.isEmpty
-    }
-    
-    /// Returns true if the passwords match.
-    /// - Parameters:
-    ///     - password: String: input password
-    ///     - passwordConfirm: String: input password confirmation
-    /// - Returns:
-    ///     - Bool: True if password and confirmation are same.
-    private func isPasswordMatch(_ password: String, _ passwordConfirm: String) -> Bool {
-        return password == passwordConfirm
-    }
-    
-    /// Returns true if the input length is valid within range.
-    /// - Parameter:
-    ///     - input: String: input to check.
-    /// - Returns:
-    ///     - Bool: True if length is within range.
-    private func isValidLength(_ input: String) -> Bool {
-        let len = input.characters.count
-        return len >= AuthenticationConstants.minimumPasswordLength && len <= AuthenticationConstants.maximumPasswordLength
-    }
-    
-    /// Returns true if the input contains only alphanumeric characters.
-    /// - Parameter:
-    ///     - input: String: input to check.
-    /// - Returns:
-    ///     - Bool: True if only contains alphanumeric characters.
-    private func isValidInput(_ input: String) -> Bool {
-        return input.isAlphanumeric
     }
     
     /// Sends request and prepare error handler to handle errors.

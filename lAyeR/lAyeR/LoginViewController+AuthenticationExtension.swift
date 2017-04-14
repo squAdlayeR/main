@@ -81,7 +81,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
         /// Checks input fields, if empty prompts error alert, otherwise proceeds.
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
-        guard !email.characters.isEmpty && !password.characters.isEmpty else {
+        guard userAuthenticator.allNonEmpty([email, password]) else {
             showAlertMessage(message: Messages.fillFieldsMessage)
             return
         }
