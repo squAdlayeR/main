@@ -49,24 +49,28 @@ class BasicAlert: UIView {
     
     /// Initialized the alert
     /// - Parameter frame: the frame of the alert
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initElements()
+    init(width: CGFloat, height: CGFloat, title: String) {
+        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        initElements(with: title)
         prepareDisplay()
         self.layer.cornerRadius = 20
         self.layer.masksToBounds = true
     }
     
     /// Initializes banners and info panel
-    private func initElements() {
+    private func initElements(with title: String) {
         initInfoPanel()
-        initTopBanner()
+        initTopBanner(with: title)
         initBottomBanner()
     }
     
     /// Creates a new top banner
-    private func initTopBanner() {
-        let newTopBanner = TopBanner(alert: self)
+    private func initTopBanner(with title: String) {
+        let newTopBanner = TopBanner(width: self.bounds.width,
+                                     height: BasicAlertConstants.topBannerHeight,
+                                     title: title)
+        newTopBanner.frame.origin = CGPoint(x: 0,
+                                            y: self.bounds.height / 2 - BasicAlertConstants.topBannerHeight + 0.1)
         topBanner = newTopBanner
     }
     
@@ -101,13 +105,12 @@ class BasicAlert: UIView {
     
     /// Sets the title of the alert
     func setTitle(_ title: String) {
-        topBanner.title = title
+        topBanner.setTitle(title)
     }
     
     /// Sets the blur mode of subview to specified blur mode
     /// - Parameter isBlurMode: specifies the blur mode
     private func setSubviewsBlurMode(_ isBlurMode: Bool) {
-        topBanner.blurMode = isBlurMode
         infoPanel.blurMode = isBlurMode
         bottomBanner.blurMode = isBlurMode
     }
@@ -141,7 +144,7 @@ extension BasicAlert {
     private func prepareOpen() {
         self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         self.alpha = 0
-        self.topBanner.close()
+        self.topBanner.transform = CGAffineTransform(translationX: 0, y: 0)
         self.bottomBanner.hideButtons()
         self.bottomBanner.close()
         self.infoPanel.hideInfo()
@@ -153,7 +156,8 @@ extension BasicAlert {
         UIView.animate(withDuration: 0.25, animations: { [weak self] in
             guard self != nil else { return }
             self!.alpha = 1
-            self!.topBanner.open()
+            self!.topBanner.transform = CGAffineTransform(translationX: 0,
+                                                          y: 0 - (self!.bounds.height / 2 - self!.topBanner.bounds.height))
             self!.bottomBanner.open()
             self!.infoPanel.open()
         }, completion: { [weak self] isFinished in

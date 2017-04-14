@@ -17,6 +17,7 @@
 		2C51ADB71E9C83AD0007E980 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C51ADB61E9C83AD0007E980 /* Assets.xcassets */; };
 		2C51ADB91E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */; };
 		2C5FCF3D1EA0E894008BB91E /* BasicMarkerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5FCF3C1EA0E894008BB91E /* BasicMarkerConstants.swift */; };
+		2C5FCF3F1EA1036C008BB91E /* BasicAlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5FCF3E1EA1036C008BB91E /* BasicAlertConstants.swift */; };
 		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
 		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
 		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
@@ -166,6 +167,7 @@
 		2C51ADB61E9C83AD0007E980 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_UIInteraction.swift; sourceTree = "<group>"; };
 		2C5FCF3C1EA0E894008BB91E /* BasicMarkerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarkerConstants.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarkerConstants.swift; sourceTree = "<group>"; };
+		2C5FCF3E1EA1036C008BB91E /* BasicAlertConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicAlertConstants.swift; path = ViewComponents/BasicComponents/BasicAlert/BasicAlertConstants.swift; sourceTree = "<group>"; };
 		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
 		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
 		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 				2C7333E01E71B48700EDE1D8 /* AlertElements */,
 				9D1498FA1E800B080043DDB6 /* BasicAlert.swift */,
 				9D1498FB1E800B080043DDB6 /* BasicAlertController.swift */,
+				2C5FCF3E1EA1036C008BB91E /* BasicAlertConstants.swift */,
 			);
 			name = BasicAlert;
 			sourceTree = "<group>";
@@ -442,9 +445,9 @@
 		2C78138F1E755E6600851188 /* BasicMarker */ = {
 			isa = PBXGroup;
 			children = (
-				2C7813901E755E7D00851188 /* MarkerElements */,
 				9D1499021E800B250043DDB6 /* BasicMarker.swift */,
 				2C5FCF3C1EA0E894008BB91E /* BasicMarkerConstants.swift */,
+				2C7813901E755E7D00851188 /* MarkerElements */,
 			);
 			name = BasicMarker;
 			sourceTree = "<group>";
@@ -1018,6 +1021,7 @@
 				9D37C2EA1EA0A505003AAA02 /* InfoBlockView.swift in Sources */,
 				9D1498FD1E800B080043DDB6 /* BasicAlertController.swift in Sources */,
 				9DAFF1F81E8E942600D09C11 /* RouteListCell.swift in Sources */,
+				2C5FCF3F1EA1036C008BB91E /* BasicAlertConstants.swift in Sources */,
 				9D1498FC1E800B080043DDB6 /* BasicAlert.swift in Sources */,
 				528288B21E92690C00163654 /* AppSettings.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,

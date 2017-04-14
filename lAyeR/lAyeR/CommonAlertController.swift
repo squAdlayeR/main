@@ -25,8 +25,8 @@ class CommonAlertController: BasicAlertController {
     
     /// Initializes the common alert controller.
     init() {
-        let alertFrame = CGRect(x: 0, y: 0, width: suggestedPopupWidth, height: suggestedPopupHeight)
-        super.init(title: "", frame: alertFrame)
+        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        super.init(title: "", size: alertSize)
         initializeCloseButton()
         initializeMessageLabel()
     }
@@ -68,7 +68,6 @@ class CommonAlertController: BasicAlertController {
         alertView.center = view.center
         presentAlert(within: view)
     }
-    
 
 }
 
