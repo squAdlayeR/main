@@ -11,6 +11,7 @@
  */
 class GPXFileManager {
     
+    static let instance: GPXFileManager = GPXFileManager()
     /// Loads .gpx files with file url into the app.
     /// - Parameters:
     ///     - url: URL: the url to the file 
@@ -18,7 +19,7 @@ class GPXFileManager {
     ///     - [Route]: routes contained in the file. 
     /// - Throws: 
     ///     - GPXError.readFailure: gpx read fail error.
-    static func load(with url: URL) throws -> [Route] {
+    func load(with url: URL) throws -> [Route] {
         let routes = try GPXFileParser.instace.parseGPXToRoute(url: url)
         return routes
     }
@@ -29,8 +30,8 @@ class GPXFileManager {
     /// - Throws:
     ///     - GPXError.createFailure: gpx file creation failure. 
     ///     - GPXError.saveFailure: gpx file save failure.
-    static func save(route: Route) throws {
-        let path = try getPath(with: route.name, ext: gpxExtension)
+    func save(route: Route) throws {
+        let path = try getPath(with: route.name, ext: GPSGPXConstants.gpxExtension)
         let gpx = try GPXFileParser.instace.parseRouteToGPX(route: route)
         do {
             try gpx.write(toFile: path, atomically: true, encoding: .utf8)
@@ -48,11 +49,11 @@ class GPXFileManager {
     ///     - GPXError.createFailure: gpx file creation failure.
     ///     - GPXError.saveFailure: gpx file save failure.
     ///     - GPXError.noPathFound: no valid file path found error.
-    static func save(routes: [Route]) throws -> [URL] {
+    func save(routes: [Route]) throws -> [URL] {
         var urls: [URL] = []
         for route in routes {
             try save(route: route)
-            let path = try getPath(with: route.name, ext: gpxExtension)
+            let path = try getPath(with: route.name, ext: GPSGPXConstants.gpxExtension)
             let url = URL(fileURLWithPath: path)
             urls.append(url)
         }
@@ -68,8 +69,8 @@ class GPXFileManager {
     /// - Throws:
     ///     - GPXError.noPathFound: no valid file path found.
     ///     - GPXError.saveFailure: file save failure error.
-    static func save(name: String, image: UIImage) throws -> URL {
-        let path = try getPath(with: name, ext: pngExtension)
+    func save(name: String, image: UIImage) throws -> URL {
+        let path = try getPath(with: name, ext: GPSGPXConstants.pngExtension)
         let url = URL(fileURLWithPath: path)
         do {
             try UIImagePNGRepresentation(image)?.write(to: url)
@@ -82,8 +83,8 @@ class GPXFileManager {
     /// Deletes the cache .gpx file with given name.
     /// - Parameters:
     ///     - routeName: String: name of the file.
-    static func delete(routeName: String) {
-        guard let path = try? getPath(with: routeName, ext: gpxExtension) else {
+    func delete(routeName: String) {
+        guard let path = try? getPath(with: routeName, ext: GPSGPXConstants.gpxExtension) else {
             return
         }
         try? FileManager.default.removeItem(atPath: path)
@@ -92,7 +93,7 @@ class GPXFileManager {
     /// Deletes the file at given url. 
     /// - Parameters:
     ///     - url: URL: the url of the file.
-    static func delete(url: URL) {
+    func delete(url: URL) {
         try? FileManager.default.removeItem(at: url)
     }
     
@@ -104,7 +105,7 @@ class GPXFileManager {
     ///     - String: the relativePath of the file.
     /// - Throws:
     ///     - GPXError.noPathFound: no valid url path found error.
-    static func getPath(with fileName: String, ext: String) throws -> String {
+    func getPath(with fileName: String, ext: String) throws -> String {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         guard let documentDirectory = urls.first else {
             throw GPXError.noPathFound

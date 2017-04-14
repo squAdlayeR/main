@@ -388,7 +388,7 @@ extension UserProfileViewController: TOCropViewControllerDelegate {
     
     func refreshProfile(with image: UIImage) {
         do {
-            let url = try GPXFileManager.save(name: "user-icon", image: image)
+            let url = try GPXFileManager.instance.save(name: "user-icon", image: image)
             self.avatar.imageFromUrl(url: url.absoluteString)
             self.userProfile?.avatarRef = url.absoluteString
             DispatchQueue.global(qos: .background).async {

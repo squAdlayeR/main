@@ -15,7 +15,7 @@ extension UIViewController {
     /// - Parameters:
     ///     - title: String: the title of the alert.
     ///     - message: String: the message to be shown.
-    func showAlertMessage(title: String = errorTitle, message: String) {
+    func showAlertMessage(title: String = Messages.errorTitle, message: String) {
         self.addChildViewController(CommonAlertController.instance)
         CommonAlertController.instance.showAlert(title, message, in: self.view)
     }
@@ -38,10 +38,10 @@ extension UIViewController {
     ///     - routes: [Route]: the routes to be saved and exported.
     func share(routes: [Route]) {
         do {
-            let urls = try GPXFileManager.save(routes: routes)
+            let urls = try GPXFileManager.instance.save(routes: routes)
             showExportOptionsMenu(urls: urls)
         } catch {
-            showAlertMessage(message: saveGPXFailureMessage)
+            showAlertMessage(message: Messages.saveGPXFailureMessage)
         }
     }
     
@@ -59,7 +59,7 @@ extension UIViewController {
             (type, completed: Bool, items: [Any]?, error: Error?) in
             guard completed else { return }
             urls.forEach {
-                GPXFileManager.delete(url: $0)
+                GPXFileManager.instance.delete(url: $0)
             } // clear cache
         }
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {

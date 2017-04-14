@@ -23,7 +23,7 @@ class GPSTracker {
     
     /// Starts the timer.
     func start() {
-        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(track), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: GPSGPXConstants.timeInterval, target: self, selector: #selector(track), userInfo: nil, repeats: true)
     }
     
     /// Fires every time interval to process current and previous 
@@ -35,7 +35,7 @@ class GPSTracker {
         let currentLocation = geoManager.getLastUpdatedUserPoint()
         
         // If current user location is not updated yet, skip this round.
-        guard currentLocation != defaultLocation else { return }
+        guard currentLocation != GPSGPXConstants.defaultLocation else { return }
         
         // If the first location is recorded, update previous location.
         guard let prevLocation = prevLocation else {
@@ -80,20 +80,20 @@ class GPSTracker {
     /// unit range.
     private func isWithinUnitRange(_ prev: GeoPoint, _ curr: GeoPoint) -> Bool {
         let deltaDistance = GeoUtil.getCoordinateDistance(prev, curr)
-        return deltaDistance < maximumDeltaDistance && deltaDistance > minimumDeltaDistance
+        return deltaDistance < GPSGPXConstants.maximumDeltaDistance && deltaDistance > GPSGPXConstants.minimumDeltaDistance
     }
     
     /// Returns true if the two locations are on the same unit grid.
     private func isOnSameGrid(_ prev: GeoPoint, _ curr: GeoPoint) -> Bool {
         let deltaLatitude = fabs(prev.latitude-curr.latitude)
         let deltaLongitude = fabs(prev.longitude-curr.longitude)
-        return deltaLatitude <= approximationThreshold && deltaLongitude <= approximationThreshold
+        return deltaLatitude <= GPSGPXConstants.approximationThreshold && deltaLongitude <= GPSGPXConstants.approximationThreshold
     }
     
     /// Truncates the geoPoint's coordinate to pre-defined precision.
     private func getTruncatedTrackPoint(_ geoPoint: GeoPoint) -> GeoPoint {
-        let newLat = geoPoint.latitude.truncate(places: precision)
-        let newLon = geoPoint.longitude.truncate(places: precision)
+        let newLat = geoPoint.latitude.truncate(places: GPSGPXConstants.precision)
+        let newLon = geoPoint.longitude.truncate(places: GPSGPXConstants.precision)
         return GeoPoint(newLat, newLon)
     }
     

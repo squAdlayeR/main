@@ -142,7 +142,7 @@ extension RouteDesignerViewController {
                     let markerData = marker.userData as! CheckPoint
                     route.append(markerData)
                 }
-                if let url = try? GPXFileManager.save(name: route.name, image: self.viewCapture(view: self.mapView)) {
+                if let url = try? GPXFileManager.instance.save(name: route.name, image: self.viewCapture(view: self.mapView)) {
                     route.setImage(path: url.absoluteString)
                 }
                 // TODO: separate local storage and server

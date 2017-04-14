@@ -6,11 +6,14 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
+class Messages {
 
-// ====== Alert Titles ======
-let errorTitle: String = "Oops"
+    // ====== Alert Titles ======
+    static let errorTitle: String = "Oops"
 
 
-// ====== Alert Messages ======
-let saveGPXFailureMessage: String = "Failed to save .gpx files."
+    // ====== Alert Messages ======
+    static let saveGPXFailureMessage: String = "Failed to save .gpx files."
+
+}
 

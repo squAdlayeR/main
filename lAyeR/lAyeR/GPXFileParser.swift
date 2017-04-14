@@ -27,7 +27,7 @@ class GPXFileParser {
     /// displays one route at a time, which is not suitable for GPXTrack 
     /// and GPXTrackSegments representation.
     func parseRouteToGPX(route: Route) throws -> String {
-        guard let root = GPXRoot(creator: fileCreator) else {
+        guard let root = GPXRoot(creator: GPSGPXConstants.fileCreator) else {
             throw GPXError.createFailure
         }
         let gpxRoute = GPXRoute()
@@ -66,7 +66,7 @@ class GPXFileParser {
             for point in points {
                 let lat = point.latitude
                 let lon = point.longitude
-                let name = point.name ?? defaultPointName
+                let name = point.name ?? GPSGPXConstants.defaultPointName
                 let desc = point.desc ?? ""
                 let isControlPoint = point.comment == true.description ? true: false
                 let checkPoint = CheckPoint(Double(lat), Double(lon), name, desc, isControlPoint)

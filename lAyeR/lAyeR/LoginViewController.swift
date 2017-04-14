@@ -19,8 +19,6 @@ import FBSDKLoginKit
  */
 class LoginViewController: UIViewController {
     
-    //weak var activityIndicatorView: UIActivityIndicatorView!
-    
     // Connects outlets of sample input fields
     @IBOutlet weak var emailFieldSample: UITextField!
     @IBOutlet weak var passwordFieldSample: UITextField!
