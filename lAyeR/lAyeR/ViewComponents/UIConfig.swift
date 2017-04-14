@@ -118,7 +118,8 @@ let inputFieldFontSize: CGFloat = 26
 let inputFieldHight: CGFloat = 60
 let emailText: String = "email address"
 let passwordText: String = "password"
-
+let confirmPasswordText: String = "confirm password"
+let usernameText: String = "username"
 
 
 

@@ -320,6 +320,24 @@ class DatabaseManager {
         }
     }
     
+    
+    func createFBUserProfile() {
+        guard let user = UserAuthenticator.instance.currentUser else {
+            return
+        }
+        DispatchQueue.global(qos: .background).async {
+            self.verifyUserProfile(uid: user.uid) {
+                guard let email = user.email,
+                      let avartarRef = user.photoURL?.absoluteString,
+                      let userName = user.displayName else {
+                        return
+                }
+                let profile = UserProfile(email: email, avatarRef: avartarRef, username: userName)
+                self.addUserProfileToDatabase(uid: user.uid, userProfile: profile)
+            }
+        }
+    }
+    
 }
 
 extension Double

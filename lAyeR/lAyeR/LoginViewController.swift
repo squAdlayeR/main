@@ -44,7 +44,8 @@ class LoginViewController: UIViewController {
     var passwordField: InputTextFeild!
     
     // Data service instance, used to validate login
-    let dataService = DataServiceManager.instance
+    let userAuthenticator: UserAuthenticator = UserAuthenticator.instance
+    let databaseManager: DatabaseManager = DatabaseManager.instance
     var fbLoginButton: FBSDKLoginButton!
     
     override func viewDidLoad() {

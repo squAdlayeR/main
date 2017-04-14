@@ -26,6 +26,10 @@ class UserAuthenticator {
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: completion)
     }
     
+    func signInUser(with credential: FIRAuthCredential, completion: AuthenticationCallback?) {
+        FIRAuth.auth()?.signIn(with: credential, completion: completion)
+    }
+    
     /// Sends email verification to a user registered with email.
     func sendEmailVerification(completion: FIRSendEmailVerificationCallback?) {
         FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: completion)
@@ -43,6 +47,32 @@ class UserAuthenticator {
     /// Returns current user.
     var currentUser: FIRUser? {
         return FIRAuth.auth()?.currentUser
+    }
+    
+    func getErrorMessage(error: Error) -> String {
+        guard let errCode = FIRAuthErrorCode(rawValue: error._code) else {
+            return Messages.unknownErrorMessage
+        }
+        switch errCode {
+        case .errorCodeWrongPassword:
+            return Messages.wrongPasswordMessage
+        case .errorCodeUserDisabled:
+            return Messages.userDisabledMessage
+        case .errorCodeUserNotFound:
+            return Messages.userNotFoundMessage
+        case .errorCodeInvalidCredential:
+            return Messages.invalidCredentialMessage
+        case .errorCodeOperationNotAllowed:
+            return Messages.operationNotAllowedMessage
+        case .errorCodeEmailAlreadyInUse:
+            return Messages.emailAlreadyInUseMessage
+        case .errorCodeInternalError:
+            return Messages.internalErrorMessage
+        case .errorCodeInvalidEmail:
+            return Messages.invalidEmailMessage
+        default:
+            return Messages.internalErrorMessage
+        }
     }
     
 }

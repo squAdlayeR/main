@@ -19,18 +19,23 @@ extension LoginViewController {
     
     /// Defines action when user click on "Sign in" button
     @IBAction func signInUser(_ sender: Any) {
+        
+        /// Checks input fields, if empty prompts error alert, otherwise proceeds.
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
         guard !email.characters.isEmpty && !password.characters.isEmpty else {
             showAlertMessage(message: Messages.fillFieldsMessage)
             return
         }
+        
+        /// Signs in user with input email and password.
         LoadingBadge.instance.showBadge(in: view)
-        dataService.signInUser(email: email, password: password) {
+        userAuthenticator.signInUser(email: email, password: password) {
             (user, error) in
             if let error = error {
                 LoadingBadge.instance.hideBadge()
-                self.handleSignInError(error: error)
+                let errorMessage = self.userAuthenticator.getErrorMessage(error: error)
+                self.showAlertMessage(message: errorMessage)
                 return
             }
             guard let user = user else {
@@ -49,82 +54,56 @@ extension LoginViewController {
     }
     
     @IBAction func unwindToLogin(segue: UIStoryboardSegue) {}
-    
-    /// Handles the error brought from the data service
-    /// - Parameter error: the error from data service
-    func handleSignInError(error: Error) {
-        guard let errCode = FIRAuthErrorCode(rawValue: error._code) else {
-            return
-        }
-        switch errCode {
-        case .errorCodeWrongPassword:
-            self.showAlertMessage(message: Messages.wrongPasswordMessage)
-            return
-        case .errorCodeUserDisabled:
-            self.showAlertMessage(message: Messages.userDisabledMessage)
-            return
-        case .errorCodeUserNotFound:
-            self.showAlertMessage(message: Messages.userNotFoundMessage)
-            return
-        case .errorCodeInvalidCredential:
-            self.showAlertMessage(message: Messages.invalidCredentialMessage)
-            return
-        case .errorCodeOperationNotAllowed:
-            self.showAlertMessage(message: Messages.operationNotAllowedMessage)
-            return
-        case .errorCodeEmailAlreadyInUse:
-            self.showAlertMessage(message: Messages.emailAlreadyInUseMessage)
-            return
-        case .errorCodeInternalError:
-            self.showAlertMessage(message: Messages.internalErrorMessage)
-            return
-        default:
-            self.showAlertMessage(message: Messages.internalErrorMessage)
-            return
-        }
-    }
-}
 
+}
 
 extension LoginViewController: FBSDKLoginButtonDelegate {
     
+    /// Sets up facebook login button.
     func setUpFBLoginButton() {
         FBSDKProfile.enableUpdates(onAccessTokenChange: true)
         fbLoginButton = FBSDKLoginButton()
         fbLoginButton.delegate = self
-        fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        fbLoginButton.readPermissions = AuthenticationConstants.fbPermissions
     }
     
+    /// Positions facebook login button with auto layout in view did appear.
     func configFBLoginButton() {
         fbLoginButton.center = FBButtonPlaceHolder.center
         view.addSubview(fbLoginButton)
     }
-
+    
+    /// Processes user interaction and handles facebook authentication.
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
-        if result.isCancelled { return }
-        if error != nil {
-            self.showAlertMessage(message: "Failed login with Facebook.")
+        
+        /// If user cancels permission, cancel login actions.
+        if result.isCancelled {
             return
         }
+        /// If error occurs, show error message.
+        if error != nil {
+            self.showAlertMessage(message: Messages.fbSignInFailureMessage)
+            return
+        }
+        /// Creates facebook login token.
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         LoadingBadge.instance.showBadge(in: view)
+        /// Clears facebook user session.
         FBSDKLoginManager().logOut()
-        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-            DispatchQueue.global().async {
-                if let error = error {
-                    LoadingBadge.instance.hideBadge()
-                    self.handleSignInError(error: error)
-                    return
-                }
-                guard let user = user else { return }
-                DispatchQueue.main.async {
-                    
-                    DatabaseManager.instance.verifyUserProfile(uid: user.uid) {
-                        let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
-                        self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
-                    }
-                }
+        /// Signs in user or does error handling if error occurs.
+        userAuthenticator.signInUser(with: credential) { (user, error) in
+            if let error = error {
+                LoadingBadge.instance.hideBadge()
+                let errorMessage = self.userAuthenticator.getErrorMessage(error: error)
+                self.showAlertMessage(message: errorMessage)
+                return
             }
+            guard user != nil else {
+                LoadingBadge.instance.hideBadge()
+                self.showAlertMessage(message: Messages.fbSignInFailureMessage)
+                return
+            }
+            self.databaseManager.createFBUserProfile()
             LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
         }
@@ -137,5 +116,6 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
     public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         
     }
+    
     
 }

@@ -8,10 +8,11 @@
 
 import Foundation
 
-class LoginRegisterConstants {
+class AuthenticationConstants {
 
-    static let emailText = "email address"
-    static let passwordText = "password"
+    static let fbPermissions: [String] = ["public_profile",
+                                          "email",
+                                          "user_friends"]
     
     
 }
