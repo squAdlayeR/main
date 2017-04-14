@@ -49,14 +49,19 @@ class RegisterViewController: UIViewController {
         setupText()
         setupText()
         setCloseKeyboardAction()
-        vibrancyEffectView.contentView.addSubview(usernameField)
-        vibrancyEffectView.contentView.addSubview(passwordField)
-        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
-        vibrancyEffectView.contentView.addSubview(emailField)
+//        vibrancyEffectView.contentView.addSubview(usernameField)
+//        vibrancyEffectView.contentView.addSubview(passwordField)
+//        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
+//        vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        view.layoutIfNeeded()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         view.layoutIfNeeded()
     }
     
