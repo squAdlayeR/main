@@ -96,6 +96,7 @@
 		9D19700E1E87FE7800C1DAA1 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */; };
 		9D19700F1E87FE7800C1DAA1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D19700D1E87FE7800C1DAA1 /* MenuView.swift */; };
 		9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */; };
+		9D37C2E61EA09D10003AAA02 /* MenuConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D37C2E51EA09D10003AAA02 /* MenuConstants.swift */; };
 		9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693461E8BE66E00052F68 /* InputTextFeild.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */; };
@@ -241,6 +242,7 @@
 		9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuButtonView.swift; path = ViewComponents/BasicComponents/Menu/MenuButtonView.swift; sourceTree = "<group>"; };
 		9D19700D1E87FE7800C1DAA1 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = ViewComponents/BasicComponents/Menu/MenuView.swift; sourceTree = "<group>"; };
 		9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = ViewComponents/HighLevelComponents/Menu/MenuViewController.swift; sourceTree = "<group>"; };
+		9D37C2E51EA09D10003AAA02 /* MenuConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuConstants.swift; path = ViewComponents/BasicComponents/Menu/MenuConstants.swift; sourceTree = "<group>"; };
 		9D5693461E8BE66E00052F68 /* InputTextFeild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputTextFeild.swift; path = ViewComponents/BasicComponents/Misc/InputTextFeild.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* UIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIConfig.swift; path = ViewComponents/UIConfig.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
@@ -578,13 +580,13 @@
 		9D1498F21E8007F70043DDB6 /* BasicComponents */ = {
 			isa = PBXGroup;
 			children = (
-				9D11C3611E98D15800C33207 /* MiniMapView */,
-				9D5693431E8BE65500052F68 /* Misc */,
-				9DAFF1F91E8E942A00D09C11 /* CameraView */,
-				9D19700B1E87FE6700C1DAA1 /* Menu */,
-				9DFB5B9B1E8426E200724B6E /* InnerViews */,
 				2C7333D51E711C3900EDE1D8 /* BasicAlert */,
 				2C78138F1E755E6600851188 /* BasicMarker */,
+				9DAFF1F91E8E942A00D09C11 /* CameraView */,
+				9DFB5B9B1E8426E200724B6E /* InnerViews */,
+				9D19700B1E87FE6700C1DAA1 /* Menu */,
+				9D11C3611E98D15800C33207 /* MiniMapView */,
+				9D5693431E8BE65500052F68 /* Misc */,
 			);
 			name = BasicComponents;
 			sourceTree = "<group>";
@@ -604,6 +606,7 @@
 			isa = PBXGroup;
 			children = (
 				9D19700C1E87FE7800C1DAA1 /* MenuButtonView.swift */,
+				9D37C2E51EA09D10003AAA02 /* MenuConstants.swift */,
 				9D19700D1E87FE7800C1DAA1 /* MenuView.swift */,
 			);
 			name = Menu;
@@ -667,8 +670,8 @@
 			isa = PBXGroup;
 			children = (
 				9DFB5B9C1E8426FD00724B6E /* InfoBlock.swift */,
-				9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */,
 				2C4C37FF1E97BC7B0069A0A2 /* InfoBlockView.swift */,
+				9DFB5B9D1E8426FD00724B6E /* InformativeInnerView.swift */,
 			);
 			name = InnerViews;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9DFB5B9E1E8426FD00724B6E /* InfoBlock.swift in Sources */,
 				2C51ADB91E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift in Sources */,
+				9D37C2E61EA09D10003AAA02 /* MenuConstants.swift in Sources */,
 				A25E658D1E9BB37800011885 /* SCNViewController.swift in Sources */,
 				9D0A2AEA1E9FC8B0008D6A21 /* CameraViewConstants.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
