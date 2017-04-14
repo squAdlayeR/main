@@ -30,26 +30,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sleep(3)
         self.window?.makeKeyAndVisible()
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        guard let currentUser = FIRAuth.auth()?.currentUser else {
-            return true
-        }
-        // search provider data
-        for data in currentUser.providerData {
-            if data.providerID == "facebook.com" {
-                break
-            }
-            if !currentUser.isEmailVerified {
-                return true
-            }
-        }
-        
-        GPSTracker.instance.start()
-        self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
-        if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
-            self.window?.rootViewController?.presentedViewController?.dismiss(animated: false, completion: nil)
-            self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
-            return true
-        }
+//        guard let currentUser = FIRAuth.auth()?.currentUser else {
+//            return true
+//        }
+//        // search provider data
+//        for data in currentUser.providerData {
+//            if data.providerID == "facebook.com" {
+//                break
+//            }
+//            if !currentUser.isEmailVerified {
+//                return true
+//            }
+//        }
+//        
+//        GPSTracker.instance.start()
+//        self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARViewController")
+//        if let url = launchOptions?[UIApplicationLaunchOptionsKey.url] as? URL, url.isFileURL {
+//            self.window?.rootViewController?.presentedViewController?.dismiss(animated: false, completion: nil)
+//            self.window?.rootViewController?.performSegue(withIdentifier: "arToDesignerImport", sender: url)
+//            return true
+//        }
         return true
     }
     

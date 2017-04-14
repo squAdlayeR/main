@@ -164,6 +164,7 @@ extension BasicAlertController {
             self!.alert.removeFromSuperview()
             self!.alertView.removeFromSuperview()
             self!.cover.removeFromSuperview()
+            self?.removeFromParentViewController()
         })
     }
     

@@ -62,14 +62,14 @@ class RegisterViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        usernameField.center = usernameFieldSample.center
-//        emailField.center = emailFieldSample.center
-//        passwordField.center = passwordFieldSample.center
-//        passwordConfirmField.center = confirmPasswordSample.center
-//        vibrancyEffectView.contentView.addSubview(usernameField)
-//        vibrancyEffectView.contentView.addSubview(passwordField)
-//        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
-//        vibrancyEffectView.contentView.addSubview(emailField)
+        usernameField.center = usernameFieldSample.center
+        emailField.center = emailFieldSample.center
+        passwordField.center = passwordFieldSample.center
+        passwordConfirmField.center = confirmPasswordSample.center
+        vibrancyEffectView.contentView.addSubview(usernameField)
+        vibrancyEffectView.contentView.addSubview(passwordField)
+        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
+        vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
