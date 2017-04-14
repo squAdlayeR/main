@@ -91,6 +91,22 @@ extension Double {
     }
 }
 
+extension UIImageView {
+    
+    /// Sets the image of a UIImageView from a url asynchronosly.
+    /// - Parameter:
+    ///     - url: String: the string path of the image file.
+    public func imageFromUrl(url: String) {
+        guard let url = URL(string: url) else { return }
+        DispatchQueue.global().async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            DispatchQueue.main.async {
+                self.image = UIImage(data: data)
+            }
+        }
+    }
+}
+
 
 
 

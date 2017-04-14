@@ -11,7 +11,7 @@ import ObjectMapper
 
 class UserProfile: Mappable {
     
-    private(set) var username: String = "lAyeRuser"
+    private(set) var username: String = UserProfileConstants.defaultUserName
     private(set) var email: String
     var avatarRef: String
     var designedRoutes: [String] = []
