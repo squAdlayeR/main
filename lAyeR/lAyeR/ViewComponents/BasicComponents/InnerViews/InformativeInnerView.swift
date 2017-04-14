@@ -86,7 +86,6 @@ class InformativeInnerView: UIView {
     /// Purely inserts a view into the view stack
     /// - Parameter view: the view that is to be inserted into the inner view
     private func insertView(_ view: UIView) {
-        print(view.frame)
         if let lastSubview = innerViewStack.subviews.last {
             view.frame.origin = CGPoint(x: 0,
                                         y: lastSubview.frame.origin.y

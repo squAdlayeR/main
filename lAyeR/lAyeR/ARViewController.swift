@@ -229,7 +229,7 @@ class ARViewController: UIViewController {
         for newPoi in lastUpdatedPOIs {
             if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
                 group.enter()
-                let poiCard = PoiCard(center: self.view.center, distance: 0, type: newPoi.types.first!, superViewController: self)
+                let poiCard = PoiCard(distance: 0, categoryName: newPoi.types.first!, superViewController: self)
                 geoManager.getDetailedPOIInfo(newPoi) { poi in
                     if let poi = poi {
                         if let name = poi.name { poiCard.setPoiName(name) }
@@ -276,8 +276,7 @@ class ARViewController: UIViewController {
     }
     
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
-        let checkpointCard = CheckpointCard(center: CGPoint(x: -100, y: -100),  // hide out of screen
-                                            distance: 0, superViewController: self)
+        let checkpointCard = CheckpointCard(distance: 0, superViewController: self)
         checkpointCard.setCheckpointName(checkpoint.name)
         let sanitizedDescription = checkpoint.description == "" ? "Oops! This checkpoint has no specific description." : checkpoint.description
         checkpointCard.setCheckpointDescription(sanitizedDescription)

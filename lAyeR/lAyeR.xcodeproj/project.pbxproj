@@ -16,6 +16,7 @@
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
 		2C51ADB71E9C83AD0007E980 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C51ADB61E9C83AD0007E980 /* Assets.xcassets */; };
 		2C51ADB91E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */; };
+		2C5FCF3D1EA0E894008BB91E /* BasicMarkerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5FCF3C1EA0E894008BB91E /* BasicMarkerConstants.swift */; };
 		2C7333E51E71BA8000EDE1D8 /* SAOUI-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */; };
 		2C7333E81E71BAA800EDE1D8 /* SAOUI-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */; };
 		2C7813881E7544C000851188 /* confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C7813861E7544C000851188 /* confirm.wav */; };
@@ -167,6 +168,7 @@
 		2C3119B11E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C51ADB61E9C83AD0007E980 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_UIInteraction.swift; sourceTree = "<group>"; };
+		2C5FCF3C1EA0E894008BB91E /* BasicMarkerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMarkerConstants.swift; path = ViewComponents/BasicComponents/BasicMarker/BasicMarkerConstants.swift; sourceTree = "<group>"; };
 		2C7333E41E71BA8000EDE1D8 /* SAOUI-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Regular.otf"; sourceTree = "<group>"; };
 		2C7333E71E71BAA800EDE1D8 /* SAOUI-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAOUI-Bold.otf"; sourceTree = "<group>"; };
 		2C7813861E7544C000851188 /* confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = confirm.wav; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 			children = (
 				2C7813901E755E7D00851188 /* MarkerElements */,
 				9D1499021E800B250043DDB6 /* BasicMarker.swift */,
+				2C5FCF3C1EA0E894008BB91E /* BasicMarkerConstants.swift */,
 			);
 			name = BasicMarker;
 			sourceTree = "<group>";
@@ -1090,6 +1093,8 @@
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
 				52C62D981EA0BE4C006D968B /* Messages.swift in Sources */,
 				528288CF1E9682E700163654 /* GPXFileParser.swift in Sources */,
+				528288CF1E9682E700163654 /* GPSTrackerParser.swift in Sources */,
+				2C5FCF3D1EA0E894008BB91E /* BasicMarkerConstants.swift in Sources */,
 				52B229901E978284009C733B /* Extensions.swift in Sources */,
 				2C0585E01E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift in Sources */,
 				52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */,

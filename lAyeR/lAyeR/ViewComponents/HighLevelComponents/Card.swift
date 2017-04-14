@@ -24,20 +24,16 @@ class Card: NSObject {
     // displayed
     var superViewController: UIViewController!
     
-    // Specifies the center of the card
-    var center: CGPoint!
-    
     /// Initialization
     /// - Parameters:
     ///     - center: the center of the popup & marker card
     ///     - distance: distance to that place that the card is representing
     ///     - superView: the super view in which the marker card & popup will
     ///         be displayed
-    init(center: CGPoint, distance: Double, superViewController: UIViewController) {
+    init(distance: Double, icon: String, superViewController: UIViewController) {
         super.init()
-        self.center = center
         self.superViewController = superViewController
-        initMarker(with: CGFloat(distance))
+        initMarker(with: distance, and: icon)
         initAlert()
         prepareDisplay()
     }
@@ -46,9 +42,11 @@ class Card: NSObject {
     /// - Parameters:
     ///     - frame: the frame of the marker in the card view
     ///     - distance: the distance to that place
-    private func initMarker(with distance: CGFloat) {
-        let newMarker = BasicMarker(frame: markerFrame)
-        newMarker.setDistance(distance)
+    private func initMarker(with distance: Double, and icon: String) {
+        let newMarker = BasicMarker(width: suggestedMarkerWidth,
+                                    height: suggestedMarkerHeight,
+                                    icon: icon)
+        newMarker.updateDistance(with: distance)
         self.markerCard = newMarker
         addMarkerGesture()
     }
@@ -76,15 +74,6 @@ class Card: NSObject {
     /// Prepares the card view for display
     private func prepareDisplay() {
         superViewController.view.addSubview(markerCard)
-    }
-    
-    /// Calculates the frame of the marker
-    /// - Note: the frame is defined by suggested maker height/width, which are
-    ///     defined in config
-    private var markerFrame: CGRect {
-        let originX = center.x - suggestedMarkerWidth / 2
-        let originY = center.y - suggestedMarkerHeight / 2
-        return CGRect(x: originX, y: originY, width: suggestedMarkerWidth, height: suggestedMarkerHeight)
     }
     
     /// Calculates the frame of the popup
@@ -126,13 +115,12 @@ extension Card {
     /// Updates the distance that will be displayed on marker card
     /// - Parameter distance: thte distance that will be displayed
     func update(_ distance: Double) {
-        markerCard.setDistance(CGFloat(distance))
+        markerCard.updateDistance(with: distance)
     }
     
     /// Sets/unsets the blur effect
     /// - Parameter isBlurMode: corresponding blur mode
     func setBlurEffect(_ isBlurMode: Bool) {
-        markerCard.blurMode = isBlurMode
         popupController.setBlurEffect(isBlurMode)
     }
     
@@ -151,7 +139,6 @@ extension Card: ViewLayoutAdjustable {
     /// - Parameter adjustment: the corresponding adjustment
     func applyViewAdjustment(_ adjustment: ARViewLayoutAdjustment) {
         markerCard.applyViewAdjustment(adjustment)
-//        popupController.alertView.applyViewAdjustment(adjustment)
     }
     
     /// Removes the current checkpoint card from its super view

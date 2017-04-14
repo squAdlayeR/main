@@ -14,96 +14,47 @@ import UIKit
     marker icon is default a "marker"
  */
 class MarkerIcon: UIView {
-    
-    // The icon that will be displayed on the marker
-    var icon: UIImageView = ResourceManager.getImageView(by: markerIconName) {
-        willSet {
-            icon.removeFromSuperview()
-        }
-        didSet {
-            setIcon()
-        }
-    }
-    
-    // The marker that this marker icon is attached to
-    private(set) var marker: BasicMarker!
-    
-    // The background image of the banner
-    private var backgroundImageView: UIImageView!
-    
-    // The blur effect
-    private var blurEffectView: UIVisualEffectView!
-    
-    // Sets blur mode. If it is true, blur view should
-    // be shown.
-    var blurMode: Bool = true {
-        didSet {
-            if blurMode {
-                backgroundImageView.isHidden = true
-                blurEffectView.isHidden = false
-                return
-            }
-            backgroundImageView.isHidden = false
-            blurEffectView.isHidden = true
-        }
-    }
 
     /// Initilaization
     /// - Parameters:
-    ///     - marker: the marker that the icon belongs to
-    ///     - icon: the icon inside the marker
-    init(marker: BasicMarker) {
-        self.marker = marker
-        let frame = CGRect(x: 0, y: 0,
-                           width: marker.frame.width,
-                           height: marker.frame.width)
+    ///     - width: the width of the Icon badge
+    ///     - height: the height of the icon badge
+    ///     - icon: name of the icon inside the marker
+    init(width: CGFloat, height: CGFloat, icon: String) {
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
         super.init(frame: frame)
-        prepareDisplay()
+        prepareDisplay(with: icon)
     }
     
     /// Prepares the icon view for display, including
     /// 1. prepares the background image
     /// 2. prepares the icon inside the icon view
-    private func prepareDisplay() {
+    private func prepareDisplay(with icon: String) {
         initBackgroundImage()
-        initBlurEffect()
-        setIcon()
+        setIcon(with: icon)
     }
     
     /// Initializes the background image
     private func initBackgroundImage() {
-        let backgroundIamge = ResourceManager.getImageView(by: topBannerImage)
-        backgroundIamge.frame = backgroundFrame
-        backgroundImageView = backgroundIamge
-        self.addSubview(backgroundImageView)
-    }
-    
-    /// Initializes the blur effect
-    private func initBlurEffect() {
-        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-        blurEffect.frame = backgroundFrame
-        blurEffectView = blurEffect
-        self.addSubview(blurEffectView)
-        blurEffectView.isHidden = true
+        let backgroundImage = UIImageView(image:
+            UIImage(named: BasicMarkerConstants.backgroundImageName))
+        backgroundImage.frame = self.bounds
+        self.addSubview(backgroundImage)
     }
     
     /// Sets the icon
-    private func setIcon() {
+    private func setIcon(with iconName: String) {
+        let icon = UIImageView(image: UIImage(named: iconName))
         icon.frame = iconFrame
         self.addSubview(icon)
     }
     
-    /// Calculates the background image frame
-    private var backgroundFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-    }
-    
     /// Calculates the icon view frame
     private var iconFrame: CGRect {
-        return CGRect(x: self.frame.width * markerIconPaddingPercent,
-                      y: self.frame.height * markerIconPaddingPercent,
-                      width: self.frame.width * (1 - 2 * markerIconPaddingPercent),
-                      height: self.frame.height * (1 - 2 * markerIconPaddingPercent))
+        return CGRect(x: self.bounds.width * BasicMarkerConstants.iconPaddingPercentage,
+                      y: self.bounds.height * BasicMarkerConstants.iconPaddingPercentage,
+                      width: self.bounds.width * (1 - 2 * BasicMarkerConstants.iconPaddingPercentage),
+                      height: self.bounds.height * (1 - 2 * BasicMarkerConstants.iconPaddingPercentage))
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -35,23 +35,17 @@ class PoiCard: Card {
     ///     - distance: the distance between current place and that place
     ///     - type: the type of the poi
     ///     - superView: the view that this popup & marker is attached to
-    init(center: CGPoint, distance: Double, type: String, superViewController: UIViewController) {
-        super.init(center: center, distance: distance, superViewController: superViewController)
+    init(distance: Double, categoryName: String, superViewController: UIViewController) {
+        var sanitizedCategory: POICategory
+        if let category = POICategory(rawValue: categoryName) {
+            sanitizedCategory = category
+        } else {
+            sanitizedCategory = POICategory(rawValue: "other")!
+        }
+        let iconName = "\(sanitizedCategory.rawValue)\(MiscConstants.coloredIconExtension)"
+        super.init(distance: distance, icon: iconName, superViewController: superViewController)
         initializeCardTitle()
         initializeCardButtons()
-        initializeCardIcon(with: type)
-    }
-    
-    /// Initializes the card icon with its type
-    /// - Parameter type: the type of the icon
-    private func initializeCardIcon(with type: String) {
-        var sanitizedType = type
-        if let category = POICategory(rawValue: type) {
-            self.markerCard.setIcon(with: category)
-            return
-        }
-        sanitizedType = otherIconType
-        self.markerCard.setIcon(with: POICategory(rawValue: sanitizedType)!)
     }
     
     /// Initializes the card title
