@@ -12,7 +12,5 @@ enum GPXError: Error {
     case createFailure
     case readFailure
     case saveFailure
-    case noGPXRouteFound
     case noPathFound
-    case noRouteFound
 }

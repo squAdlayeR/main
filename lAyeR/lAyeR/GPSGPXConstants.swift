@@ -7,17 +7,16 @@
 //
 
 import Foundation
-
-class GPSGPXConstants {
-
-    static let defaultLocation: GeoPoint = GeoPoint(0, 0)
-    static let timeInterval: TimeInterval = 1
-    static let approximationThreshold: Double = 0.0001
-    static let minimumDeltaDistance: Double = 10
-    static let maximumDeltaDistance: Double = 25
-    static let precision: Int = 4
+let defaultLocation: GeoPoint = GeoPoint(0, 0)
+let timeInterval: TimeInterval = 1
+let approximationThreshold: Double = 0.0001
+let minimumDeltaDistance: Double = 10
+let maximumDeltaDistance: Double = 25
+let precision: Int = 4
     
-    static let fileCreator = "lAyeR"
-    static let defaultCheckPointName = "CheckPoint"
+let fileCreator = "lAyeR"
+let defaultPointName = "CheckPoint"
+let gpxExtension = "gpx"
+let pngExtension = "png"
     
-}
+

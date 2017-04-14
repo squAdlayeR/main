@@ -377,7 +377,7 @@ class RouteDesignerViewController: UIViewController {
     func handleOpenUrl(url: URL) {
         // load route here.
         do {
-            let routes = try GPXManager.load(with: url)
+            let routes = try GPXFileManager.load(with: url)
             load(routes: routes)
         } catch {
             showAlertMessage(message: "Fail to load the routes.")
