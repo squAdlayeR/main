@@ -34,17 +34,6 @@ class BasicAlert: UIView {
     
     // The top banner of the alert. it will be displaying title
     var topBanner: TopBanner!
-    
-    // Specifies the blur mode of the alert
-    var blurMode: Bool = true {
-        didSet {
-            if blurMode {
-                setSubviewsBlurMode(true)
-                return
-            }
-            setSubviewsBlurMode(false)
-        }
-    }
 
     
     /// Initialized the alert
@@ -85,7 +74,11 @@ class BasicAlert: UIView {
     
     /// Creates a new info panel
     private func initInfoPanel() {
-        let newInfoPanel = InfoPanel(alert: self)
+        let newInfoPanel = InfoPanel(width: self.bounds.width,
+                                     height: self.bounds.height
+                                        - BasicAlertConstants.topBannerHeight
+                                        - BasicAlertConstants.bottomBannerHeight)
+        newInfoPanel.frame.origin = CGPoint(x: 0, y: BasicAlertConstants.topBannerHeight)
         infoPanel = newInfoPanel
     }
     
@@ -109,12 +102,6 @@ class BasicAlert: UIView {
     /// Sets the title of the alert
     func setTitle(_ title: String) {
         topBanner.setTitle(title)
-    }
-    
-    /// Sets the blur mode of subview to specified blur mode
-    /// - Parameter isBlurMode: specifies the blur mode
-    private func setSubviewsBlurMode(_ isBlurMode: Bool) {
-        infoPanel.blurMode = isBlurMode
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -150,7 +137,7 @@ extension BasicAlert {
         self.bottomBanner.hideButtons()
         self.bottomBanner.transform = CGAffineTransform(translationX: 0, y: 0)
         self.infoPanel.hideInfo()
-        self.infoPanel.close()
+        self.infoPanel.transform = CGAffineTransform(scaleX: 1, y: 0.2)
     }
     
     /// opens the banners and info panel
@@ -162,7 +149,7 @@ extension BasicAlert {
                                                           y: 0 - (self!.bounds.height / 2 - self!.topBanner.bounds.height))
             self!.bottomBanner.transform = CGAffineTransform(translationX: 0,
                                                              y: self!.bounds.height / 2 - self!.bottomBanner.bounds.height)
-            self!.infoPanel.open()
+            self!.infoPanel.transform = CGAffineTransform(scaleX: 1, y: 1)
         }, completion: { [weak self] isFinished in
             self?.showInfo()
         })

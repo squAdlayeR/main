@@ -16,4 +16,5 @@ class BasicAlertConstants {
     static let emptyString: String = ""
     
     static let bottomBannerHeight: CGFloat = 80
+    
 }
