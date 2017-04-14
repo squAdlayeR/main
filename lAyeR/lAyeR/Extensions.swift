@@ -11,7 +11,7 @@ import UIKit
 
 extension UIViewController {
     
-    func showAlertMessage(title: String = "Oops", message: String) {
+    func showAlertMessage(title: String = errorTitle, message: String) {
         self.addChildViewController(CommonAlertController.instance)
         CommonAlertController.instance.showAlert(title, message, in: self.view)
     }

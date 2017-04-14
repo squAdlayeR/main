@@ -75,6 +75,7 @@
 		52BD49741E8A8DC000B4B750 /* UserAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD49731E8A8DC000B4B750 /* UserAuthenticator.swift */; };
 		52BD49761E8A8DFA00B4B750 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BD49751E8A8DFA00B4B750 /* DatabaseManager.swift */; };
 		52C62D961EA0A97E006D968B /* GPSTrackerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C62D951EA0A97E006D968B /* GPSTrackerConstants.swift */; };
+		52C62D981EA0BE4C006D968B /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C62D971EA0BE4C006D968B /* Messages.swift */; };
 		52D379681E8530FA005ED912 /* GeoPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379661E8530FA005ED912 /* GeoPointTests.swift */; };
 		52D379691E8530FA005ED912 /* GeoUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379671E8530FA005ED912 /* GeoUtilTests.swift */; };
 		52D3796B1E8533CC005ED912 /* CheckPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3796A1E8533CC005ED912 /* CheckPointTests.swift */; };
@@ -221,6 +222,7 @@
 		52BD49731E8A8DC000B4B750 /* UserAuthenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthenticator.swift; sourceTree = "<group>"; };
 		52BD49751E8A8DFA00B4B750 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		52C62D951EA0A97E006D968B /* GPSTrackerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSTrackerConstants.swift; sourceTree = "<group>"; };
+		52C62D971EA0BE4C006D968B /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		52D379661E8530FA005ED912 /* GeoPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPointTests.swift; sourceTree = "<group>"; };
 		52D379671E8530FA005ED912 /* GeoUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtilTests.swift; sourceTree = "<group>"; };
 		52D3796A1E8533CC005ED912 /* CheckPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPointTests.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				52B2298F1E978284009C733B /* Extensions.swift */,
 				5269CA631EA07E5200A2F961 /* CommonAlertController.swift */,
 				52C62D951EA0A97E006D968B /* GPSTrackerConstants.swift */,
+				52C62D971EA0BE4C006D968B /* Messages.swift */,
 			);
 			name = GPSTracker;
 			sourceTree = "<group>";
@@ -1060,6 +1063,7 @@
 				9D0A2AE61E9F69A7008D6A21 /* MiniMapViewController.swift in Sources */,
 				9D1499011E800B1D0043DDB6 /* MarkerInfo.swift in Sources */,
 				5249B1BC1E7450380048249D /* QueryManager.swift in Sources */,
+				52C62D981EA0BE4C006D968B /* Messages.swift in Sources */,
 				528288CF1E9682E700163654 /* GPSTrackerParser.swift in Sources */,
 				52B229901E978284009C733B /* Extensions.swift in Sources */,
 				2C0585E01E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift in Sources */,

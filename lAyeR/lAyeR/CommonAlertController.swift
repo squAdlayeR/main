@@ -8,12 +8,19 @@
 
 import UIKit
 
-
+/**
+ * CommonAlertController is a class that inherits BasicAlertController
+ * and used to display alert messages with a dismiss button.
+ */
 class CommonAlertController: BasicAlertController {
     
+    /// Dismiss button
     private var button: UIButton!
+    /// Message Label
     private var label: UILabel!
     
+    /// A singleton instance of the common alert controller that can be
+    /// used in different parent view controllers to display alert message.
     static let instance: CommonAlertController = CommonAlertController()
     
     /// Initializes the common alert controller.
@@ -24,12 +31,12 @@ class CommonAlertController: BasicAlertController {
         initializeMessageLabel()
     }
     
+    /// required initializer
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    /// Creates a text field that shows success message.
-    /// - Returns: a ui label with success text
+    /// Creates a text field that shows message.
     private func initializeMessageLabel() {
         label = UILabel()
         label.font = UIFont(name: alterDefaultFontLight, size: buttonFontSize)
@@ -51,6 +58,10 @@ class CommonAlertController: BasicAlertController {
     
     /// Displays the alert in specified view with given alert title and
     /// message.
+    /// - Parameters:
+    ///     - title: String: title of the alert.
+    ///     - message: String: message to be displayed.
+    ///     - view: UIView: the view to show this alert.
     func showAlert(_ title: String, _ message: String, in view: UIView) {
         alert.setTitle(title)
         label.text = message

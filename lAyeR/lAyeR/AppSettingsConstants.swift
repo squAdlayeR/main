@@ -20,3 +20,8 @@ let poiCategories: [POICategory] = [.atm,
 let categoryIndex = 0
 let categoryNameIndex = 1
 let categoriesReusableIdentifier = "categoryCell"
+let defaultCategories: Set<String> = ["atm",
+                                      "bus_station",
+                                      "restaurant"]
+let defaultNumberOfMarkers: Int = 10
+let defaultDetectionRadius: Int = 500
