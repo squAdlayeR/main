@@ -116,6 +116,12 @@ let menuButtonIcon = "menu"
 /// Input view
 let inputFieldFontSize: CGFloat = 26
 let inputFieldHight: CGFloat = 60
+let emailText: String = "email address"
+let passwordText: String = "password"
+
+
+
+
 
 /// Card
 let nameIcon: String = "name"
@@ -126,6 +132,5 @@ let websiteIcon: String = "website"
 let ratingsIcon: String = "ratings"
 let statusIcon: String = "status"
 let segueToDirectName: String = "arToDesignerWithDirect"
-
 
 

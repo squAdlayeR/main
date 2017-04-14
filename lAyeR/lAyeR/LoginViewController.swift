@@ -6,8 +6,8 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import FirebaseAuth
 import UIKit
+import FirebaseAuth
 import FBSDKCoreKit
 import FBSDKLoginKit
 
@@ -48,7 +48,6 @@ class LoginViewController: UIViewController {
     var fbLoginButton: FBSDKLoginButton!
     
     override func viewDidLoad() {
-        FBSDKProfile.enableUpdates(onAccessTokenChange: true)
         setupCameraView()
         setupBlurEffect()
         setupText()
@@ -56,9 +55,6 @@ class LoginViewController: UIViewController {
         setupButtons()
         setCloseKeyboardAction()
         setUpFBLoginButton()
-        vibrancyEffectView.contentView.addSubview(emailField)
-        vibrancyEffectView.contentView.addSubview(passwordField)
-        view.addSubview(fbLoginButton)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -70,15 +66,12 @@ class LoginViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
+    /// Adjusts auto layout and sets root view controller here.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.delegate?.window??.rootViewController = self
-        emailField.center = emailFieldSample.center
-        passwordField.center = passwordFieldSample.center
-        fbLoginButton.center = FBButtonPlaceHolder.center
-        vibrancyEffectView.contentView.addSubview(emailField)
-        vibrancyEffectView.contentView.addSubview(passwordField)
-        view.addSubview(fbLoginButton)
+        configInputTextfields()
+        configFBLoginButton()
     }
     
     /// Sets up the camera view for background image
@@ -118,18 +111,24 @@ class LoginViewController: UIViewController {
     
     /// Sets up the email input
     private func setupEmailInput() {
-        emailField = createTextField(with: emailFieldSample, and: "email address")
+        emailField = createTextField(with: emailFieldSample, and: emailText)
         emailField.keyboardType = .emailAddress
         emailField.delegate = self
-        //vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     /// Sets up the password input
     private func setupPasswordInput() {
-        passwordField = createTextField(with: passwordFieldSample, and: "password")
+        passwordField = createTextField(with: passwordFieldSample, and: passwordText)
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
-        //vibrancyEffectView.contentView.addSubview(passwordField)
+    }
+    
+    /// Adjusts the positions of textfields in view did appear.
+    private func configInputTextfields() {
+        emailField.center = emailFieldSample.center
+        passwordField.center = passwordFieldSample.center
+        vibrancyEffectView.contentView.addSubview(emailField)
+        vibrancyEffectView.contentView.addSubview(passwordField)
     }
     
     /// Creates a input field with specified sample fields and their placeholders
@@ -186,144 +185,6 @@ extension LoginViewController: UITextFieldDelegate {
     /// Dismisses the keyboard
     func closeKeyboard() {
         view.endEditing(true)
-    }
-    
-}
-
-/**
- An extension of login view controller. It is used to define user login actions
- */
-extension LoginViewController {
-    
-    /// Defines action when user click on "Sign in" button
-    @IBAction func signInUser(_ sender: Any) {
-        let email = emailField.text ?? ""
-        let password = passwordField.text ?? ""
-        guard !email.characters.isEmpty && !password.characters.isEmpty else {
-            showErrorAlert(message: "Please fill all fields.")
-            return
-        }
-        LoadingBadge.instance.showBadge(in: view)
-        dataService.signInUser(email: email, password: password) {
-            (user, error) in
-            if let error = error {
-                LoadingBadge.instance.hideBadge()
-                self.handleSignInError(error: error)
-                return
-            }
-            guard let user = user else {
-                LoadingBadge.instance.hideBadge()
-                self.showErrorAlert(message: "Sign In Failed.")
-                return
-            }
-            guard user.isEmailVerified else {
-                LoadingBadge.instance.hideBadge()
-                self.showErrorAlert(message: "Please verify your email.")
-                return
-            }
-            LoadingBadge.instance.hideBadge()
-            self.performSegue(withIdentifier: "loginToAR", sender: nil)
-            
-        }
-    }
-    
-    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
-        
-    }
-    
-    /// Handles the error brought from the data service
-    /// - Parameter error: the error from data service
-    func handleSignInError(error: Error) {
-        guard let errCode = FIRAuthErrorCode(rawValue: error._code) else {
-            return
-        }
-        switch errCode {
-        case .errorCodeWrongPassword:
-            self.showErrorAlert(message: "Wrong password.")
-            return
-        case .errorCodeUserDisabled:
-            self.showErrorAlert(message: "User disabled.")
-            return
-        case .errorCodeUserNotFound:
-            self.showErrorAlert(message: "User not found.")
-            return
-        case .errorCodeInvalidCredential:
-            self.showErrorAlert(message: "Invalid credential.")
-            return
-        case .errorCodeOperationNotAllowed:
-            self.showErrorAlert(message: "Operation not allowed.")
-            return
-        case .errorCodeEmailAlreadyInUse:
-            self.showErrorAlert(message: "Email already in use.")
-            return
-        case .errorCodeInternalError:
-            self.showErrorAlert(message: "Internal error occured.")
-            return
-        default:
-            self.showErrorAlert(message: "Network error.")
-            return
-        }
-    }
-    
-    /// Presents alert with error message
-    /// - Parameter message: the message to be diplayed on the alert.
-    func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: "Oops", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
-    
-}
-
-extension LoginViewController: FBSDKLoginButtonDelegate {
-    
-    func setUpFBLoginButton() {
-        fbLoginButton = FBSDKLoginButton()
-        fbLoginButton.delegate = self
-        //print(FBButtonPlaceHolder.center)
-        //print(loginButton.center)
-        //fbLoginButton.center = FBButtonPlaceHolder.center
-        fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
-        //view.addSubview(fbLoginButton)
-    }
-    
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
-        if result.isCancelled { return }
-        if error != nil {
-            self.showErrorAlert(message: "Failed login with Facebook.")
-            return
-        }
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        LoadingBadge.instance.showBadge(in: view)
-        FBSDKLoginManager().logOut()
-        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-            DispatchQueue.global().async {
-                if let error = error {
-                    LoadingBadge.instance.hideBadge()
-                    self.handleSignInError(error: error)
-                    return
-                }
-                guard let user = user else { return }
-                DispatchQueue.main.async {
-                    
-                    DatabaseManager.instance.verifyUserProfile(uid: user.uid) {
-                        let profile = UserProfile(email: user.email!, avatarRef: (user.photoURL?.absoluteString)!, username: user.displayName!)
-                        self.dataService.addUserProfileToDatabase(uid: user.uid, profile: profile)
-                    }
-                }
-            }
-            LoadingBadge.instance.hideBadge()
-            self.performSegue(withIdentifier: "loginToAR", sender: nil)
-        }
-    }
-    
-    /**
-     Sent to the delegate when the button was used to logout.
-     - Parameter loginButton: The button that was clicked.
-     */
-    public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        
     }
     
 }

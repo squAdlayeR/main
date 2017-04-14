@@ -9,10 +9,14 @@
 import Foundation
 import UIKit
 
+/*
+ * LoadingBadge is a singleton instance of a partially customized
+ * actitivity indicator view to show process.
+ */
 public class LoadingBadge {
     
-    var overlayView = UIView()
-    var activityIndicator = UIActivityIndicatorView()
+    private var overlayView = UIView()
+    private var activityIndicator = UIActivityIndicatorView()
     
     static let instance: LoadingBadge = LoadingBadge()
     
