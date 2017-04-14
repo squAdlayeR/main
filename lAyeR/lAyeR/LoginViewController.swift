@@ -162,7 +162,6 @@ class LoginViewController: UIViewController {
         registerButton.titleLabel?.textColor = UIColor.yellow
         vibrancyEffectView.contentView.addSubview(registerButton)
     }
-    
 }
 
 /**
