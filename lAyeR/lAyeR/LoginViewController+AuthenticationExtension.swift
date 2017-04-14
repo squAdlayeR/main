@@ -58,41 +58,31 @@ extension LoginViewController {
         }
         switch errCode {
         case .errorCodeWrongPassword:
-            self.showErrorAlert(message: "Wrong password.")
+            self.showAlertMessage(message: Messages.wrongPasswordMessage)
             return
         case .errorCodeUserDisabled:
-            self.showErrorAlert(message: "User disabled.")
+            self.showAlertMessage(message: Messages.userDisabledMessage)
             return
         case .errorCodeUserNotFound:
-            self.showErrorAlert(message: "User not found.")
+            self.showAlertMessage(message: Messages.userNotFoundMessage)
             return
         case .errorCodeInvalidCredential:
-            self.showErrorAlert(message: "Invalid credential.")
+            self.showAlertMessage(message: Messages.invalidCredentialMessage)
             return
         case .errorCodeOperationNotAllowed:
-            self.showErrorAlert(message: "Operation not allowed.")
+            self.showAlertMessage(message: Messages.operationNotAllowedMessage)
             return
         case .errorCodeEmailAlreadyInUse:
-            self.showErrorAlert(message: "Email already in use.")
+            self.showAlertMessage(message: Messages.emailAlreadyInUseMessage)
             return
         case .errorCodeInternalError:
-            self.showErrorAlert(message: "Internal error occured.")
+            self.showAlertMessage(message: Messages.internalErrorMessage)
             return
         default:
-            self.showErrorAlert(message: "Network error.")
+            self.showAlertMessage(message: Messages.internalErrorMessage)
             return
         }
     }
-    
-    /// Presents alert with error message
-    /// - Parameter message: the message to be diplayed on the alert.
-    func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: "Oops", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
-    
 }
 
 
@@ -113,7 +103,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
         if result.isCancelled { return }
         if error != nil {
-            self.showErrorAlert(message: "Failed login with Facebook.")
+            self.showAlertMessage(message: "Failed login with Facebook.")
             return
         }
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)

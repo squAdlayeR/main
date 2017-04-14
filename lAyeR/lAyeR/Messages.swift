@@ -18,7 +18,14 @@ class Messages {
     static let signInFailureMessage: String = "Failed to sign in."
     static let verifyEmailMessage: String = "Please verify your email."
     static let verificationSentMessage: String = "An email verfication is sent to your email. Please verify your email."
-    
+    static let wrongPasswordMessage: String = "Wrong Password."
+    static let userDisabledMessage: String = "User Disabled"
+    static let userNotFoundMessage: String = "User Not Found."
+    static let invalidCredentialMessage: String = "Invalid Login Credential."
+    static let operationNotAllowedMessage: String = "Operation Not Allowed."
+    static let emailAlreadyInUseMessage: String = "Email Already In Use."
+    static let internalErrorMessage: String = "Internal Error Occurred."
+    static let networkErrorMessage: String = "Network Error."
 
 }
 
