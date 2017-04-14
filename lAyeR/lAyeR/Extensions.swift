@@ -71,5 +71,29 @@ extension UIViewController {
     
 }
 
+extension String {
+    
+    /// Returns true if a string is alphanumeric.
+    var isAlphanumeric: Bool {
+        return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
+    }
+}
+
+extension Double {
+    
+    /// Returns a truncated double number to specified decimal places.
+    /// - Parameter places: Int: number of decimal places remain after 
+    ///                          truncation.
+    /// - Returns:
+    ///     - Double: truncated number.
+    func truncate(places: Int) -> Double {
+        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
+    }
+}
+
+
+
+
+
 
 

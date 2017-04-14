@@ -17,9 +17,25 @@ class UserAuthenticator {
     
     
     /// Creates a user with email and password authentication.
-    func createUser(email: String, password: String, completion: AuthenticationCallback?) {
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: completion)
+    /// Adds the user profile to database and send verification email.
+    func createUser(email: String, password: String, username: String, registrationHandler: @escaping AuthenticationCallback, verificationHandler: @escaping FIRSendEmailVerificationCallback) {
+        FIRAuth.auth()?.createUser(withEmail: email, password: password) {
+            user, error in
+            registrationHandler(user, error)
+            guard let uid = user?.uid else { return }
+            DispatchQueue.global(qos: .background).async {
+                let profile = UserProfile(email: email, username: username)
+                DatabaseManager.instance.addUserProfileToDatabase(uid: uid, userProfile: profile)
+                self.sendEmailVerification(completion: { error in
+                    DispatchQueue.main.async {
+                        verificationHandler(error)
+                    }
+                })
+            }
+        }
     }
+    
+    
     
     /// Signs in a user with email and password authentication.
     func signInUser(email: String, password: String, completion: AuthenticationCallback?) {
@@ -78,3 +94,4 @@ class UserAuthenticator {
 }
 
 typealias AuthenticationCallback = FIRAuthResultCallback
+typealias User = FIRUser

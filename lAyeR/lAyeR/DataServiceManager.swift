@@ -26,10 +26,7 @@ class DataServiceManager {
     func addRouteToDatabase(route: Route, completion: @escaping (Bool) -> ()) {
         databaseManager.addRouteToDatabase(route: route, completion: completion)
     }
-    
-    func createUser(email: String, password: String, completion: AuthenticationCallback?) {
-        userAuthenticator.createUser(email: email, password: password, completion: completion)
-    }
+
     
     func signInUser(email: String, password: String, completion: AuthenticationCallback?) {
         userAuthenticator.signInUser(email: email, password: password, completion: completion)
