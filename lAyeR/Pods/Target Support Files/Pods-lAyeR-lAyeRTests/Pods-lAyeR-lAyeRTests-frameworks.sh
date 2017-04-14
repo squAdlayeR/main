@@ -93,6 +93,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/TBXML/TBXML.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TOCropViewController/TOCropViewController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/iOS-GPX-Framework/iOS_GPX_Framework.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/iOS-KML-Framework/iOS_KML_Framework.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
@@ -104,4 +105,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/TBXML/TBXML.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TOCropViewController/TOCropViewController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/iOS-GPX-Framework/iOS_GPX_Framework.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/iOS-KML-Framework/iOS_KML_Framework.framework"
 fi

@@ -56,6 +56,15 @@ class GPSTrackerParser {
         return routes
     }
     
+    func parseKMLToRoute(url: URL) -> [Route] {
+        guard let root = KMLParser.parseKML(at: url) else {
+            return []
+        }
+        
+        return []
+    }
+
+    
 }
 
 

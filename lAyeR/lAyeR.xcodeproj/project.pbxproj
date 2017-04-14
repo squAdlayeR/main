@@ -221,8 +221,6 @@
 		52D3796A1E8533CC005ED912 /* CheckPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPointTests.swift; sourceTree = "<group>"; };
 		52DE2C401E995F4700671B6E /* TrackPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
 		72CB6E50A05C1445CA4223E3 /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		59C2DF9FF1F3CB3D3BD12BDA /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A523DFB3F070AFCD61151E7 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9D0A2AE11E9F69A7008D6A21 /* MiniMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniMapConstants.swift; path = ViewComponents/BasicComponents/MiniMapView/MiniMapConstants.swift; sourceTree = "<group>"; };
 		9D0A2AE31E9F69A7008D6A21 /* MiniMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniMapViewController.swift; path = ViewComponents/BasicComponents/MiniMapView/MiniMapViewController.swift; sourceTree = "<group>"; };
 		9D0A2AE71E9FBC25008D6A21 /* MiscConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiscConstants.swift; path = ViewComponents/BasicComponents/Misc/MiscConstants.swift; sourceTree = "<group>"; };
@@ -1227,6 +1225,7 @@
 					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
 					"~/Documents/FacebookSDK",
+					"\"${PODS_ROOT}/iOS-KML-Framework/KML\"",
 				);
 				INFOPLIST_FILE = lAyeR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1236,6 +1235,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "lAyeR/lAyeR-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/iOS-GPX-Framework/GPX\" \"${PODS_ROOT}/iOS-KML-Framework\"/**";
 			};
 			name = Debug;
 		};
@@ -1266,6 +1266,7 @@
 					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
 					"~/Documents/FacebookSDK",
+					"\"${PODS_ROOT}/iOS-KML-Framework/KML\"",
 				);
 				INFOPLIST_FILE = lAyeR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1274,6 +1275,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "lAyeR/lAyeR-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/iOS-GPX-Framework/GPX\" \"${PODS_ROOT}/iOS-KML-Framework\"/**";
 			};
 			name = Release;
 		};
