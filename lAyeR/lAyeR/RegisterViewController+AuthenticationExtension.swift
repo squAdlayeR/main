@@ -32,17 +32,19 @@ extension RegisterViewController {
             showAlertMessage(message: Messages.passwordMismatchMessage)
             return
         }
-        guard password.characters.count >= ServerConstants.minimumPasswordLength else {
+        guard password.characters.count >= AuthenticationConstants.minimumPasswordLength else {
             showAlertMessage(message: Messages.passwordTooShortMessage)
             return
         }
         LoadingBadge.instance.showBadge(in: view)
+        createUser(email: email, password: password, username: username)
+    }
+    
+    private func createUser(email: String, password: String, username: String) {
         userAuthenticator.createUser(email: email, password: password) {
             (user, error) in
             if let error = error {
-                LoadingBadge.instance.hideBadge()
-                let errorMessage = self.userAuthenticator.getErrorMessage(error: error)
-                self.showAlertMessage(message: errorMessage)
+                self.handleError(error: error)
                 return
             }
             guard let uid = user?.uid else {
@@ -56,19 +58,30 @@ extension RegisterViewController {
                 UserAuthenticator.instance.sendEmailVerification(completion: {
                     error in
                     DispatchQueue.main.async {
-                        if error != nil {
-                            LoadingBadge.instance.hideBadge()
-                            self.showAlertMessage(message: Messages.verificationSentFailureMessage)
-                            return
-                        }
-                        LoadingBadge.instance.hideBadge()
-                        self.showAlertMessage(title: Messages.successTitle, message: Messages.verificationSentMessage)
-                        // Clear current user session.
-                        UserAuthenticator.instance.signOut()
+                        self.handleSendVerificationEmail(error: error)
                     }
                 })
             }
         }
+    }
+    
+    private func handleError(error: Error) {
+        LoadingBadge.instance.hideBadge()
+        let errorMessage = self.userAuthenticator.getErrorMessage(error: error)
+        self.showAlertMessage(message: errorMessage)
+    }
+    
+    /// Handles the feedback from sending verification email.
+    private func handleSendVerificationEmail(error: Error?) {
+        if error != nil {
+            LoadingBadge.instance.hideBadge()
+            self.showAlertMessage(message: Messages.verificationSentFailureMessage)
+            return
+        }
+        LoadingBadge.instance.hideBadge()
+        self.showAlertMessage(title: Messages.successTitle, message: Messages.verificationSentMessage)
+        // Clear current user session.
+        UserAuthenticator.instance.signOut()
     }
 
 }

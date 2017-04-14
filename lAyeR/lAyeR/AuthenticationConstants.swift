@@ -9,7 +9,8 @@
 import Foundation
 
 class AuthenticationConstants {
-
+    
+    static let minimumPasswordLength: Int = 6
     static let fbPermissions: [String] = ["public_profile",
                                           "email",
                                           "user_friends"]
