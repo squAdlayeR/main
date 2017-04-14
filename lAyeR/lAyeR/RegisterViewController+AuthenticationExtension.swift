@@ -132,7 +132,7 @@ extension RegisterViewController {
         }
         LoadingBadge.instance.hideBadge()
         showAlertMessage(title: Messages.successTitle, message: Messages.verificationSentMessage)
-        // Clear current user session.
+        /// Clear current user session.
         userAuthenticator.signOut()
     }
     

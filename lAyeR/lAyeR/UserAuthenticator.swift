@@ -91,6 +91,8 @@ class UserAuthenticator {
         }
     }
     
+    
+    
 }
 
 typealias AuthenticationCallback = FIRAuthResultCallback
