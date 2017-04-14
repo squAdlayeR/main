@@ -16,5 +16,5 @@ class GPSTrackerConstants {
     static let minimumDeltaDistance: Double = 10
     static let maximumDeltaDistance: Double = 25
     static let precision: Int = 4
-
+    
 }

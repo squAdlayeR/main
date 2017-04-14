@@ -66,7 +66,7 @@ class GPSTracker {
         
         // Notifies database manager to save/update trackpoints in cloud.
         DatabaseManager.instance.sendLocationInfoToDatabase(from: prev, to: curr)
-        DatabaseManager.instance.sendLocationInfoToDatabase(from: curr, to: prev) // bi-directions
+        DatabaseManager.instance.sendLocationInfoToDatabase(from: curr, to: prev)
         DatabaseManager.instance.sendLocationInfoToDatabase(from: GeoPoint(prev.latitude, curr.longitude), to: GeoPoint(curr.latitude, prev.longitude))
         DatabaseManager.instance.sendLocationInfoToDatabase(from: GeoPoint(curr.latitude, prev.longitude), to: GeoPoint(prev.latitude, curr.longitude))
     }
@@ -98,6 +98,8 @@ class GPSTracker {
         let newLon = geoPoint.longitude.truncate(places: GPSTrackerConstants.precision)
         return GeoPoint(newLat, newLon)
     }
+    
+    
 
 }
 

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class CommonAlertController: BasicAlertController {
     
     private var button: UIButton!
