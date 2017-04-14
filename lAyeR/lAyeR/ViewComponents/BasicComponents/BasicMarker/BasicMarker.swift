@@ -24,8 +24,8 @@ class BasicMarker: UIView {
     ///     - width: the width of the marker
     ///     - height: the height of the marker
     ///     - icon: the icon of the marker
-    init(width: CGFloat, height: CGFloat, icon: String) {
-        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+    init(size: CGSize, icon: String) {
+        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         super.init(frame: frame)
         initializeElements(with: icon)
         stylizeMarker()

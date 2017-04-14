@@ -15,8 +15,8 @@ extension RouteDesignerViewController {
 
     /// Defines the action when save button is pressed.
     @IBAction func saveButtonPressed(_ sender: Any) {
-        let alertFrame = CGRect(x: 0, y: 0, width: suggestedPopupWidth, height: suggestedPopupHeight)
-        storeRoutePopupController = BasicAlertController(title: "Store Your Route", frame: alertFrame)
+        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        storeRoutePopupController = BasicAlertController(title: "Store Your Route", size: alertSize)
         storeRoutePopupController.alertView.center = view.center
         addInnerViewToStorePopup()
         storeRoutePopupController.addButtonToAlert(createCloseStoreButton())
@@ -24,8 +24,8 @@ extension RouteDesignerViewController {
     }
     
     @IBAction func optionsIsPressed(_ sender: Any) {
-        let alertFrame = CGRect(x: 0, y: 0, width: suggestedPopupWidth, height: suggestedPopupHeight)
-        optionsPopupController = BasicAlertController(title: "Options", frame: alertFrame)
+        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        optionsPopupController = BasicAlertController(title: "Options", size: alertSize)
         optionsPopupController.alertView.center = view.center
         addInnerViewToOptionPopup()
         optionsPopupController.addButtonToAlert(createCloseOptionButton())

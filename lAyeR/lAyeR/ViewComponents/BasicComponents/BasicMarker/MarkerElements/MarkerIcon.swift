@@ -29,6 +29,7 @@ class MarkerIcon: UIView {
     /// Prepares the icon view for display, including
     /// 1. prepares the background image
     /// 2. prepares the icon inside the icon view
+    /// - Parameter icon: the icon of that will be displayed on the marker
     private func prepareDisplay(with icon: String) {
         initBackgroundImage()
         setIcon(with: icon)
@@ -43,6 +44,7 @@ class MarkerIcon: UIView {
     }
     
     /// Sets the icon
+    /// - Parameter iconName: the name of the icon
     private func setIcon(with iconName: String) {
         let icon = UIImageView(image: UIImage(named: iconName))
         icon.frame = iconFrame

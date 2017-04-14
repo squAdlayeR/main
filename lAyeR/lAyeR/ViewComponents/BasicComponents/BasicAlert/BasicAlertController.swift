@@ -30,10 +30,10 @@ class BasicAlertController: UIViewController {
     var cover: UIView!
     
     /// Initializes the alert controller
-    init(title: String, frame: CGRect) {
+    init(title: String, size: CGSize) {
         super.init(nibName: nil, bundle: nil)
-        initializeAlertView(with: frame)
-        initializeBasicAlert(with: title)
+        initializeAlertView(with: size)
+        initializeBasicAlert(with: title, and: size)
         prepareDisplay()
     }
     
@@ -45,27 +45,17 @@ class BasicAlertController: UIViewController {
     /// Initializes the alert view that will be used to hold
     /// the alert popup
     /// - Parameter frame: the frame of the alert view
-    private func initializeAlertView(with frame: CGRect) {
-        let sanitizedFrame = sanitize(frame)
-        let newAlertView = UIView(frame: sanitizedFrame)
+    private func initializeAlertView(with size: CGSize) {
+        let newAlertView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         alertView = newAlertView
     }
     
     /// Initializes the basic alert popup that will be shown
     /// in the view
     /// - Parameter title: the title of the basic alert
-    private func initializeBasicAlert(with title: String) {
-        let newBasicAlert = createBaiscAlert(with: title)
+    private func initializeBasicAlert(with title: String, and size: CGSize) {
+        let newBasicAlert = BasicAlert(width: size.width, height: size.height, title: title)
         alert = newBasicAlert
-    }
-    
-    /// Creates an alert with specified title
-    /// - Parameter title: the title of the alert
-    /// - Returns: a new basic alert
-    private func createBaiscAlert(with title: String) -> BasicAlert {
-        let newBasicAlert = BasicAlert(frame: alertFrame)
-        newBasicAlert.setTitle(title)
-        return newBasicAlert
     }
     
     /// Adds the alert into the alert view for display
@@ -117,12 +107,6 @@ extension BasicAlertController {
         alert.addButton(button)
     }
     
-    /// Sets the title of the alert
-    /// - Parameter title: the title of the alert
-    func setAlertTitle(_ title: String) {
-        alert.setTitle(title)
-    }
-    
     /// Adds a text content into the inner view of the alert.
     /// - Parameters:
     ///     - label: the label of the text content
@@ -136,13 +120,6 @@ extension BasicAlertController {
                                           width: innerView.bounds.width - innerViewSidePadding * 2)
             innerView.insertSubInfo(infoBlock)
         }
-    }
-    
-    /// Sets the blur effect of the popup
-    /// - Parameter openBlurEffect: determines whether the blur effect
-    ///     is opened or not.
-    func setBlurEffect(_ openBlurEffect: Bool) {
-        alert.blurMode = openBlurEffect
     }
     
     /// Presents the alert inside a specified view

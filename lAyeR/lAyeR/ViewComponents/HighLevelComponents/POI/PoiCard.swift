@@ -50,7 +50,7 @@ class PoiCard: Card {
     
     /// Initializes the card title
     private func initializeCardTitle() {
-        self.popupController.setAlertTitle(poiTitle)
+        self.popupController.alert.setTitle(poiTitle)
     }
     
     /// Initializes the card buttons which include

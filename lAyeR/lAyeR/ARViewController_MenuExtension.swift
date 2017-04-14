@@ -38,8 +38,8 @@ extension ARViewController {
     
     /// Prepares the updated successful alert
     private func prepareUpdateSuccessAlert() {
-        let alertFrame = CGRect(x: 0, y: 0, width: suggestedPopupWidth, height: suggestedPopupHeight)
-        updateSuccessAlertController = BasicAlertController(title: successTitle, frame: alertFrame)
+        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        updateSuccessAlertController = BasicAlertController(title: successTitle, size: alertSize)
         updateSuccessAlertController.alertView.center = view.center
         let closeButton = createCloseButton()
         updateSuccessAlertController.addButtonToAlert(closeButton)

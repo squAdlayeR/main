@@ -43,9 +43,8 @@ class Card: NSObject {
     ///     - frame: the frame of the marker in the card view
     ///     - distance: the distance to that place
     private func initMarker(with distance: Double, and icon: String) {
-        let newMarker = BasicMarker(width: suggestedMarkerWidth,
-                                    height: suggestedMarkerHeight,
-                                    icon: icon)
+        let markerSize = CGSize(width: suggestedMarkerWidth, height: suggestedMarkerHeight)
+        let newMarker = BasicMarker(size: markerSize, icon: icon)
         newMarker.updateDistance(with: distance)
         self.markerCard = newMarker
         addMarkerGesture()
@@ -61,13 +60,12 @@ class Card: NSObject {
     /// - Parameters:
     ///     - name: the name of the check point
     private func initAlert() {
-        let newAlertController = BasicAlertController(title: defaultTitle, frame: popupFrame)
+        let newAlertController = BasicAlertController(title: defaultTitle, size: popupSize)
         let alertWidth = newAlertController.alert.infoPanel.bounds.width
         let alertHeight = newAlertController.alert.infoPanel.bounds.height
         newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
                                                                height: alertHeight,
                                                                subtitle: titleText))
-        newAlertController.setBlurEffect(true)
         self.popupController = newAlertController
     }
     
@@ -79,12 +77,10 @@ class Card: NSObject {
     /// Calculates the frame of the popup
     /// - Note: the frame is defined by suggested popup height/width, which are
     ///     defined in config
-    private var popupFrame: CGRect {
+    private var popupSize: CGSize {
         let suggestdPopupW = superViewController.view.bounds.width * 0.8 <= 500 ? superViewController.view.bounds.width * 0.8 : 500
         let suggsetdPopupH = superViewController.view.bounds.height * 0.5 <= 800 ? superViewController.view.bounds.height * 0.5 : 800
-        let originX = superViewController.view.center.x - suggestdPopupW / 2
-        let originY = superViewController.view.center.y - suggsetdPopupH / 2
-        return CGRect(x: originX, y: originY, width: suggestdPopupW, height: suggsetdPopupH)
+        return CGSize(width: suggestdPopupW, height: suggsetdPopupH)
     }
     
 }
@@ -116,12 +112,6 @@ extension Card {
     /// - Parameter distance: thte distance that will be displayed
     func update(_ distance: Double) {
         markerCard.updateDistance(with: distance)
-    }
-    
-    /// Sets/unsets the blur effect
-    /// - Parameter isBlurMode: corresponding blur mode
-    func setBlurEffect(_ isBlurMode: Bool) {
-        popupController.setBlurEffect(isBlurMode)
     }
     
     func setMarkderAlpha(to alpha: CGFloat) {
