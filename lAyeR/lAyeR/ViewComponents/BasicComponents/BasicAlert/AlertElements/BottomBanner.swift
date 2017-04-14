@@ -15,79 +15,43 @@ import UIKit
 class BottomBanner: UIView {
 
     // The view of buttons
-    var buttonsView: UIStackView!
-    
-    // The alert that this banner belongs to
-    private(set) var alert: BasicAlert!
-    
-    // The background image of the banner
-    private var backgroundImageView: UIImageView!
-    
-    // The blur effect
-    private var blurEffectView: UIVisualEffectView!
-    
-    // Sets blur mode. If it is true, blur view should
-    // be shown.
-    var blurMode: Bool = true {
-        didSet {
-            if blurMode {
-                backgroundImageView.isHidden = true
-                blurEffectView.isHidden = false
-                return
-            }
-            backgroundImageView.isHidden = false
-            blurEffectView.isHidden = true
-        }
-    }
+    private var buttonsView: UIStackView!
     
     /// Initialization
-    init(alert: BasicAlert) {
-        self.alert = alert
-        let bottomBannerFrame = CGRect(x: 0, y: alert.frame.height / 2,
-                                    width: alert.frame.width,
-                                    height: bottomBannerHeight)
-        super.init(frame: bottomBannerFrame)
+    /// - Parameters:
+    ///     - width: the width of the bottom banner
+    ///     - height: the height of the bottom banner
+    init(width: CGFloat, height: CGFloat) {
+        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         prepareDisplay()
     }
     
     /// Load related elements and prepare for display
+    /// Typically, background and button view
     private func prepareDisplay() {
-        initBackgroundImage()
-        initBlurEffect()
-        initButtons()
+        initBackground()
+        initButtonsView()
     }
 
     /// Initializes background image of the top banner
-    private func initBackgroundImage() {
-        let backgroundImage = ResourceManager.getImageView(by: bottomBannerImage)
-        backgroundImage.frame = imageFrame
-        backgroundImageView = backgroundImage
-        self.addSubview(backgroundImageView)
-        backgroundImageView.isHidden = blurMode
-    }
-    
-    /// Initializes blur effect
-    private func initBlurEffect() {
+    private func initBackground() {
         let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        blurEffect.frame = imageFrame
-        blurEffectView = blurEffect
-        self.addSubview(blurEffectView)
-        blurEffectView.isHidden = !blurMode
+        blurEffect.frame = self.bounds
+        self.addSubview(blurEffect)
     }
     
-    /// Initializes the buttons of the alert with specified buttons
-    private func initButtons() {
+    /// Initializes a stack will be used to contain buttons
+    private func initButtonsView() {
         let newButtonsView = makeNewButtonsView()
         buttonsView = newButtonsView
         self.addSubview(buttonsView!)
     }
     
     /// Makes a stack view for buttons to display
-    /// - Parameter buttons: the buttons that to be displayed
     /// - Returns: the stackview that holds all the buttons
     private func makeNewButtonsView() -> UIStackView {
         let buttonStackView = UIStackView()
-        let stackViewFrame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        let stackViewFrame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
         buttonStackView.frame = stackViewFrame
         buttonStackView.axis = .horizontal
         buttonStackView.alignment = .fill
@@ -95,32 +59,8 @@ class BottomBanner: UIView {
         return buttonStackView
     }
     
-    /// Calculates a relatively suitable background image frame
-    private var imageFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-
-}
-
-/**
- An extension that is used to set bottom banner movement / visibility
- */
-extension BottomBanner {
-    
-    /// Opens the top banner
-    func open() {
-        self.transform = CGAffineTransform(translationX: 0,
-                                           y: self.alert.frame.height / 2 - self.frame.height)
-    }
-    
-    /// Closes the top banner
-    func close() {
-        self.transform = CGAffineTransform(translationX: 0,
-                                           y: 0)
     }
     
     /// Shows the buttons
@@ -133,4 +73,9 @@ extension BottomBanner {
         buttonsView?.alpha = 0
     }
     
+    /// Adds a button into the buttons view
+    func addButton(_ button: UIButton) {
+        buttonsView?.addArrangedSubview(button)
+    }
+
 }

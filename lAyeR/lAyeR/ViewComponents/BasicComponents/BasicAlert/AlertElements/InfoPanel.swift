@@ -16,6 +16,7 @@ import UIKit
 class InfoPanel: UIView {
 
     // The inner view of the info panel
+    // - Note: only keep one inner view
     var innerView: UIView? {
         willSet {
             innerView?.removeFromSuperview()
@@ -25,69 +26,34 @@ class InfoPanel: UIView {
         }
     }
     
-    // The alert that this panel is attached to
-    private(set) var alert: BasicAlert!
-    
-    // The background image of the banner
-    private var backgroundImageView: UIImageView!
-    
-    // The blur effect
-    private var blurEffectView: UIVisualEffectView!
-    
-    // Sets blur mode. If it is true, blur view should
-    // be shown.
-    var blurMode: Bool = true {
-        didSet {
-            if blurMode {
-                backgroundImageView.isHidden = true
-                blurEffectView.isHidden = false
-                return
-            }
-            backgroundImageView.isHidden = false
-            blurEffectView.isHidden = true
-        }
-    }
-    
     /// Initializes the info panel
-    init(alert: BasicAlert) {
-        self.alert = alert
-        let infoPanelFrame = CGRect(x: 0, y: topBannerHeight,
-                                    width: alert.frame.width,
-                                    height: alert.frame.height - topBannerHeight - bottomBannerHeight)
-        super.init(frame: infoPanelFrame)
+    /// - Parameters:
+    ///     - width: the width of the info panel
+    ///     - height: the height of the info panel
+    init(width: CGFloat, height: CGFloat) {
+        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         prepareDisplay()
     }
     
     /// Load related elements and prepare for display
+    /// Typically, initialize the background (blur) and inner view
     private func prepareDisplay() {
-        initBackgroundImage()
-        initBlurEffect()
+        initBackground()
         setInnerView()
     }
     
-    /// Initializes the background image
-    private func initBackgroundImage() {
-        let backgroundImage = ResourceManager.getImageView(by: infoPanelImage)
-        backgroundImage.frame = imageFrame
-        backgroundImageView = backgroundImage
-        self.addSubview(backgroundImageView)
-        backgroundImageView.isHidden = blurMode
-    }
-    
-    /// Initializes blur effect
-    private func initBlurEffect() {
+    /// Initializes the background
+    private func initBackground() {
         let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        blurEffect.frame = imageFrame
-        blurEffectView = blurEffect
-        self.addSubview(blurEffectView)
-        blurEffectView.isHidden = !blurMode
+        blurEffect.frame = self.bounds
+        self.addSubview(blurEffect)
     }
     
     /// Sets the inner view of the info panel
     /// - Parameter innerView: the inner view of the info panel
     private func setInnerView() {
         guard innerView != nil else { return }
-        innerView!.frame = innerViewFrame
+        innerView!.frame = self.bounds
         self.addSubview(innerView!)
     }
     
@@ -97,41 +63,9 @@ class InfoPanel: UIView {
         innerView.removeFromSuperview()
         self.innerView = nil
     }
-    
-    /// The frame of the background image
-    private var imageFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-    }
-    
-    /// The frame of the inner view
-    private var innerViewFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: self.frame.width, height: innerViewHeight)
-    }
-    
-    /// Calculates the height of the inner panel
-    private var innerViewHeight: CGFloat {
-        return alert.frame.height - alert.topBanner.frame.height - alert.bottomBanner.frame.height
-    }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-}
-
-/**
- An extension that is used to specify the panel transformation / visibility
- */
-extension InfoPanel {
-    
-    /// Opens the panel
-    func open() {
-        self.transform = CGAffineTransform(scaleX: 1, y: 1)
-    }
-    
-    /// Closes the panel
-    func close() {
-        self.transform = CGAffineTransform(scaleX: 1, y: 0.2)
     }
     
     /// Shows the info
