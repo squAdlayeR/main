@@ -24,8 +24,8 @@ class CheckpointCard: Card {
     ///     - center: the initial center of the marker
     ///     - distance: the distance between current place to the check point
     ///     - superView: the super view that the check point view is attachend to
-    override init(center: CGPoint, distance: Double, superViewController: UIViewController) {
-        super.init(center: center, distance: distance, superViewController: superViewController)
+    init(distance: Double, superViewController: UIViewController) {
+        super.init(distance: distance, icon: "marker", superViewController: superViewController)
         initializeCardTitle()
         initializeCardButtons()
     }

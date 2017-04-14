@@ -18,82 +18,56 @@ class BasicMarker: UIView {
     
     // The info of the marker. Usually will be displaying distances
     private(set) var info: MarkerInfo!
-    
-    // Specifies the blur mode of the alert
-    var blurMode: Bool = false {
-        didSet {
-            if blurMode {
-                setSubviewsBlurMode(true)
-                return
-            }
-            setSubviewsBlurMode(false)
-        }
-    }
 
     /// Initialization
     /// - Parameters:
-    ///     - frame: the frame of the marker
+    ///     - width: the width of the marker
+    ///     - height: the height of the marker
     ///     - icon: the icon of the marker
-    override init(frame: CGRect) {
+    init(width: CGFloat, height: CGFloat, icon: String) {
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
         super.init(frame: frame)
-        initializeElements()
-        prepareDisplay()
+        initializeElements(with: icon)
+        stylizeMarker()
     }
     
     /// Initializes the marker elements
     /// - Parameter icon: the icon image of the marker
-    private func initializeElements() {
-        initIcon()
+    private func initializeElements(with icon: String) {
+        initIcon(with: icon)
         initInfo()
     }
     
     /// Initializes the icon of the marker
-    /// - Parameter iconImage: the icon image
-    private func initIcon() {
-        let newIcon = MarkerIcon(marker: self)
-        self.icon = newIcon
+    /// - Parameter icon: the icon image
+    private func initIcon(with icon: String) {
+        let newIcon = MarkerIcon(width: self.bounds.width,
+                                 height: self.bounds.width,
+                                 icon: icon)
+        newIcon.frame.origin = CGPoint(x: 0, y: 0)
+        self.addSubview(newIcon)
     }
     
     /// Initializes the marker info
     private func initInfo() {
-        let newInfo = MarkerInfo(marker: self)
+        let newInfo = MarkerInfo(width: self.bounds.width,
+                                 height: self.bounds.height * (1 - BasicMarkerConstants.gapPercentage) - self.bounds.width)
+        newInfo.frame.origin = CGPoint(x: 0,
+                                       y: self.bounds.height * BasicMarkerConstants.gapPercentage + self.bounds.width)
         self.info = newInfo
+        self.addSubview(self.info)
     }
     
-    /// Prepares the marker for display. i.e. add them
-    /// all into subview
-    private func prepareDisplay() {
-        self.addSubview(self.icon)
-        self.addSubview(self.info)
-        self.layer.cornerRadius = 10
+    /// Defines stylings of the marker
+    private func stylizeMarker() {
+        self.layer.cornerRadius = BasicMarkerConstants.cornerRadius
         self.layer.masksToBounds = true
     }
     
     /// Sets the distance displayed on the marker
-    /// - Parameter distance: the distance to be displayed
-    func setDistance(_ distance: CGFloat) {
-        self.info.distance = distance
-    }
-    
-    /// Sets the icon image displayed on the marker
-    /// - Parameter iconImage: the icon image to be displayed
-    func setIcon(with category: POICategory) {
-        let icon = UIImage(named: "\(category.rawValue)-colored")
-        let iconView = UIImageView(image: icon)
-        self.icon.icon = iconView
-    }
-
-    /// Sets the blur mode of the sub elements
-    /// - Parameter isBlurMode: corresponding blur mode that will
-    ///     be set
-    private func setSubviewsBlurMode(_ isBlurMode: Bool) {
-        icon.blurMode = isBlurMode
-        info.blurMode = isBlurMode
-    }
-    
-    /// Calculates the gap of between maker icon and marker label
-    var markerGap: CGFloat {
-        return self.frame.height * markerGapPercent
+    /// - Parameter newDistance: the new distance to be displayed
+    func updateDistance(with newDistance: Double) {
+        self.info.updateDistance(with: newDistance)
     }
     
     required init?(coder aDecoder: NSCoder) {

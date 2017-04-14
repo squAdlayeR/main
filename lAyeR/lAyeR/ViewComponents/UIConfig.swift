@@ -66,7 +66,6 @@ let markerDistanceFilter: String = "%.0f"
 let markerDistanceUnit: String = "m"
 let markerGapPercent: CGFloat = 0.05
 let markerIconName: String = "marker.png"
-let markerIconPaddingPercent: CGFloat = 0.2
 let markerLabelPaddingPercent: CGFloat = 0.1
 
 /// Checkpoint view
