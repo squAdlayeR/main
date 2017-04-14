@@ -51,7 +51,6 @@ extension RegisterViewController {
                 return
             }
             DispatchQueue.global(qos: .background).async {
-                UserAuthenticator.instance.signOut()
                 let profile = UserProfile(email: email, username: username)
                 self.databaseManager.addUserProfileToDatabase(uid: uid, userProfile: profile)
                 UserAuthenticator.instance.sendEmailVerification(completion: {
@@ -64,6 +63,8 @@ extension RegisterViewController {
                         }
                         LoadingBadge.instance.hideBadge()
                         self.showAlertMessage(title: Messages.successTitle, message: Messages.verificationSentMessage)
+                        // Clear current user session.
+                        UserAuthenticator.instance.signOut()
                     }
                 })
             }
