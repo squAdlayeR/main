@@ -6,12 +6,30 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
+
+/*
+ * GPSTrackerParser is used to parse lAyeR route class into .gpx format
+ * string, and parse .gpx file into lAyeR route.
+ * This class utilizes iOS-GPX-Framework.
+ */
 class GPSTrackerParser {
     
+    /// Returns a singleton instance of GPSTrackerParser.
     static let instace = GPSTrackerParser()
     
-    private let creator = "lAyeR"
+    /// Denotes the creator of .gpx file.
+    private let creator = GPSGPXConstants.fileCreator
     
+    /// Parses Route into GPX string.
+    /// - Parameters:
+    ///     - route: Route: the route to be parsed.
+    /// - Returns:
+    ///     - gpx string of the route.
+    /// - Throws:
+    ///     - error: GPXError.createFailure: gpx file creation error.
+    /// MARK: Currently, lAyeR only supports GPXRoute Tag, as RouteDesigner
+    /// displays one route at a time, which is not suitable for GPXTrack 
+    /// and GPXTrackSegments representation.
     func parseRouteToGPX(route: Route) throws -> String {
         guard let root = GPXRoot(creator: creator) else {
             throw GPXError.createFailure

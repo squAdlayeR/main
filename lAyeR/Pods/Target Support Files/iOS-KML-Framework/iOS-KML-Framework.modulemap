@@ -1,0 +1,6 @@
+framework module iOS_KML_Framework {
+  umbrella header "iOS-KML-Framework-umbrella.h"
+
+  export *
+  module * { export * }
+}

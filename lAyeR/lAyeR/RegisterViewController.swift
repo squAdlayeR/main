@@ -49,6 +49,15 @@ class RegisterViewController: UIViewController {
         setupText()
         setupText()
         setCloseKeyboardAction()
+        vibrancyEffectView.contentView.addSubview(usernameField)
+        vibrancyEffectView.contentView.addSubview(passwordField)
+        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
+        vibrancyEffectView.contentView.addSubview(emailField)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.layoutIfNeeded()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -231,12 +240,24 @@ extension RegisterViewController {
                 self.showErrorAlert(message: "Failed to create user.")
                 return
             }
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .background).async {
+                UserAuthenticator.instance.signOut()
                 let profile = UserProfile(email: email, username: username)
                 self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
+                UserAuthenticator.instance.sendEmailVerification(completion: {
+                    error in
+                    DispatchQueue.main.async {
+                        if error != nil {
+                            LoadingBadge.instance.hideBadge()
+                            self.showErrorAlert(message: "Failed to send verification email.")
+                            return
+                        }
+                        LoadingBadge.instance.hideBadge()
+                        self.showAlertMessage(title: "One more step!", message: "A verification email is sent to your mail box. Please verify your account.")
+                    }
+                    
+                })
             }
-            LoadingBadge.instance.hideBadge()
-            self.performSegue(withIdentifier: "registerToAR", sender: nil)
         }
     }
     

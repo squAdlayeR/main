@@ -40,9 +40,9 @@ class AppSettings: NSObject {
     
     /// Initialization
     private override init() {
-        maxNumberOfMarkers = 10
-        radiusOfDetection = 500
-        selectedPOICategrories = ["restaurant", "atm", "bus_station"]
+        maxNumberOfMarkers = defaultNumberOfMarkers
+        radiusOfDetection = defaultDetectionRadius
+        selectedPOICategrories = defaultCategories
         super.init()
     }
     

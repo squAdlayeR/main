@@ -58,10 +58,18 @@ class LoginViewController: UIViewController {
         setupButtons()
         setCloseKeyboardAction()
         setUpFBLoginButton()
+        vibrancyEffectView.contentView.addSubview(emailField)
+        vibrancyEffectView.contentView.addSubview(passwordField)
+        view.addSubview(fbLoginButton)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.layoutIfNeeded()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -205,6 +213,16 @@ extension LoginViewController {
                 self.handleSignInError(error: error)
                 return
             }
+            guard let user = user else {
+                LoadingBadge.instance.hideBadge()
+                self.showErrorAlert(message: "Sign In Failed.")
+                return
+            }
+            guard user.isEmailVerified else {
+                LoadingBadge.instance.hideBadge()
+                self.showErrorAlert(message: "Please verify your email.")
+                return
+            }
             LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: "loginToAR", sender: nil)
             
@@ -267,8 +285,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
         fbLoginButton.delegate = self
         //print(FBButtonPlaceHolder.center)
         //print(loginButton.center)
-        //loginButton.center = FBButtonPlaceHolder.center
-        //loginButton.frame = FBButtonPlaceHolder.frame
+        //fbLoginButton.center = FBButtonPlaceHolder.center
         fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
         //view.addSubview(fbLoginButton)
     }

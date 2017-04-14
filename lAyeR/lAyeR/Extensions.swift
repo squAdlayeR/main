@@ -11,11 +11,9 @@ import UIKit
 
 extension UIViewController {
     
-    func showAlertMessage(message: String) {
-        let alert = UIAlertController(title: "Oops", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+    func showAlertMessage(title: String = errorTitle, message: String) {
+        self.addChildViewController(CommonAlertController.instance)
+        CommonAlertController.instance.showAlert(title, message, in: self.view)
     }
     
     func viewCapture(view: UIView) -> UIImage {
@@ -25,10 +23,6 @@ extension UIViewController {
         UIGraphicsEndImageContext()
         return screenshot ?? UIImage()
     }
-}
-
-/// Using DocumentInteractionViewController
-extension UIViewController {
     
     func share(routes: [Route]) {
         do {
@@ -52,18 +46,11 @@ extension UIViewController {
             present(activityViewController, animated: true, completion: nil)
             
         } catch {
-            showAlertMessage(message: "Fail to create .gpx files.")
+            showAlertMessage(title: "Oops", message: "Fail to create .gpx files.")
         }
     }
     
 }
 
-extension UIButton {
-    
-    func addEvent(_ event: UIControlEvents, completion: @escaping () -> ()) {
-        completion()
-    }
-    
-}
 
 

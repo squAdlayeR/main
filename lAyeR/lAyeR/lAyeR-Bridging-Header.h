@@ -6,6 +6,7 @@
 #define lAyeR_Bridging_Header_h
 
 #import "GPX.h"
+#import "KML.h"
 #import <TOCropViewController/TOCropViewController.h>
 
 #endif

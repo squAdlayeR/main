@@ -62,6 +62,7 @@ class AppSettingsViewController: UIViewController {
         loadCurrentApplicationSetting()
     }
     
+    /// Adjusts auto layout.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let contentSize = CGSize(width: categoriesTable.frame.width,
