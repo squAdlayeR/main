@@ -37,30 +37,42 @@ class BasicAlert: UIView {
 
     
     /// Initialized the alert
-    /// - Parameter frame: the frame of the alert
+    /// - Parameters:
+    ///     - width: the width of the alert
+    ///     - height: the height of the alert
+    ///     - title: the title of the alert
     init(width: CGFloat, height: CGFloat, title: String) {
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        stylizeAlert()
         initElements(with: title)
-        prepareDisplay()
-        self.layer.cornerRadius = 20
+    }
+    
+    /// Defines basic styling of the alert
+    private func stylizeAlert() {
+        self.layer.cornerRadius = BasicAlertConstants.alertCornerRadius
         self.layer.masksToBounds = true
     }
     
     /// Initializes banners and info panel
+    /// - Parameter title: the title of top banner
     private func initElements(with title: String) {
         initInfoPanel()
         initTopBanner(with: title)
         initBottomBanner()
     }
     
-    /// Creates a new top banner
+    /// Creates a new top banner with title
+    /// - Parameter title: the title of the alert
     private func initTopBanner(with title: String) {
         let newTopBanner = TopBanner(width: self.bounds.width,
                                      height: BasicAlertConstants.topBannerHeight,
                                      title: title)
         newTopBanner.frame.origin = CGPoint(x: 0,
-                                            y: self.bounds.height / 2 - BasicAlertConstants.topBannerHeight + 0.1)
+                                            y: self.bounds.height / 2
+                                                - BasicAlertConstants.topBannerHeight
+                                                + BasicAlertConstants.topBannerErrorOffset)
         topBanner = newTopBanner
+        self.addSubview(topBanner)
     }
     
     /// Creates a new bottom banner
@@ -70,6 +82,7 @@ class BasicAlert: UIView {
         newBottomBanner.frame.origin = CGPoint(x: 0,
                                                y: self.bounds.height / 2)
         bottomBanner = newBottomBanner
+        self.addSubview(bottomBanner)
     }
     
     /// Creates a new info panel
@@ -80,26 +93,23 @@ class BasicAlert: UIView {
                                         - BasicAlertConstants.bottomBannerHeight)
         newInfoPanel.frame.origin = CGPoint(x: 0, y: BasicAlertConstants.topBannerHeight)
         infoPanel = newInfoPanel
-    }
-    
-    /// Prepares the alert for display
-    private func prepareDisplay() {
         self.addSubview(infoPanel)
-        self.addSubview(topBanner)
-        self.addSubview(bottomBanner)
     }
     
     /// Inserts a view as the display view into the info panel
+    /// - Parameter view: the view that is going to be inserted into info panel
     func setView(_ view: UIView) {
         infoPanel.innerView = view
     }
     
     /// Adds a button into the info the bottom banner
+    /// - Parameter button: the button that is to be added into bottom panel
     func addButton(_ button: UIButton) {
         bottomBanner.addButton(button)
     }
     
     /// Sets the title of the alert
+    /// - Parameter title: the title of the alert
     func setTitle(_ title: String) {
         topBanner.setTitle(title)
     }
@@ -120,9 +130,9 @@ extension BasicAlert {
     func open() {
         prepareOpen()
         ResourceManager.playSound(with: openSound)
-        UIView.animate(withDuration: 0.15, animations: { [weak self] in
+        UIView.animate(withDuration: BasicAlertConstants.openDuration, animations: { [weak self] in
             guard self != nil else { return }
-            self!.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self!.transform = BasicAlertConstants.originalScale
             self!.alpha = 1
         }, completion: { [weak self] isFinished in
             self?.openBanners()
@@ -131,25 +141,25 @@ extension BasicAlert {
     
     /// Sets all elements to the transformation before animation
     private func prepareOpen() {
-        self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         self.alpha = 0
-        self.topBanner.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.transform = BasicAlertConstants.initialScale
+        self.topBanner.transform = BasicAlertConstants.topBannerInitialScale
         self.bottomBanner.hideButtons()
-        self.bottomBanner.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.bottomBanner.transform = BasicAlertConstants.bottomBannerInitialScale
         self.infoPanel.hideInfo()
-        self.infoPanel.transform = CGAffineTransform(scaleX: 1, y: 0.2)
+        self.infoPanel.transform = BasicAlertConstants.infoPanelInitialScale
     }
     
     /// opens the banners and info panel
     func openBanners() {
-        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+        UIView.animate(withDuration: BasicAlertConstants.bannerOpenDuration, animations: { [weak self] in
             guard self != nil else { return }
             self!.alpha = 1
             self!.topBanner.transform = CGAffineTransform(translationX: 0,
                                                           y: 0 - (self!.bounds.height / 2 - self!.topBanner.bounds.height))
             self!.bottomBanner.transform = CGAffineTransform(translationX: 0,
                                                              y: self!.bounds.height / 2 - self!.bottomBanner.bounds.height)
-            self!.infoPanel.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self!.infoPanel.transform = BasicAlertConstants.originalScale
         }, completion: { [weak self] isFinished in
             self?.showInfo()
         })
@@ -157,7 +167,7 @@ extension BasicAlert {
     
     /// displays info
     func showInfo() {
-        UIView.animate(withDuration: 0.5, animations: { [weak self] in
+        UIView.animate(withDuration: BasicAlertConstants.showInfoDuration, animations: { [weak self] in
             guard self != nil else { return }
             self!.bottomBanner.showButtons()
             self!.infoPanel.showInfo()
@@ -170,10 +180,9 @@ extension BasicAlert {
     /// - Note: the function need to add @escaping since inCompletion
     ///     may refer to some functions that has reference to `self`
     func close(inCompletion: @escaping () -> Void) {
-        //ResourceManager.playSound(with: closeSound)
-        UIView.animate(withDuration: 0.15, animations: { [weak self] in
+        UIView.animate(withDuration: BasicAlertConstants.closeDuration, animations: { [weak self] in
             guard self != nil else { return }
-            self!.transform = CGAffineTransform(scaleX: 0.1, y: 1)
+            self!.transform = BasicAlertConstants.closeScale
             self!.alpha = 0
         }, completion: { isFinished in
             inCompletion()
