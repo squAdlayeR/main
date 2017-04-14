@@ -27,7 +27,7 @@ extension ARViewController {
     
     /// Prepares the main menu button. When it is clicked, it will toggle the menu
     private func prepareMainMenuButton() {
-        let menuButton = MenuButtonView(radius: menuButtonRaidus, iconName: menuButtonIcon)
+        let menuButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: menuButtonIcon)
         let tap = UITapGestureRecognizer(target: self, action: #selector(toggleMenu))
         menuButton.addGestureRecognizer(tap)
         mainMenuButton = menuButton
@@ -86,7 +86,7 @@ extension ARViewController {
     /// Creates a map button
     /// - Returns: a menu button view
     private func createMapButton() -> MenuButtonView {
-        let mapButton = MenuButtonView(radius: menuButtonRaidus, iconName: designerIconName)
+        let mapButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: designerIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(openDesigner))
         mapButton.addGestureRecognizer(tap)
         return mapButton
@@ -95,7 +95,7 @@ extension ARViewController {
     /// Creates a settings button
     /// - Returns: a menu button view
     private func createSettingsButton() -> MenuButtonView {
-        let settingsButton = MenuButtonView(radius: menuButtonRaidus, iconName: settingsIconName)
+        let settingsButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: settingsIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(openAppSettings))
         settingsButton.addGestureRecognizer(tap)
         return settingsButton
@@ -104,7 +104,7 @@ extension ARViewController {
     /// Creates a profile button
     /// - Returns: a menu button view
     private func createProfileButton() -> MenuButtonView {
-        let profileButton = MenuButtonView(radius: menuButtonRaidus, iconName: profileIconName)
+        let profileButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: profileIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(openUserProfile))
         profileButton.addGestureRecognizer(tap)
         return profileButton
@@ -113,7 +113,7 @@ extension ARViewController {
     /// Creates a refresh button for updating people current locations
     /// - Returns: a refresh button for update
     private func createRefreshButton() -> MenuButtonView {
-        let refreshButton = MenuButtonView(radius: menuButtonRaidus, iconName: "refresh")
+        let refreshButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: "refresh")
         let tap = UITapGestureRecognizer(target: self, action: #selector(forceUpdateLocation))
         refreshButton.addGestureRecognizer(tap)
         return refreshButton

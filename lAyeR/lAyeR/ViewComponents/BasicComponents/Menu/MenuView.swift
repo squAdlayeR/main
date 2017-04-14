@@ -16,7 +16,6 @@ import UIKit
     from top to button
  - when menu is closed, it will have a reversed animation as opening
  - buttons are customized
- - buttons has a specifed gap between each other
  */
 class MenuView: UIView {
     
@@ -34,7 +33,7 @@ class MenuView: UIView {
     ///     the menu
     /// - Note: to do this, we need to stack the button first and then
     ///     resize the frame of the menu
-    private func addButton(_ menuButton: UIView) {
+    func addButton(_ menuButton: UIView) {
         stackButtonView(menuButton)
         resizeFrame()
     }
@@ -43,8 +42,9 @@ class MenuView: UIView {
     /// - Parameter button: the button that is to be inserted
     private func stackButtonView(_ button: UIView) {
         if let lastButton = self.subviews.last {
+            let previousButtonEnd = lastButton.frame.origin.y + lastButton.bounds.height
             let newFrame = CGRect(x: button.frame.origin.x,
-                                  y: lastButton.frame.origin.y + lastButton.bounds.height + buttonGap,
+                                  y: previousButtonEnd,
                                   width: button.bounds.width,
                                   height: button.bounds.height)
             button.frame = newFrame
@@ -69,9 +69,9 @@ class MenuView: UIView {
     func open() {
         preprocess()
         for (index, button) in self.subviews.reversed().enumerated() {
-            UIView.animate(withDuration: menuAnimatingDuration,
-                           delay: menuButtonAnimationDelay * Double(index),
-                           usingSpringWithDamping: menuSpringCoefficient,
+            UIView.animate(withDuration: MenuConstants.openCloseDuration,
+                           delay: MenuConstants.animationDelay * Double(index),
+                           usingSpringWithDamping: MenuConstants.springCoefficient,
                            initialSpringVelocity: 0, animations: {
                 button.alpha = 1
                 button.transform = CGAffineTransform(translationX: 0, y: 0)
@@ -94,9 +94,9 @@ class MenuView: UIView {
     ///     be called after the animation is finished
     func close(inCompletion: @escaping () -> Void) {
         for (index, button) in self.subviews.enumerated() {
-            UIView.animate(withDuration: menuAnimatingDuration,
-                           delay: menuButtonAnimationDelay * Double(index),
-                           usingSpringWithDamping: menuSpringCoefficient,
+            UIView.animate(withDuration: MenuConstants.openCloseDuration,
+                           delay: MenuConstants.animationDelay * Double(index),
+                           usingSpringWithDamping: MenuConstants.springCoefficient,
                            initialSpringVelocity: 0, animations: { [weak self] in
                 guard self != nil else { return }
                 button.alpha = 0

@@ -104,15 +104,12 @@ let infoBlockHalfStar = "☆"
 /// Menu view
 let menuButtonIconPaddingPercent: CGFloat = 0.2
 let buttonGap: CGFloat = 10
-let menuAnimatingDuration: TimeInterval = 0.8
-let menuButtonAnimationDelay: TimeInterval = 0.05
-let menuSpringCoefficient: CGFloat = 0.8
+
 let menuLeftPaddingPercent: CGFloat = 0.15
 let designerIconName: String = "search"
 let miniMapIconName: String = "map"
 let profileIconName: String = "profile"
 let settingsIconName: String = "settings"
-let menuButtonRaidus: CGFloat = 50
 let menuButtonBackgroundImage = "menuButton"
 let menuButtonIcon = "menu"
 
