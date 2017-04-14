@@ -253,7 +253,7 @@ extension RegisterViewController {
                             return
                         }
                         LoadingBadge.instance.hideBadge()
-                        self.showAlertMessage(message: "Email sent. Please verify your account.")
+                        self.showAlertMessage(title: "One more step!", message: "A verification email is sent to your mail box. Please verify your account.")
                     }
                     
                 })

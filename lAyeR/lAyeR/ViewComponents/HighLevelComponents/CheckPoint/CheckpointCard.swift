@@ -32,7 +32,7 @@ class CheckpointCard: Card {
     
     /// Initializes the card title
     private func initializeCardTitle() {
-        self.popupController.setTitle(checkpointTitle)
+        self.popupController.setAlertTitle(checkpointTitle)
     }
     
     /// Initializes the buttons on the card

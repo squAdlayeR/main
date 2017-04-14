@@ -47,6 +47,7 @@
 		5249B1C31E746CC70048249D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C21E746CC70048249D /* AppConfig.swift */; };
 		5249B1C51E74D8070048249D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C41E74D8070048249D /* Parser.swift */; };
 		5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1F11E750B9C0048249D /* lAyeR.xcdatamodeld */; };
+		5269CA641EA07E5200A2F961 /* CommonAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5269CA631EA07E5200A2F961 /* CommonAlertController.swift */; };
 		528288B21E92690C00163654 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AE1E92690C00163654 /* AppSettings.swift */; };
 		528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AF1E92690C00163654 /* AppSettingsConstants.swift */; };
 		528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B01E92690C00163654 /* AppSettingsViewController.swift */; };
@@ -192,6 +193,7 @@
 		5249B1C21E746CC70048249D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		5249B1C41E74D8070048249D /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		5249B1F21E750B9C0048249D /* lAyeR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lAyeR.xcdatamodel; sourceTree = "<group>"; };
+		5269CA631EA07E5200A2F961 /* CommonAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAlertController.swift; sourceTree = "<group>"; };
 		528288AE1E92690C00163654 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		528288AF1E92690C00163654 /* AppSettingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsConstants.swift; sourceTree = "<group>"; };
 		528288B01E92690C00163654 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 				528288DD1E969F2D00163654 /* GPXManager.swift */,
 				52B2298A1E974FB2009C733B /* GPXError.swift */,
 				52B2298F1E978284009C733B /* Extensions.swift */,
+				5269CA631EA07E5200A2F961 /* CommonAlertController.swift */,
 			);
 			name = GPSTracker;
 			sourceTree = "<group>";
@@ -981,6 +984,7 @@
 				2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				A25E65891E9B7B8400011885 /* CameraController.swift in Sources */,
+				5269CA641EA07E5200A2F961 /* CommonAlertController.swift in Sources */,
 				528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */,

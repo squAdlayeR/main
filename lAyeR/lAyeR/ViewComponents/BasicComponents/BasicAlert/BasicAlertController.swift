@@ -22,7 +22,7 @@ import UIKit
     inside the alertView, which will not be interrupted by the
     transformation performed by the `ARViewLayoutAdjustment`
  */
-class BasicAlertController {
+class BasicAlertController: UIViewController {
     
     private(set) var alert: BasicAlert!
     private(set) var alertView: UIView!
@@ -31,9 +31,15 @@ class BasicAlertController {
     
     /// Initializes the alert controller
     init(title: String, frame: CGRect) {
+        super.init(nibName: nil, bundle: nil)
         initializeAlertView(with: frame)
         initializeBasicAlert(with: title)
         prepareDisplay()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        //fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     /// Initializes the alert view that will be used to hold
@@ -113,7 +119,7 @@ extension BasicAlertController {
     
     /// Sets the title of the alert
     /// - Parameter title: the title of the alert
-    func setTitle(_ title: String) {
+    func setAlertTitle(_ title: String) {
         alert.setTitle(title)
     }
     
@@ -152,7 +158,7 @@ extension BasicAlertController {
     }
     
     /// Closes the alert
-    func closeAlert() {
+    @objc func closeAlert() {
         alert.close(inCompletion: { [weak self] in
             guard self != nil else { return }
             self!.alert.removeFromSuperview()
