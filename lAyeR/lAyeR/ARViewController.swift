@@ -82,6 +82,7 @@ class ARViewController: UIViewController {
         scnViewController.setupScene()
         
         geoManager.forceUpdateUserNearbyPOIS()
+        GPSTracker.instance.start()
     }
     
     
