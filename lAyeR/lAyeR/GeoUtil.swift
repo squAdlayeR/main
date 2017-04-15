@@ -6,7 +6,6 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 
 /*
@@ -70,6 +69,51 @@ class GeoUtil {
         return ModelConstants.minLon <= lon && lon <= ModelConstants.maxLon
     }
     
+    /// Returns true if the routes has similar shapes specified by threshold.
+    /// - Parameters:
+    ///     - route1: Route
+    ///     - route2: Route
+    ///     - threshold: Double: error threshold for comparison
+    /// - Returns:
+    ///     - Bool: true if the routes are similar.
+    /// MARK: We use approximation methods here, the dissimilarity score is the sum
+    /// of the minimum distance of each point in one route to the line segments in
+    /// another route.
+    static func isSimilar(route1: Route, route2: Route, threshold: Double) -> Bool {
+        let pathScore1 = getPathDissimilarityScore(from: route1, to: route2)
+        let pathScore2 = getPathDissimilarityScore(from: route2, to: route1)
+        return pathScore1/Double(route1.checkPoints.count) + pathScore2/Double(route2.checkPoints.count) <= threshold
+    }
+    
+    /// Returns the dissimilarity score from route1 to route2.
+    /// - Parameters:
+    ///     - route1: Route
+    ///     - route2: Route
+    /// - Returns:
+    ///     - Double: the dissimilarity score.
+    static func getPathDissimilarityScore(from route1: Route, to route2: Route) -> Double {
+        var sum: Double = 0
+        for index in 0..<route1.checkPoints.count {
+            let pt = route1.checkPoints[index]
+            var min = DBL_MAX
+            for idx in 0..<route2.checkPoints.count - 1 {
+                let pt1 = route2.checkPoints[idx]
+                let pt2 = route2.checkPoints[idx + 1]
+                let delta = distanceFromPointToLine(point: pt, fromLineSegmentBetween: pt1, and: pt2)
+                min = min > delta ? delta : min
+            }
+            sum += min
+        }
+        return sum
+    }
+    
+    /// Returns the distance from a point to the line segment.
+    /// - Parameters:
+    ///     - p: GeoPoint: reference point
+    ///     - l1: GeoPoint: one point of the line segment
+    ///     - l2: GeoPoint: the other point of the line segment
+    /// - Returns:
+    ///     - Double: the distance from p to l1l2
     static func distanceFromPointToLine(point p: GeoPoint, fromLineSegmentBetween l1: GeoPoint, and l2: GeoPoint) -> Double {
         let a = p.latitude - l1.latitude
         let b = p.longitude - l1.longitude
@@ -80,8 +124,8 @@ class GeoUtil {
         let lenSq = c * c + d * d
         let param = dot / lenSq
         
-        var xx:Double!
-        var yy:Double!
+        var xx: Double!
+        var yy: Double!
         
         if param < 0 || (l1.latitude == l2.latitude && l1.longitude == l2.longitude) {
             xx = l1.latitude
@@ -100,26 +144,5 @@ class GeoUtil {
         return sqrt(dx * dx + dy * dy)
     }
     
-    static func getPathDissimilarityScore(from route1: Route, to route2: Route) -> Double {
-        var sum: Double = 0
-        for index in 0..<route1.checkPoints.count {
-            let pt = route1.checkPoints[index]
-            var min = DBL_MAX
-            for idx in 0..<route2.checkPoints.count - 1 {
-                let pt1 = route2.checkPoints[idx]
-                let pt2 = route2.checkPoints[idx + 1]
-                let delta = distanceFromPointToLine(point: pt, fromLineSegmentBetween: pt1, and: pt2)
-                min = min > delta ? delta : min
-            }
-            sum += min
-        }
-        return sum
-    }
-    
-    static func isSimilar(route1: Route, route2: Route, threshold: Double) -> Bool {
-        let pathScore1 = getPathDissimilarityScore(from: route1, to: route2)
-        let pathScore2 = getPathDissimilarityScore(from: route2, to: route1)
-        return pathScore1/Double(route1.checkPoints.count) + pathScore2/Double(route2.checkPoints.count) <= threshold
-    }
 }
 

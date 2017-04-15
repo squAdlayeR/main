@@ -10,11 +10,13 @@ import FirebaseAuth
 import FBSDKLoginKit
 import FBSDKCoreKit
 
+/*
+ * User Authenticator is used to authenticate user login/registration/logout activities.
+ */
 class UserAuthenticator {
     
-    /// Returns an instance of UserAuthenticator.
+    /// Returns a singleton instance of UserAuthenticator.
     static let instance = UserAuthenticator()
-    
     
     /// Creates a user with email and password authentication.
     /// Adds the user profile to database and send verification email.
@@ -35,29 +37,33 @@ class UserAuthenticator {
         }
     }
     
-    
-    
     /// Signs in a user with email and password authentication.
+    /// - Parameters:
+    ///     - email: String: user email
+    ///     - password: String: user password
+    ///     - completion: AuthenticationCallback?
     func signInUser(email: String, password: String, completion: AuthenticationCallback?) {
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: completion)
     }
     
+    /// Signs in a user with credential.
+    /// - Parameters:
+    ///     - credential: FIRAuthenCredential: crendential used
+    ///     - completion: AuthenticationCallback?
     func signInUser(with credential: FIRAuthCredential, completion: AuthenticationCallback?) {
         FIRAuth.auth()?.signIn(with: credential, completion: completion)
     }
     
     /// Sends email verification to a user registered with email.
+    /// - Parameters:
+    ///     - completion: FIRSendEmailVerificationCallback?
     func sendEmailVerification(completion: FIRSendEmailVerificationCallback?) {
         FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: completion)
     }
     
     /// Signs out a user.
     func signOut() {
-        do {
-            try FIRAuth.auth()?.signOut()
-        } catch let error as Error {
-            print(error.localizedDescription)
-        }
+        try? FIRAuth.auth()?.signOut()
     }
     
     /// Returns current user.
@@ -65,6 +71,11 @@ class UserAuthenticator {
         return FIRAuth.auth()?.currentUser
     }
     
+    /// Returns the error message associated with the authentication error.
+    /// - Parameters:
+    ///     - error: Error: authentication error
+    /// - Returns:
+    ///     - String: error message
     func getErrorMessage(error: Error) -> String {
         guard let errCode = FIRAuthErrorCode(rawValue: error._code) else {
             return Messages.unknownErrorMessage
