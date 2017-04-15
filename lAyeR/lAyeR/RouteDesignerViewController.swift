@@ -81,7 +81,6 @@ class RouteDesignerViewController: UIViewController {
         initializeMarkersAndLines()
         addPanGesture()
         addTapGesture()
-        
         historyOfMarkers.append(markers)
         
         if let importedURL = importedURL {
@@ -116,8 +115,7 @@ class RouteDesignerViewController: UIViewController {
         topBanner.addSubview(blurView)
         topBanner.sendSubview(toBack: blurView)
         
-        gpsRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
-        layerRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
+        prepareButtons()
         prepareBottomBanner()
     }
     
@@ -147,6 +145,7 @@ class RouteDesignerViewController: UIViewController {
     @IBOutlet weak var searchPin: UIImageView!
     @IBOutlet weak var cancelSearchButton: UIImageView!
     @IBOutlet weak var mostBottomBanner: UIView!
+    @IBOutlet weak var undoButton: UIButton!
     
     // ---------------- Check Rep --------------------//
     
@@ -260,6 +259,7 @@ class RouteDesignerViewController: UIViewController {
         for line in lines {
             line.map = mapView
         }
+        undoButton.isEnabled = false
     }
     
     // ---------------- Add Gestures --------------------//
@@ -369,8 +369,16 @@ class RouteDesignerViewController: UIViewController {
                 let markerData = marker.userData as! CheckPoint
                 addPoint(coordinate: marker.position, isControlPoint: markerData.isControlPoint, at: idx)
             }
+            if historyOfMarkers.count == 1 {
+                undoButton.isEnabled = false
+            }
         }
         if RouteDesignerConstants.testing { assert(checkRep()) }
+    }
+    
+    func addToHistory() {
+        historyOfMarkers.append(markers)
+        undoButton.isEnabled = true
     }
     
     @IBAction func removeAll(_ sender: Any) {
@@ -379,14 +387,14 @@ class RouteDesignerViewController: UIViewController {
                 while markers.count > 1 {
                     removePoint(at: 0)
                 }
-                historyOfMarkers.append(markers)
+                addToHistory()
             }
         } else {
             if markers.count > 2 {
                 while markers.count > 2 {
                     removePoint(at: 1)
                 }
-                historyOfMarkers.append(markers)
+                addToHistory()
             }
         }
     }
@@ -985,7 +993,7 @@ class RouteDesignerViewController: UIViewController {
             removeMarker(at: markers.count-1)
             getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx) { (result) -> () in
                 if result {
-                    self.historyOfMarkers.append(self.markers)
+                    self.addToHistory()
                 }
             }
         } else {
@@ -993,7 +1001,7 @@ class RouteDesignerViewController: UIViewController {
             getDirections(origin: middleString, destination: destinationString, waypoints: nil, removeAllPoints: false, at: dragIdx+1) { (result) -> () in
                 self.getDirections(origin: originString, destination: middleString, waypoints: nil, removeAllPoints: false, at: dragIdx) { (result2) -> () in
                     if result || result2 {
-                        self.historyOfMarkers.append(self.markers)
+                        self.addToHistory()
                     }
                 }
             }
@@ -1038,7 +1046,7 @@ class RouteDesignerViewController: UIViewController {
             modifyToGoogleRoute()
         }
         if !mapView.settings.scrollGestures && manualRouteType {
-            historyOfMarkers.append(markers)
+            addToHistory()
         }
         mapView.settings.scrollGestures = true
         mapView.settings.consumesGesturesInView = false

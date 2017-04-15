@@ -49,7 +49,7 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
             removePoint(at: prevIdx+1)
         }
         modifyLine(at: prevIdx+1)
-        historyOfMarkers.append(markers)
+        addToHistory()
         if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
