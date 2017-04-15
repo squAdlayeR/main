@@ -10,7 +10,6 @@
 		2C0585E01E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0585DF1E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift */; };
 		2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F5C481E97A28100EAECFF /* POICategory.swift */; };
 		2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199A1E670A5F00FF6334 /* AppDelegate.swift */; };
-		2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199C1E670A5F00FF6334 /* ViewController.swift */; };
 		2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C31199E1E670A5F00FF6334 /* Main.storyboard */; };
 		2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */; };
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
@@ -173,7 +172,6 @@
 		2C1F5C481E97A28100EAECFF /* POICategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POICategory.swift; sourceTree = "<group>"; };
 		2C3119971E670A5F00FF6334 /* lAyeR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lAyeR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C31199A1E670A5F00FF6334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2C31199C1E670A5F00FF6334 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C31199F1E670A5F00FF6334 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C3119A41E670A5F00FF6334 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C3119A61E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -394,7 +392,6 @@
 				2C7333E61E71BA8E00EDE1D8 /* Fonts */,
 				2C7333E11E71B4EA00EDE1D8 /* Common */,
 				52C62D991EA0DED1006D968B /* DataModel */,
-				2C31199C1E670A5F00FF6334 /* ViewController.swift */,
 				2C31199A1E670A5F00FF6334 /* AppDelegate.swift */,
 				2C31199E1E670A5F00FF6334 /* Main.storyboard */,
 				2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */,
@@ -1097,7 +1094,6 @@
 				2E742F9C1E9784D500651A74 /* RouteDesignerModel.swift in Sources */,
 				A25E658B1E9BA50100011885 /* ARViewController_SegueExtension.swift in Sources */,
 				2E742FA01E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift in Sources */,
-				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */,
 				A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */,
 				9D7327761EA251D6008D9860 /* MenuViewConstants.swift in Sources */,

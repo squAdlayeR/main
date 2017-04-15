@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import UIKit
 
-class CameraController: ViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     private var videoDataOutput: AVCaptureVideoDataOutput!
     private var videoDataOutputQueue: DispatchQueue!
