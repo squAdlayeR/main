@@ -100,8 +100,6 @@ class SCNViewController: UIViewController {
     func updateArrowNodes() {
         updateNextCheckpointIndex()
         
-        removeAllArrows()
-        
         updateArrowsToBeDisplayed()
         
         updateSize()
@@ -111,11 +109,14 @@ class SCNViewController: UIViewController {
             animateMovingOn()
         }
     }
-    
+
     private func updateArrowsToBeDisplayed() {
         guard let nextCheckpoint = nextCheckpoint else {
             return
         }
+        
+        removeAllArrows()
+        
         let userPoint = geoManager.getLastUpdatedUserPoint()
         
         var (previousOffset, leftCount) = addArrows(from: userPoint, to: nextCheckpoint,
@@ -159,6 +160,8 @@ class SCNViewController: UIViewController {
     /**
      add arrows starting from the source to the destination
      - Parameters: firstOffset  the distance in meters from the source to the first arrow
+     - Returns: a tuple whose first element is the offset of the first checkpoint in the next segment
+                whose second element is the number of arrows to be displayed left
      */
     private func addArrows(from src: GeoPoint, to dest: GeoPoint,
                    firstOffset: Double, leftCount: Int) -> (Double, Int) {
@@ -218,6 +221,10 @@ class SCNViewController: UIViewController {
         arrowNodes = []
     }
     
+    func updateSceneCamera() {
+        updateSceneCameraOrientation()
+        updateSceneCameraPosition()
+    }
     
     /**
      update the orientation of the camera node according to the data from the device motion manager
@@ -232,17 +239,23 @@ class SCNViewController: UIViewController {
         transform = SCNMatrix4Rotate(transform, Float(pitch), 1, 0, 0)
         transform = SCNMatrix4Rotate(transform, Float(roll), 0, 1, 0)
 
-        // udpate the location of the camera node
-        if let source = firstCheckpoint {
-            let userPoint = geoManager.getLastUpdatedUserPoint()
-            let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
-            let distance = GeoUtil.getCoordinateDistance(userPoint, source)
-            let v = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
-            
-            transform = SCNMatrix4Translate(transform, -(v.x), 0, -(v.z))
-        }
-        
         cameraNode.transform = transform
+    }
+    
+    /**
+     udpate the location of the camera node
+     */
+    func updateSceneCameraPosition() {
+        guard let source = firstCheckpoint else {
+            return
+        }
+
+        let userPoint = geoManager.getLastUpdatedUserPoint()
+        let azimuth = GeoUtil.getAzimuth(between: userPoint, source)
+        let distance = GeoUtil.getCoordinateDistance(userPoint, source)
+        let v = azimuthDistanceToCoordinate(azimuth: azimuth, distance: distance)
+        
+        cameraNode.transform = SCNMatrix4Translate(cameraNode.transform, -(v.x), 0, -(v.z))
     }
     
     /**
@@ -270,8 +283,10 @@ class SCNViewController: UIViewController {
         }
     }
     
+    /**
+     show arorws in the decreasing opacity
+     */
     private func updateOpacity() {
-        // show arorws in the decreasing opacity
         let opacityGap = Constant.arrowOpacity / Double(Constant.numArrowsDisplayedForward)
         for i in 0 ..< arrowNodes.count {
             let opacity = Constant.arrowOpacity - Double(i) * opacityGap
