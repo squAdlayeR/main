@@ -64,12 +64,12 @@ extension RouteDesignerViewController {
         if RouteDesignerConstants.testing { assert(checkRep()) }
         if manualRouteType {
             addPoint(coordinate: coordinate, isControlPoint: isControlPoint, at: idx)
-            historyOfMarkers.append(markers)
+            addToHistory()
         } else {
             let lastPoint = markers.isEmpty ? source! : markers.last!.position
             getDirections(origin: "\(lastPoint.latitude) \(lastPoint.longitude)", destination: "\(coordinate.latitude) \(coordinate.longitude)", waypoints: nil, removeAllPoints: false, at: idx) { (result) -> () in
                 if result {
-                    self.historyOfMarkers.append(self.markers)
+                    self.addToHistory()
                 }
             }
         }
@@ -193,6 +193,17 @@ extension RouteDesignerViewController {
             lines[idx].map = nil
             lines.remove(at:idx)
         }
+    }
+    
+    func modifyManualLine(at idx: Int) {
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+        if idx >= 0 && idx < lines.count {
+            let from = idx == 0 ? source! : markers[idx-1].position
+            let to = markers[idx].position
+            removeLine(at: idx)
+            addLine(from: from, to: to, at: idx)
+        }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
     func modifyLine(at idx: Int) {
