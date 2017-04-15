@@ -90,6 +90,8 @@ class SCNViewController: UIViewController {
         arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI / 2), 1, 0, 0)
         arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(M_PI / 2), 0, 1, 0)
         
+        arrowNode.scale = SCNVector3(x: 1 / 24.0, y: 1 / 24.0, z: 1 / 108.0)
+        
         return arrowNode
     }
     
@@ -189,8 +191,6 @@ class SCNViewController: UIViewController {
                                                           -Float(GeoUtil.getAzimuth(between: src, dest)),
                                                           0, 1, 0)
             arrow.transform = rotationTransformation
-            
-            arrow.scale = SCNVector3(x: 1/24, y: 1/24, z: 1/108)
             
             let distance = currentOffset
             let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: srcDestAzimuth, distance: distance)
