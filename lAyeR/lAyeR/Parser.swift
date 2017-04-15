@@ -12,6 +12,8 @@ import ObjectMapper
 
 class Parser {
     
+    static let instance = Parser()
+    
     /// Parses poi search request.
     static func parsePOISearchRequest(_ radius: Int, _ type: String, _ location: GeoPoint) -> String {
         let searchBase = AppConfig.mapQueryBaseURL
@@ -117,6 +119,17 @@ class Parser {
         return route
     }
     
+    static func parseRoute(_ value: Any?) -> Route? {
+        guard let jsonRoute = value as? [String: Any], let points = jsonRoute["checkPoints"] as? [[String: Any]], let name = jsonRoute["name"] as? String, let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint], let image = jsonRoute["imagePath"] as? String else {
+            return nil
+        }
+        let route = Route(name, checkPoints)
+        route.setImage(path: image)
+        return route
+    }
+    
+    
+    
     static func parseJSONToCheckPoint(_ jsonCheckPoint: [String: Any]) -> CheckPoint? {
         guard let name = jsonCheckPoint["name"] as? String,
             let lat = jsonCheckPoint["latitude"] as? Double,
@@ -127,6 +140,5 @@ class Parser {
             
         }
         return CheckPoint(lat, lng, name, description, isControlPoint)
-        //return CheckPoint(JSON: jsonCheckPoint)
     }
 }

@@ -13,7 +13,7 @@ class DatabaseManager {
     
     let formatter = NumberFormatter()
     
-    private(set) var isConnected: Bool = false //check connectivity
+    private(set) var isConnected: Bool = false
     static let instance = DatabaseManager()
     private(set) var currentUserProfile: UserProfile?
     var connectivityCheckCount: Int = 0
@@ -209,36 +209,6 @@ class DatabaseManager {
         }
     }
     
-    /// Use in user profile.
-    func getRoute(withName routeName: String, completion: @escaping (_ route: Route?) -> ()) {
-        DispatchQueue.global(qos: .background).async {
-            
-            guard let uid = UserAuthenticator.instance.currentUser?.uid else {
-                completion(nil)
-                return
-            }
-            let combinedName = routeName + "||" + uid
-            FIRDatabase.database().reference().child("routes").child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
-                if let value = snapshot.value as? [String: Any],
-                    let points = value["checkPoints"] as? [[String: Any]],
-                    let name = value["name"] as? String,
-                    let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint],
-                    let image = value["imagePath"] as? String {
-                    let route = Route(name, checkPoints)
-                    route.setImage(path: image)
-                    DispatchQueue.main.async {
-                        completion(route)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        completion(nil)
-                    }
-                }
-            }) { error in
-                print(error.localizedDescription)
-            }
-        }
-    }
     
     /// Queries routes in range
     func getRoutes(between source: GeoPoint, and destination: GeoPoint, inRange range: Double, completion: @escaping (_ routes: [Route]) -> ()) {
@@ -342,6 +312,30 @@ class DatabaseManager {
         }
     }
     
+    /// Use in user profile.
+    func getRoute(withName routeName: String, completion: @escaping (_ route: Route?) -> ()) {
+        DispatchQueue.global(qos: .background).async {
+            guard let uid = UserAuthenticator.instance.currentUser?.uid else {
+                completion(nil)
+                return
+            }
+            let combinedName = routeName + "||" + uid
+            FIRDatabase.database().reference().child("routes").child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
+                let result = Parser.parseRoute(snapshot.value)
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }) { error in
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    
+    /// Returns the routes with given names in database and pass to completion handler.
+    /// - Parameters:
+    ///     - names: Set<String>: names of routes
+    ///     - completion: ([Route]) -> (): completion handler
     func getRoutes(with names: Set<String>, completion: @escaping (_ routes: [Route]) -> ()) {
         let group = DispatchGroup()
         var routes: [Route] = []

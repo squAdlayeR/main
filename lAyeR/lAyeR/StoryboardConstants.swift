@@ -7,8 +7,11 @@
 //
 
 class StoryboardConstants {
-
+    
+    // Identifier
     static let routeListIdentifier: String = "routeListCell"
+    
+    // Segue
     static let userProfileToDesignerSegue: String = "userProfileToDesigner"
     static let userProfileToLoginSegue: String = "userProfileToLogin"
     static let loginToARSegue: String = "loginToAR"

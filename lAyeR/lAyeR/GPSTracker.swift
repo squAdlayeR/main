@@ -45,7 +45,8 @@ class GPSTracker {
             return
         }
         
-        // Computes delta distance, if still within grid range or went too far, skip this round.
+        // Computes delta distance, if still within grid range or went too far,
+        // skip this round.
         guard isWithinUnitRange(prevLocation, currentLocation) else {
             return
         }
