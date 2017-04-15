@@ -47,7 +47,6 @@
 		5249B1C31E746CC70048249D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C21E746CC70048249D /* AppConfig.swift */; };
 		5249B1C51E74D8070048249D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1C41E74D8070048249D /* Parser.swift */; };
 		5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1F11E750B9C0048249D /* lAyeR.xcdatamodeld */; };
-		5269CA641EA07E5200A2F961 /* CommonAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5269CA631EA07E5200A2F961 /* CommonAlertController.swift */; };
 		528288B21E92690C00163654 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AE1E92690C00163654 /* AppSettings.swift */; };
 		528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AF1E92690C00163654 /* AppSettingsConstants.swift */; };
 		528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B01E92690C00163654 /* AppSettingsViewController.swift */; };
@@ -109,6 +108,8 @@
 		9D37C2EA1EA0A505003AAA02 /* InfoBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D37C2E91EA0A505003AAA02 /* InfoBlockView.swift */; };
 		9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693461E8BE66E00052F68 /* InputTextFeild.swift */; };
 		9D73276E1EA21248008D9860 /* LoadingBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73276D1EA21248008D9860 /* LoadingBadge.swift */; };
+		9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73276F1EA21A09008D9860 /* HighLevelMiscConstants.swift */; };
+		9D7327721EA21A39008D9860 /* CommonAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7327711EA21A39008D9860 /* CommonAlertController.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */; };
 		9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFF1E855CC800592EB5 /* Constants.swift */; };
@@ -206,7 +207,6 @@
 		5249B1C21E746CC70048249D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		5249B1C41E74D8070048249D /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		5249B1F21E750B9C0048249D /* lAyeR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lAyeR.xcdatamodel; sourceTree = "<group>"; };
-		5269CA631EA07E5200A2F961 /* CommonAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAlertController.swift; sourceTree = "<group>"; };
 		528288AE1E92690C00163654 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		528288AF1E92690C00163654 /* AppSettingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsConstants.swift; sourceTree = "<group>"; };
 		528288B01E92690C00163654 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +267,8 @@
 		9D5693461E8BE66E00052F68 /* InputTextFeild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputTextFeild.swift; path = ViewComponents/BasicComponents/Misc/InputTextFeild.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* UIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIConfig.swift; path = ViewComponents/UIConfig.swift; sourceTree = "<group>"; };
 		9D73276D1EA21248008D9860 /* LoadingBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingBadge.swift; path = ViewComponents/BasicComponents/Misc/LoadingBadge.swift; sourceTree = "<group>"; };
+		9D73276F1EA21A09008D9860 /* HighLevelMiscConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighLevelMiscConstants.swift; path = ViewComponents/HighLevelComponents/Misc/HighLevelMiscConstants.swift; sourceTree = "<group>"; };
+		9D7327711EA21A39008D9860 /* CommonAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonAlertController.swift; path = ViewComponents/HighLevelComponents/Misc/CommonAlertController.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointCard.swift; path = ViewComponents/HighLevelComponents/CheckPoint/CheckpointCard.swift; sourceTree = "<group>"; };
 		9D7DACFF1E855CC800592EB5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -549,7 +551,8 @@
 		52A845D51EA129A10084DAA3 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				5269CA631EA07E5200A2F961 /* CommonAlertController.swift */,
+				9D7327711EA21A39008D9860 /* CommonAlertController.swift */,
+				9D73276F1EA21A09008D9860 /* HighLevelMiscConstants.swift */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1031,7 +1034,6 @@
 				2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
 				A25E65891E9B7B8400011885 /* CameraController.swift in Sources */,
-				5269CA641EA07E5200A2F961 /* CommonAlertController.swift in Sources */,
 				528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */,
 				2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */,
 				9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */,
@@ -1060,6 +1062,7 @@
 				A25E658B1E9BA50100011885 /* ARViewController_SegueExtension.swift in Sources */,
 				2E742FA01E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
+				9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */,
 				9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */,
 				A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */,
 				9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */,
@@ -1094,6 +1097,7 @@
 				2EA444791E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift in Sources */,
 				5249B1B21E7264AB0048249D /* POI.swift in Sources */,
 				52A845D41EA111FF0084DAA3 /* GPXFileParser.swift in Sources */,
+				9D7327721EA21A39008D9860 /* CommonAlertController.swift in Sources */,
 				9D37C2E81EA0A4BF003AAA02 /* InnerViewConstants.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
