@@ -111,9 +111,8 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
             group.enter()
             let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, type, userPoint)
             Alamofire.request(url).responseJSON { [unowned self] response in
-                if let json = response.result.value as? [String: Any] {
-                    candidates.append(contentsOf: Array(Parser.parseJSONToPOIs(json).prefix(self.appSettings.maxNumberOfMarkers)))
-                }
+                let routes = Parser.parseJSONToPOIs(response.result.value)
+                candidates.append(contentsOf: Array(routes.prefix(self.appSettings.maxNumberOfMarkers)))
                 group.leave()
             }
         }
@@ -126,19 +125,16 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func getDetailedPOIInfo(_ poi: POI, completion: @escaping (_ newPOI: POI?) -> ()) {
-        guard let placeID = poi.placeID else { return }
+    /// Gathers the detailes information of a poi and pass it to completion handler.
+    /// - Parameters:
+    ///     - poi: POI: the poi to find information.
+    func getDetailedPOIInfo(_ placeID: String, completion: @escaping (_ newPOI: POI?) -> ()) {
         let url = Parser.parsePOIDetailSearchRequest(placeID)
         Alamofire.request(url).responseJSON { response in
-            guard let json = response.result.value as? [String: Any],
-                let newPOI = Parser.parseDetailedPOI(json) else {
-                completion(nil)
-                return
-            }
+            let newPOI = Parser.parseDetailedPOI(response.result.value)
             completion(newPOI)
         }
     }
-    
     
 }
 

@@ -35,7 +35,7 @@ extension RegisterViewController {
         }
         /// Checks if password has a valid length.
         /// If invalid, show error alert. Proceeds otherwise.
-        guard userAuthenticator.isValidLength(password) && userAuthenticator.isValidLength(username) else {
+        guard userAuthenticator.isValidLength(password) else {
             showAlertMessage(message: Messages.inputLengthMessage)
             return
         }

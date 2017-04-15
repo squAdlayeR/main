@@ -570,7 +570,6 @@
 				52BD49751E8A8DFA00B4B750 /* DatabaseManager.swift */,
 				52C62D9A1EA0E763006D968B /* AuthenticationConstants.swift */,
 				52BD49731E8A8DC000B4B750 /* UserAuthenticator.swift */,
-				5249B1C41E74D8070048249D /* Parser.swift */,
 			);
 			name = DataService;
 			sourceTree = "<group>";
@@ -578,6 +577,7 @@
 		52C62D991EA0DED1006D968B /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				5249B1C41E74D8070048249D /* Parser.swift */,
 				52A845E01EA1BECE0084DAA3 /* ModelConstants.swift */,
 				52830F261E8F4567009DFD02 /* UserProfile.swift */,
 				5249B1A71E7264000048249D /* GeoPoint.swift */,

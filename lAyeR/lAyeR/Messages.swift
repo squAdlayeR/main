@@ -43,8 +43,8 @@ class Messages {
     
     /// Register
     static let createUserFailureMessage: String = "Failed to sign up."
-    static let inputFormatMessage: String = "User input should only contain letters and numbers."
-    static let inputLengthMessage: String = "User input should be longer than or equal to 6 digits and less than or equal to 12 digits."
+    static let inputFormatMessage: String = "Username and password should only contain letters and numbers."
+    static let inputLengthMessage: String = "Password should be longer than or equal to 6 digits and less than or equal to 12 digits."
     static let invalidEmailMessage: String = "Invalid Email."
     static let passwordMismatchMessage: String = "Password Mismatch!"
     static let verificationSentMessage: String = "An email verfication is sent to your email. Please verify your email."
