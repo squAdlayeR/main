@@ -69,7 +69,6 @@
 		52A845D01EA106250084DAA3 /* RegisterViewController+AuthenticationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845CF1EA106250084DAA3 /* RegisterViewController+AuthenticationExtension.swift */; };
 		52A845D41EA111FF0084DAA3 /* GPXFileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845D31EA111FF0084DAA3 /* GPXFileParser.swift */; };
 		52A845D71EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845D61EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift */; };
-		52A845D91EA12D990084DAA3 /* UserProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845D81EA12D990084DAA3 /* UserProfileConstants.swift */; };
 		52A845DB1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845DA1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift */; };
 		52A845DD1EA1A8B60084DAA3 /* StoryboardConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845DC1EA1A8B60084DAA3 /* StoryboardConstants.swift */; };
 		52A845DF1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845DE1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift */; };
@@ -227,7 +226,6 @@
 		52A845CF1EA106250084DAA3 /* RegisterViewController+AuthenticationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RegisterViewController+AuthenticationExtension.swift"; sourceTree = "<group>"; };
 		52A845D31EA111FF0084DAA3 /* GPXFileParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXFileParser.swift; sourceTree = "<group>"; };
 		52A845D61EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserProfileViewController+IconCropExtension.swift"; sourceTree = "<group>"; };
-		52A845D81EA12D990084DAA3 /* UserProfileConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileConstants.swift; sourceTree = "<group>"; };
 		52A845DA1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserProfileViewController+TableViewExtension.swift"; sourceTree = "<group>"; };
 		52A845DC1EA1A8B60084DAA3 /* StoryboardConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardConstants.swift; sourceTree = "<group>"; };
 		52A845DE1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserProfileViewController+UIInteractionExtension.swift"; sourceTree = "<group>"; };
@@ -699,7 +697,6 @@
 				52A845DA1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift */,
 				52A845DE1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift */,
 				52830F261E8F4567009DFD02 /* UserProfile.swift */,
-				52A845D81EA12D990084DAA3 /* UserProfileConstants.swift */,
 				52A845DC1EA1A8B60084DAA3 /* StoryboardConstants.swift */,
 				52A845E01EA1BECE0084DAA3 /* ModelConstants.swift */,
 			);
@@ -1056,7 +1053,6 @@
 				528288B21E92690C00163654 /* AppSettings.swift in Sources */,
 				9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */,
 				2E742F9C1E9784D500651A74 /* RouteDesignerModel.swift in Sources */,
-				52A845D91EA12D990084DAA3 /* UserProfileConstants.swift in Sources */,
 				A25E658B1E9BA50100011885 /* ARViewController_SegueExtension.swift in Sources */,
 				2E742FA01E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,

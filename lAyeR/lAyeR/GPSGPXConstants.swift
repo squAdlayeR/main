@@ -17,11 +17,12 @@ class GPSGPXConstants {
     static let maximumDeltaDistance: Double = 25
     static let precision: Int = 4
     
-    static let fileCreator = "lAyeR"
-    static let defaultPointName = "CheckPoint"
-    static let gpxExtension = "gpx"
-    static let pngExtension = "png"
-
+    static let fileCreator: String = "lAyeR"
+    static let defaultPointName: String = "CheckPoint"
+    static let gpxExtension: String = "gpx"
+    static let pngExtension: String = "png"
+    static let iconName: String = "usericon"
+    
 }
     
 

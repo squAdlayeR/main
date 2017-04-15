@@ -120,9 +120,6 @@ let passwordText: String = "password"
 let confirmPasswordText: String = "confirm password"
 let usernameText: String = "username"
 
-
-
-
 /// Card
 let nameIcon: String = "name"
 let descriptionIcon: String = "info"
@@ -137,4 +134,9 @@ let segueToDirectName: String = "arToDesignerWithDirect"
 let defaultOverLayFrame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100)
 let defaultIndicatorFrame: CGRect = CGRect(x: 0, y: 0, width: 60, height: 60)
 let defaultCornerRadius: CGFloat = 10
+
+/// Route List
+let userProfileHeaderHeight: CGFloat = 10
+let userProfileButtonCornerRadius: CGFloat = 5
+let routeListEstimatedRowHeight: CGFloat = 150
 

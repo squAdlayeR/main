@@ -108,7 +108,7 @@ extension UserProfileViewController: TOCropViewControllerDelegate {
     ///     - image: UIImage: the new user icon.
     private func refreshProfile(with image: UIImage) {
         do {
-            let url = try GPXFileManager.instance.save(name: UserProfileConstants.userIconName, image: image)
+            let url = try GPXFileManager.instance.save(name: GPSGPXConstants.iconName, image: image)
             self.avatar.imageFromUrl(url: url.absoluteString)
             self.userProfile?.setAvatar(url.absoluteString)
             guard let uid = UserAuthenticator.instance.currentUser?.uid, let profile = self.userProfile else {

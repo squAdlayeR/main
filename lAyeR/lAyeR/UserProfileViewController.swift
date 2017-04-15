@@ -169,7 +169,7 @@ class UserProfileViewController: UIViewController {
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
         routeList.rowHeight = UITableViewAutomaticDimension
-        routeList.estimatedRowHeight = UserProfileConstants.estimatedRowHeight
+        routeList.estimatedRowHeight = routeListEstimatedRowHeight
         view.addSubview(routeList)
         routeList.reloadData()
     }
@@ -183,7 +183,7 @@ class UserProfileViewController: UIViewController {
     
     /// Sets up single button.
     private func setUpButton(_ btn: UIButton) {
-        btn.layer.cornerRadius = UserProfileConstants.defaultButtonCornerRadius
+        btn.layer.cornerRadius = userProfileButtonCornerRadius
         btn.layer.masksToBounds = true
         view.addSubview(btn)
     }

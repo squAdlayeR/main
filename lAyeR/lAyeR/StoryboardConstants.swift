@@ -11,5 +11,6 @@ class StoryboardConstants {
     static let routeListIdentifier: String = "routeListCell"
     static let userProfileToDesignerSegue: String = "userProfileToDesigner"
     static let userProfileToLoginSegue: String = "userProfileToLogin"
+    static let loginToARSegue: String = "loginToAR"
     
 }

@@ -66,7 +66,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
             }
             self.databaseManager.createFBUserProfile()
             LoadingBadge.instance.hideBadge()
-            self.performSegue(withIdentifier: "loginToAR", sender: nil)
+            self.performSegue(withIdentifier: StoryboardConstants.loginToARSegue, sender: nil)
         }
     }
     
@@ -104,7 +104,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
                 return
             }
             LoadingBadge.instance.hideBadge()
-            self.performSegue(withIdentifier: "loginToAR", sender: nil)
+            self.performSegue(withIdentifier: StoryboardConstants.loginToARSegue, sender: nil)
         }
     }
     
