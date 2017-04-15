@@ -6,7 +6,6 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import FirebaseAuth
 import UIKit
 
 /**
@@ -29,8 +28,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     
-    // Defines data service for registeration validation
-    let dataService = DataServiceManager.instance
+    // Defines user authenticator for registration authentication.
+    let userAuthenticator: UserAuthenticator = UserAuthenticator.instance
+    let databaseManager: DatabaseManager = DatabaseManager.instance
     
     // Defines the view for vibrancy effect
     var vibrancyEffectView: UIVisualEffectView!
@@ -49,10 +49,6 @@ class RegisterViewController: UIViewController {
         setupText()
         setupText()
         setCloseKeyboardAction()
-        vibrancyEffectView.contentView.addSubview(usernameField)
-        vibrancyEffectView.contentView.addSubview(passwordField)
-        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
-        vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,14 +58,7 @@ class RegisterViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        usernameField.center = usernameFieldSample.center
-        emailField.center = emailFieldSample.center
-        passwordField.center = passwordFieldSample.center
-        passwordConfirmField.center = confirmPasswordSample.center
-        vibrancyEffectView.contentView.addSubview(usernameField)
-        vibrancyEffectView.contentView.addSubview(passwordField)
-        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
-        vibrancyEffectView.contentView.addSubview(emailField)
+        configTextFields()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -106,33 +95,41 @@ class RegisterViewController: UIViewController {
     }
     
     private func setupUsernameInput() {
-        usernameField = createTextField(with: usernameFieldSample, and: "username")
+        usernameField = createTextField(with: usernameFieldSample, and: usernameText)
         usernameField.delegate = self
-        //vibrancyEffectView.contentView.addSubview(usernameField)
     }
     
     /// Sets up the email input field
     private func setupEmailInput() {
-        emailField = createTextField(with: emailFieldSample, and: "email address")
+        emailField = createTextField(with: emailFieldSample, and: emailText)
         emailField.keyboardType = .emailAddress
         emailField.delegate = self
-        //vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     /// Sets up the password input field
     private func setupPasswordInput() {
-        passwordField = createTextField(with: passwordFieldSample, and: "password")
+        passwordField = createTextField(with: passwordFieldSample, and: passwordText)
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
-        //vibrancyEffectView.contentView.addSubview(passwordField)
     }
     
     /// Sets up the password confirmation field
     private func setupPasswordConfirmInput() {
-        passwordConfirmField = createTextField(with: confirmPasswordSample, and: "confirm password")
+        passwordConfirmField = createTextField(with: confirmPasswordSample, and: confirmPasswordText)
         passwordConfirmField.isSecureTextEntry = true
         passwordConfirmField.delegate = self
-        //vibrancyEffectView.contentView.addSubview(passwordConfirmField)
+    }
+    
+    /// Positions textfields with autolayout in view did appear.
+    private func configTextFields() {
+        usernameField.center = usernameFieldSample.center
+        emailField.center = emailFieldSample.center
+        passwordField.center = passwordFieldSample.center
+        passwordConfirmField.center = confirmPasswordSample.center
+        vibrancyEffectView.contentView.addSubview(usernameField)
+        vibrancyEffectView.contentView.addSubview(passwordField)
+        vibrancyEffectView.contentView.addSubview(passwordConfirmField)
+        vibrancyEffectView.contentView.addSubview(emailField)
     }
     
     /// Creates a input field with specified sample fields and their placeholders
@@ -200,93 +197,3 @@ extension RegisterViewController: UITextFieldDelegate {
     
 }
 
-/**
- An extension that is used to define interactions with user
- Specifically, register actions
- */
-extension RegisterViewController {
-    
-    /// Handles user registeration request
-    @IBAction func registerUser(_ sender: Any) {
-        let email = emailField.text ?? ""
-        let password = passwordField.text ?? ""
-        let passwordConfirm = passwordConfirmField.text ?? ""
-        let username = usernameField.text ?? ""
-        guard !email.characters.isEmpty
-            && !password.characters.isEmpty
-            && !passwordConfirm.characters.isEmpty
-            && !username.characters.isEmpty else {
-                showErrorAlert(message: "Please fill all fields.")
-                return
-        }
-        guard password == passwordConfirm else {
-            showErrorAlert(message: "Passwords not match!")
-            return
-        }
-        guard password.characters.count >= 6 else {
-            showErrorAlert(message: "Password should be longer than 6 digits!")
-            return
-        }
-        LoadingBadge.instance.showBadge(in: view)
-        dataService.createUser(email: email, password: password) {
-            (user, error) in
-            if let error = error {
-                LoadingBadge.instance.hideBadge()
-                self.handleSignUpError(error: error)
-                return
-            }
-            guard let uid = user?.uid else {
-                LoadingBadge.instance.hideBadge()
-                self.showErrorAlert(message: "Failed to create user.")
-                return
-            }
-            DispatchQueue.global(qos: .background).async {
-                UserAuthenticator.instance.signOut()
-                let profile = UserProfile(email: email, username: username)
-                self.dataService.addUserProfileToDatabase(uid: uid, profile: profile)
-                UserAuthenticator.instance.sendEmailVerification(completion: {
-                    error in
-                    DispatchQueue.main.async {
-                        if error != nil {
-                            LoadingBadge.instance.hideBadge()
-                            self.showErrorAlert(message: "Failed to send verification email.")
-                            return
-                        }
-                        LoadingBadge.instance.hideBadge()
-                        self.showAlertMessage(title: "One more step!", message: "A verification email is sent to your mail box. Please verify your account.")
-                    }
-                    
-                })
-            }
-        }
-    }
-    
-    /// Handles registeration error.
-    /// - Parameter error: the error from user registeration
-    func handleSignUpError(error: Error) {
-        guard let errCode = FIRAuthErrorCode(rawValue: error._code) else {
-            return
-        }
-        switch errCode {
-        case .errorCodeEmailAlreadyInUse:
-            self.showErrorAlert(message: "Email already in use.")
-            return
-        case .errorCodeInvalidEmail:
-            self.showErrorAlert(message: "Invalid email!")
-            return
-        default:
-            self.showErrorAlert(message: "Network error.")
-            return
-        }
-    }
-    
-    /// Shows alert of corresponding error message
-    /// - Parameter message: the message that is to be displayed on the alert
-    func showErrorAlert(message: String) {
-        let alert = UIAlertController(title: "Oops", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
-    
-}

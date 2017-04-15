@@ -14,10 +14,9 @@ import GooglePlaces
 import GoogleMaps
 
 class GeoManager: NSObject, CLLocationManagerDelegate {
-    private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
-                                                                        Constant.nearbyPOIsUpdatedNotificationName)
-    private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
-                                                                        Constant.userLocationUpdatedNotificationName)
+    private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue: Constant.nearbyPOIsUpdatedNotificationName)
+    private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue: Constant.userLocationUpdatedNotificationName)
+    
     private static var instance: GeoManager?
     private let locationManager: CLLocationManager = CLLocationManager()
     private var appSettings: AppSettings = AppSettings.getInstance()

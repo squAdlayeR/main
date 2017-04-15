@@ -141,9 +141,10 @@ extension RouteDesignerViewController {
                     route.append(markerData)
                 }
                 do {
-                    let url = try GPXManager.save(name: route.name, image: self.viewCapture(view: self.mapView))
+                    let url = try GPXFileManager.instance.save(name: route.name, image: self.viewCapture(view: self.mapView))
                     route.setImage(path: url.absoluteString)
                 } catch {
+                    print("where")
                 }
                 // TODO: separate local storage and server
                 self.routeDesignerModel.saveToLocal(route: route)

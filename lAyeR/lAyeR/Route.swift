@@ -11,11 +11,9 @@ import ObjectMapper
 
 class Route: Mappable {
     
-    /// Stores check points on the route.
     private(set) var name: String
     private(set) var checkPoints: [CheckPoint] = []
     private(set) var imagePath: String = ""
-    //private(set) var distance: Double = 0
     
     init(_ name: String, _ checkPoints: [CheckPoint] = []) {
         self.name = name
@@ -96,11 +94,17 @@ class Route: Mappable {
     }
     
     var distance: Double {
-        var dist = 0.0
-        if size < 1 { return dist }
-        for i in 0..<size-1 {
+        var dist: Double = 0
+        if size < 1 {
+            return dist
+        }
+        for i in 0..<size - 1 {
             dist += GeoUtil.getCoordinateDistance(checkPoints[i], checkPoints[i+1])
         }
         return dist
+    }
+    
+    var distanceDescription: String {
+        return "Distance: \(Int(distance)) m"
     }
 }

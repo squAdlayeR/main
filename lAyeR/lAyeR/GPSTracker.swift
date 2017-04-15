@@ -14,18 +14,17 @@ import CoreLocation
 /// MARK: Here, we devide the world map into approximately 11m * 11m
 /// (0.0001 difference in degrees) grid, and use the edges in this
 /// graph to track user walking and find walkable paths.
+
 class GPSTracker {
     
     static let instance = GPSTracker()
     private var timer: Timer?
     private var prevLocation: GeoPoint?
     private let geoManager = GeoManager.getInstance()
-    private let defaultLocation = GPSGPXConstants.defaultLocation
     
     /// Starts the timer.
     func start() {
-        let timeInterval = GPSGPXConstants.timeInterval
-        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(track), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: GPSGPXConstants.timeInterval, target: self, selector: #selector(track), userInfo: nil, repeats: true)
     }
     
     /// Fires every time interval to process current and previous 
@@ -37,7 +36,8 @@ class GPSTracker {
         let currentLocation = geoManager.getLastUpdatedUserPoint()
         
         // If current user location is not updated yet, skip this round.
-        guard currentLocation != defaultLocation else { return }
+        guard currentLocation != GPSGPXConstants.defaultLocation else { return
+        }
         
         // If the first location is recorded, update previous location.
         guard let prevLocation = prevLocation else {
@@ -45,7 +45,8 @@ class GPSTracker {
             return
         }
         
-        // Computes delta distance, if still within grid range or went too far, skip this round.
+        // Computes delta distance, if still within grid range or went too far,
+        // skip this round.
         guard isWithinUnitRange(prevLocation, currentLocation) else {
             return
         }
@@ -99,7 +100,5 @@ class GPSTracker {
         return GeoPoint(newLat, newLon)
     }
     
-    
-
 }
 
