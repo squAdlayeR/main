@@ -165,7 +165,7 @@ class DatabaseManager {
                         guard success, let userProfile = userProfile else {
                             return
                         }
-                        userProfile.designedRoutes.append(route.name)
+                        userProfile.addDesignedRoute(route.name)
                         self.updateUserProfile(uid: uid, userProfile: userProfile)
                     }
                 }
@@ -196,15 +196,16 @@ class DatabaseManager {
             completion(nil, false)
             return
         }
-        FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let value = snapshot.value as? [String: Any],
-                let profile = UserProfile(JSON: value) else {
-                    completion(nil, false)
-                    return
-            }
-            completion(profile, true)
-        }) { error in
-            print(error.localizedDescription)
+        DispatchQueue.global(qos: .background).async {
+            FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                DispatchQueue.main.async {
+                    guard let value = snapshot.value as? [String: Any], let profile = UserProfile(JSON: value) else {
+                        completion(nil, false)
+                        return
+                    }
+                    completion(profile, true)
+                }
+            })
         }
     }
     
@@ -310,9 +311,9 @@ class DatabaseManager {
                         let currentViewController = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController
                         if count < 4 { return } // possibly initializing stage
                         if currentViewController != nil {
-                            currentViewController?.showAlertMessage(message: "Lost connection to database.")
+                            //currentViewController?.showAlertMessage(message: "Lost connection to database.")
                         } else {
-                            UIApplication.shared.keyWindow?.rootViewController?.showAlertMessage(message: "Lost connection to database.")
+                            //UIApplication.shared.keyWindow?.rootViewController?.showAlertMessage(message: "Lost connection to database.")
                         }
                     }
                     return
@@ -334,9 +335,27 @@ class DatabaseManager {
                       let userName = user.displayName else {
                         return
                 }
-                let profile = UserProfile(email: email, avatarRef: avartarRef, username: userName)
+                let profile = UserProfile(email: email, username: userName)
+                profile.setAvatar(avartarRef)
                 self.addUserProfileToDatabase(uid: user.uid, userProfile: profile)
             }
+        }
+    }
+    
+    func getRoutes(with names: Set<String>, completion: @escaping (_ routes: [Route]) -> ()) {
+        let group = DispatchGroup()
+        var routes: [Route] = []
+        for name in names {
+            group.enter()
+            getRoute(withName: name) { route in
+                if let route = route {
+                    routes.append(route)
+                }
+                group.leave()
+            }
+        }
+        group.notify(queue: .main) {
+            completion(routes)
         }
     }
     

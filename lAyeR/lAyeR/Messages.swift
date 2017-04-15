@@ -8,9 +8,16 @@
 
 class Messages {
 
-    // ====== Alert Titles ======
+    // ====== Titles ======
     static let errorTitle: String = "Oops!"
+    static let imagePickerTitle: String = "Choose Photo From"
     static let successTitle: String = "Congrats!"
+    
+    // ====== Action Titles ======
+    static let albumTitle: String = "My Album"
+    static let cameraTitle: String = "Take Photo"
+    static let cancelTitle: String = "Cancel"
+    static let selectTitle: String = "Select"
 
     // ====== Alert Messages ======
     
@@ -20,7 +27,7 @@ class Messages {
     static let loadRouteFailureMessage: String = "Failed to load route."
     static let saveGPXFailureMessage: String = "Failed to save .gpx files."
     static let savePNGFailureMessage: String = "Failed to save user icon."
-    
+    static let selectFilesMessage: String = "Please select routes to export."
     
     
     //------- Authentication -------

@@ -15,44 +15,34 @@ import UIKit
  */
 extension UserProfileViewController {
 
+    /// Handles logout event.
     @IBAction func logout(_ sender: Any) {
         dataService.signOut()
-        self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
+        self.performSegue(withIdentifier: StoryboardConstants.userProfileToLoginSegue, sender: nil)
     }
     
+    /// Handles export event.
     @IBAction func exportPressed(_ sender: UIButton) {
         if selectedRouteNames.isEmpty {
-            showAlertMessage(message: "Please select routes to export.")
+            showAlertMessage(message: Messages.selectFilesMessage)
             return
         }
         LoadingBadge.instance.showBadge(in: view)
-        let group = DispatchGroup()
-        var routes: [Route] = []
-        for name in selectedRouteNames {
-            group.enter()
-            DatabaseManager.instance.getRoute(withName: name) { route in
-                if let route = route {
-                    routes.append(route)
-                }
-                group.leave()
-            }
-        }
-        group.notify(queue: .main) {
+        DatabaseManager.instance.getRoutes(with: selectedRouteNames) { routes in
             LoadingBadge.instance.hideBadge()
             self.share(routes: routes)
         }
     }
     
+    /// Handles select event.
     @IBAction func selectPressed(_ sender: UIButton) {
         let title = sender.title(for: .normal)
-        if title == "Select" {
-            routeList.allowsMultipleSelection = true
-            selectionMode = true
-            sender.setTitle("Cancel", for: .normal)
+        selectionMode = !selectionMode
+        routeList.allowsMultipleSelection = !routeList.allowsMultipleSelection
+        if title == Messages.selectTitle {
+            sender.setTitle(Messages.cancelTitle, for: .normal)
         } else {
-            routeList.allowsMultipleSelection = false
-            sender.setTitle("Select", for: .normal)
-            selectionMode = false
+            sender.setTitle(Messages.selectTitle, for: .normal)
             deselectAll()
         }
         selectedRouteNames.removeAll()

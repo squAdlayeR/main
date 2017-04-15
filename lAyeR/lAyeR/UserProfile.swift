@@ -6,38 +6,66 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
 import ObjectMapper
 
+/*
+ * This class is used represent user profile data structure.
+ * A user profile should contain:
+ * - username: String
+ * - email: String
+ * - avatarRef: String, the string path of the user icon image
+ * - designedRoutes: [String], the names of user designed routes
+ */
 class UserProfile: Mappable {
     
-    private(set) var username: String = UserProfileConstants.defaultUserName
+    private(set) var avatarRef: String = ModelConstants.defaultUserIcon
+    private(set) var username: String = ModelConstants.defaultUserName
     private(set) var email: String
-    var avatarRef: String
-    var designedRoutes: [String] = []
+    private(set) var designedRoutes: [String] = []
     
-    init(email: String, avatarRef: String = "profile.png", username: String) {
+    // Initializes UserProfile
+    init(email: String, username: String) {
         self.email = email
-        self.avatarRef = avatarRef
         self.username = username
     }
     
+    /// Initializes UserProfile from serializable map.
+    /// MARK: This initializer utilizes ObjectMapper framework.
     required init?(map: Map) {
-        guard let username = map.JSON["username"] as? String,
-            let email = map.JSON["email"] as? String,
-            let avatarRef = map.JSON["avatarRef"] as? String else {
+        guard let username = map.JSON[ModelConstants.usernameKey] as? String,
+            let email = map.JSON[ModelConstants.emailKey] as? String,
+            let avatarRef = map.JSON[ModelConstants.avatarRefKey] as? String else {
                 return nil
         }
         self.username = username
         self.email = email
         self.avatarRef = avatarRef
-        self.designedRoutes = map.JSON["designedRoutes"] as? [String] ?? []
+        self.designedRoutes = map.JSON[ModelConstants.designedRouteKey] as? [String] ?? []
     }
     
+    /// Maps fields with map.
     func mapping(map: Map) {
-        username <- map["username"]
-        email <- map["email"]
-        avatarRef <- map["avatarRef"]
-        designedRoutes <- map["designedRoutes"]
+        username <- map[ModelConstants.usernameKey]
+        email <- map[ModelConstants.emailKey]
+        avatarRef <- map[ModelConstants.avatarRefKey]
+        designedRoutes <- map[ModelConstants.designedRouteKey]
+    }
+    
+    /// Sets user avatar
+    /// - Parameter avaRef: String: filepath of new image
+    func setAvatar(_ avatarRef: String) {
+        self.avatarRef = avatarRef
+    }
+    
+    /// Removes the route specified by index.
+    /// - Parameter index: Int: the index of the route to remove.
+    func removeDesignedRoute(_ index: Int) {
+        designedRoutes.remove(at: index)
+    }
+    
+    /// Adds a designed route to user profile.
+    /// - Parameter routeName: String: the name of the newly added route.
+    func addDesignedRoute(_ routeName: String) {
+        designedRoutes.append(routeName)
     }
 }

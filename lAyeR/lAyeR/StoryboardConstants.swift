@@ -6,10 +6,10 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
-
 class StoryboardConstants {
 
     static let routeListIdentifier: String = "routeListCell"
     static let userProfileToDesignerSegue: String = "userProfileToDesigner"
+    static let userProfileToLoginSegue: String = "userProfileToLogin"
+    
 }

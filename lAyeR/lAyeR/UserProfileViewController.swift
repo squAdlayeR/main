@@ -5,9 +5,6 @@
 //  Created by Yang Zhuohan on 31/3/17.
 //  Copyright © 2017 Yang Zhuohan. All rights reserved.
 //
-import FBSDKCoreKit
-import FBSDKLoginKit
-import TOCropViewController
 import UIKit
 
 /**
@@ -59,26 +56,26 @@ class UserProfileViewController: UIViewController {
     let dataService = DataServiceManager.instance
     
     override func viewDidLoad() {
-        self.setCameraView()
-        self.setBlur()
-        self.setBackButton()
+        setCameraView()
+        setBlur()
+        setBackButton()
+        setUpButtons()
+        setUserInfo()
+        setRouteList()
         picker.delegate = self
-        loadProfile()
     }
     
+    /// Loads the user profile.
     private func loadProfile() {
         LoadingBadge.instance.showBadge(in: view)
         dataService.retrieveUserProfile { profile, success in
             guard success, let profile = profile else {
-                self.notification.isHidden = false
-                self.vibrancyEffectView.contentView.addSubview(self.notification)
+                self.setNotification()
                 LoadingBadge.instance.hideBadge()
                 return
             }
+            self.loadUserInfo(profile)
             self.notification.isHidden = true
-            self.userProfile = profile
-            self.setUserInfo()
-            self.setRouteList()
             LoadingBadge.instance.hideBadge()
         }
     }
@@ -89,7 +86,7 @@ class UserProfileViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        configRouteList()
+        loadProfile()
     }
     
     /// Sets the camera view as backgound image
@@ -115,18 +112,29 @@ class UserProfileViewController: UIViewController {
         vibrancyEffectView.contentView.addSubview(backButton)
     }
     
+    /// Adds the notification label into vibrancy effect view
+    private func setNotification() {
+        notification.isHidden = false
+        vibrancyEffectView.contentView.addSubview(self.notification)
+    }
+    
     /// Sets up the user infomation at the top
     private func setUserInfo() {
-        setUserAvata()
+        setUserAvatar()
         setUserText()
+    }
+    
+    /// Loads the user info and displays it in the view
+    private func loadUserInfo(_ profile: UserProfile) {
+        userProfile = profile
+        loadUserText()
+        loadUserAvatar()
+        setRouteList()
     }
     
     /// Sets the user avata to be the correct image and place it at the
     /// correct place
-    private func setUserAvata() {
-        if let url = userProfile?.avatarRef {
-            avatar.imageFromUrl(url: url)
-        } 
+    private func setUserAvatar() {
         avatar.layer.cornerRadius = avatar.bounds.height / 2
         avatar.layer.masksToBounds = true
         avatar.isUserInteractionEnabled = true
@@ -135,13 +143,24 @@ class UserProfileViewController: UIViewController {
         view.addSubview(avatar)
     }
     
+    /// Loads the user avatar
+    private func loadUserAvatar() {
+        if let url = userProfile?.avatarRef {
+            avatar.imageFromUrl(url: url)
+        }
+    }
+    
     /// Sets user related texts including user name and location info
     private func setUserText() {
-        userName.text = userProfile?.username
-        location.text = userProfile?.email
         view.addSubview(userName)
         vibrancyEffectView.addSubview(location)
         
+    }
+    
+    /// Loads the user text
+    private func loadUserText() {
+        userName.text = userProfile?.username
+        location.text = userProfile?.email
     }
     
     /// Sets up the route list table.
@@ -149,14 +168,9 @@ class UserProfileViewController: UIViewController {
         routeList.delegate = self
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
-        view.addSubview(routeList)
-        routeList.reloadData()
-    }
-    
-    /// Postions the route list in view did appear using auto layout
-    private func configRouteList() {
         routeList.rowHeight = UITableViewAutomaticDimension
         routeList.estimatedRowHeight = UserProfileConstants.estimatedRowHeight
+        view.addSubview(routeList)
         routeList.reloadData()
     }
     
