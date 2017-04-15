@@ -7,10 +7,7 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FBSDKCoreKit
 import FBSDKLoginKit
-
 /**
  This is a view controller specially for user login.
  This is the first view controller that user will be seeing.

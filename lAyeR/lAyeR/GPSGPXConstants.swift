@@ -6,8 +6,6 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
-
 class GPSGPXConstants {
 
     static let defaultLocation: GeoPoint = GeoPoint(0, 0)

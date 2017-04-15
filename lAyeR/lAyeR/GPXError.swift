@@ -6,8 +6,6 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
-
 enum GPXError: Error {
     case createFailure
     case readFailure
