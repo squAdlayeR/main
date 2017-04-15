@@ -11,10 +11,10 @@ import UIKit
 /**
  A controller that is used to manage a basic alert.
  This controller is able to
- 1. initialze an alert
- 2. adds a view to an alert
- 3. adds buttons to an alert
- 4. present/close an alert in a specified view
+ - initialze an alert
+ - adds a view to an alert
+ - adds buttons to an alert
+ - present/close an alert in a specified view
  
  - Note: this controller explicitly assigns the alert to
     an alertView. This is to ensure the transformation will
@@ -25,74 +25,62 @@ import UIKit
 class BasicAlertController: UIViewController {
     
     private(set) var alert: BasicAlert!
-    private(set) var alertView: UIView!
+    private var alertView: UIView!
+    private var cover: UIView!
     
-    var cover: UIView!
-    
-    /// Initializes the alert controller
+    /// Initializes the alert controller lazily
+    /// - Note: it does not create an alert until present alert is called
     init(title: String, size: CGSize) {
         super.init(nibName: nil, bundle: nil)
-        initializeAlertView(with: size)
-        initializeBasicAlert(with: title, and: size)
-        prepareDisplay()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
-        super.init(coder: aDecoder)
-    }
-    
-    /// Initializes the alert view that will be used to hold
-    /// the alert popup
-    /// - Parameter frame: the frame of the alert view
-    private func initializeAlertView(with size: CGSize) {
-        let newAlertView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        alertView = newAlertView
-    }
-    
-    /// Initializes the basic alert popup that will be shown
-    /// in the view
-    /// - Parameter title: the title of the basic alert
-    private func initializeBasicAlert(with title: String, and size: CGSize) {
-        let newBasicAlert = BasicAlert(width: size.width, height: size.height, title: title)
-        alert = newBasicAlert
-    }
-    
-    /// Adds the alert into the alert view for display
-    private func prepareDisplay() {
-        alertView.addSubview(alert)
+        prepareBasicAlert(with: title, and: sanitize(size))
+        prepareAlertView(with: sanitize(size))
+        prepareCover()
     }
     
     /// Sanitizes the frame. The main thing is to check
     /// Whether the height has exeeded the designed bounds
     /// - Parameter frame: the frame to be sanitized
     /// - Returns: the sanitized frame
-    private func sanitize(_ frame: CGRect) -> CGRect {
-        var frameHeight = frame.height
-        if frameHeight < minAlertHeight {
-            frameHeight = minAlertHeight
+    private func sanitize(_ size: CGSize) -> CGSize {
+        var height = size.height
+        if height < BasicAlertConstants.minAlertHeight {
+            height = BasicAlertConstants.minAlertHeight
         }
-        if frameHeight > maxAlertHeight {
-            frameHeight = maxAlertHeight
+        if height > BasicAlertConstants.maxAlertHeight {
+            height = BasicAlertConstants.maxAlertHeight
         }
-        return CGRect(x: frame.origin.x, y: frame.origin.y,
-                      width: frame.width, height: frameHeight)
+        return CGSize(width: size.width, height: height)
     }
     
-    /// Calcualtes the frame of the alert in the view.
-    /// - Returns: a frame of the same size as the view and 
-    /// the origin is (0, 0)
-    private var alertFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: alertView.frame.width, height: alertView.frame.height)
+    /// Initializes the basic alert popup that will be shown in the view
+    /// - Parameters:
+    ///     - title: the title on the card
+    ///     - size: the size of the alert
+    private func prepareBasicAlert(with title: String, and size: CGSize) {
+        let newBasicAlert = BasicAlert(width: size.width, height: size.height, title: title)
+        alert = newBasicAlert
     }
-
-}
-
-/**
- An extension which holds the methods that are related to operations
- on the alert
- */
-extension BasicAlertController {
+    
+    /// Initializes the alert view that will be used to hold the alert popup
+    /// - Parameter size: the size of the alert view
+    private func prepareAlertView(with size: CGSize) {
+        let newAlertView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        alertView = newAlertView
+    }
+    
+    /// Prepares a cover so that user cannot click on other things unless he closes
+    /// the popup
+    private func prepareCover() {
+        let cover = UIView(frame: view.bounds)
+        cover.layer.zPosition = BasicAlertConstants.zPosition
+        self.cover = cover
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    /* public functions */
     
     /// Adds a view to the alert
     /// - Parameter view: the view that is to be displayed in
@@ -108,16 +96,18 @@ extension BasicAlertController {
     }
     
     /// Adds a text content into the inner view of the alert.
+    /// - Note: only useful when the inner view is `InformativeInnerView`
     /// - Parameters:
     ///     - label: the label of the text content
-    ///     - conetent: the text of the content
     ///     - iconName: the name of the icon that will be displayed in the label
+    ///     - conetent: the text of the content
     func addText(with label: String, iconName: String, and content: String) {
         if let innerView = alert.infoPanel.innerView as? InformativeInnerView {
             let infoBlock = InfoBlockView(label: label,
                                           iconName: iconName,
                                           content: content,
-                                          width: innerView.bounds.width - innerViewSidePadding * 2)
+                                          width: innerView.bounds.width
+                                            - InnerViewConstants.innerViewSidePadding * 2)
             innerView.insertSubInfo(infoBlock)
         }
     }
@@ -125,26 +115,22 @@ extension BasicAlertController {
     /// Presents the alert inside a specified view
     /// - Parameter view: the view that will be holding the alert
     func presentAlert(within view: UIView) {
-        cover = UIView(frame: view.bounds)
-        cover.layer.zPosition = alertViewZPosition
+        alertView.center = cover.center
         alertView.addSubview(alert)
         cover.addSubview(alertView)
         view.addSubview(cover)
-//        alertView.layer.zPosition = alertViewZPosition
         alert.open()
     }
     
     /// Closes the alert
     @objc func closeAlert() {
         alert.close(inCompletion: { [weak self] in
-            guard self != nil else { return }
-            self!.alert.removeFromSuperview()
-            self!.alertView.removeFromSuperview()
-            self!.cover.removeFromSuperview()
+            self?.alert.removeFromSuperview()
+            self?.alertView.removeFromSuperview()
+            self?.cover.removeFromSuperview()
             self?.removeFromParentViewController()
         })
     }
-    
-}
 
+}
 

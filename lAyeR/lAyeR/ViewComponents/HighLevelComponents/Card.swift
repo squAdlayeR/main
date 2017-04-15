@@ -61,8 +61,8 @@ class Card: NSObject {
     ///     - name: the name of the check point
     private func initAlert() {
         let newAlertController = BasicAlertController(title: defaultTitle, size: popupSize)
-        let alertWidth = newAlertController.alert.infoPanel.bounds.width
-        let alertHeight = newAlertController.alert.infoPanel.bounds.height
+        let alertWidth = popupSize.width
+        let alertHeight = popupSize.height - BasicAlertConstants.topBannerHeight - BasicAlertConstants.bottomBannerHeight
         newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
                                                                height: alertHeight,
                                                                subtitle: titleText))

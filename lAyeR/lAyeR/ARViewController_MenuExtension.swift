@@ -40,7 +40,6 @@ extension ARViewController {
     private func prepareUpdateSuccessAlert() {
         let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
         updateSuccessAlertController = BasicAlertController(title: successTitle, size: alertSize)
-        updateSuccessAlertController.alertView.center = view.center
         let closeButton = createCloseButton()
         updateSuccessAlertController.addButtonToAlert(closeButton)
         let label = createSuccessText()
@@ -141,7 +140,6 @@ extension ARViewController {
     func forceUpdateLocation() {
         menuController.remove()
         updateSuccessAlertController.presentAlert(within: view)
-        view.bringSubview(toFront: updateSuccessAlertController.alertView)
         geoManager.forceUpdateUserPoint()
     }
     
