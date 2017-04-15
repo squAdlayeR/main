@@ -24,5 +24,10 @@ class MiscConstants {
     
     // For POI categories cell
     static let coloredIconExtension = "-colored"
+    
+    // For loading badge
+    static let badgeOverLayFrame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100)
+    static let bdageIndicatorFrame: CGRect = CGRect(x: 0, y: 0, width: 60, height: 60)
+    static let badgeCornerRadius: CGFloat = 10
 
 }

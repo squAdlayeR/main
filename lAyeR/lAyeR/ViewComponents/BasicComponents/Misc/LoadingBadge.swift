@@ -23,19 +23,18 @@ public class LoadingBadge {
     
     /// Initializes the badge.
     init() {
-        overlayView.frame = defaultOverLayFrame
+        overlayView.frame = MiscConstants.badgeOverLayFrame
         overlayView.backgroundColor = UIColor.darkGray
         overlayView.clipsToBounds = true
-        overlayView.layer.cornerRadius = defaultCornerRadius
-        activityIndicator.frame = defaultIndicatorFrame
+        overlayView.layer.cornerRadius = MiscConstants.badgeCornerRadius
+        activityIndicator.frame = MiscConstants.bdageIndicatorFrame
         activityIndicator.activityIndicatorViewStyle = .whiteLarge
         activityIndicator.center = overlayView.center
         overlayView.addSubview(activityIndicator)
     }
     
     /// Shows the badge in specified UIView and start animating.
-    /// - Parameter:
-    ///     - view: UIView: the view to display to the badge.
+    /// - Parameter view: UIView: the view to display to the badge.
     public func showBadge(in view: UIView) {
         overlayView.center = view.center
         view.addSubview(overlayView)
@@ -48,4 +47,5 @@ public class LoadingBadge {
         activityIndicator.stopAnimating()
         overlayView.removeFromSuperview()
     }
+    
 }

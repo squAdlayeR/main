@@ -25,8 +25,9 @@ class CommonAlertController: BasicAlertController {
     
     /// Initializes the common alert controller.
     init() {
-        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
-        super.init(title: "", size: alertSize)
+        let alertSize = CGSize(width: HighLevelMiscConstants.suggestedPopupWidth,
+                               height: HighLevelMiscConstants.suggestedPopupHeight)
+        super.init(title: HighLevelMiscConstants.emptyString, size: alertSize)
         initializeCloseButton()
         initializeMessageLabel()
     }
@@ -39,7 +40,8 @@ class CommonAlertController: BasicAlertController {
     /// Creates a text field that shows message.
     private func initializeMessageLabel() {
         label = UILabel()
-        label.font = UIFont(name: alterDefaultFontLight, size: buttonFontSize)
+        label.font = UIFont(name: alterDefaultFontLight,
+                            size: HighLevelMiscConstants.messageFontSize)
         label.textAlignment = NSTextAlignment.center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -50,8 +52,9 @@ class CommonAlertController: BasicAlertController {
     /// Creates a close button.
     private func initializeCloseButton() {
         button = UIButton()
-        button.setTitle(confirmLabelText, for: .normal)
-        button.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        button.setTitle(HighLevelMiscConstants.confirmString, for: .normal)
+        button.titleLabel?.font = UIFont(name: alterDefaultFontRegular,
+                                         size: HighLevelMiscConstants.buttonFontSize)
         button.addTarget(self, action: #selector(closeAlert), for: .touchUpInside)
         addButtonToAlert(button)
     }
