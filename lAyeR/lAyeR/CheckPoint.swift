@@ -18,14 +18,20 @@ import ObjectMapper
  */
 class CheckPoint: GeoPoint {
     
-    // Represents the name, description
+    /// Represents the name, description
     private(set) var name: String = ""
     private(set) var description: String = ""
     
-    // Specifies if the point is control point
+    /// Specifies if the point is control point
     var isControlPoint = true
     
-    // Initializes a check point from latitude and logitude.
+    /// Initializes a check point from latitude and logitude.
+    /// - Parameters:
+    ///     - latitude: Double: latitude of the point in degrees.
+    ///     - longitude: Double: longitude of the point in degrees.
+    ///     - name: String: name of the check point.
+    ///     - description: String: description of the check point.
+    ///     - isControlPoint: Bool: specifies if the point is a control point.
     init(_ latitude: Double, _ longitude: Double,
          _ name: String, _ description: String = "",
          _ isControlPoint: Bool = true) {
@@ -36,6 +42,11 @@ class CheckPoint: GeoPoint {
     }
     
     // Initializes a check point from a geo point.
+    /// - Parameters:
+    ///     - geoPoint: GeoPoint: the geo location of the point.
+    ///     - name: String: name of the check point.
+    ///     - description: String: description of the check point.
+    ///     - isControlPoint: Bool: specifies if the point is a control point.
     init(_ geoPoint: GeoPoint,
          _ name: String, _ description: String = "",
          _ isControlPoint: Bool = false) {
@@ -45,6 +56,9 @@ class CheckPoint: GeoPoint {
         super.init(geoPoint.latitude, geoPoint.longitude)
     }
     
+    /// Initializes a GeoPoint with a map.
+    /// - Parameters:
+    ///     - map: Map: mapping of the fields.
     required init?(map: Map) {
         guard let name = map.JSON[ModelConstants.nameKey] as? String else {
             return nil
@@ -55,6 +69,9 @@ class CheckPoint: GeoPoint {
         super.init(map: map)
     }
     
+    /// Forms the mapping.
+    /// - Parameters:
+    ///     - map: Map: mapping of the fields.
     override func mapping(map: Map) {
         super.mapping(map: map)
         name <- map[ModelConstants.nameKey]
@@ -64,7 +81,7 @@ class CheckPoint: GeoPoint {
     
 }
 
-
+/// Returns true if the name, latitude and longitude of the check points are equal.
 func ==(lhs: CheckPoint, rhs: CheckPoint) -> Bool {
     let areEqual = lhs.name == rhs.name &&
         lhs.latitude == rhs.latitude &&

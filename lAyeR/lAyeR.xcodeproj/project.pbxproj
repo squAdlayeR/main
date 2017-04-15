@@ -536,6 +536,7 @@
 				52B2298A1E974FB2009C733B /* GPXError.swift */,
 				52B2298F1E978284009C733B /* Extensions.swift */,
 				52C62D951EA0A97E006D968B /* GPSGPXConstants.swift */,
+				A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */,
 				52C62D971EA0BE4C006D968B /* Messages.swift */,
 			);
 			name = "GPSTracker+GPX";
@@ -585,7 +586,6 @@
 				52DE2C401E995F4700671B6E /* TrackPoint.swift */,
 				5249B1A51E7263C40048249D /* Route.swift */,
 				5249B1B61E72FC660048249D /* GeoUtil.swift */,
-				A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";

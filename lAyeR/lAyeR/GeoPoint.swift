@@ -18,12 +18,17 @@ class GeoPoint: Mappable {
     private(set) var longitude: Double
     
     /// Initializes a GeoPoint with latitude and logitude.
+    /// - Parameters:
+    ///     - latitude: Double: latitude of the point in degrees
+    ///     - longitude: Double: longitude of the point in degrees
     init(_ latitude: Double, _ longitude: Double) {
         self.latitude = GeoUtil.isValidLatitude(latitude) ? latitude : 0
         self.longitude = GeoUtil.isValidLongitude(longitude) ? longitude : 0
     }
     
     /// Initializes a GeoPoint with a map.
+    /// - Parameters:
+    ///     - map: Map: mapping of the fields.
     required init?(map: Map) {
         guard let latitude = map.JSON[ModelConstants.latitudeKey] as? Double,
             let longitude = map.JSON[ModelConstants.longitudeKey] as? Double else {
@@ -34,6 +39,8 @@ class GeoPoint: Mappable {
     }
     
     /// Forms the mapping.
+    /// - Parameters:
+    ///     - map: Map: mapping of the fields.
     func mapping(map: Map) {
         latitude <- map[ModelConstants.latitudeKey]
         longitude <- map[ModelConstants.longitudeKey]
@@ -43,7 +50,8 @@ class GeoPoint: Mappable {
 
 extension GeoPoint: Equatable {}
 
-func==(lhs: GeoPoint, rhs: GeoPoint) -> Bool {
+/// Returns true if the latitude and longitude of the geo points are equal.
+func ==(lhs: GeoPoint, rhs: GeoPoint) -> Bool {
     return lhs.latitude == rhs.latitude
         && lhs.longitude == rhs.longitude
 }

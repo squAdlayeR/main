@@ -6,9 +6,7 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
 import ObjectMapper
-import CoreLocation
 
 class TrackPoint: CheckPoint {
     var up: Bool = false
@@ -21,19 +19,19 @@ class TrackPoint: CheckPoint {
     }
     
     required init?(map: Map) {
-        self.up = map.JSON["up"] as? Bool ?? false
-        self.down = map.JSON["down"] as? Bool ?? false
-        self.left = map.JSON["left"] as? Bool ?? false
-        self.right = map.JSON["right"] as? Bool ?? false
+        self.up = map.JSON[ModelConstants.upKey] as? Bool ?? false
+        self.down = map.JSON[ModelConstants.downkey] as? Bool ?? false
+        self.left = map.JSON[ModelConstants.leftKey] as? Bool ?? false
+        self.right = map.JSON[ModelConstants.rightKey] as? Bool ?? false
         super.init(map: map)
     }
     
     override func mapping(map: Map) {
         super.mapping(map: map)
-        up <- map["up"]
-        down <- map["down"]
-        left <- map["left"]
-        right <- map["right"]
+        up <- map[ModelConstants.upKey]
+        down <- map[ModelConstants.downkey]
+        left <- map[ModelConstants.leftKey]
+        right <- map[ModelConstants.rightKey]
     }
     
     func convertToStruct() -> TrackPointStruct {
@@ -67,6 +65,7 @@ struct TrackPointStruct {
 }
 
 extension TrackPointStruct: Hashable {
+    
     var hashValue: Int {
         let latInt = Int(round(self.latitude * 10000))
         let lonInt = Int(round(self.longitude * 10000))

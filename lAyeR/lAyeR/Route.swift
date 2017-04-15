@@ -6,7 +6,6 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
 import ObjectMapper
 
 class Route: Mappable {
@@ -81,11 +80,6 @@ class Route: Mappable {
     /// Removes the check point at specifed location.
     func remove(at index: Int) {
         let _ = checkPoints.remove(at: index)
-    }
-    
-    /// Removes the given check point in the route.
-    func remove(_ checkPoint: CheckPoint) {
-        // see if really needed later.
     }
     
     /// Route specification

@@ -15,6 +15,11 @@ import CoreLocation
 class GeoUtil {
     
     /// Returns the coordinate distance between two points in meters.
+    /// - Parameters:
+    ///     - geoPoint1: GeoPoint
+    ///     - geoPoint2: GeoPoint
+    /// - Returns:
+    ///     - Double: coordinate distance of the points in meters.
     static func getCoordinateDistance(_ geoPoint1: GeoPoint, _ geoPoint2: GeoPoint) -> Double {
         let location1 = CLLocation(latitude: geoPoint1.latitude,
                                    longitude: geoPoint1.longitude)
@@ -23,8 +28,12 @@ class GeoUtil {
         return location1.distance(from: location2)
     }
     
-    /// Returns the azimuth between two points with respect to the first
-    /// point in radians.
+    /// Returns the azimuth between two points with respect to the first point in radians.
+    /// - Parameters:
+    ///     - geoPoint1: GeoPoint
+    ///     - geoPoint2: GeoPoint
+    /// - Returns:
+    ///     - Double: azimuth between with respect to the first point in radians.
     static func getAzimuth(between geoPoint1: GeoPoint, _ geoPoint2: GeoPoint) -> Double {
         let location1 = CLLocation(latitude: geoPoint1.latitude,
                                    longitude: geoPoint1.longitude)
@@ -44,21 +53,21 @@ class GeoUtil {
     }
     
     /// Returns true if the given latitude is valid.
+    /// - Parameters: 
+    ///     - lat: Double: latitude to check
+    /// - Returns: 
+    ///     - Bool: true if the given latitude is valid.
     static func isValidLatitude(_ lat: Double) -> Bool {
-        return -90 <= lat && lat <= 90
+        return ModelConstants.minLat <= lat && lat <= ModelConstants.maxLat
     }
     
     /// Returns true if the given longitude is valid.
-    static func isValidLongitude(_ lng: Double) -> Bool {
-        return -180 <= lng && lng <= 180
-    }
-    
-    static func isWithinRange(_ point: GeoPoint, _ topLeft: GeoPoint, _ bottomRight: GeoPoint) -> Bool {
-        let withinLatitude = point.latitude <= topLeft.latitude && point.latitude >= bottomRight.latitude
-        if topLeft.longitude > bottomRight.longitude {
-            return (point.longitude > topLeft.longitude || point.longitude < bottomRight.longitude) && withinLatitude
-        }
-        return point.longitude > topLeft.longitude && point.longitude < bottomRight.longitude && withinLatitude
+    /// - Parameters:
+    ///     - lon: Double: longitude to check
+    /// - Returns:
+    ///     - Bool: true if the given longitude is valid.
+    static func isValidLongitude(_ lon: Double) -> Bool {
+        return ModelConstants.minLon <= lon && lon <= ModelConstants.maxLon
     }
     
     static func distanceFromPointToLine(point p: GeoPoint, fromLineSegmentBetween l1: GeoPoint, and l2: GeoPoint) -> Double {
@@ -108,7 +117,6 @@ class GeoUtil {
     }
     
     static func isSimilar(route1: Route, route2: Route, threshold: Double) -> Bool {
-        //var deltas: [Double] = []
         let pathScore1 = getPathDissimilarityScore(from: route1, to: route2)
         let pathScore2 = getPathDissimilarityScore(from: route2, to: route1)
         return pathScore1/Double(route1.checkPoints.count) + pathScore2/Double(route2.checkPoints.count) <= threshold
