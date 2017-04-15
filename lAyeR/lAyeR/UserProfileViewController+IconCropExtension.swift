@@ -89,16 +89,21 @@ extension UserProfileViewController: TOCropViewControllerDelegate {
         }
     }
     
+    /// Refreshes User Profile with cropped image.
+    /// - Parameters: 
+    ///     - image: UIImage: the new user icon.
     func refreshProfile(with image: UIImage) {
         do {
-            let url = try GPXFileManager.instance.save(name: "user-icon", image: image)
+            let url = try GPXFileManager.instance.save(name: UserProfileConstants.userIconName, image: image)
             self.avatar.imageFromUrl(url: url.absoluteString)
             self.userProfile?.avatarRef = url.absoluteString
-            DispatchQueue.global(qos: .background).async {
-                DatabaseManager.instance.addUserProfileToDatabase(uid: UserAuthenticator.instance.currentUser!.uid, userProfile: self.userProfile!)
+            guard let uid = UserAuthenticator.instance.currentUser?.uid, let profile = self.userProfile else {
+                self.showAlertMessage(message: Messages.databaseWriteFailureMessage)
+                return
             }
+            DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: profile)
         } catch {
-            self.showAlertMessage(message: "Failed to save the icon.")
+            self.showAlertMessage(message: Messages.savePNGFailureMessage)
         }
     }
     

@@ -11,7 +11,8 @@ import Foundation
 class UserProfileConstants {
     
     static let defaultUserName: String = "lAyeR_user"
-
-    
-    
+    static let userIconName: String = "usericon"
+    static let userProfileHeaderHeight: CGFloat = 10
+    static let defaultButtonCornerRadius: CGFloat = 5
+    static let estimatedRowHeight: CGFloat = 150
 }

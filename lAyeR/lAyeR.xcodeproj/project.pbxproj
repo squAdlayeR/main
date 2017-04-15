@@ -71,6 +71,8 @@
 		52A845D71EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845D61EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift */; };
 		52A845D91EA12D990084DAA3 /* UserProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845D81EA12D990084DAA3 /* UserProfileConstants.swift */; };
 		52A845DB1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845DA1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift */; };
+		52A845DD1EA1A8B60084DAA3 /* StoryboardConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845DC1EA1A8B60084DAA3 /* StoryboardConstants.swift */; };
+		52A845DF1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A845DE1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift */; };
 		52B2298B1E974FB2009C733B /* GPXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B2298A1E974FB2009C733B /* GPXError.swift */; };
 		52B229901E978284009C733B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B2298F1E978284009C733B /* Extensions.swift */; };
 		52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6B80991E82AD0900210203 /* UIConfig.swift */; };
@@ -226,6 +228,8 @@
 		52A845D61EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserProfileViewController+IconCropExtension.swift"; sourceTree = "<group>"; };
 		52A845D81EA12D990084DAA3 /* UserProfileConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileConstants.swift; sourceTree = "<group>"; };
 		52A845DA1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserProfileViewController+TableViewExtension.swift"; sourceTree = "<group>"; };
+		52A845DC1EA1A8B60084DAA3 /* StoryboardConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardConstants.swift; sourceTree = "<group>"; };
+		52A845DE1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserProfileViewController+UIInteractionExtension.swift"; sourceTree = "<group>"; };
 		52B2298A1E974FB2009C733B /* GPXError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXError.swift; sourceTree = "<group>"; };
 		52B2298F1E978284009C733B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		52BD49711E8A8D0000B4B750 /* DataServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceManager.swift; sourceTree = "<group>"; };
@@ -691,8 +695,10 @@
 				9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */,
 				52A845D61EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift */,
 				52A845DA1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift */,
+				52A845DE1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift */,
 				52830F261E8F4567009DFD02 /* UserProfile.swift */,
 				52A845D81EA12D990084DAA3 /* UserProfileConstants.swift */,
+				52A845DC1EA1A8B60084DAA3 /* StoryboardConstants.swift */,
 			);
 			name = UserProfile;
 			sourceTree = "<group>";
@@ -1063,8 +1069,10 @@
 				52A845DB1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift in Sources */,
 				9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */,
 				52C62D961EA0A97E006D968B /* GPSGPXConstants.swift in Sources */,
+				52A845DD1EA1A8B60084DAA3 /* StoryboardConstants.swift in Sources */,
 				52C62D9B1EA0E763006D968B /* AuthenticationConstants.swift in Sources */,
 				A27C23D61E812D1C0063F371 /* ViewLayoutAdjustable.swift in Sources */,
+				52A845DF1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift in Sources */,
 				9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */,
 				52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */,
 				9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */,

@@ -131,8 +131,10 @@ class DatabaseManager {
     }
     
     func updateUserProfile(uid: String, userProfile: UserProfile) {
-        currentUserProfile = userProfile
-        FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
+        DispatchQueue.global(qos: .background).async {
+            self.currentUserProfile = userProfile
+            FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
+        }
     }
     
     func updateRouteInDatabase(route: Route) {

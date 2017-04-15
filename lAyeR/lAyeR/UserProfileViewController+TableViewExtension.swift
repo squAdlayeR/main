@@ -14,100 +14,99 @@ import UIKit
  */
 extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
-    /// Returns the total number of cells in the data table
+    /// Returns the number of rows per section.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
+    /// Returns the total number of sections in the data table
     func numberOfSections(in tableView: UITableView) -> Int {
         return userProfile?.designedRoutes.count ?? 0
     }
     
+    /// Returns the height of header view of each section.
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UserProfileConstants.userProfileHeaderHeight
+    }
+    
+    /// Returns the header view of each section.
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     /// Creates cells for the table
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // TODO: Magic strings and numbers
-        let cell = tableView.dequeueReusableCell(withIdentifier: "routeListCell", for: indexPath) as? RouteListCell ?? RouteListCell()
-        
-        cell.routeName.text = userProfile?.designedRoutes[indexPath.section]
+        let cell = tableView.dequeueReusableCell(withIdentifier: StoryboardConstants.routeListIdentifier, for: indexPath) as? RouteListCell ?? RouteListCell()
+        let name = userProfile?.designedRoutes[indexPath.section] ?? ""
+        cell.routeName.text = name
         cell.routeName.preferredMaxLayoutWidth = tableView.bounds.width
         cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
-        
-        DatabaseManager.instance.getRoute(withName: cell.routeName.text!) { route in
-            if let route = route {
-                cell.backgroundImage.imageFromUrl(url: route.imagePath)
-                cell.routeDescription.text = "Distance: \(Int(route.distance)) m"
+        DatabaseManager.instance.getRoute(withName: name) { route in
+            guard let route = route else {
+                return
             }
+            cell.backgroundImage.imageFromUrl(url: route.imagePath)
+            cell.routeDescription.text = route.distanceDescription
         }
         return cell
     }
     
+    /// Handles row selection event.
+    /// If user is in selection mode, show the check mark of the cell and insert cell
+    /// information into selected names to prepare for export. Otherwise, performs segue 
+    /// to route designer to display the selected route.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell,
-            let name = cell.routeName.text else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell, let name = cell.routeName.text else {
+                return
+        }
         if selectionMode {
             cell.checkMark.isHidden = false
             selectedRouteNames.insert(name)
-        } else {
-            LoadingBadge.instance.showBadge(in: view)
-            DatabaseManager.instance.getRoute(withName: name) { route in
-                //segue
-                LoadingBadge.instance.hideBadge()
-                if let route = route {
-                    self.performSegue(withIdentifier: "userProfileToDesigner", sender: route)
-                } else {
-                    self.showAlertMessage(message: "Load route failed!")
-                }
+            return
+        }
+        LoadingBadge.instance.showBadge(in: view)
+        DatabaseManager.instance.getRoute(withName: name) { route in
+            LoadingBadge.instance.hideBadge()
+            guard let route = route else {
+                self.showAlertMessage(message: Messages.loadRouteFailureMessage)
+                return
             }
+            self.performSegue(withIdentifier: StoryboardConstants.userProfileToDesignerSegue, sender: route)
         }
     }
     
+    /// Handles row deselection event.
+    /// Only valid for selection mode. When user deselects a row, hides the checkmark
+    /// of the cell and remove its entry from the set of selected cells.
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell,
-            let name = cell.routeName.text else { return }
-        if selectionMode {
-            cell.checkMark.isHidden = true
-            selectedRouteNames.remove(name)
+        guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell, let name = cell.routeName.text , selectionMode else {
+            return
         }
+        cell.checkMark.isHidden = true
+        selectedRouteNames.remove(name)
     }
     
+    /// Handles row delete event.
+    /// Reloads tableview data and updates user profile on cloud.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            //tableView.deleteRows(at: [indexPath], with: .left)
-            guard let currentUser = UserAuthenticator.instance.currentUser,
-                let userProfile = userProfile else {
-                    // might lost connection here, operation can't be done.
-                    return
-            }
-            print("ok")
-            print(indexPath)
-            let uid = currentUser.uid
-            let name = userProfile.designedRoutes[indexPath.section]
-            userProfile.designedRoutes.remove(at: indexPath.section)
-            tableView.deleteSections(IndexSet(integer: indexPath.section), with: UITableViewRowAnimation.left)
-            // Error handling here
-            DatabaseManager.instance.removeRouteFromDatabase(routeName: name)
-            DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: userProfile)
-            // Error handling ends here.
+        guard editingStyle == .delete else {
+            return
         }
+        guard let currentUser = UserAuthenticator.instance.currentUser, let userProfile = userProfile else {
+            return
+        }
+        let uid = currentUser.uid
+        userProfile.designedRoutes.remove(at: indexPath.section)
+        tableView.deleteSections(IndexSet(integer: indexPath.section), with:UITableViewRowAnimation.left)
+        DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: userProfile)
     }
     
+    /// Deselects all rows in the route list.
     func deselectAll() {
         for sec in 0..<routeList.numberOfSections {
             let indexPath = IndexPath(row: 0, section: sec)
-            guard let cell = routeList.cellForRow(at: indexPath) as? RouteListCell,
-                let name = cell.routeName.text else { continue }
-            cell.checkMark.isHidden = true
-            selectedRouteNames.remove(name)
+            routeList.deselectRow(at: indexPath, animated: true)
         }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
     }
     
 }

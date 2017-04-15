@@ -20,34 +20,42 @@ import UIKit
  These information could be retrieved when view is loaded
  */
 class UserProfileViewController: UIViewController {
-
-    @IBOutlet weak var logoutButton: UIButton!
-    var userProfile: UserProfile?
     
     // Connects the route list view
     @IBOutlet weak var routeList: UITableView!
     
     // Connects the avatar
     @IBOutlet weak var avatar: UIImageView!
-    
-    @IBOutlet weak var exportButton: UIButton!
-    @IBOutlet weak var selectButton: UIButton!
+
     // Connects user name and his/her location
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var location: UILabel!
     
-    // Connects the back button
+    // Connects the buttons
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var exportButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var selectButton: UIButton!
     
+    // Connects the notification label
     @IBOutlet weak var notification: UILabel!
-    
-    let picker = UIImagePickerController()
 
-    var selectedRouteNames: Set<String> = []
-    var selectionMode: Bool = false
     /// Defines the vibrancy effect view
     var vibrancyEffectView: UIVisualEffectView!
     
+    // Defines the image picker
+    let picker = UIImagePickerController()
+    
+    // Defines the selected routes
+    var selectedRouteNames: Set<String> = []
+    
+    // Sets initial selection mode to false
+    var selectionMode: Bool = false
+    
+    // Defines the model of this view controller
+    var userProfile: UserProfile?
+    
+    // Defines the data service used.
     let dataService = DataServiceManager.instance
     
     override func viewDidLoad() {
@@ -80,52 +88,8 @@ class UserProfileViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        routeList.rowHeight = UITableViewAutomaticDimension
-        routeList.estimatedRowHeight = 150
-        routeList.reloadData()
-    }
-    
-    @IBAction func logout(_ sender: Any) {
-        dataService.signOut()
-        self.performSegue(withIdentifier: "userProfileToLogin", sender: nil)
-    }
-    
-    @IBAction func exportPressed(_ sender: UIButton) {
-        if selectedRouteNames.isEmpty {
-            showAlertMessage(message: "Please select routes to export.")
-            return
-        }
-        LoadingBadge.instance.showBadge(in: view)
-        let group = DispatchGroup()
-        var routes: [Route] = []
-        for name in selectedRouteNames {
-            group.enter()
-            DatabaseManager.instance.getRoute(withName: name) { route in
-                if let route = route {
-                    routes.append(route)
-                }
-                group.leave()
-            }
-        }
-        group.notify(queue: .main) {
-            LoadingBadge.instance.hideBadge()
-            self.share(routes: routes)
-        }
-    }
-    
-    @IBAction func selectPressed(_ sender: UIButton) {
-        let title = sender.title(for: .normal)
-        if title == "Select" {
-            routeList.allowsMultipleSelection = true
-            selectionMode = true
-            sender.setTitle("Cancel", for: .normal)
-        } else {
-            routeList.allowsMultipleSelection = false
-            sender.setTitle("Select", for: .normal)
-            selectionMode = false
-            deselectAll()
-        }
-        selectedRouteNames.removeAll()
+        super.viewDidAppear(animated)
+        configRouteList()
     }
     
     /// Sets the camera view as backgound image
@@ -160,15 +124,9 @@ class UserProfileViewController: UIViewController {
     /// Sets the user avata to be the correct image and place it at the
     /// correct place
     private func setUserAvata() {
-        
-        // TODO: magic string and magic number
-        let avatarName = "profile.png"
-        // TODO: Change after image cropping
         if let url = userProfile?.avatarRef {
             avatar.imageFromUrl(url: url)
-        } else {
-            avatar.image = UIImage(named: avatarName)
-        }
+        } 
         avatar.layer.cornerRadius = avatar.bounds.height / 2
         avatar.layer.masksToBounds = true
         avatar.isUserInteractionEnabled = true
@@ -176,7 +134,6 @@ class UserProfileViewController: UIViewController {
         avatar.addGestureRecognizer(tap)
         view.addSubview(avatar)
     }
-    
     
     /// Sets user related texts including user name and location info
     private func setUserText() {
@@ -187,30 +144,39 @@ class UserProfileViewController: UIViewController {
         
     }
     
-    /// Sets up the route list table
+    /// Sets up the route list table.
     private func setRouteList() {
         routeList.delegate = self
         routeList.dataSource = self
         routeList.tableFooterView = UIView(frame: .zero)
         view.addSubview(routeList)
-        setUpButton(selectButton)
-        setUpButton(exportButton)
-        setUpButton(logoutButton)
         routeList.reloadData()
     }
     
+    /// Postions the route list in view did appear using auto layout
+    private func configRouteList() {
+        routeList.rowHeight = UITableViewAutomaticDimension
+        routeList.estimatedRowHeight = UserProfileConstants.estimatedRowHeight
+        routeList.reloadData()
+    }
+    
+    /// Sets up the buttons.
+    private func setUpButtons() {
+        setUpButton(selectButton)
+        setUpButton(exportButton)
+        setUpButton(logoutButton)
+    }
+    
+    /// Sets up single button.
     private func setUpButton(_ btn: UIButton) {
-        btn.layer.cornerRadius = 5
+        btn.layer.cornerRadius = UserProfileConstants.defaultButtonCornerRadius
         btn.layer.masksToBounds = true
         view.addSubview(btn)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
+    
+    /// Prepares data for storyboard segues.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "userProfileToDesigner" {
+        if segue.identifier == StoryboardConstants.userProfileToDesignerSegue {
             if let route = sender as? Route, let dest = segue.destination as? RouteDesignerViewController {
                 dest.importedRoutes = [route]
             }
