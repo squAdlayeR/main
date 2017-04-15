@@ -94,12 +94,10 @@ class SCNViewController: UIViewController {
     }
     
     /**
-     udpate the arrows that is displayed
+     udpate the arrows displayed
      when the change of user location is detected
      */
     func updateArrowNodes() {
-        updateNextCheckpointIndex()
-        
         updateArrowsToBeDisplayed()
         
         updateSize()
@@ -111,6 +109,8 @@ class SCNViewController: UIViewController {
     }
 
     private func updateArrowsToBeDisplayed() {
+        updateNextCheckpointIndex()
+        
         guard let nextCheckpoint = nextCheckpoint else {
             return
         }
