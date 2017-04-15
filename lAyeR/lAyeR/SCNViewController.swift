@@ -102,7 +102,7 @@ class SCNViewController: UIViewController {
         
         removeAllArrows()
         
-        displayArrowsWithNextCheckpoint(at: nextCheckpointIndex)
+        updateArrowsToBeDisplayed()
         
         updateSize()
         updateOpacity()
@@ -112,19 +112,17 @@ class SCNViewController: UIViewController {
         }
     }
     
-    
-    private func displayArrowsWithNextCheckpoint(at index: Int) {
-        guard index >= 0 && index <= route.size - 1 else {
+    private func updateArrowsToBeDisplayed() {
+        guard let nextCheckpoint = nextCheckpoint else {
             return
         }
-        let nextCheckpoint = route.checkPoints[index]
         let userPoint = geoManager.getLastUpdatedUserPoint()
         
         var (previousOffset, leftCount) = addArrows(from: userPoint, to: nextCheckpoint,
                                                     firstOffset: Constant.firstArrowOffset,
                                                     leftCount: Constant.numArrowsDisplayedForward)
         
-        for index in index ..< route.size - 1 {
+        for index in nextCheckpointIndex ..< route.size - 1 {
             if leftCount <= 0 {
                 break
             }
@@ -135,7 +133,6 @@ class SCNViewController: UIViewController {
                                                     leftCount: leftCount)
         }
     }
-    
     
     /// update the index of the next checkpoint according to the user current location
     private func updateNextCheckpointIndex() {
@@ -150,6 +147,10 @@ class SCNViewController: UIViewController {
         }
     }
     
+    /**
+     return a boolean value that indicates
+     whether the user current location can be considered as arriving at the input checkpoint
+     */
     private func doesArrive(at checkpoint: CheckPoint) -> Bool {
         let userPoint = geoManager.getLastUpdatedUserPoint()
         return GeoUtil.getCoordinateDistance(userPoint, checkpoint) < Constant.arrivalDistanceThreshold
@@ -366,8 +367,8 @@ class SCNViewController: UIViewController {
     
     private func stopAnimation() {
         let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
-            Constant.numArrowsDisplayedForward :
-            arrowNodes.count
+                    Constant.numArrowsDisplayedForward :
+                    arrowNodes.count
         for i in 0 ..< count {
             arrowNodes[i].removeAction(forKey: Constant.arrowActionKey)
         }
