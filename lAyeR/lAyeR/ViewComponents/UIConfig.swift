@@ -48,7 +48,7 @@ let openSound = "confirm"
 let soundExtension = "wav"
 
 /// Title
-let defaultTitle: String = "Placeholder"
+
 let titleFontColor: UIColor = UIColor.white
 let titleFontName: String = "HomenajeMod-Regular"
 let titleFontSize: CGFloat = 30
@@ -92,7 +92,7 @@ let infoPanelTitleFontColor: UIColor = UIColor.gray
 let infoPanelTitleHeight: CGFloat = 20
 let innerViewSidePadding: CGFloat = 20
 let innerViewStackMargin: CGFloat = 5
-let titleText: String = "Detailed information"
+
 let infoBlockPadding: CGFloat = 10
 let infoBlockPaddingTop: CGFloat = 5
 let infoBlockBorderRadius: CGFloat = 5

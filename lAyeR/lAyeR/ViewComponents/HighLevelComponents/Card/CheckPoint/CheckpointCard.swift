@@ -25,14 +25,15 @@ class CheckpointCard: Card {
     ///     - distance: the distance between current place to the check point
     ///     - superView: the super view that the check point view is attachend to
     init(distance: Double, superViewController: UIViewController) {
-        super.init(distance: distance, icon: "marker", superViewController: superViewController)
+        super.init(distance: distance, icon: CardConstants.markerIconName,
+                   superViewController: superViewController)
         initializeCardTitle()
         initializeCardButtons()
     }
     
     /// Initializes the card title
     private func initializeCardTitle() {
-        self.popupController.alert.setTitle(checkpointTitle)
+        self.popupController.alert.setTitle(CardConstants.checkpointTitle)
     }
     
     /// Initializes the buttons on the card
@@ -45,8 +46,9 @@ class CheckpointCard: Card {
     /// - Returns: a close button which will close the popup if it is clicked
     private func createCloseButton() -> UIButton {
         let newButton = UIButton()
-        newButton.setTitle(confirmLabelText, for: .normal)
-        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.setTitle(HighLevelMiscConstants.confirmString, for: .normal)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular,
+                                            size: HighLevelMiscConstants.buttonFontSize)
         newButton.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
         return newButton
     }
@@ -62,13 +64,17 @@ extension CheckpointCard {
     /// Sets the name of the check point
     /// - Parameter name: the name of the check point
     func setCheckpointName(_ name: String) {
-        self.popupController.addText(with: nameLabel, iconName: nameIcon, and: name)
+        self.popupController.addText(with: CardConstants.nameLabel,
+                                     iconName: CardConstants.nameIconName,
+                                     and: name)
     }
     
     /// Sets the description of the check point
     /// - Parameter description: the description of the check point
     func setCheckpointDescription(_ description: String) {
-        self.popupController.addText(with: descriptionLabel, iconName: descriptionIcon, and: description)
+        self.popupController.addText(with: CardConstants.descriptionLabel,
+                                     iconName: CardConstants.descriptionIconName,
+                                     and: description)
     }
     
 }

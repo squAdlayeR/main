@@ -52,7 +52,6 @@
 		528288B21E92690C00163654 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AE1E92690C00163654 /* AppSettings.swift */; };
 		528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288AF1E92690C00163654 /* AppSettingsConstants.swift */; };
 		528288B41E92690C00163654 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B01E92690C00163654 /* AppSettingsViewController.swift */; };
-		528288BA1E9355B100163654 /* PoiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288B91E9355B100163654 /* PoiCard.swift */; };
 		528288CD1E9678A900163654 /* GPSTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288CC1E9678A900163654 /* GPSTracker.swift */; };
 		528288DE1E969F2D00163654 /* GPXFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528288DD1E969F2D00163654 /* GPXFileManager.swift */; };
 		52830F271E8F4567009DFD02 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52830F261E8F4567009DFD02 /* UserProfile.swift */; };
@@ -93,7 +92,6 @@
 		9D0A2AE61E9F69A7008D6A21 /* MiniMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE31E9F69A7008D6A21 /* MiniMapViewController.swift */; };
 		9D0A2AE81E9FBC25008D6A21 /* MiscConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE71E9FBC25008D6A21 /* MiscConstants.swift */; };
 		9D0A2AEA1E9FC8B0008D6A21 /* CameraViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE91E9FC8B0008D6A21 /* CameraViewConstants.swift */; };
-		9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11C35F1E98CD4400C33207 /* PriceLevel.swift */; };
 		9D1498F71E800AFB0043DDB6 /* BottomBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */; };
 		9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */; };
 		9D1498F91E800AFB0043DDB6 /* TopBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1498F61E800AFB0043DDB6 /* TopBanner.swift */; };
@@ -112,10 +110,14 @@
 		9D73276E1EA21248008D9860 /* LoadingBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73276D1EA21248008D9860 /* LoadingBadge.swift */; };
 		9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73276F1EA21A09008D9860 /* HighLevelMiscConstants.swift */; };
 		9D7327721EA21A39008D9860 /* CommonAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7327711EA21A39008D9860 /* CommonAlertController.swift */; };
+		9D7327761EA251D6008D9860 /* MenuViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7327751EA251D6008D9860 /* MenuViewConstants.swift */; };
+		9D7327791EA254AD008D9860 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7327781EA254AD008D9860 /* Card.swift */; };
+		9D73277B1EA254BD008D9860 /* CheckpointCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73277A1EA254BD008D9860 /* CheckpointCard.swift */; };
+		9D73277D1EA254D2008D9860 /* PoiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73277C1EA254D2008D9860 /* PoiCard.swift */; };
+		9D73277F1EA25501008D9860 /* PriceLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73277E1EA25501008D9860 /* PriceLevel.swift */; };
+		9D7327811EA2551C008D9860 /* CardConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7327801EA2551C008D9860 /* CardConstants.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
-		9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */; };
 		9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFF1E855CC800592EB5 /* Constants.swift */; };
-		9D7DAD021E85635500592EB5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DAD011E85635500592EB5 /* Card.swift */; };
 		9DAFF1F81E8E942600D09C11 /* RouteListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */; };
 		9DAFF1FE1E8E945D00D09C11 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */; };
 		9DE4361D1E929F8500E1A0ED /* POICategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */; };
@@ -218,7 +220,6 @@
 		528288AE1E92690C00163654 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		528288AF1E92690C00163654 /* AppSettingsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsConstants.swift; sourceTree = "<group>"; };
 		528288B01E92690C00163654 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
-		528288B91E9355B100163654 /* PoiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiCard.swift; path = ViewComponents/HighLevelComponents/POI/PoiCard.swift; sourceTree = "<group>"; };
 		528288CC1E9678A900163654 /* GPSTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSTracker.swift; sourceTree = "<group>"; };
 		528288D81E968FDC00163654 /* lAyeR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lAyeR-Bridging-Header.h"; sourceTree = "<group>"; };
 		528288DD1E969F2D00163654 /* GPXFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXFileManager.swift; sourceTree = "<group>"; };
@@ -257,7 +258,6 @@
 		9D0A2AE31E9F69A7008D6A21 /* MiniMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniMapViewController.swift; path = ViewComponents/BasicComponents/MiniMapView/MiniMapViewController.swift; sourceTree = "<group>"; };
 		9D0A2AE71E9FBC25008D6A21 /* MiscConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiscConstants.swift; path = ViewComponents/BasicComponents/Misc/MiscConstants.swift; sourceTree = "<group>"; };
 		9D0A2AE91E9FC8B0008D6A21 /* CameraViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewConstants.swift; sourceTree = "<group>"; };
-		9D11C35F1E98CD4400C33207 /* PriceLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceLevel.swift; sourceTree = "<group>"; };
 		9D1498F41E800AFB0043DDB6 /* BottomBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/BottomBanner.swift; sourceTree = "<group>"; };
 		9D1498F51E800AFB0043DDB6 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPanel.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/InfoPanel.swift; sourceTree = "<group>"; };
 		9D1498F61E800AFB0043DDB6 /* TopBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopBanner.swift; path = ViewComponents/BasicComponents/BasicAlert/AlertElements/TopBanner.swift; sourceTree = "<group>"; };
@@ -277,10 +277,14 @@
 		9D73276D1EA21248008D9860 /* LoadingBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingBadge.swift; path = ViewComponents/BasicComponents/Misc/LoadingBadge.swift; sourceTree = "<group>"; };
 		9D73276F1EA21A09008D9860 /* HighLevelMiscConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighLevelMiscConstants.swift; path = ViewComponents/HighLevelComponents/Misc/HighLevelMiscConstants.swift; sourceTree = "<group>"; };
 		9D7327711EA21A39008D9860 /* CommonAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonAlertController.swift; path = ViewComponents/HighLevelComponents/Misc/CommonAlertController.swift; sourceTree = "<group>"; };
+		9D7327751EA251D6008D9860 /* MenuViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewConstants.swift; path = ViewComponents/HighLevelComponents/Menu/MenuViewConstants.swift; sourceTree = "<group>"; };
+		9D7327781EA254AD008D9860 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Card.swift; path = ViewComponents/HighLevelComponents/Card/Card.swift; sourceTree = "<group>"; };
+		9D73277A1EA254BD008D9860 /* CheckpointCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointCard.swift; path = ViewComponents/HighLevelComponents/Card/CheckPoint/CheckpointCard.swift; sourceTree = "<group>"; };
+		9D73277C1EA254D2008D9860 /* PoiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PoiCard.swift; path = ViewComponents/HighLevelComponents/Card/POI/PoiCard.swift; sourceTree = "<group>"; };
+		9D73277E1EA25501008D9860 /* PriceLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PriceLevel.swift; path = ViewComponents/HighLevelComponents/Card/POI/PriceLevel.swift; sourceTree = "<group>"; };
+		9D7327801EA2551C008D9860 /* CardConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardConstants.swift; path = ViewComponents/HighLevelComponents/Card/CardConstants.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
-		9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointCard.swift; path = ViewComponents/HighLevelComponents/CheckPoint/CheckpointCard.swift; sourceTree = "<group>"; };
 		9D7DACFF1E855CC800592EB5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		9D7DAD011E85635500592EB5 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Card.swift; path = ViewComponents/HighLevelComponents/Card.swift; sourceTree = "<group>"; };
 		9DAFF1F71E8E942600D09C11 /* RouteListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteListCell.swift; path = ViewComponents/BasicComponents/Misc/RouteListCell.swift; sourceTree = "<group>"; };
 		9DAFF1FD1E8E945D00D09C11 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		9DE4361C1E929F8500E1A0ED /* POICategoriesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = POICategoriesCell.swift; path = ViewComponents/BasicComponents/Misc/POICategoriesCell.swift; sourceTree = "<group>"; };
@@ -647,11 +651,9 @@
 		9D1498F31E8008030043DDB6 /* HighLevelComponents */ = {
 			isa = PBXGroup;
 			children = (
+				9D7327771EA2544F008D9860 /* Card */,
 				52A845D51EA129A10084DAA3 /* Misc */,
 				9D1970101E87FE7F00C1DAA1 /* Menu */,
-				9D7DACF81E85461C00592EB5 /* POI */,
-				9D2938DC1E82B6720054A9F7 /* CheckPoint */,
-				9D7DAD011E85635500592EB5 /* Card.swift */,
 			);
 			name = HighLevelComponents;
 			sourceTree = "<group>";
@@ -669,6 +671,7 @@
 		9D1970101E87FE7F00C1DAA1 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				9D7327751EA251D6008D9860 /* MenuViewConstants.swift */,
 				9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */,
 			);
 			name = Menu;
@@ -677,7 +680,7 @@
 		9D2938DC1E82B6720054A9F7 /* CheckPoint */ = {
 			isa = PBXGroup;
 			children = (
-				9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */,
+				9D73277A1EA254BD008D9860 /* CheckpointCard.swift */,
 			);
 			name = CheckPoint;
 			sourceTree = "<group>";
@@ -694,11 +697,22 @@
 			name = Misc;
 			sourceTree = "<group>";
 		};
+		9D7327771EA2544F008D9860 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				9D7327781EA254AD008D9860 /* Card.swift */,
+				9D7327801EA2551C008D9860 /* CardConstants.swift */,
+				9D2938DC1E82B6720054A9F7 /* CheckPoint */,
+				9D7DACF81E85461C00592EB5 /* POI */,
+			);
+			name = Card;
+			sourceTree = "<group>";
+		};
 		9D7DACF81E85461C00592EB5 /* POI */ = {
 			isa = PBXGroup;
 			children = (
-				528288B91E9355B100163654 /* PoiCard.swift */,
-				9D11C35F1E98CD4400C33207 /* PriceLevel.swift */,
+				9D73277C1EA254D2008D9860 /* PoiCard.swift */,
+				9D73277E1EA25501008D9860 /* PriceLevel.swift */,
 			);
 			name = POI;
 			sourceTree = "<group>";
@@ -1041,6 +1055,7 @@
 				A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */,
 				A28E80031EA22F2A005B65C3 /* RealmRoute.swift in Sources */,
 				9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */,
+				9D73277D1EA254D2008D9860 /* PoiCard.swift in Sources */,
 				9DE4361D1E929F8500E1A0ED /* POICategoriesCell.swift in Sources */,
 				A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */,
 				A28540471E70DD5000CF51B7 /* DeviceMotionManager.swift in Sources */,
@@ -1062,6 +1077,7 @@
 				A238E0721E8FA7A900BA10DC /* CheckpointCardController.swift in Sources */,
 				A238E0741E8FAC7000BA10DC /* PoiCardController.swift in Sources */,
 				528288CD1E9678A900163654 /* GPSTracker.swift in Sources */,
+				9D73277B1EA254BD008D9860 /* CheckpointCard.swift in Sources */,
 				A21BBFB91E839BD600394531 /* MarkerPopupView.swift in Sources */,
 				9D1499031E800B250043DDB6 /* BasicMarker.swift in Sources */,
 				52C62D9D1EA0E7C7006D968B /* LoginViewController+AuthenticationExtension.swift in Sources */,
@@ -1083,9 +1099,8 @@
 				2E742FA01E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift in Sources */,
 				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */,
-				9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */,
 				A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */,
-				9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */,
+				9D7327761EA251D6008D9860 /* MenuViewConstants.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9DFB5B9E1E8426FD00724B6E /* LabelTextBlock.swift in Sources */,
 				2C51ADB91E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift in Sources */,
@@ -1113,7 +1128,6 @@
 				A28E80011EA22E74005B65C3 /* RealmCheckPoint.swift in Sources */,
 				A25E65851E9B737D00011885 /* SCNVector3_Extension.swift in Sources */,
 				A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */,
-				528288BA1E9355B100163654 /* PoiCard.swift in Sources */,
 				52B2298B1E974FB2009C733B /* GPXError.swift in Sources */,
 				2EA4447B1E9B355900D80BB5 /* PriorityQueue.swift in Sources */,
 				2EA444791E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift in Sources */,
@@ -1121,18 +1135,21 @@
 				52A845D41EA111FF0084DAA3 /* GPXFileParser.swift in Sources */,
 				9D7327721EA21A39008D9860 /* CommonAlertController.swift in Sources */,
 				9D37C2E81EA0A4BF003AAA02 /* InnerViewConstants.swift in Sources */,
+				9D73277F1EA25501008D9860 /* PriceLevel.swift in Sources */,
 				A28E80071EA22FC4005B65C3 /* RealmGeoPoint.swift in Sources */,
 				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
 				52A845D01EA106250084DAA3 /* RegisterViewController+AuthenticationExtension.swift in Sources */,
 				9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */,
+				9D7327791EA254AD008D9860 /* Card.swift in Sources */,
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */,
 				2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */,
 				2EA4447F1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift in Sources */,
 				5249B1F31E750B9C0048249D /* lAyeR.xcdatamodeld in Sources */,
 				9D1498F81E800AFB0043DDB6 /* InfoPanel.swift in Sources */,
+				9D7327811EA2551C008D9860 /* CardConstants.swift in Sources */,
 				52BD49721E8A8D0000B4B750 /* DataServiceManager.swift in Sources */,
 				9D0A2AE61E9F69A7008D6A21 /* MiniMapViewController.swift in Sources */,
 				52A845D71EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift in Sources */,

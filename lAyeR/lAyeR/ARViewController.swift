@@ -160,9 +160,10 @@ class ARViewController: UIViewController {
         }
     }
     
-    
-    /// Check whether the user current location is close enough to the specified point 
-    /// to be considered as arriving at that point
+    /**
+     Check whether the user current location is close enough to the specified point
+     to be considered as arriving at that point
+     */
     private func doesArrive(at controlPoint: CheckPoint) -> Bool {
         let userPoint = geoManager.getLastUpdatedUserPoint()
         return GeoUtil.getCoordinateDistance(userPoint, controlPoint) < Constant.arrivalDistanceThreshold
@@ -211,7 +212,12 @@ class ARViewController: UIViewController {
         return newCheckpointCardControllers
     }
     
-    
+    /**
+     update the cards of points of interest to be displayed
+     remove the obsolete cards (in the current list but not in the new list)
+     keep the cards that in both the current list and new list
+     add in the cards that are in the new list but not in the current list
+     */
     private func displayLastUpdatedPOIs() {
         let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
         var newPOICardControllers: [PoiCardController] = []
@@ -273,7 +279,7 @@ class ARViewController: UIViewController {
             }
         }
         
-        scnViewController.updateSceneCameraOrientation()
+        scnViewController.updateSceneCamera()
     }
     
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
