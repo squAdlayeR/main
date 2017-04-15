@@ -48,7 +48,7 @@ class SCNViewController: UIViewController {
         return route.checkPoints[nextCheckpointIndex]
     }
     
-    /// this method will be called with the AR view finish loading
+    /// this method will be called when the AR view finish loading
     func setupScene() {
         guard let arViewController = parent as? ARViewController else {
             return
@@ -68,8 +68,8 @@ class SCNViewController: UIViewController {
     }
     
     /**
-         remvoe obsolete arrow nodes,
-         then add camera node and arrow nodes
+     remvoe obsolete arrow nodes,
+     then add camera node and arrow nodes
      */
     func prepareNodes() {
         removeAllArrows()
@@ -79,7 +79,7 @@ class SCNViewController: UIViewController {
     }
     
     /**
-         return a SCNNode arrow that faces up and points to the North
+     return a SCNNode arrow that faces up and points to the North
      */
     private func getArrowSCNNode() -> SCNNode {
         let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
@@ -94,8 +94,8 @@ class SCNViewController: UIViewController {
     }
     
     /**
-         udpate the arrows that is displayed
-         when the change of user location is detected
+     udpate the arrows that is displayed
+     when the change of user location is detected
      */
     func updateArrowNodes() {
         updateNextCheckpointIndex()
@@ -156,8 +156,8 @@ class SCNViewController: UIViewController {
     }
     
     /**
-         add arrows starting from the source to the destination
-         - Parameters: firstOffset  the distance in meters from the source to the first arrow
+     add arrows starting from the source to the destination
+     - Parameters: firstOffset  the distance in meters from the source to the first arrow
      */
     private func addArrows(from src: GeoPoint, to dest: GeoPoint,
                    firstOffset: Double, leftCount: Int) -> (Double, Int) {
@@ -208,7 +208,7 @@ class SCNViewController: UIViewController {
     }
     
     /**
-         remove all arrow nodes from memory
+     remove all arrow nodes from memory
      */
     func removeAllArrows() {
         for arrow in arrowNodes {
@@ -219,7 +219,7 @@ class SCNViewController: UIViewController {
     
     
     /**
-         update the orientation of the camera node according to the data from the device motion manager
+     update the orientation of the camera node according to the data from the device motion manager
      */
     func updateSceneCameraOrientation() {
         let pitch = motionManager.getVerticalAngle()
@@ -245,8 +245,8 @@ class SCNViewController: UIViewController {
     }
     
     /**
-         update the size of the arrows displayed when the change of user location is detected
-         to simulate the perspective projection
+     update the size of the arrows displayed when the change of user location is detected
+     to simulate the perspective projection
      */
     private func updateSize() {
         guard arrowNodes.count > 0 else {
@@ -279,10 +279,10 @@ class SCNViewController: UIViewController {
     }
     
     /**
-         given the azimuth and the distance of a certain point
-         transform to the corresponding coordinate
-         with positive x axis pointing to the East
-         positive y axis pointing to the North
+     given the azimuth and the distance of a certain point
+     transform to the corresponding coordinate
+     with positive x axis pointing to the East
+     positive y axis pointing to the North
      */
     private func azimuthDistanceToCoordinate(azimuth: Double, distance: Double) -> SCNVector3 {
         let x = distance * sin(azimuth)  // positive: to East
@@ -291,8 +291,8 @@ class SCNViewController: UIViewController {
     }
     
     /**
-        toggle whether should display the "moving on" animation
-        when users tap at one of the arrow
+     toggle whether should display the "moving on" animation
+     when users tap at one of the arrow
      */
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         let tappedPoint = gestureRecognize.location(in: scnView)
@@ -309,8 +309,8 @@ class SCNViewController: UIViewController {
     }
 
     /**
-        the action to change the color of a arrow to the one for highlight
-        then change back to the normal color
+     the action to change the color of a arrow to the one for highlight
+     then change back to the normal color
      */
     private var changeColorAction: SCNAction {
         let pr: CGFloat = (Constant.targetColorR - Constant.arrowDefaultColorR) / 0.18

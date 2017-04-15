@@ -52,6 +52,8 @@ class Constant {
     static let markerAlphaChangeRange: CGFloat = 0.38
     
     static let firstArrowOffset: Double = 0.8  // Unit: meter
+    
+    static let cardArrowImageName = "arrow.png"
 }
 
 
