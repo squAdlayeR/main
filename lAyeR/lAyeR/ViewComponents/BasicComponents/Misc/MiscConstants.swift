@@ -16,9 +16,9 @@ class MiscConstants {
     static let textFieldFontSize: CGFloat = 26
     
     // For Route list cells
-    static let overlayBackgroundColor: UIColor = UIColor(red: CGFloat(48 / 255),
-                                                         green: CGFloat(52 / 255),
-                                                         blue: CGFloat(65 / 255),
+    static let overlayBackgroundColor: UIColor = UIColor(red: CGFloat(48.0 / 255),
+                                                         green: CGFloat(52.0 / 255),
+                                                         blue: CGFloat(65.0 / 255),
                                                          alpha: 0.5)
     static let cornerRadius: CGFloat = 5
     

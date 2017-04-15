@@ -12,5 +12,6 @@ class UserConfig {
     
     /// Default query radius
     static let queryRadius: Double = 100
+    static let country = "sg"
     
 }
