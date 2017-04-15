@@ -31,4 +31,9 @@ class BasicAlertConstants {
     static let showInfoDuration: TimeInterval = 0.5
     static let closeDuration: TimeInterval = 0.15
     
+    // For alert controller
+    static let maxAlertHeight: CGFloat = 500
+    static let minAlertHeight: CGFloat = 250
+    static let zPosition: CGFloat = 10000
+    
 }
