@@ -119,6 +119,11 @@ class Parser {
         return route
     }
     
+    /// Parses query response to a route object if valid, nil otherwise.
+    /// - Parameters:
+    ///     - value: Any?: query response.
+    /// - Returns:
+    ///     - Route?: an route object if response is valid, nil otherwise.
     static func parseRoute(_ value: Any?) -> Route? {
         guard let jsonRoute = value as? [String: Any], let points = jsonRoute["checkPoints"] as? [[String: Any]], let name = jsonRoute["name"] as? String, let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint], let image = jsonRoute["imagePath"] as? String else {
             return nil
