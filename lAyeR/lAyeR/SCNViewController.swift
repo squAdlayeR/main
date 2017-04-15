@@ -14,7 +14,7 @@ import SceneKit.ModelIO
 
 
 /*
- The origin of the coordinate is the start point
+ The origin of the coordinate is the first check point
  The positive direction of x axis points to the East
  The negative direction of z axis points to the North
  */
@@ -48,7 +48,7 @@ class SCNViewController: UIViewController {
         return route.checkPoints[nextCheckpointIndex]
     }
     
-    
+    /// this method will be called with the AR view finish loading
     func setupScene() {
         guard let arViewController = parent as? ARViewController else {
             return
@@ -68,8 +68,8 @@ class SCNViewController: UIViewController {
     }
     
     /**
-     remvoe obsolete arrow nodes,
-     then add camera node and arrow nodes
+         remvoe obsolete arrow nodes,
+         then add camera node and arrow nodes
      */
     func prepareNodes() {
         removeAllArrows()
@@ -79,7 +79,7 @@ class SCNViewController: UIViewController {
     }
     
     /**
-     return a SCNNode arrow that points to the North
+         return a SCNNode arrow that faces up and points to the North
      */
     private func getArrowSCNNode() -> SCNNode {
         let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
@@ -93,6 +93,10 @@ class SCNViewController: UIViewController {
         return arrowNode
     }
     
+    /**
+         udpate the arrows that is displayed
+         when the change of user location is detected
+     */
     func updateArrowNodes() {
         updateNextCheckpointIndex()
         
@@ -109,7 +113,7 @@ class SCNViewController: UIViewController {
     }
     
     
-    func displayArrowsWithNextCheckpoint(at index: Int) {
+    private func displayArrowsWithNextCheckpoint(at index: Int) {
         guard index >= 0 && index <= route.size - 1 else {
             return
         }
@@ -117,7 +121,7 @@ class SCNViewController: UIViewController {
         let userPoint = geoManager.getLastUpdatedUserPoint()
         
         var (previousOffset, leftCount) = addArrows(from: userPoint, to: nextCheckpoint,
-                                                    firstOffset: 0.8,
+                                                    firstOffset: Constant.firstArrowOffset,
                                                     leftCount: Constant.numArrowsDisplayedForward)
         
         for index in index ..< route.size - 1 {
@@ -152,10 +156,10 @@ class SCNViewController: UIViewController {
     }
     
     /**
-     add arrows starting from the source to the destination
-     - Parameters: firstOffset  the distance in meters from the source to the first arrow
+         add arrows starting from the source to the destination
+         - Parameters: firstOffset  the distance in meters from the source to the first arrow
      */
-    func addArrows(from src: GeoPoint, to dest: GeoPoint,
+    private func addArrows(from src: GeoPoint, to dest: GeoPoint,
                    firstOffset: Double, leftCount: Int) -> (Double, Int) {
         
         guard let firstPoint = firstCheckpoint else {
@@ -196,17 +200,15 @@ class SCNViewController: UIViewController {
         }
         return (currentOffset - srcDestDistance, leftCount)
     }
-    
-    
+
     private func setupCameraNode() {
         cameraNode.camera = SCNCamera()
         scene.rootNode.addChildNode(cameraNode)
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
     
-    
     /**
-     remove all arrow nodes from memory
+         remove all arrow nodes from memory
      */
     func removeAllArrows() {
         for arrow in arrowNodes {
@@ -217,7 +219,7 @@ class SCNViewController: UIViewController {
     
     
     /**
-     update the orientation of the camera node according to the data from the device motion manager
+         update the orientation of the camera node according to the data from the device motion manager
      */
     func updateSceneCameraOrientation() {
         let pitch = motionManager.getVerticalAngle()
@@ -242,7 +244,10 @@ class SCNViewController: UIViewController {
         cameraNode.transform = transform
     }
     
-    
+    /**
+         update the size of the arrows displayed when the change of user location is detected
+         to simulate the perspective projection
+     */
     private func updateSize() {
         guard arrowNodes.count > 0 else {
             return
@@ -273,12 +278,11 @@ class SCNViewController: UIViewController {
         }
     }
     
-    
     /**
-     given the azimuth and the distance of a certain point
-     transform to the corresponding coordinate
-     with positive x axis pointing to the East
-     positive y axis pointing to the North
+         given the azimuth and the distance of a certain point
+         transform to the corresponding coordinate
+         with positive x axis pointing to the East
+         positive y axis pointing to the North
      */
     private func azimuthDistanceToCoordinate(azimuth: Double, distance: Double) -> SCNVector3 {
         let x = distance * sin(azimuth)  // positive: to East
@@ -286,7 +290,10 @@ class SCNViewController: UIViewController {
         return SCNVector3(x: Float(x), y: 0, z: Float(-y))
     }
     
-    
+    /**
+        toggle whether should display the "moving on" animation
+        when users tap at one of the arrow
+     */
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         let tappedPoint = gestureRecognize.location(in: scnView)
         let hitResults = scnView.hitTest(tappedPoint, options: [:])
@@ -300,18 +307,18 @@ class SCNViewController: UIViewController {
             }
         }
     }
-    
-    
-    private func animateMovingOn() {
-        let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
-            Constant.numArrowsDisplayedForward :
-            arrowNodes.count
-        
+
+    /**
+        the action to change the color of a arrow to the one for highlight
+        then change back to the normal color
+     */
+    private var changeColorAction: SCNAction {
         let pr: CGFloat = (Constant.targetColorR - Constant.arrowDefaultColorR) / 0.18
         let pg: CGFloat = (Constant.targetColorG - Constant.arrowDefaultColorG) / 0.18
         let pb: CGFloat = (Constant.targetColorB - Constant.arrowDefaultColorB) / 0.18
         
-        let changeColorAction = SCNAction.sequence([
+        return SCNAction.sequence([
+            // change to color for highlighting
             SCNAction.customAction(duration: 0.38, action: { (node, time) in
                 let color = UIColor(red: pr * time,
                                     green: Constant.arrowDefaultColorG + pg * time,
@@ -319,6 +326,7 @@ class SCNViewController: UIViewController {
                 node.geometry!.firstMaterial!.emission.contents = color
             }),
             
+            // change back to normal color
             SCNAction.customAction(duration: 0.28, action: { (node, time) in
                 let color = UIColor(red: Constant.targetColorR - pr * time,
                                     green: Constant.targetColorG - pg * time,
@@ -326,11 +334,19 @@ class SCNViewController: UIViewController {
                 node.geometry!.firstMaterial!.emission.contents = color
             })
         ])
-        
-        let floatAction = SCNAction.sequence([
+    }
+    
+    private var floatAction: SCNAction {
+        return SCNAction.sequence([
             SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
             SCNAction.moveBy(x: 0, y: -0.08, z: 0, duration: 0.28),
         ])
+    }
+    
+    private func animateMovingOn() {
+        let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
+            Constant.numArrowsDisplayedForward :
+            arrowNodes.count
         
         for i in 0 ..< count {
             let oneIteration = SCNAction.sequence([
