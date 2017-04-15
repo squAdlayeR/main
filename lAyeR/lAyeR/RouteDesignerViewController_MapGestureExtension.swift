@@ -19,7 +19,7 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
     
     // reset custom infowindow whenever marker is tapped
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         let location = CLLocationCoordinate2D(latitude: (marker.userData as! CheckPoint).latitude, longitude: (marker.userData as! CheckPoint).longitude)
         
         tappedMarker = marker
@@ -31,13 +31,12 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         infoWindow.center = centerPoint
         infoWindow.deleteButton.addTarget(self, action: #selector(deleteButtonTapped(gestureRecognizer:)), for: .touchUpInside)
         infoWindow.editButton.addTarget(self, action: #selector(editButtonTapped(gestureRecognizer:)), for: .touchUpInside)
-        self.view.addSubview(infoWindow)
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         return false
     }
     
     func deleteButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         if myLocation == nil {
             return
         }
@@ -47,15 +46,15 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         let prevIdx = findPreviousControlPoint(at: idx)
         let nextIdx = findNextControlPoint(at: idx)
         for _ in prevIdx+1..<nextIdx {
-            deletePoint(at: prevIdx+1)
+            removePoint(at: prevIdx+1)
         }
         modifyLine(at: prevIdx+1)
         historyOfMarkers.append(markers)
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
     func editButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         let alert = UIAlertController(title: "Edit CheckPoint", message: "Enter Name and Description of CheckPoint", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "Enter CheckPoint Name"
@@ -87,22 +86,22 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         }))
         self.present(alert, animated: true, completion: nil)
         infoWindow.removeFromSuperview()
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         if (tappedMarker.userData != nil){
             let location = CLLocationCoordinate2D(latitude: (tappedMarker.userData as! CheckPoint).latitude, longitude: (tappedMarker.userData as! CheckPoint).longitude)
             var centerPoint = mapView.projection.point(for: location)
             centerPoint.y = centerPoint.y - 95
             infoWindow.center = centerPoint
         }
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
     func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         infoWindow.removeFromSuperview()
         if selectingLayerRoute {
             selectRoute(coordinate: coordinate, forType: 0)
@@ -117,11 +116,11 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         } else {
             addPath(coordinate: coordinate, isControlPoint: true, at: markers.count)
         }
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         infoWindow.removeFromSuperview()
         if selectingSourceCoordinate {
             sourceBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
@@ -139,6 +138,6 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         } else if selectingGpsRoute {
             selectRoute(coordinate: coordinate, forType: 1)
         }
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
 }

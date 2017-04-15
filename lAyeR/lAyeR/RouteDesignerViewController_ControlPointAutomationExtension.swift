@@ -55,10 +55,10 @@ extension RouteDesignerViewController {
             let turnAngle = angle(from: A, through: O, to: B)
             let nextDist = euclideanDistance(from: A, to: O)
             totalDist += nextDist
-            if turnAngle < turnAngleThreshold {
+            if turnAngle < RouteDesignerConstants.turnAngleThreshold {
                 makeMarkerControlPoint(at: idx-1)
                 totalDist = 0.0
-            } else if totalDist > distanceThreshold {
+            } else if totalDist > RouteDesignerConstants.distanceThreshold {
                 makeMarkerControlPoint(at: idx-1)
                 totalDist = 0.0
             }

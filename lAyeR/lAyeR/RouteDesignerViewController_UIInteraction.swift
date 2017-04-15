@@ -135,7 +135,7 @@ extension RouteDesignerViewController {
             let textField = alert!.textFields![0]
             if (textField.text != nil && textField.text != "") {
                 let route = Route(textField.text!)
-                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, self.checkpointDefaultName, self.checkpointDefaultDescription, true))
+                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, RouteDesignerConstants.checkpointDefaultName, RouteDesignerConstants.checkpointDefaultDescription, true))
                 for marker in self.markers {
                     let markerData = marker.userData as! CheckPoint
                     route.append(markerData)
@@ -186,7 +186,7 @@ extension RouteDesignerViewController {
             let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
             if (textField.text != nil && textField.text != "") {
                 let route = Route(textField.text!)
-                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, self.checkpointDefaultName, self.checkpointDefaultDescription, true))
+                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, RouteDesignerConstants.checkpointDefaultName, RouteDesignerConstants.checkpointDefaultDescription, true))
                 for marker in self.markers {
                     let markerData = marker.userData as! CheckPoint
                     route.append(markerData)
