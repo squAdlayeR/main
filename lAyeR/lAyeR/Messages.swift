@@ -30,7 +30,6 @@ class Messages {
     static let savePNGFailureMessage: String = "Failed to save user icon."
     static let selectFilesMessage: String = "Please select routes to export."
     
-    
     //------- Authentication -------
     
     /// Login

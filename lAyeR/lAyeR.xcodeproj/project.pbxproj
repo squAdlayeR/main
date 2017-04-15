@@ -548,9 +548,9 @@
 				528288CC1E9678A900163654 /* GPSTracker.swift */,
 				528288DD1E969F2D00163654 /* GPXFileManager.swift */,
 				52B2298A1E974FB2009C733B /* GPXError.swift */,
-				52B2298F1E978284009C733B /* Extensions.swift */,
 				52C62D951EA0A97E006D968B /* GPSGPXConstants.swift */,
 				A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */,
+				52B2298F1E978284009C733B /* Extensions.swift */,
 				52C62D971EA0BE4C006D968B /* Messages.swift */,
 			);
 			name = "GPSTracker+GPX";

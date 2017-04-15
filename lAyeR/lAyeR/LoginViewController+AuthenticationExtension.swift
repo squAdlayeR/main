@@ -42,7 +42,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
             return
         }
         /// Creates facebook login token.
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        let credential = userAuthenticator.createCredential()
         LoadingBadge.instance.showBadge(in: view)
         /// Clears facebook user session.
         FBSDKLoginManager().logOut()
@@ -53,17 +53,16 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
     /// Signs in the user with facebook credential.
     /// - Parameter crendential: Facebook authentication credential.
     private func signInUser(with credential: FIRAuthCredential) {
-        userAuthenticator.signInUser(with: credential) { (user, error) in
+        dataService.signInUser(with: credential) { (user, error) in
             if let error = error {
                 self.handleError(error: error)
                 return
             }
-            guard let user = user else {
+            guard user != nil else {
                 LoadingBadge.instance.hideBadge()
                 self.showAlertMessage(message: Messages.fbSignInFailureMessage)
                 return
             }
-            DataServiceManager.instance.createFBUserProfile(user: user)
             LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: StoryboardConstants.loginToARSegue, sender: nil)
         }

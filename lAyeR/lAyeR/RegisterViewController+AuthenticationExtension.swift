@@ -57,7 +57,7 @@ extension RegisterViewController {
     ///     - password: String: registration password.
     ///     - username: String: user specified user name.
     private func createUser(email: String, password: String, username: String) {
-        userAuthenticator.createUser(email: email, password: password, username: username, registrationHandler: handleRegistration(user:error:), verificationHandler: handleSendVerificationEmail(error:))
+        dataService.createUser(email: email, password: password, username: username, registrationHandler: handleRegistration(user:error:), verificationHandler: handleSendVerificationEmail(error:))
     }
     
     /// Handles error arisen during registration, and verifies if the 

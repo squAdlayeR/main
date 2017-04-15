@@ -115,7 +115,7 @@ class UserProfileViewController: UIViewController {
     /// Adds the notification label into vibrancy effect view
     private func setNotification() {
         notification.isHidden = false
-        vibrancyEffectView.contentView.addSubview(self.notification)
+        view.addSubview(self.notification)
     }
     
     /// Sets up the user infomation at the top

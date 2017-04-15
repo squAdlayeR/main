@@ -8,8 +8,8 @@
 
 import UIKit
 
-/**
- An extension that is used to define table view delegate and data source.
+/*
+ * An extension that is used to define table view delegate and data source.
  */
 extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -23,12 +23,12 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         return userProfile?.designedRoutes.count ?? 0
     }
     
-    /// Returns the height of header view of each section.
+    /// Returns the height of header view of each section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return userProfileHeaderHeight
     }
     
-    /// Returns the header view of each section.
+    /// Returns the header view of each section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
@@ -40,7 +40,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         cell.routeName.text = name
         cell.routeName.preferredMaxLayoutWidth = tableView.bounds.width
         cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
-        DataServiceManager.instance.getRoute(named: name) { route in
+        dataService.getRoute(named: name) { route in
             guard let route = route else {
                 return
             }
@@ -50,7 +50,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    /// Handles row selection event.
+    /// Handles row selection event
     /// If user is in selection mode, show the check mark of the cell and insert cell
     /// information into selected names to prepare for export. Otherwise, performs segue 
     /// to route designer to display the selected route.
@@ -64,7 +64,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
             return
         }
         LoadingBadge.instance.showBadge(in: view)
-        DataServiceManager.instance.getRoute(named: name) { route in
+        dataService.getRoute(named: name) { route in
             LoadingBadge.instance.hideBadge()
             guard let route = route else {
                 self.showAlertMessage(message: Messages.loadRouteFailureMessage)
@@ -74,8 +74,8 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
-    /// Handles row deselection event.
-    /// Only valid for selection mode. When user deselects a row, hides the checkmark
+    /// Handles row deselection event
+    /// MARK: Only valid for selection mode. When user deselects a row, hides the checkmark
     /// of the cell and remove its entry from the set of selected cells.
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? RouteListCell, let name = cell.routeName.text , selectionMode else {
@@ -85,24 +85,24 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         selectedRouteNames.remove(name)
     }
     
-    /// Handles row delete event.
-    /// Reloads tableview data and updates user profile on cloud.
+    /// Handles row delete event
+    /// Reloads tableview data and updates user profile on cloud
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else {
             return
         }
-        guard let currentUser = UserAuthenticator.instance.currentUser, let userProfile = userProfile else {
+        guard let userProfile = userProfile, dataService.enabled else {
+            showAlertMessage(message: Messages.databaseDisconnectedMessage)
             return
         }
         let routeName = userProfile.designedRoutes[indexPath.section]
-        let uid = currentUser.uid
         userProfile.removeDesignedRoute(indexPath.section)
         tableView.deleteSections(IndexSet(integer: indexPath.section), with:UITableViewRowAnimation.left)
-        DataServiceManager.instance.removeRouteFromDatabase(routeName: routeName)
-        DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: userProfile)
+        dataService.removeRouteFromDatabase(routeName: routeName)
+        dataService.updateUserProfile(userProfile)
     }
     
-    /// Deselects all rows in the route list.
+    /// Deselects all rows in the route list
     func deselectAll() {
         for sec in 0..<routeList.numberOfSections {
             let indexPath = IndexPath(row: 0, section: sec)

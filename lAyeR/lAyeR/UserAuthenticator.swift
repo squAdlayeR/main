@@ -18,26 +18,16 @@ class UserAuthenticator {
     /// Returns a singleton instance of UserAuthenticator.
     static let instance = UserAuthenticator()
     
-    /// Creates a user with email and password authentication.
-    /// Adds the user profile to database and send verification email.
-    func createUser(email: String, password: String, username: String, registrationHandler: @escaping AuthenticationCallback, verificationHandler: @escaping FIRSendEmailVerificationCallback) {
-        FIRAuth.auth()?.createUser(withEmail: email, password: password) {
-            user, error in
-            registrationHandler(user, error)
-            guard let uid = user?.uid else { return }
-            DispatchQueue.global(qos: .background).async {
-                let profile = UserProfile(email: email, username: username)
-                DatabaseManager.instance.addUserProfileToDatabase(uid: uid, userProfile: profile)
-                self.sendEmailVerification(completion: { error in
-                    DispatchQueue.main.async {
-                        verificationHandler(error)
-                    }
-                })
-            }
-        }
+    /// Creates a user with email and password authentication
+    /// - Parameters:
+    ///     - email: String: registration email
+    ///     - password: String: registration password
+    ///     - completion: AuthenticationCallback?
+    func createUser(email: String, password: String, completion: AuthenticationCallback?) {
+        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: completion)
     }
     
-    /// Signs in a user with email and password authentication.
+    /// Signs in a user with email and password authentication
     /// - Parameters:
     ///     - email: String: user email
     ///     - password: String: user password
@@ -46,32 +36,37 @@ class UserAuthenticator {
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: completion)
     }
     
-    /// Signs in a user with credential.
+    /// Returns firebase facebook credential
+    func createCredential() -> AuthenticationCredential {
+        return FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+    }
+    
+    /// Signs in a user with credential
     /// - Parameters:
     ///     - credential: FIRAuthenCredential: crendential used
     ///     - completion: AuthenticationCallback?
-    func signInUser(with credential: FIRAuthCredential, completion: AuthenticationCallback?) {
+    func signInUser(with credential: AuthenticationCredential, completion: AuthenticationCallback?) {
         FIRAuth.auth()?.signIn(with: credential, completion: completion)
     }
     
-    /// Sends email verification to a user registered with email.
+    /// Sends email verification to a user registered with email
     /// - Parameters:
     ///     - completion: FIRSendEmailVerificationCallback?
     func sendEmailVerification(completion: FIRSendEmailVerificationCallback?) {
         FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: completion)
     }
     
-    /// Signs out a user.
+    /// Signs out a user
     func signOut() {
         try? FIRAuth.auth()?.signOut()
     }
     
-    /// Returns current user.
+    /// Returns current user
     var currentUser: FIRUser? {
         return FIRAuth.auth()?.currentUser
     }
     
-    /// Returns the error message associated with the authentication error.
+    /// Returns the error message associated with the authentication error
     /// - Parameters:
     ///     - error: Error: authentication error
     /// - Returns:
@@ -102,11 +97,11 @@ class UserAuthenticator {
         }
     }
     
-    /// Returns true if all fields are non-empty.
+    /// Returns true if all fields are non-empty
     /// - Parameters:
     ///     - inputs: [String]: inputs
     /// - Returns:
-    ///     - Bool: True if all fields are filled.
+    ///     - Bool: True if all fields are filled
     func allNonEmpty(_ inputs: [String]) -> Bool {
         for input in inputs {
             if input.characters.isEmpty {
@@ -116,14 +111,14 @@ class UserAuthenticator {
         return true
     }
     
-    /// Returns true if all fields are non-empty.
+    /// Returns true if all fields are non-empty
     /// - Parameters:
     ///     - email: String: input email
     ///     - password: String: input password
     ///     - passwordConfirm: String: input password confirmation
     ///     - username: String: input username
     /// - Returns:
-    ///     - Bool: True if all fields are filled.
+    ///     - Bool: True if all fields are filled
     func allNonEmpty(_ email: String, _ password: String, _ passwordConfirm: String, _ username: String) -> Bool {
         return !email.characters.isEmpty
             && !password.characters.isEmpty
@@ -131,36 +126,37 @@ class UserAuthenticator {
             && !username.characters.isEmpty
     }
     
-    /// Returns true if the passwords match.
+    /// Returns true if the passwords match
     /// - Parameters:
     ///     - password: String: input password
     ///     - passwordConfirm: String: input password confirmation
     /// - Returns:
-    ///     - Bool: True if password and confirmation are same.
+    ///     - Bool: True if password and confirmation are same
     func isPasswordMatch(_ password: String, _ passwordConfirm: String) -> Bool {
         return password == passwordConfirm
     }
     
-    /// Returns true if the input length is valid within range.
+    /// Returns true if the input length is valid within range
     /// - Parameter:
-    ///     - input: String: input to check.
+    ///     - input: String: input to check
     /// - Returns:
-    ///     - Bool: True if length is within range.
+    ///     - Bool: True if length is within range
     func isValidLength(_ input: String) -> Bool {
         let len = input.characters.count
         return len >= AuthenticationConstants.minimumPasswordLength && len <= AuthenticationConstants.maximumPasswordLength
     }
     
-    /// Returns true if the input contains only alphanumeric characters.
+    /// Returns true if the input contains only alphanumeric characters
     /// - Parameter:
-    ///     - input: String: input to check.
+    ///     - input: String: input to check
     /// - Returns:
-    ///     - Bool: True if only contains alphanumeric characters.
+    ///     - Bool: True if only contains alphanumeric characters
     func isValidInput(_ input: String) -> Bool {
         return input.isAlphanumeric
     }
     
 }
 
+typealias AuthenticationCredential = FIRAuthCredential
 typealias AuthenticationCallback = FIRAuthResultCallback
 typealias User = FIRUser
