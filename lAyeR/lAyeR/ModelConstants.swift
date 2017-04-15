@@ -54,6 +54,8 @@ class ModelConstants {
     // Route
     static let checkPointsKey: String = "checkPoints"
     static let imagePathKey: String = "imagePath"
+    static let desc: String = "Distance: "
+    static let unit: String = "m"
     
     // Geographic constants
     static let minLat: Double = -90

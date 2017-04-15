@@ -7,18 +7,17 @@
 //
 
 import CoreLocation
-
 /*
  * Provides calculation for geopoint math.
  */
 class GeoUtil {
     
-    /// Returns the coordinate distance between two points in meters.
+    /// Returns the coordinate distance between two points in meters
     /// - Parameters:
     ///     - geoPoint1: GeoPoint
     ///     - geoPoint2: GeoPoint
     /// - Returns:
-    ///     - Double: coordinate distance of the points in meters.
+    ///     - Double: coordinate distance of the points in meters
     static func getCoordinateDistance(_ geoPoint1: GeoPoint, _ geoPoint2: GeoPoint) -> Double {
         let location1 = CLLocation(latitude: geoPoint1.latitude,
                                    longitude: geoPoint1.longitude)
@@ -27,12 +26,12 @@ class GeoUtil {
         return location1.distance(from: location2)
     }
     
-    /// Returns the azimuth between two points with respect to the first point in radians.
+    /// Returns the azimuth between two points with respect to the first point in radians
     /// - Parameters:
     ///     - geoPoint1: GeoPoint
     ///     - geoPoint2: GeoPoint
     /// - Returns:
-    ///     - Double: azimuth between with respect to the first point in radians.
+    ///     - Double: azimuth between with respect to the first point in radians
     static func getAzimuth(between geoPoint1: GeoPoint, _ geoPoint2: GeoPoint) -> Double {
         let location1 = CLLocation(latitude: geoPoint1.latitude,
                                    longitude: geoPoint1.longitude)
@@ -51,46 +50,46 @@ class GeoUtil {
         return atan2(longtitudeDistance, latitudeDistance)
     }
     
-    /// Returns true if the given latitude is valid.
+    /// Returns true if the given latitude is valid
     /// - Parameters: 
     ///     - lat: Double: latitude to check
     /// - Returns: 
-    ///     - Bool: true if the given latitude is valid.
+    ///     - Bool: true if the given latitude is valid
     static func isValidLatitude(_ lat: Double) -> Bool {
         return ModelConstants.minLat <= lat && lat <= ModelConstants.maxLat
     }
     
-    /// Returns true if the given longitude is valid.
+    /// Returns true if the given longitude is valid
     /// - Parameters:
     ///     - lon: Double: longitude to check
     /// - Returns:
-    ///     - Bool: true if the given longitude is valid.
+    ///     - Bool: true if the given longitude is valid
     static func isValidLongitude(_ lon: Double) -> Bool {
         return ModelConstants.minLon <= lon && lon <= ModelConstants.maxLon
     }
     
-    /// Returns true if the routes has similar shapes specified by threshold.
+    /// Returns true if the routes has similar shapes specified by threshold
     /// - Parameters:
     ///     - route1: Route
     ///     - route2: Route
     ///     - threshold: Double: error threshold for comparison
     /// - Returns:
-    ///     - Bool: true if the routes are similar.
+    ///     - Bool: true if the routes are similar
     /// MARK: We use approximation methods here, the dissimilarity score is the sum
     /// of the minimum distance of each point in one route to the line segments in
-    /// another route.
+    /// another route
     static func isSimilar(route1: Route, route2: Route, threshold: Double) -> Bool {
         let pathScore1 = getPathDissimilarityScore(from: route1, to: route2)
         let pathScore2 = getPathDissimilarityScore(from: route2, to: route1)
         return pathScore1/Double(route1.checkPoints.count) + pathScore2/Double(route2.checkPoints.count) <= threshold
     }
     
-    /// Returns the dissimilarity score from route1 to route2.
+    /// Returns the dissimilarity score from route1 to route2
     /// - Parameters:
     ///     - route1: Route
     ///     - route2: Route
     /// - Returns:
-    ///     - Double: the dissimilarity score.
+    ///     - Double: the dissimilarity score
     static func getPathDissimilarityScore(from route1: Route, to route2: Route) -> Double {
         var sum: Double = 0
         for index in 0..<route1.checkPoints.count {
@@ -107,7 +106,7 @@ class GeoUtil {
         return sum
     }
     
-    /// Returns the distance from a point to the line segment.
+    /// Returns the distance from a point to the line segment
     /// - Parameters:
     ///     - p: GeoPoint: reference point
     ///     - l1: GeoPoint: one point of the line segment

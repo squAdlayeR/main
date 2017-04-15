@@ -7,7 +7,6 @@
 //
 
 import ObjectMapper
-
 /*
  * CheckPoint subclasses GeoPoint to represent a check point on a route.
  * A CheckPoint should have:
@@ -86,6 +85,5 @@ func ==(lhs: CheckPoint, rhs: CheckPoint) -> Bool {
     let areEqual = lhs.name == rhs.name &&
         lhs.latitude == rhs.latitude &&
         lhs.longitude == rhs.longitude
-    
     return areEqual
 }

@@ -591,8 +591,8 @@
 		52C62D991EA0DED1006D968B /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				5249B1C41E74D8070048249D /* Parser.swift */,
 				52A845E01EA1BECE0084DAA3 /* ModelConstants.swift */,
+				5249B1C41E74D8070048249D /* Parser.swift */,
 				52830F261E8F4567009DFD02 /* UserProfile.swift */,
 				5249B1A71E7264000048249D /* GeoPoint.swift */,
 				5249B1A91E72641C0048249D /* CheckPoint.swift */,
@@ -1137,7 +1137,6 @@
 				9D37C2E81EA0A4BF003AAA02 /* InnerViewConstants.swift in Sources */,
 				9D73277F1EA25501008D9860 /* PriceLevel.swift in Sources */,
 				A28E80071EA22FC4005B65C3 /* RealmGeoPoint.swift in Sources */,
-				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
 				52A845D01EA106250084DAA3 /* RegisterViewController+AuthenticationExtension.swift in Sources */,

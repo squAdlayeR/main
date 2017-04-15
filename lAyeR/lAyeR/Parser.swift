@@ -14,7 +14,7 @@ class Parser {
     /// Returns the singleton instance of parser
     static let instance = Parser()
     
-    /// Parses poi search request.
+    /// Parses poi search request
     /// - Parameters:
     ///     - radius: Int: detection radius
     ///     - type: String: desired poi category
@@ -27,7 +27,7 @@ class Parser {
         let radiusToken = "&radius=\(radius)"
         let typeToken = "&type=\(type)"
         let keyToken = "&key=\(AppConfig.apiKey)"
-        return searchBase + locationToken + radiusToken + typeToken + keyToken
+        return "\(searchBase)\(locationToken)\(radiusToken)\(typeToken)\(keyToken)"
     }
     
     /// Parses poi details search request.
@@ -39,14 +39,14 @@ class Parser {
         let searchbase = AppConfig.poiQueryBaseURL
         let placeToken = "placeid=\(placeID)"
         let keyToken = "&key=\(AppConfig.apiKey)"
-        return searchbase + placeToken + keyToken
+        return "\(searchbase)\(placeToken)\(keyToken)"
     }
     
-    /// Parses query response to an poi array.
+    /// Parses query response to an poi array
     /// - Parameters:
-    ///     - value: Any?: query response.
+    ///     - value: Any?: query response
     /// - Returns:
-    ///     - [POI]: an array of POI object.
+    ///     - [POI]: an array of POI object
     static func parsePOIs(_ value: Any?) -> [POI] {
         guard let json = value as? [String: Any],
               let results = json[ModelConstants.resultsKey] as? [[String: Any]] else {
@@ -62,11 +62,11 @@ class Parser {
         return pois
     }
     
-    /// Parses json dictionary to a poi object with basic information if valid, nil otherwise.
+    /// Parses json dictionary to a poi object with basic information if valid, nil otherwise
     /// - Parameters:
-    ///     - value: Any?: query response.
+    ///     - value: Any?: query response
     /// - Returns:
-    ///     - POI?: a POI object if response is valid, nil otherwise.
+    ///     - POI?: a POI object if response is valid, nil otherwise
     static func parsePOI(_ jsonPOI: [String: Any]) -> POI? {
         guard let geometry = jsonPOI[ModelConstants.geometryKey] as? [String: Any],
               let location = geometry[ModelConstants.locationKey] as? [String: Any],
@@ -90,11 +90,11 @@ class Parser {
         return poi
     }
     
-    /// Parses query response to a poi object with details if valid, nil otherwise.
+    /// Parses query response to a poi object with details if valid, nil otherwise
     /// - Parameters:
-    ///     - value: Any?: query response.
+    ///     - value: Any?: query response
     /// - Returns:
-    ///     - POI?: a POI object if response is valid, nil otherwise.
+    ///     - POI?: a POI object if response is valid, nil otherwise
     static func parseDetailedPOI(_ value: Any?) -> POI? {
         guard let json = value as? [String: Any],
               let jsonPOI = json[ModelConstants.resultKey] as? [String: Any],
@@ -123,11 +123,11 @@ class Parser {
         return poi
     }
     
-    /// Parses query response to a route object if valid, nil otherwise.
+    /// Parses query response to a route object if valid, nil otherwise
     /// - Parameters:
-    ///     - value: Any?: query response.
+    ///     - value: Any?: query response
     /// - Returns:
-    ///     - Route?: an route object if response is valid, nil otherwise.
+    ///     - Route?: an route object if response is valid, nil otherwise
     static func parseRoute(_ value: Any?) -> Route? {
         guard let jsonRoute = value as? [String: Any],
             let points = jsonRoute[ModelConstants.checkPointsKey] as? [[String: Any]],
@@ -141,7 +141,7 @@ class Parser {
         return route
     }
     
-    /// Parses response to track points if valid, return empty array otherwise.
+    /// Parses response to track points if valid, return empty array otherwise
     /// - Parameters:
     ///     - value: Any?: query response
     /// - Returns:
@@ -173,46 +173,4 @@ class Parser {
         return trackPoints
     }
     
-    
-    
-    
-    static func parseJSONToRoutes(_ jsonRoutes: [String: Any]) -> [Route] {
-        guard let results = jsonRoutes["routes"] as? [[String: Any]] else {
-            return []
-        }
-        var routes: [Route] = []
-        for result in results {
-            guard let route = parseJSONToRoute(result) else { continue }
-            routes.append(route)
-        }
-        return routes
-    }
-    
-    static func parseJSONToRoute(_ jsonRoute: [String: Any]) -> Route? {
-        guard let name = jsonRoute["name"] as? String,
-            let checkPoints = jsonRoute["checkPoints"] as? [[String: Any]] else {
-                return nil
-        }
-        let route = Route(name)
-        for point in checkPoints {
-            guard let checkPoint = parseJSONToCheckPoint(point) else { continue
-            }
-            route.append(checkPoint)
-        }
-        return route
-    }
-    
-    
-    
-    
-    static func parseJSONToCheckPoint(_ jsonCheckPoint: [String: Any]) -> CheckPoint? {
-        guard let name = jsonCheckPoint["name"] as? String,
-            let lat = jsonCheckPoint["latitude"] as? Double,
-            let lng = jsonCheckPoint["longitude"] as? Double,
-            let description = jsonCheckPoint["description"] as? String,
-            let isControlPoint = jsonCheckPoint["isControlPoint"] as? Bool else {
-               return nil
-        }
-        return CheckPoint(lat, lng, name, description, isControlPoint)
-    }
 }

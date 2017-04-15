@@ -7,17 +7,16 @@
 //
 
 import ObjectMapper
-
 /*
  * This class is used to wrap geoLocation on the earth using their latitude and logitude.
  */
 class GeoPoint: Mappable {
     
-    /// Represents latitude and logitude of a GeoPoint.
+    /// Represents latitude and logitude of a GeoPoint
     private(set) var latitude: Double
     private(set) var longitude: Double
     
-    /// Initializes a GeoPoint with latitude and logitude.
+    /// Initializes a GeoPoint with latitude and logitude
     /// - Parameters:
     ///     - latitude: Double: latitude of the point in degrees
     ///     - longitude: Double: longitude of the point in degrees
@@ -26,9 +25,9 @@ class GeoPoint: Mappable {
         self.longitude = GeoUtil.isValidLongitude(longitude) ? longitude : 0
     }
     
-    /// Initializes a GeoPoint with a map.
+    /// Initializes a GeoPoint with a map
     /// - Parameters:
-    ///     - map: Map: mapping of the fields.
+    ///     - map: Map: mapping of the fields
     required init?(map: Map) {
         guard let latitude = map.JSON[ModelConstants.latitudeKey] as? Double,
             let longitude = map.JSON[ModelConstants.longitudeKey] as? Double else {
@@ -40,7 +39,7 @@ class GeoPoint: Mappable {
     
     /// Forms the mapping.
     /// - Parameters:
-    ///     - map: Map: mapping of the fields.
+    ///     - map: Map: mapping of the fields
     func mapping(map: Map) {
         latitude <- map[ModelConstants.latitudeKey]
         longitude <- map[ModelConstants.longitudeKey]
@@ -50,7 +49,7 @@ class GeoPoint: Mappable {
 
 extension GeoPoint: Equatable {}
 
-/// Returns true if the latitude and longitude of the geo points are equal.
+/// Returns true if the latitude and longitude of the geo points are equal
 func ==(lhs: GeoPoint, rhs: GeoPoint) -> Bool {
     return lhs.latitude == rhs.latitude
         && lhs.longitude == rhs.longitude

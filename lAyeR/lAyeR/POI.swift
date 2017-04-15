@@ -7,7 +7,6 @@
 //
 
 import ObjectMapper
-
 /*
  * POI represents the point of interest on a map.
  * It must contain geo location information:
@@ -26,6 +25,7 @@ import ObjectMapper
  */
 class POI: GeoPoint {
     
+    /// Defines the attributes of a POI
     private(set) var placeID: String?
     private(set) var name: String?
     private(set) var vicinity: String?
@@ -36,7 +36,7 @@ class POI: GeoPoint {
     private(set) var website: String?
     private(set) var types: [String] = []
     
-    /// Initializes POI from latitude and longitude.
+    /// Initializes POI from latitude and longitude
     /// - Parameters:
     ///     - latitude: Double: latitude of the point in degrees
     ///     - longitude: Double: longitude of the point in degrees
@@ -45,7 +45,7 @@ class POI: GeoPoint {
     }
     
     /// MARK: This method is not implemented because google places response structure
-    /// is different from POI strcture and POI will not be used for query and storage.
+    /// is different from POI strcture and POI will not be used for query and storage
     required init?(map: Map) {
         super.init(map: map)
     }
@@ -93,7 +93,7 @@ class POI: GeoPoint {
     }
     
     /// Sets the open now status of the place
-    /// Parameter openNow: String: open status of the place
+    /// Parameter openNow: Bool: open status of the place
     func setOpenNow(_ openNow: Bool) {
         self.openNow = openNow
     }
