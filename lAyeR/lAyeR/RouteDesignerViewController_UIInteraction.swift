@@ -151,17 +151,21 @@ extension RouteDesignerViewController {
                 LoadingBadge.instance.showBadge(in: self.view)
                 self.routeDesignerModel.saveToDB(route: route){ bool in
                     LoadingBadge.instance.hideBadge()
+                    guard let bool = bool else {
+                        let resultAlert = UIAlertController(title: "Save Failed", message: "You have created a route with this name before, sure to overwrite?", preferredStyle: .alert)
+                        resultAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { _ in
+                            DataServiceManager.instance.updateRouteInDatabase(route: route)
+                        }))
+                        resultAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                        self.present(resultAlert, animated: true, completion: nil)
+                        return
+                    }
                     if bool {
                         let resultAlert = UIAlertController(title: "Saved Successfully", message: "Congrats", preferredStyle: .alert)
                         resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
                         self.present(resultAlert, animated: true, completion: nil)
                     } else {
-                        let resultAlert = UIAlertController(title: "Save Failed", message: "You have created a route with this name before, sure to overwrite?", preferredStyle: .alert)
-                        resultAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { _ in
-                            DatabaseManager.instance.updateRouteInDatabase(route: route)
-                        }))
-                        resultAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                        self.present(resultAlert, animated: true, completion: nil)
+                        self.showAlertMessage(message: Messages.databaseWriteFailureMessage)
                     }
                 }
                 

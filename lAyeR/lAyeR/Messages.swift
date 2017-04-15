@@ -24,7 +24,7 @@ class Messages {
     //------- I/O -------
     
     static let databaseDisconnectedMessage: String = "Disconnected from database!"
-    static let databaseWriteFailureMessage: String = "Disconnected! Cannot save changes to database."
+    static let databaseWriteFailureMessage: String = "Failed to save changes to database."
     static let loadRouteFailureMessage: String = "Failed to load route."
     static let saveGPXFailureMessage: String = "Failed to save .gpx files."
     static let savePNGFailureMessage: String = "Failed to save user icon."

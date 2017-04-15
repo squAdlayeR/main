@@ -21,7 +21,7 @@ class RouteDesignerModel {
         RealmLocalStorageManager.getInstance().saveRoute(route)
     }
     
-    func saveToDB(route: Route,  completion: @escaping (Bool)->()) {
+    func saveToDB(route: Route,  completion: @escaping (Bool?)->()) {
         DataServiceManager.instance.addRouteToDatabase(route: route, completion: completion)
     }
 

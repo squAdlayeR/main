@@ -23,10 +23,6 @@ class DataServiceManager {
         databaseManager.addUserProfileToDatabase(uid: uid, userProfile: profile)
     }
     
-    func addRouteToDatabase(route: Route, completion: @escaping (Bool) -> ()) {
-        databaseManager.addRouteToDatabase(route: route, completion: completion)
-    }
-    
     func signInUser(email: String, password: String, completion: AuthenticationCallback?) {
         userAuthenticator.signInUser(email: email, password: password, completion: completion)
     }
@@ -59,8 +55,26 @@ class DataServiceManager {
     
     
     
-    
     // ======================= ROUTES ===========================
+    
+    /// Adds a route to database, updates user profile, passes result to completion handler.
+    /// - Parameters:
+    ///     - route: Route: route to be added in
+    ///     - completion: (Bool?) -> ()
+    func addRouteToDatabase(route: Route, completion: @escaping (_ success: Bool?) -> ()) {
+        guard let uid = currentUserID, databaseManager.isConnected else {
+            completion(false)
+            return
+        }
+        databaseManager.addRoute(uid: uid, route: route) { success in
+            completion(success)
+            if let success = success, success {
+                DispatchQueue.global(qos: .background).async {
+                    self.databaseManager.addRouteToUserProfile(uid: uid, routeName: route.name)
+                }
+            }
+        }
+    }
     
     /// Returns the route with given name, and pass the result to completion handler.
     /// - Parameters:
@@ -80,17 +94,45 @@ class DataServiceManager {
     ///     - completion: ([Route]) -> (): completion handler
     func getRoutes(with names: Set<String>, completion: @escaping (_ routes: [Route]?) -> ()) {
         guard let uid = currentUserID, databaseManager.isConnected else {
-            completion([])
+            completion(nil)
             return
         }
         databaseManager.getRoutes(uid: uid, with: names, completion: completion)
     }
     
-    
-    
-    var isEnabled: Bool {
-        return currentUserID != nil && databaseManager.isConnected
+    /// Updates a route in database.
+    /// - Parameters:
+    ///     - route: Route: route to be updated
+    func updateRouteInDatabase(route: Route) {
+        guard let uid = currentUserID, databaseManager.isConnected else {
+            return
+        }
+        databaseManager.updateRoute(uid: uid, route: route)
     }
+    
+    /// Removes a route from database.
+    /// - Parameter:
+    ///     - routeName: String: name of the route
+    func removeRouteFromDatabase(routeName: String) {
+        guard let uid = currentUserID, databaseManager.isConnected else {
+            return
+        }
+        databaseManager.removeRoute(uid: uid, routeName: routeName)
+    }
+    
+    
+    // ===================== USERPROFILE ========================
+    
+    /// Creates a user profile when user first sign in with facebook credential.
+    /// - Parameters:
+    ///     - user: User: user whose profile is to be stored
+    func createFBUserProfile(user: User) {
+        databaseManager.createFBUserProfile(user: user)
+    }
+    
+    
+    
+
     
     
     

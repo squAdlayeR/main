@@ -121,56 +121,43 @@ class DatabaseManager {
         }
     }
     
+
+    
+    
+    // ===================== USERPROFILE ==============================
+    
+    /// Creates a user profile in database.
+    /// - Parameters:
+    ///     - uid: String: user id
+    ///     - userProfile: UserProfile: user profile to be added
     func addUserProfileToDatabase(uid: String, userProfile: UserProfile) {
-        
         FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
     }
     
-    func updateUserProfile(uid: String, userProfile: UserProfile) {
+    /// Creates a user profile when user first sign in with facebook credential.
+    /// - Parameters:
+    ///     - user: User: user whose profile is to be stored
+    func createFBUserProfile(user: User) {
         DispatchQueue.global(qos: .background).async {
-            self.currentUserProfile = userProfile
-            FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
-        }
-    }
-    
-    func updateRouteInDatabase(route: Route) {
-        guard let uid = UserAuthenticator.instance.currentUser?.uid else { return }
-        let combinedName = route.name + "||" + uid
-        FIRDatabase.database().reference().child("routes").child(combinedName).setValue(route.toJSON())
-    }
-    
-    func addRouteToDatabase(route: Route, completion: @escaping (_ success: Bool) -> ()) {
-        guard let uid = UserAuthenticator.instance.currentUser?.uid else {
-            completion(false)
-            return
-        }
-        let combinedName = route.name + "||" + uid
-        FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.hasChild(combinedName) {
-                completion(false)
-                return
+            self.verifyUserProfile(uid: user.uid) {
+                guard let email = user.email,
+                    let avartarRef = user.photoURL?.absoluteString,
+                    let userName = user.displayName else {
+                        return
+                }
+                let profile = UserProfile(email: email, username: userName)
+                profile.setAvatar(avartarRef)
+                self.addUserProfileToDatabase(uid: user.uid, userProfile: profile)
             }
-            FIRDatabase.database().reference().child("routes").child(combinedName).setValue(route.toJSON(), withCompletionBlock: { error, ref in
-                guard error == nil else {
-                    completion(false)
-                    return
-                }
-                completion(true)
-                DispatchQueue.global(qos: .background).async {
-                    self.getUserProfile(uid: uid) { userProfile in
-                        guard let userProfile = userProfile else {
-                            return
-                        }
-                        userProfile.addDesignedRoute(route.name)
-                        self.updateUserProfile(uid: uid, userProfile: userProfile)
-                    }
-                }
-            })
-        })
+        }
     }
     
-    func verifyUserProfile(uid: String, completion: @escaping () -> ()) {
-        FIRDatabase.database().reference().child("profiles").observeSingleEvent(of: .value, with: { (snapshot) in
+    /// Verifies if a user's profile exists and passes the result to completion handler.
+    /// - Parameters:
+    ///     - uid: String: user id
+    ///     - completion: () -> ()
+    private func verifyUserProfile(uid: String, completion: @escaping () -> ()) {
+        FIRDatabase.database().reference().child("profiles").observeSingleEvent(of: .value, with: { snapshot in
             guard snapshot.hasChild(uid) else {
                 completion()
                 return
@@ -178,33 +165,117 @@ class DatabaseManager {
         })
     }
     
-    func removeRouteFromDatabase(routeName: String) {
-        guard let uid = UserAuthenticator.instance.currentUser?.uid else {
-            return
-        }
-        let combinedName = getRouteKey(uid, routeName)
-        FIRDatabase.database().reference().child("routes").child(combinedName).removeValue()
+    /// Gets user profile of user specified by user id, and passes result to completion handler.
+    /// - Parameters:
+    ///     - uid: String: user id of user
+    ///     - completion: (UserProfile?) -> ()
+    func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile?) -> ()) {
+        FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? [String: Any] ?? [:]
+            let profile = UserProfile(JSON: value)
+            completion(profile)
+        }) 
     }
     
+    /// Adds a user-designed route to the user's profile and updates the profile.
+    /// - Parameters:
+    ///     - uid: String: user id
+    ///     - routeName: String: name of the route
+    func addRouteToUserProfile(uid: String, routeName: String) {
+        getUserProfile(uid: uid) { userProfile in
+            guard let userProfile = userProfile else {
+                return
+            }
+            userProfile.addDesignedRoute(routeName)
+            self.updateUserProfile(uid: uid, userProfile: userProfile)
+        }
+    }
     
-    /// Queries routes in range
+    /// Updates user profile.
+    /// - Parameters:
+    ///     - uid: String: user id
+    ///     - userProfile: UserProfile: updated user profile
+    func updateUserProfile(uid: String, userProfile: UserProfile) {
+        DispatchQueue.global(qos: .background).async {
+            self.currentUserProfile = userProfile
+            FIRDatabase.database().reference().child("profiles").child(uid).setValue(userProfile.toJSON())
+        }
+    }
+    
+    // ===================== ROUTES ===================================
+    
+    /// Adds a route to database, and passes result to completion handler.
+    /// - Parameters:
+    ///     - uid: String: user id
+    ///     - route: Route: route to be added in
+    ///     - completion: (Bool?) -> ()
+    func addRoute(uid: String, route: Route, completion: @escaping (_ success: Bool?) -> ()) {
+        let combinedName = getRouteKey(uid, route.name)
+        FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
+            if snapshot.hasChild(combinedName) {
+                completion(nil)
+                return
+            }
+            FIRDatabase.database().reference().child("routes").child(combinedName).setValue(route.toJSON(), withCompletionBlock: { error, ref in
+                completion(error == nil)
+            })
+        })
+    }
+    
+    /// Returns the route with given name, and pass the result to completion handler.
+    /// - Parameters:
+    ///     - uid: String: user id of the user
+    ///     - routeName: String: name of the route
+    ///     - completion: (Route?) -> ()
+    func getRoute(uid: String, named routeName: String, completion: @escaping (_ route: Route?) -> ()) {
+        let combinedName = getRouteKey(uid, routeName)
+        FIRDatabase.database().reference().child("routes").child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
+            let result = Parser.parseRoute(snapshot.value)
+            completion(result)
+        })
+    }
+    
+    /// Returns the routes with given names in database and pass to completion handler.
+    /// - Parameters:
+    ///     - uid: String: user id of the user
+    ///     - names: Set<String>: names of routes
+    ///     - completion: ([Route]) -> (): completion handler
+    func getRoutes(uid: String, with names: Set<String>, completion: @escaping (_ routes: [Route]) -> ()) {
+        let group = DispatchGroup()
+        var routes: [Route] = []
+        for name in names {
+            group.enter()
+            getRoute(uid: uid, named: name) { route in
+                if let route = route {
+                    routes.append(route)
+                }
+                group.leave()
+            }
+        }
+        group.notify(queue: .main) {
+            completion(routes)
+        }
+    }
+    
+    /// Queries routes in range specified by source and destination check point.
+    /// Target routes should route segments whose source and destination is within
+    /// the range which takes given source or destination as the search center.
+    /// - Parameters:
+    ///     - source: GeoPoint: source location
+    ///     - destination: GeoPoint: destination location
+    ///     - range: search radius in meters
+    ///     - completion: ([Route]) -> ()
     func getRoutes(between source: GeoPoint, and destination: GeoPoint, inRange range: Double, completion: @escaping (_ routes: [Route]) -> ()) {
         FIRDatabase.database().reference().child("routes").observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? [String: [String: Any]] else {
+            guard let value = snapshot.value as? [String: Any] else {
                 completion([])
                 return
             }
             var routes: [Route] = []
             for result in value.values {
-                guard let points = result["checkPoints"] as? [[String: Any]],
-                    let name = result["name"] as? String else {
-                        continue
+                guard let route = Parser.parseRoute(result) else {
+                    continue
                 }
-                guard let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint] else {
-                    completion([])
-                    return
-                }
-                let route = Route(name, checkPoints)
                 var sourceIndex = -1
                 var destIndex = -1
                 var sourceDist = range
@@ -243,93 +314,22 @@ class DatabaseManager {
         }
     }
     
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    // ===================== USERPROFILE ==============================
-    
-    /// Creates a user profile when user first sign in with facebook credential.
+    /// Updates a route in database.
     /// - Parameters:
-    ///     - user: User: user whose profile is to be stored
-    func createFBUserProfile(user: User) {
-        DispatchQueue.global(qos: .background).async {
-            self.verifyUserProfile(uid: user.uid) {
-                guard let email = user.email,
-                    let avartarRef = user.photoURL?.absoluteString,
-                    let userName = user.displayName else {
-                        return
-                }
-                let profile = UserProfile(email: email, username: userName)
-                profile.setAvatar(avartarRef)
-                self.addUserProfileToDatabase(uid: user.uid, userProfile: profile)
-            }
-        }
+    ///     - uid: String: user id
+    ///     - route: Route: route to be updated
+    func updateRoute(uid: String, route: Route) {
+        let combinedName = getRouteKey(uid, route.name)
+        FIRDatabase.database().reference().child("routes").child(combinedName).setValue(route.toJSON())
     }
     
-    /// Gets user profile of user specified by user id, and passes result to completion handler.
-    /// - Parameters:
-    ///     - uid: String: user id of user
-    ///     - completion: (UserProfile?) -> ()
-    func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile?) -> ()) {
-        FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? [String: Any] ?? [:]
-            let profile = UserProfile(JSON: value)
-            completion(profile)
-        }) { error in
-            print(error.localizedDescription)
-        }
-    }
-    
-    // ===================== ROUTES ===================================
-    
-    /// Returns the route with given name, and pass the result to completion handler.
-    /// - Parameters:
-    ///     - uid: String: user id of the user
+    /// Removes a route from database.
+    /// - Parameter: 
     ///     - routeName: String: name of the route
-    ///     - completion: (Route?) -> ()
-    func getRoute(uid: String, named routeName: String, completion: @escaping (_ route: Route?) -> ()) {
-        DispatchQueue.global(qos: .background).async {
-            let combinedName = self.getRouteKey(uid, routeName)
-            FIRDatabase.database().reference().child("routes").child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
-                let result = Parser.parseRoute(snapshot.value)
-                DispatchQueue.main.async {
-                    completion(result)
-                }
-            }) { _ in
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            }
-        }
-    }
-    
-    /// Returns the routes with given names in database and pass to completion handler.
-    /// - Parameters:
-    ///     - uid: String: user id of the user
-    ///     - names: Set<String>: names of routes
-    ///     - completion: ([Route]) -> (): completion handler
-    func getRoutes(uid: String, with names: Set<String>, completion: @escaping (_ routes: [Route]) -> ()) {
-        let group = DispatchGroup()
-        var routes: [Route] = []
-        for name in names {
-            group.enter()
-            getRoute(uid: uid, named: name) { route in
-                if let route = route {
-                    routes.append(route)
-                }
-                group.leave()
-            }
-        }
-        group.notify(queue: .main) {
-            completion(routes)
-        }
+    ///     - uid: user id
+    func removeRoute(uid: String, routeName: String) {
+        let combinedName = getRouteKey(uid, routeName)
+        FIRDatabase.database().reference().child("routes").child(combinedName).removeValue()
     }
     
     // ===================== TRACKPOINTS ==============================

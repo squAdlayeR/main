@@ -98,7 +98,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         let uid = currentUser.uid
         userProfile.removeDesignedRoute(indexPath.section)
         tableView.deleteSections(IndexSet(integer: indexPath.section), with:UITableViewRowAnimation.left)
-        DatabaseManager.instance.removeRouteFromDatabase(routeName: routeName)
+        DataServiceManager.instance.removeRouteFromDatabase(routeName: routeName)
         DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: userProfile)
     }
     

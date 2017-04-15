@@ -63,7 +63,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
                 self.showAlertMessage(message: Messages.fbSignInFailureMessage)
                 return
             }
-            self.databaseManager.createFBUserProfile(user: user)
+            DataServiceManager.instance.createFBUserProfile(user: user)
             LoadingBadge.instance.hideBadge()
             self.performSegue(withIdentifier: StoryboardConstants.loginToARSegue, sender: nil)
         }
