@@ -23,7 +23,7 @@ class MenuViewController: NSObject {
     private(set) var menuView: MenuView!
     
     // checks whether the menu is opened currently
-    var isOpened: Bool!
+    private(set) var isOpened: Bool!
     
     /// Initializes the menu. The following will be done:
     /// - creates an empty menu view
@@ -35,14 +35,6 @@ class MenuViewController: NSObject {
         menuView.isHidden = true
         isOpened = false
     }
-    
-}
-
-/**
- An extension that is used to define interaction functions
- of the menu
- */
-extension MenuViewController {
     
     /// Adds a button to the menu. The button could be any UIView.
     /// - Parameter button: the button that will be added in
@@ -63,7 +55,6 @@ extension MenuViewController {
     func present(inside superView: UIView) {
         guard !isOpened else { return }
         menuView.isHidden = false
-        
         updateMenuCenter(inside: superView)
         superView.addSubview(menuView)
         superView.bringSubview(toFront: menuView)
@@ -77,15 +68,15 @@ extension MenuViewController {
     ///     be present in
     private func updateMenuCenter(inside superView: UIView) {
         let centerY = superView.center.y
-        let centerX = superView.bounds.width * menuLeftPaddingPercent
+        let centerX = superView.bounds.width * MenuViewConstants.leftPaddingPercent
         menuView.center = CGPoint(x: centerX, y: centerY)
     }
     
     /// Removes the menu from the super view
     func remove() {
-        menuView.close(inCompletion: {
-            self.menuView.removeFromSuperview()
-            self.isOpened = false
+        menuView.close(inCompletion: { [weak self] in
+            self?.menuView.removeFromSuperview()
+            self?.isOpened = false
         })
     }
     
