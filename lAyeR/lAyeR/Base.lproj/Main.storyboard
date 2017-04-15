@@ -486,7 +486,7 @@
                                 <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="25"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="ikf-BB-RQf" kind="unwind" unwindAction="unwindSegueToARViewWithSegue:" id="QOi-4U-ecT"/>
+                                    <segue destination="ikf-BB-RQf" kind="unwind" identifier="unwindUserProfileToAR" unwindAction="unwindSegueToARViewWithSegue:" id="QOi-4U-ecT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eje-qa-rCD">
@@ -520,7 +520,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check Internet connection." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9T-99-lKK">
-                                <rect key="frame" x="37.5" y="320.5" width="300" height="26"/>
+                                <rect key="frame" x="38" y="321" width="300" height="26"/>
                                 <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -600,7 +600,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHM-Gw-YUr">
-                                        <rect key="frame" x="132" y="37" width="111" height="38.5"/>
+                                        <rect key="frame" x="132" y="36.5" width="111" height="38.5"/>
                                         <fontDescription key="fontDescription" name="DINPro-Medium" family="DINPro" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

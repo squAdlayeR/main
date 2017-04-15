@@ -13,6 +13,7 @@ class StoryboardConstants {
     
     // Segue
     static let userProfileToDesignerSegue: String = "userProfileToDesigner"
+    static let unwindUserProfileToARSegue: String = "unwindUserProfileToAR"
     static let userProfileToLoginSegue: String = "userProfileToLogin"
     static let loginToARSegue: String = "loginToAR"
     

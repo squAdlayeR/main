@@ -195,6 +195,9 @@ class UserProfileViewController: UIViewController {
                 dest.importedRoutes = [route]
             }
         }
+        if segue.identifier == StoryboardConstants.unwindUserProfileToARSegue {
+            GeoManager.getInstance().forceUpdateUserNearbyPOIS()
+        }
     }
     
     @IBAction func unwindFromRouteDesigner(segue: UIStoryboardSegue) {}

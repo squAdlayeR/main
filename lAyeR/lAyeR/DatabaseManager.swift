@@ -196,17 +196,13 @@ class DatabaseManager {
             completion(nil, false)
             return
         }
-        DispatchQueue.global(qos: .background).async {
-            FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                DispatchQueue.main.async {
-                    guard let value = snapshot.value as? [String: Any], let profile = UserProfile(JSON: value) else {
-                        completion(nil, false)
-                        return
-                    }
-                    completion(profile, true)
+        FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let value = snapshot.value as? [String: Any], let profile = UserProfile(JSON: value) else {
+                    completion(nil, false)
+                    return
                 }
-            })
-        }
+                completion(profile, true)
+        })
     }
     
     

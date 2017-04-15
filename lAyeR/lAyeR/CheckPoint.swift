@@ -8,12 +8,24 @@
 
 import ObjectMapper
 
+/*
+ * CheckPoint subclasses GeoPoint to represent a check point on a route.
+ * A CheckPoint should have:
+ * - name: String
+ * - description: String
+ * - isControlPoint: Bool, determines whether a check point is a control point
+ * that should be shown in the route
+ */
 class CheckPoint: GeoPoint {
     
+    // Represents the name, description
     private(set) var name: String = ""
     private(set) var description: String = ""
+    
+    // Specifies if the point is control point
     var isControlPoint = true
     
+    // Initializes a check point from latitude and logitude.
     init(_ latitude: Double, _ longitude: Double,
          _ name: String, _ description: String = "",
          _ isControlPoint: Bool = true) {
@@ -23,6 +35,7 @@ class CheckPoint: GeoPoint {
         super.init(latitude, longitude)
     }
     
+    // Initializes a check point from a geo point.
     init(_ geoPoint: GeoPoint,
          _ name: String, _ description: String = "",
          _ isControlPoint: Bool = false) {
@@ -32,35 +45,21 @@ class CheckPoint: GeoPoint {
         super.init(geoPoint.latitude, geoPoint.longitude)
     }
     
-   // override func encode(with aCoder: NSCoder) {
-     //   aCoder.encode(name, forKey: "name")
-      //  aCoder.encode(index, forKey: "index")
-      //  super.encode(with: aCoder)
-   // }
-    
-   // required init?(coder aDecoder: NSCoder) {
-      //  guard let name = aDecoder.decodeObject(forKey: "name") as? String else {
-      //      return nil
-      //  }
-      //  self.name = name
-      //  super.init(coder: aDecoder)
-   // }
-    
     required init?(map: Map) {
-        guard let name = map.JSON["name"] as? String else {
+        guard let name = map.JSON[ModelConstants.nameKey] as? String else {
             return nil
         }
         self.name = name
-        self.description = map.JSON["description"] as? String ?? ""
-        self.isControlPoint = map.JSON["isControlPoint"] as? Bool ?? false
+        self.description = map.JSON[ModelConstants.descriptionKey] as? String ?? ""
+        self.isControlPoint = map.JSON[ModelConstants.isControlPointKey] as? Bool ?? false
         super.init(map: map)
     }
     
     override func mapping(map: Map) {
         super.mapping(map: map)
-        name <- map["name"]
-        description <- map["description"]
-        isControlPoint <- map["isControlPoint"]
+        name <- map[ModelConstants.nameKey]
+        description <- map[ModelConstants.descriptionKey]
+        isControlPoint <- map[ModelConstants.isControlPointKey]
     }
     
 }

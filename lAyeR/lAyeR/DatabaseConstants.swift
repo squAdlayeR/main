@@ -6,4 +6,11 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
+class DatabaseConstants {
+    
+    static let profileKey: String = "profiles"
+    static let gpstrackKey: String = "gpstrack"
+    static let routesKey: String = "routes"
+    
+    
+}

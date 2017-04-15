@@ -16,5 +16,18 @@ class ModelConstants {
     static let avatarRefKey: String = "avatarRef"
     static let designedRouteKey: String = "designedRoutes"
     
+    // GeoPoint
+    static let nameKey: String = "name"
+    static let latitudeKey: String = "latitude"
+    static let longitudeKey: String = "longitude"
+    // CheckPoint
+    static let descriptionKey: String = "description"
+    static let isControlPointKey: String = "isControlPoint"
     
+    // POI
+    // TrackPoint
+    
+    // Route
+    static let checkPointsKey: String = "checkPoints"
+    static let imagePathKey: String = "imagePath"
 }
