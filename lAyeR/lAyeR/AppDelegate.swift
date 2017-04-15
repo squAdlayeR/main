@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey(AppConfig.apiKey)
         GMSServices.provideAPIKey(AppConfig.apiKey)
         FIRApp.configure()
-        DatabaseManager.instance.checkConnectivity()
+        DatabaseManager.instance.startCheckConnectivity()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         sleep(3)
         self.window?.makeKeyAndVisible()

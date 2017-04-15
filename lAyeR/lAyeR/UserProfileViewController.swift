@@ -68,8 +68,8 @@ class UserProfileViewController: UIViewController {
     /// Loads the user profile.
     private func loadProfile() {
         LoadingBadge.instance.showBadge(in: view)
-        dataService.retrieveUserProfile { profile, success in
-            guard success, let profile = profile else {
+        dataService.retrieveUserProfile { profile in
+            guard let profile = profile else {
                 self.setNotification()
                 LoadingBadge.instance.hideBadge()
                 return

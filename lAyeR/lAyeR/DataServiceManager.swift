@@ -26,7 +26,6 @@ class DataServiceManager {
     func addRouteToDatabase(route: Route, completion: @escaping (Bool) -> ()) {
         databaseManager.addRouteToDatabase(route: route, completion: completion)
     }
-
     
     func signInUser(email: String, password: String, completion: AuthenticationCallback?) {
         userAuthenticator.signInUser(email: email, password: password, completion: completion)
@@ -36,12 +35,71 @@ class DataServiceManager {
         userAuthenticator.signOut()
     }
     
-    func retrieveUserProfile(completion: @escaping (_ userProfile: UserProfile?, _ success: Bool) -> ()) {
+    func retrieveUserProfile(completion: @escaping (_ userProfile: UserProfile?) -> ()) {
         guard let user = userAuthenticator.currentUser else {
-            completion(nil, false)
+            completion(nil)
             return
         }
         databaseManager.getUserProfile(uid: user.uid, completion: completion)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // ======================= ROUTES ===========================
+    
+    /// Returns the route with given name, and pass the result to completion handler.
+    /// - Parameters:
+    ///     - routeName: String: name of the route
+    ///     - completion: (Route?) -> ()
+    func getRoute(named routeName: String, completion: @escaping (_ route: Route?) -> ()) {
+        guard let uid = currentUserID, databaseManager.isConnected else {
+            completion(nil)
+            return
+        }
+        databaseManager.getRoute(uid: uid, named: routeName, completion: completion)
+    }
+    
+    /// Returns the routes with given names in database and pass to completion handler.
+    /// - Parameters:
+    ///     - names: Set<String>: names of routes
+    ///     - completion: ([Route]) -> (): completion handler
+    func getRoutes(with names: Set<String>, completion: @escaping (_ routes: [Route]?) -> ()) {
+        guard let uid = currentUserID, databaseManager.isConnected else {
+            completion([])
+            return
+        }
+        databaseManager.getRoutes(uid: uid, with: names, completion: completion)
+    }
+    
+    
+    
+    var isEnabled: Bool {
+        return currentUserID != nil && databaseManager.isConnected
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }

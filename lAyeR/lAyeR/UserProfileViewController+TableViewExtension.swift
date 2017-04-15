@@ -40,7 +40,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         cell.routeName.text = name
         cell.routeName.preferredMaxLayoutWidth = tableView.bounds.width
         cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
-        DatabaseManager.instance.getRoute(named: name) { route in
+        DataServiceManager.instance.getRoute(named: name) { route in
             guard let route = route else {
                 return
             }
@@ -64,7 +64,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
             return
         }
         LoadingBadge.instance.showBadge(in: view)
-        DatabaseManager.instance.getRoute(named: name) { route in
+        DataServiceManager.instance.getRoute(named: name) { route in
             LoadingBadge.instance.hideBadge()
             guard let route = route else {
                 self.showAlertMessage(message: Messages.loadRouteFailureMessage)
@@ -106,7 +106,10 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     func deselectAll() {
         for sec in 0..<routeList.numberOfSections {
             let indexPath = IndexPath(row: 0, section: sec)
-            routeList.deselectRow(at: indexPath, animated: true)
+            guard let cell = routeList.cellForRow(at: indexPath) as? RouteListCell else {
+                continue
+            }
+            cell.checkMark.isHidden = true
         }
     }
     

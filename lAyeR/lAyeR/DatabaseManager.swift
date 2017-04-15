@@ -18,11 +18,7 @@ class DatabaseManager {
     private(set) var currentUserProfile: UserProfile?
     var connectivityCheckCount: Int = 0
     
-    func startObserveGPSTrack() {
-        FIRDatabase.database().reference().child("gpstrack").observe(.childAdded, with: { snapshot in
-            print("data received")
-        })
-    }
+
     
     func sendLocationInfoToDatabase(from: GeoPoint, to: GeoPoint) {
         DispatchQueue.global(qos: .background).async {
@@ -161,8 +157,8 @@ class DatabaseManager {
                 }
                 completion(true)
                 DispatchQueue.global(qos: .background).async {
-                    self.getUserProfile(uid: uid) { userProfile, success in
-                        guard success, let userProfile = userProfile else {
+                    self.getUserProfile(uid: uid) { userProfile in
+                        guard let userProfile = userProfile else {
                             return
                         }
                         userProfile.addDesignedRoute(route.name)
@@ -188,21 +184,6 @@ class DatabaseManager {
         }
         let combinedName = getRouteKey(uid, routeName)
         FIRDatabase.database().reference().child("routes").child(combinedName).removeValue()
-    }
-
-    
-    func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile?, _ success: Bool) -> ()) {
-        guard isConnected else {
-            completion(nil, false)
-            return
-        }
-        FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                guard let value = snapshot.value as? [String: Any], let profile = UserProfile(JSON: value) else {
-                    completion(nil, false)
-                    return
-                }
-                completion(profile, true)
-        })
     }
     
     
@@ -262,44 +243,28 @@ class DatabaseManager {
         }
     }
     
-    func checkConnectivity() {
-        var count = 0
-        DispatchQueue.global(qos: .background).async {
-            let connectedRef = FIRDatabase.database().reference(withPath: ".info/connected")
-            connectedRef.observe(.value, with: { snapshot in
-                count += 1
-                guard let connected = snapshot.value as? Bool else {
-                    return
-                }
-                guard connected else {
-                    self.isConnected = false
-                    DispatchQueue.main.async {
-                        let currentViewController = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController
-                        if count < 4 { return } // possibly initializing stage
-                        if currentViewController != nil {
-                            //currentViewController?.showAlertMessage(message: "Lost connection to database.")
-                        } else {
-                            //UIApplication.shared.keyWindow?.rootViewController?.showAlertMessage(message: "Lost connection to database.")
-                        }
-                    }
-                    return
-                }
-                self.isConnected = true
-            })
-        }
-    }
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    // ===================== USERPROFILE ==============================
     
     /// Creates a user profile when user first sign in with facebook credential.
-    func createFBUserProfile() {
-        guard let user = UserAuthenticator.instance.currentUser else {
-            return
-        }
+    /// - Parameters:
+    ///     - user: User: user whose profile is to be stored
+    func createFBUserProfile(user: User) {
         DispatchQueue.global(qos: .background).async {
             self.verifyUserProfile(uid: user.uid) {
                 guard let email = user.email,
-                      let avartarRef = user.photoURL?.absoluteString,
-                      let userName = user.displayName else {
-                    return
+                    let avartarRef = user.photoURL?.absoluteString,
+                    let userName = user.displayName else {
+                        return
                 }
                 let profile = UserProfile(email: email, username: userName)
                 profile.setAvatar(avartarRef)
@@ -308,38 +273,54 @@ class DatabaseManager {
         }
     }
     
+    /// Gets user profile of user specified by user id, and passes result to completion handler.
+    /// - Parameters:
+    ///     - uid: String: user id of user
+    ///     - completion: (UserProfile?) -> ()
+    func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile?) -> ()) {
+        FIRDatabase.database().reference().child("profiles").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? [String: Any] ?? [:]
+            let profile = UserProfile(JSON: value)
+            completion(profile)
+        }) { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    // ===================== ROUTES ===================================
+    
     /// Returns the route with given name, and pass the result to completion handler.
     /// - Parameters:
+    ///     - uid: String: user id of the user
     ///     - routeName: String: name of the route
     ///     - completion: (Route?) -> ()
-    func getRoute(named routeName: String, completion: @escaping (_ route: Route?) -> ()) {
+    func getRoute(uid: String, named routeName: String, completion: @escaping (_ route: Route?) -> ()) {
         DispatchQueue.global(qos: .background).async {
-            guard let uid = UserAuthenticator.instance.currentUser?.uid else {
-                completion(nil)
-                return
-            }
             let combinedName = self.getRouteKey(uid, routeName)
             FIRDatabase.database().reference().child("routes").child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
                 let result = Parser.parseRoute(snapshot.value)
                 DispatchQueue.main.async {
                     completion(result)
                 }
-            }) { error in
-                print(error.localizedDescription)
+            }) { _ in
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
             }
         }
     }
     
     /// Returns the routes with given names in database and pass to completion handler.
     /// - Parameters:
+    ///     - uid: String: user id of the user
     ///     - names: Set<String>: names of routes
     ///     - completion: ([Route]) -> (): completion handler
-    func getRoutes(with names: Set<String>, completion: @escaping (_ routes: [Route]) -> ()) {
+    func getRoutes(uid: String, with names: Set<String>, completion: @escaping (_ routes: [Route]) -> ()) {
         let group = DispatchGroup()
         var routes: [Route] = []
         for name in names {
             group.enter()
-            getRoute(named: name) { route in
+            getRoute(uid: uid, named: name) { route in
                 if let route = route {
                     routes.append(route)
                 }
@@ -351,6 +332,10 @@ class DatabaseManager {
         }
     }
     
+    // ===================== TRACKPOINTS ==============================
+    
+    // ===================== UTILITIES ================================
+    
     /// Returns the route key of the route. Route name is combined with user id to create a
     /// inidivual-unique route entry in database.
     /// - Parameters:
@@ -359,7 +344,27 @@ class DatabaseManager {
     /// - Returns:
     ///     - String: combined name as route entry
     private func getRouteKey(_ uid: String, _ routeName: String) -> String {
-        return "\(routeName)||\(uid)"
+        return "\(routeName)\(DatabaseConstants.separator)\(uid)"
+    }
+    
+    /// Runs in background and observes the connection to the database.
+    func startCheckConnectivity() {
+        let connectedRef = FIRDatabase.database().reference(withPath: DatabaseConstants.connectKey)
+        DispatchQueue.global(qos: .background).async {
+            connectedRef.observe(.value, with: { snapshot in
+                guard let connected = snapshot.value as? Bool else {
+                    return
+                }
+                guard connected else {
+                    self.isConnected = false
+                    DispatchQueue.main.async {
+                        // feedback to main queue
+                    }
+                    return
+                }
+                self.isConnected = true
+            })
+        }
     }
     
 }

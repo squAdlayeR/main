@@ -11,6 +11,8 @@ class DatabaseConstants {
     static let profileKey: String = "profiles"
     static let gpstrackKey: String = "gpstrack"
     static let routesKey: String = "routes"
+    static let connectKey: String = ".info/connected"
     
+    static let separator: String = "||"
     
 }

@@ -27,8 +27,12 @@ extension UserProfileViewController {
             return
         }
         LoadingBadge.instance.showBadge(in: view)
-        DatabaseManager.instance.getRoutes(with: selectedRouteNames) { routes in
+        DataServiceManager.instance.getRoutes(with: selectedRouteNames) { routes in
             LoadingBadge.instance.hideBadge()
+            guard let routes = routes else {
+                self.showAlertMessage(message: Messages.databaseDisconnectedMessage)
+                return
+            }
             self.share(routes: routes)
         }
     }
@@ -36,14 +40,14 @@ extension UserProfileViewController {
     /// Handles select event.
     @IBAction func selectPressed(_ sender: UIButton) {
         let title = sender.title(for: .normal)
-        selectionMode = !selectionMode
-        routeList.allowsMultipleSelection = !routeList.allowsMultipleSelection
         if title == Messages.selectTitle {
             sender.setTitle(Messages.cancelTitle, for: .normal)
         } else {
             sender.setTitle(Messages.selectTitle, for: .normal)
             deselectAll()
         }
+        selectionMode = !selectionMode
+        routeList.allowsMultipleSelection = !routeList.allowsMultipleSelection
         selectedRouteNames.removeAll()
     }
     
