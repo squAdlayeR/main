@@ -697,8 +697,8 @@
 		9D7DACF81E85461C00592EB5 /* POI */ = {
 			isa = PBXGroup;
 			children = (
-				9D73277E1EA25501008D9860 /* PriceLevel.swift */,
 				9D73277C1EA254D2008D9860 /* PoiCard.swift */,
+				9D73277E1EA25501008D9860 /* PriceLevel.swift */,
 			);
 			name = POI;
 			sourceTree = "<group>";

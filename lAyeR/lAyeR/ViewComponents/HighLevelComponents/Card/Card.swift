@@ -90,8 +90,12 @@ class Card: NSObject {
     private var popupSize: CGSize {
         let superViewWidth = superViewController.view.bounds.width
         let superViewHeight = superViewController.view.bounds.height
-        let suggestdPopupW = superViewWidth * CardConstants.widthPercentage <= BasicAlertConstants.maxAlertWidth ? superViewWidth * CardConstants.widthPercentage : BasicAlertConstants.maxAlertWidth
-        let suggsetdPopupH = superViewHeight * CardConstants.heightPercentage <= BasicAlertConstants.maxAlertHeight ? superViewHeight * CardConstants.heightPercentage : BasicAlertConstants.maxAlertHeight
+        let suggestdPopupW = superViewWidth * CardConstants.widthPercentage <= BasicAlertConstants.maxAlertWidth
+            ? superViewWidth * CardConstants.widthPercentage
+            : BasicAlertConstants.maxAlertWidth
+        let suggsetdPopupH = superViewHeight * CardConstants.heightPercentage <= BasicAlertConstants.maxAlertHeight
+            ? superViewHeight * CardConstants.heightPercentage
+            : BasicAlertConstants.maxAlertHeight
         return CGSize(width: suggestdPopupW, height: suggsetdPopupH)
     }
     
@@ -112,7 +116,7 @@ extension Card {
     func openPopup() {
         popupController.presentAlert(within: superViewController.view)
         UIView.animate(withDuration: CardConstants.openDuration, animations: { [weak self] in
-            self?.markerCard.alpha = 0
+            self?.markerCard.isHidden = true
         })
     }
     
@@ -120,7 +124,7 @@ extension Card {
     func closePopup() {
         popupController.closeAlert()
         UIView.animate(withDuration: CardConstants.closeDuration, animations: { [weak self] in
-            self?.markerCard.alpha = 1
+            self?.markerCard.isHidden = false
         })
     }
     

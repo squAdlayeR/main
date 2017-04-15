@@ -16,12 +16,10 @@ import UIKit
  infomation about the marker. To be more specific, for
  poi, the possible information include
  - name
- - description
  - address
  - contact
  - website
  - rating
- - open status
  */
 class PoiCard: Card {
     
@@ -31,16 +29,15 @@ class PoiCard: Card {
     
     /// Initializes the poi view controller
     /// - Parameters:
-    ///     - center: the initial center of the marker
     ///     - distance: the distance between current place and that place
-    ///     - type: the type of the poi
-    ///     - superView: the view that this popup & marker is attached to
+    ///     - categoryName: the type name of the poi
+    ///     - superViewController: the view controller that this popup & marker is attached to
     init(distance: Double, categoryName: String, superViewController: UIViewController) {
         var sanitizedCategory: POICategory
         if let category = POICategory(rawValue: categoryName) {
             sanitizedCategory = category
         } else {
-            sanitizedCategory = POICategory(rawValue: "other")!
+            sanitizedCategory = POICategory(rawValue: CardConstants.othersIconName)!
         }
         let iconName = "\(sanitizedCategory.rawValue)\(MiscConstants.coloredIconExtension)"
         super.init(distance: distance, icon: iconName, superViewController: superViewController)
@@ -50,7 +47,7 @@ class PoiCard: Card {
     
     /// Initializes the card title
     private func initializeCardTitle() {
-        self.popupController.alert?.setTitle(poiTitle)
+        self.popupController.alert?.setTitle(CardConstants.poiTitle)
     }
     
     /// Initializes the card buttons which include
@@ -67,8 +64,9 @@ class PoiCard: Card {
     /// - Returns: a close button which will close the popup if it is clicked
     private func createCloseButton() -> UIButton {
         let newButton = UIButton()
-        newButton.setTitle(confirmLabelText, for: .normal)
-        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.setTitle(HighLevelMiscConstants.confirmString, for: .normal)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular,
+                                            size: HighLevelMiscConstants.buttonFontSize)
         newButton.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
         return newButton
     }
@@ -78,8 +76,9 @@ class PoiCard: Card {
     ///     route designer
     private func createDirectButton() -> UIButton {
         let newButton = UIButton()
-        newButton.setTitle(directLabelText, for: .normal)
-        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.setTitle(CardConstants.directString, for: .normal)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular,
+                                            size: HighLevelMiscConstants.buttonFontSize)
         newButton.addTarget(self, action: #selector(segueToDesigner), for: .touchUpInside)
         return newButton
     }
@@ -108,73 +107,60 @@ extension PoiCard {
     /// - Parameter name: the name of the poi
     func setPoiName(_ name: String) {
         self.name = name
-        self.popupController.addText(with: nameLabel, iconName: descriptionIcon, and: name)
+        self.popupController.addText(with: CardConstants.nameLabel,
+                                     iconName: CardConstants.nameIconName,
+                                     and: name)
     }
     
     /// Sets the address of poi
     /// - Parameter address: the address of the poi
     func setPoiAddress(_ address: String) {
         self.address = address
-        let sanitizedAddress = address.isEmpty ? infoBlockPlaceHolder : address
-        self.popupController.addText(with: poiAddressLabel, iconName: addressIcon, and: sanitizedAddress)
+        let sanitizedAddress = address.isEmpty ? CardConstants.emptyAddressHolder : address
+        self.popupController.addText(with: CardConstants.addressLabel,
+                                     iconName: CardConstants.addressIcon,
+                                     and: sanitizedAddress)
     }
     
     /// Sets the contact of poi
     /// - Parameter contact: the contact of the poi
     func setPoiContacet(_ contact: String) {
-        self.popupController.addText(with: poiContactLabel, iconName: contactIcon, and: contact)
+        self.popupController.addText(with: CardConstants.contactLabel,
+                                     iconName: CardConstants.contactIcon,
+                                     and: contact)
     }
     
     /// Sets the website of poi
     /// - Parameter website: the website of the poi
     func setPoiWebsite(_ website: String) {
-        self.popupController.addText(with: poiWebsiteLabel, iconName: websiteIcon, and: website)
+        self.popupController.addText(with: CardConstants.websiteLabel,
+                                     iconName: CardConstants.websiteIcon,
+                                     and: website)
     }
     
     /// Sets the rating of poi
     /// - Parameter rating: the rating of the poi
     func setPoiRating(_ rating: Double) {
         let starString = getStarString(rating)
-        self.popupController.addText(with: poiRatingLabel, iconName: ratingsIcon, and: starString)
+        self.popupController.addText(with: CardConstants.ratingsLabel,
+                                     iconName: CardConstants.ratingsIcon,
+                                     and: starString)
     }
     
     /// Gets a string of stars according the a number
     /// - Parameter number: the number that will be converted into stars
-    
     private func getStarString(_ number: Double) -> String {
         let numberOfFullStar = floor(number)
         let remaining = number - numberOfFullStar
         let numberOfHalfStar = remaining < 0.5 ? 0 : 1
         var result = String()
         for _ in 1...Int(numberOfFullStar) {
-            result = result.appending(infoBlockFullStar)
+            result = result.appending(CardConstants.fullStar)
         }
         if numberOfHalfStar == 1 {
-            result = result.appending(infoBlockHalfStar)
+            result = result.appending(CardConstants.halfStar)
         }
         return result
-    }
-    
-    /// Sets the open hours of poi
-    /// - Parameter hours: the open hours of the poi
-    func setPoiOpenHours(_ hours: String) {
-        self.popupController.addText(with: poiOpenHoursLabel, iconName: statusIcon, and: hours)
-    }
-    
-    /// Sets the price level of poi
-    /// - Parameter level: the price level of the poi
-    func setPoiPriceLevel(_ level: Int) {
-        self.popupController.addText(with: poiPriceLevelLabel, iconName: nameIcon, and: convertPriceLevel(level))
-    }
-    
-    /// Converts price level integer into string
-    /// - Parameter levle: the price level number
-    /// - Returns: string description of the price level
-    private func convertPriceLevel(_ level: Int) -> String {
-        if let priceLevel = PriceLevel(rawValue: level) {
-            return priceLevel.text
-        }
-        return infoBlockPlaceHolder
     }
     
 }
