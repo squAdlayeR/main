@@ -15,21 +15,31 @@ import UIKit
 class Card: NSObject {
 
     // The marker of the card
-    var markerCard: BasicMarker!
+    private(set) var markerCard: BasicMarker!
     
     // The popup controller of the card
-    var popupController: BasicAlertController!
+    private(set) var popupController: BasicAlertController!
     
-    // The superview in which the marker and the popup will be
+    // The superview controller in which the marker and the popup will be
     // displayed
-    var superViewController: UIViewController!
+    private(set) var superViewController: UIViewController!
+    
+    // Defines the alpha of the marker. When it changes, it should change
+    // The alpha of the marker accoridingly
+    private(set) var markerAlpha: CGFloat = 1 {
+        didSet {
+            UIView.animate(withDuration: CardConstants.openDuration, animations: { [weak self] in
+                guard self != nil else { return }
+                self!.markerCard.alpha = self!.markerAlpha
+            })
+        }
+    }
     
     /// Initialization
     /// - Parameters:
-    ///     - center: the center of the popup & marker card
     ///     - distance: distance to that place that the card is representing
-    ///     - superView: the super view in which the marker card & popup will
-    ///         be displayed
+    ///     - icon: the name of icon that will be displayed on card
+    ///     - superViewController: the controller of the super view
     init(distance: Double, icon: String, superViewController: UIViewController) {
         super.init()
         self.superViewController = superViewController
@@ -38,12 +48,13 @@ class Card: NSObject {
         prepareDisplay()
     }
     
-    /// Initializes the marker with specified frame and distance
+    /// Initializes the marker with specified distance and icon name
     /// - Parameters:
-    ///     - frame: the frame of the marker in the card view
     ///     - distance: the distance to that place
+    ///     - icon: the name of the icon
     private func initMarker(with distance: Double, and icon: String) {
-        let markerSize = CGSize(width: suggestedMarkerWidth, height: suggestedMarkerHeight)
+        let markerSize = CGSize(width: CardConstants.suggestedMarkerWidth,
+                                height: CardConstants.suggestedMarkerHeight)
         let newMarker = BasicMarker(size: markerSize, icon: icon)
         newMarker.updateDistance(with: distance)
         self.markerCard = newMarker
@@ -51,21 +62,20 @@ class Card: NSObject {
     }
     
     /// Adds a single tap gesture recognizor to the marker
+    /// This gesture will open the alert
     private func addMarkerGesture() {
         let markerIsPressed = UITapGestureRecognizer(target: self, action: #selector(openPopup))
         markerCard.addGestureRecognizer(markerIsPressed)
     }
     
-    /// Initializes the popup with its name
-    /// - Parameters:
-    ///     - name: the name of the check point
+    /// Initializes the alert popup
     private func initAlert() {
-        let newAlertController = BasicAlertController(title: defaultTitle, size: popupSize)
+        let newAlertController = BasicAlertController(title: CardConstants.defaultTitle, size: popupSize)
         let alertWidth = popupSize.width
         let alertHeight = popupSize.height - BasicAlertConstants.topBannerHeight - BasicAlertConstants.bottomBannerHeight
         newAlertController.addViewToAlert(InformativeInnerView(width: alertWidth,
                                                                height: alertHeight,
-                                                               subtitle: titleText))
+                                                               subtitle: CardConstants.infoSubtitle))
         self.popupController = newAlertController
     }
     
@@ -74,13 +84,21 @@ class Card: NSObject {
         superViewController.view.addSubview(markerCard)
     }
     
-    /// Calculates the frame of the popup
-    /// - Note: the frame is defined by suggested popup height/width, which are
-    ///     defined in config
+    /// Calculates the size of the popup
+    /// - Note: the frame is defined by suggested popup height/width proportion, which are
+    ///     defined in constants file
     private var popupSize: CGSize {
-        let suggestdPopupW = superViewController.view.bounds.width * 0.8 <= 500 ? superViewController.view.bounds.width * 0.8 : 500
-        let suggsetdPopupH = superViewController.view.bounds.height * 0.5 <= 800 ? superViewController.view.bounds.height * 0.5 : 800
+        let superViewWidth = superViewController.view.bounds.width
+        let superViewHeight = superViewController.view.bounds.height
+        let suggestdPopupW = superViewWidth * CardConstants.widthPercentage <= BasicAlertConstants.maxAlertWidth ? superViewWidth * CardConstants.widthPercentage : BasicAlertConstants.maxAlertWidth
+        let suggsetdPopupH = superViewHeight * CardConstants.heightPercentage <= BasicAlertConstants.maxAlertHeight ? superViewHeight * CardConstants.heightPercentage : BasicAlertConstants.maxAlertHeight
         return CGSize(width: suggestdPopupW, height: suggsetdPopupH)
+    }
+    
+    /// Changes the alpha of the marker
+    /// - Parameter alpha: the new alpha of the marker
+    func setMarkderAlpha(to alpha: CGFloat) {
+        self.markerAlpha = alpha
     }
     
 }
@@ -93,18 +111,16 @@ extension Card {
     /// Opens the popup
     func openPopup() {
         popupController.presentAlert(within: superViewController.view)
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
-            guard self != nil else { return }
-            self!.markerCard.alpha = 0
+        UIView.animate(withDuration: CardConstants.openDuration, animations: { [weak self] in
+            self?.markerCard.alpha = 0
         })
     }
     
     /// Closes the popup
     func closePopup() {
         popupController.closeAlert()
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
-            guard self != nil else { return }
-            self!.markerCard.alpha = 1
+        UIView.animate(withDuration: CardConstants.closeDuration, animations: { [weak self] in
+            self?.markerCard.alpha = 1
         })
     }
     
@@ -113,10 +129,7 @@ extension Card {
     func update(_ distance: Double) {
         markerCard.updateDistance(with: distance)
     }
-    
-    func setMarkderAlpha(to alpha: CGFloat) {
-        markerCard.alpha = alpha
-    }
+
 }
 
 /**
