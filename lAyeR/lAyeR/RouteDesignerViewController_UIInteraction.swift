@@ -17,7 +17,6 @@ extension RouteDesignerViewController {
     @IBAction func saveButtonPressed(_ sender: Any) {
         let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
         storeRoutePopupController = BasicAlertController(title: "Store Your Route", size: alertSize)
-        storeRoutePopupController.alertView.center = view.center
         addInnerViewToStorePopup()
         storeRoutePopupController.addButtonToAlert(createCloseStoreButton())
         storeRoutePopupController.presentAlert(within: view)
@@ -26,7 +25,6 @@ extension RouteDesignerViewController {
     @IBAction func optionsIsPressed(_ sender: Any) {
         let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
         optionsPopupController = BasicAlertController(title: "Options", size: alertSize)
-        optionsPopupController.alertView.center = view.center
         addInnerViewToOptionPopup()
         optionsPopupController.addButtonToAlert(createCloseOptionButton())
         optionsPopupController.presentAlert(within: view)

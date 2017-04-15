@@ -65,7 +65,6 @@ class CommonAlertController: BasicAlertController {
     func showAlert(_ title: String, _ message: String, in view: UIView) {
         alert.setTitle(title)
         label.text = message
-        alertView.center = view.center
         presentAlert(within: view)
     }
 
