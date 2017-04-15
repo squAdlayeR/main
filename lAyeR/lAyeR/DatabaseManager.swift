@@ -186,7 +186,7 @@ class DatabaseManager {
         guard let uid = UserAuthenticator.instance.currentUser?.uid else {
             return
         }
-        let combinedName = routeName + "||" + uid
+        let combinedName = getRouteKey(uid, routeName)
         FIRDatabase.database().reference().child("routes").child(combinedName).removeValue()
     }
 
@@ -289,7 +289,7 @@ class DatabaseManager {
         }
     }
     
-    
+    /// Creates a user profile when user first sign in with facebook credential.
     func createFBUserProfile() {
         guard let user = UserAuthenticator.instance.currentUser else {
             return
@@ -299,7 +299,7 @@ class DatabaseManager {
                 guard let email = user.email,
                       let avartarRef = user.photoURL?.absoluteString,
                       let userName = user.displayName else {
-                        return
+                    return
                 }
                 let profile = UserProfile(email: email, username: userName)
                 profile.setAvatar(avartarRef)
@@ -308,14 +308,17 @@ class DatabaseManager {
         }
     }
     
-    /// Use in user profile.
-    func getRoute(withName routeName: String, completion: @escaping (_ route: Route?) -> ()) {
+    /// Returns the route with given name, and pass the result to completion handler.
+    /// - Parameters:
+    ///     - routeName: String: name of the route
+    ///     - completion: (Route?) -> ()
+    func getRoute(named routeName: String, completion: @escaping (_ route: Route?) -> ()) {
         DispatchQueue.global(qos: .background).async {
             guard let uid = UserAuthenticator.instance.currentUser?.uid else {
                 completion(nil)
                 return
             }
-            let combinedName = routeName + "||" + uid
+            let combinedName = self.getRouteKey(uid, routeName)
             FIRDatabase.database().reference().child("routes").child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
                 let result = Parser.parseRoute(snapshot.value)
                 DispatchQueue.main.async {
@@ -326,7 +329,6 @@ class DatabaseManager {
             }
         }
     }
-
     
     /// Returns the routes with given names in database and pass to completion handler.
     /// - Parameters:
@@ -337,7 +339,7 @@ class DatabaseManager {
         var routes: [Route] = []
         for name in names {
             group.enter()
-            getRoute(withName: name) { route in
+            getRoute(named: name) { route in
                 if let route = route {
                     routes.append(route)
                 }
@@ -347,6 +349,17 @@ class DatabaseManager {
         group.notify(queue: .main) {
             completion(routes)
         }
+    }
+    
+    /// Returns the route key of the route. Route name is combined with user id to create a
+    /// inidivual-unique route entry in database.
+    /// - Parameters:
+    ///     - uid: String: user id
+    ///     - routeName: String: name of the route
+    /// - Returns:
+    ///     - String: combined name as route entry
+    private func getRouteKey(_ uid: String, _ routeName: String) -> String {
+        return "\(routeName)||\(uid)"
     }
     
 }

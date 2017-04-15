@@ -6,6 +6,9 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
+/*
+ * This class parses the search query and decodes the response into relative objects.
+ */
 class Parser {
     
     /// Returns the singleton instance of parser
@@ -44,7 +47,7 @@ class Parser {
     ///     - value: Any?: query response.
     /// - Returns:
     ///     - [POI]: an array of POI object.
-    static func parseJSONToPOIs(_ value: Any?) -> [POI] {
+    static func parsePOIs(_ value: Any?) -> [POI] {
         guard let json = value as? [String: Any],
               let results = json[ModelConstants.resultsKey] as? [[String: Any]] else {
             return []
@@ -120,6 +123,24 @@ class Parser {
         return poi
     }
     
+    /// Parses query response to a route object if valid, nil otherwise.
+    /// - Parameters:
+    ///     - value: Any?: query response.
+    /// - Returns:
+    ///     - Route?: an route object if response is valid, nil otherwise.
+    static func parseRoute(_ value: Any?) -> Route? {
+        guard let jsonRoute = value as? [String: Any],
+            let points = jsonRoute[ModelConstants.checkPointsKey] as? [[String: Any]],
+            let name = jsonRoute[ModelConstants.nameKey] as? String,
+            let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint],
+            let image = jsonRoute[ModelConstants.imagePathKey] as? String else {
+                return nil
+        }
+        let route = Route(name, checkPoints)
+        route.setImage(path: image)
+        return route
+    }
+    
     static func parseJSONToRoutes(_ jsonRoutes: [String: Any]) -> [Route] {
         guard let results = jsonRoutes["routes"] as? [[String: Any]] else {
             return []
@@ -146,23 +167,6 @@ class Parser {
         return route
     }
     
-    /// Parses query response to a route object if valid, nil otherwise.
-    /// - Parameters:
-    ///     - value: Any?: query response.
-    /// - Returns:
-    ///     - Route?: an route object if response is valid, nil otherwise.
-    static func parseRoute(_ value: Any?) -> Route? {
-        guard let jsonRoute = value as? [String: Any],
-              let points = jsonRoute[ModelConstants.checkPointsKey] as? [[String: Any]],
-              let name = jsonRoute[ModelConstants.nameKey] as? String,
-              let checkPoints = points.map ({ CheckPoint(JSON: $0) }) as? [CheckPoint],
-              let image = jsonRoute[ModelConstants.imagePathKey] as? String else {
-            return nil
-        }
-        let route = Route(name, checkPoints)
-        route.setImage(path: image)
-        return route
-    }
     
     
     
@@ -173,7 +177,6 @@ class Parser {
             let description = jsonCheckPoint["description"] as? String,
             let isControlPoint = jsonCheckPoint["isControlPoint"] as? Bool else {
                return nil
-            
         }
         return CheckPoint(lat, lng, name, description, isControlPoint)
     }

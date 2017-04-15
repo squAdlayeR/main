@@ -111,7 +111,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
             group.enter()
             let url = Parser.parsePOISearchRequest(appSettings.radiusOfDetection, type, userPoint)
             Alamofire.request(url).responseJSON { [unowned self] response in
-                let routes = Parser.parseJSONToPOIs(response.result.value)
+                let routes = Parser.parsePOIs(response.result.value)
                 candidates.append(contentsOf: Array(routes.prefix(self.appSettings.maxNumberOfMarkers)))
                 group.leave()
             }

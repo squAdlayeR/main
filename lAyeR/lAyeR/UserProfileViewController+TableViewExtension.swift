@@ -40,7 +40,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
         cell.routeName.text = name
         cell.routeName.preferredMaxLayoutWidth = tableView.bounds.width
         cell.routeDescription.preferredMaxLayoutWidth = tableView.bounds.width
-        DatabaseManager.instance.getRoute(withName: name) { route in
+        DatabaseManager.instance.getRoute(named: name) { route in
             guard let route = route else {
                 return
             }
@@ -64,7 +64,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
             return
         }
         LoadingBadge.instance.showBadge(in: view)
-        DatabaseManager.instance.getRoute(withName: name) { route in
+        DatabaseManager.instance.getRoute(named: name) { route in
             LoadingBadge.instance.hideBadge()
             guard let route = route else {
                 self.showAlertMessage(message: Messages.loadRouteFailureMessage)
