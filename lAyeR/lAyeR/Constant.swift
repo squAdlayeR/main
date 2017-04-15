@@ -54,6 +54,8 @@ class Constant {
     static let firstArrowOffset: Double = 0.8  // Unit: meter
     
     static let cardArrowImageName = "arrow.png"
+    static let cardArrowViewSize = CGSize(width: 28, height: 60)
+    static let arrowImageFrame = CGRect(x: 0, y: 38, width: 28, height: 22)
 }
 
 
