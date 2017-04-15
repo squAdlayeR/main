@@ -110,6 +110,7 @@
 		9D73276E1EA21248008D9860 /* LoadingBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73276D1EA21248008D9860 /* LoadingBadge.swift */; };
 		9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73276F1EA21A09008D9860 /* HighLevelMiscConstants.swift */; };
 		9D7327721EA21A39008D9860 /* CommonAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7327711EA21A39008D9860 /* CommonAlertController.swift */; };
+		9D7327761EA251D6008D9860 /* MenuViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7327751EA251D6008D9860 /* MenuViewConstants.swift */; };
 		9D7DACF71E8513E000592EB5 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACF61E8513E000592EB5 /* ResourceManager.swift */; };
 		9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */; };
 		9D7DAD001E855CC800592EB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DACFF1E855CC800592EB5 /* Constants.swift */; };
@@ -269,6 +270,7 @@
 		9D73276D1EA21248008D9860 /* LoadingBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingBadge.swift; path = ViewComponents/BasicComponents/Misc/LoadingBadge.swift; sourceTree = "<group>"; };
 		9D73276F1EA21A09008D9860 /* HighLevelMiscConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighLevelMiscConstants.swift; path = ViewComponents/HighLevelComponents/Misc/HighLevelMiscConstants.swift; sourceTree = "<group>"; };
 		9D7327711EA21A39008D9860 /* CommonAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonAlertController.swift; path = ViewComponents/HighLevelComponents/Misc/CommonAlertController.swift; sourceTree = "<group>"; };
+		9D7327751EA251D6008D9860 /* MenuViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewConstants.swift; path = ViewComponents/HighLevelComponents/Menu/MenuViewConstants.swift; sourceTree = "<group>"; };
 		9D7DACF61E8513E000592EB5 /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		9D7DACFB1E8546AB00592EB5 /* CheckpointCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckpointCard.swift; path = ViewComponents/HighLevelComponents/CheckPoint/CheckpointCard.swift; sourceTree = "<group>"; };
 		9D7DACFF1E855CC800592EB5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -655,6 +657,7 @@
 		9D1970101E87FE7F00C1DAA1 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				9D7327751EA251D6008D9860 /* MenuViewConstants.swift */,
 				9D1970111E87FE8E00C1DAA1 /* MenuViewController.swift */,
 			);
 			name = Menu;
@@ -1065,6 +1068,7 @@
 				9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */,
 				9D7DACFC1E8546AB00592EB5 /* CheckpointCard.swift in Sources */,
 				A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */,
+				9D7327761EA251D6008D9860 /* MenuViewConstants.swift in Sources */,
 				9D11C3601E98CD4400C33207 /* PriceLevel.swift in Sources */,
 				5249B1C31E746CC70048249D /* AppConfig.swift in Sources */,
 				9DFB5B9E1E8426FD00724B6E /* LabelTextBlock.swift in Sources */,
