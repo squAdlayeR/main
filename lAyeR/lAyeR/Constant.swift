@@ -50,6 +50,12 @@ class Constant {
     
     static let maxMarkerAlpha: CGFloat = 0.8
     static let markerAlphaChangeRange: CGFloat = 0.38
+    
+    static let firstArrowOffset: Double = 0.8  // Unit: meter
+    
+    static let cardArrowImageName = "arrow.png"
+    static let cardArrowViewSize = CGSize(width: 28, height: 60)
+    static let arrowImageFrame = CGRect(x: 0, y: 38, width: 28, height: 22)
 }
 
 

@@ -23,21 +23,19 @@ class CheckpointCardController {
         return card.markerCard.frame.intersects(superView.frame)
     }
     
-    
     init(checkpoint: CheckPoint, card: CheckpointCard) {
         self.checkpoint = checkpoint
         self.card = card
-        
         initializeArrow()
     }
-
     
     private func initializeArrow() {
         arrow = ArrowView()
         arrow.setup()
     }
     
-    
+    /// set this card as being selected
+    /// this will create a white arrow pointing to the card if it is out of the view
     func setSelected(_ selected: Bool) {
         self.selected = selected
         
@@ -51,9 +49,9 @@ class CheckpointCardController {
         }
     }
     
-    
-    // update position and orientation of card
-    // update the distance shown on the card
+    /// update position and orientation of card
+    /// update the distance displayed on the card
+    /// update the opacity of the card
     func updateCard(userPoint: GeoPoint, motionManager: DeviceMotionManager,
                     superView: UIView, fov: Double) {
         let azimuth = GeoUtil.getAzimuth(between: userPoint, checkpoint)
@@ -76,6 +74,8 @@ class CheckpointCardController {
         }
     }
     
+    /// calculate the opacity of the card
+    /// based on the distance from the current user point to the checkpoint associated with this card
     private func calculateAlpha(distance: CGFloat) -> CGFloat {
         return Constant.maxMarkerAlpha - Constant.markerAlphaChangeRange * distance / Constant.maxPushBackDistance
     }
@@ -95,6 +95,8 @@ class CheckpointCardController {
         
         let halfSuperviewWidth = superView.bounds.width / 2
         let halfSuperviewHeight = superView.bounds.height / 2
+        
+        // the 2 diagonals divdes the angle into 4 cases.
         if angle > -(CGFloat(M_PI) - screenDiagonalAngle) && angle < -screenDiagonalAngle {
             arrow.center.y = halfSuperviewHeight + halfSuperviewWidth / tan(angle)
             arrow.center.x = 0
@@ -110,12 +112,10 @@ class CheckpointCardController {
         }
     }
     
-    
     func removeCardAndArrow() {
         card.removeFromSuperview()
         arrow.removeFromSuperview()
     }
-    
     
     deinit {
         removeCardAndArrow()

@@ -9,6 +9,24 @@
 import Foundation
 import RealmSwift
 
+
+/**
+ For each app model to be stored using Realm, we create a corresponding Realm class,
+ which is of the similar purpose as defining the correponding database table.
+ The following classes is a duplicate of the app model for Realm to store
+ 1. Model need to be a class, that is, structs can not be stored
+ 2. Model need to inherit from Object (Realm Object, not Swift Object)
+ 3. The properties of Model need to be dynamic
+ 4. The properties of Model must provide default value
+ 5. Realm does not support Array, Set and so on.
+ Thus need to use Realm List instead, which the generic type of List must be subclasses of Object
+ The primitive types such as String and Integer cannot be the content of the List
+ This restrictions, although will not cause much influence, and reasonable as well.
+ it might reduce the flexibility when we design our app model, which should not be dependent on the storage implementation.
+ Therefore, to reduce the coupling and dependency, also considering the possibility to change the storage implementation
+ We define the following "duplicate" model, only for Realm storage purpose
+ */
+
 class RealmLocalStorageManager: LocalStorageManagerProtocol {
     static private var instance: LocalStorageManagerProtocol!
     private var realm: Realm = try! Realm()
@@ -35,7 +53,7 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
     public func saveRoute(_ route: Route) {
         realmAdd(RealmRoute(route))
     }
-    
+
     public func removeRoute(_ route: Route) {
         realmDelete(RealmRoute(route))
     }
@@ -89,8 +107,8 @@ class RealmLocalStorageManager: LocalStorageManagerProtocol {
         return returnedRoutes
     }
     
-    // currently, only allow one user setting per device
     public func saveAppSettings() {
+        // currently, only allow one user setting per device
         for setting in realm.objects(RealmAppSettings.self) {
             realmDelete(setting)
         }

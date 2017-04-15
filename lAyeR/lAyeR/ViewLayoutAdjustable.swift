@@ -36,7 +36,8 @@ extension UIView: ViewLayoutAdjustable {
         // define the matrices for the following 3 transformation:
         // 1. rotation around the veritical line
         // 2. rotaiton around the z-axis of the device
-        // 3. perspective projection
+        // 3. push the card back
+        // 4. perspective projection
         let pushBackTransform = CATransform3DMakeTranslation(0, 0, -adjustment.pushBackDistance)
         let horzRotationTransform = CATransform3DMakeRotation(horzRotationAngle, 0, 1, 0)
         let yawRotationTransform = CATransform3DMakeRotation(yawRotationAngle, 0, 0, 1)
