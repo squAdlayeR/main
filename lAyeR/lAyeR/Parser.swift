@@ -141,6 +141,41 @@ class Parser {
         return route
     }
     
+    /// Parses response to track points if valid, return empty array otherwise.
+    /// - Parameters:
+    ///     - value: Any?: query response
+    /// - Returns:
+    ///     - [TrackPoint]: array of parsed track points
+    static func parseTrackPoints(_ value: Any?) -> [TrackPoint] {
+        var trackPoints: [TrackPoint] = []
+        guard let latdict = value as? [String: Any],
+            let lat = latdict[ModelConstants.latitudeKey] as? Double else {
+                return trackPoints
+        }
+        var londicts: [[String: Any]] = []
+        for latdictvalue in latdict.values {
+            guard let latdictvalue = latdictvalue as? [String: Any] else {
+                continue
+            }
+            londicts.append(latdictvalue)
+        }
+        for londict in londicts {
+            guard let lon = londict[ModelConstants.longitudeKey] as? Double else {
+                continue
+            }
+            let trackPoint = TrackPoint(lat, lon)
+            trackPoint.up = londict[ModelConstants.upKey] as? Bool ?? false
+            trackPoint.down = londict[ModelConstants.downKey] as? Bool ?? false
+            trackPoint.left = londict[ModelConstants.leftKey] as? Bool ?? false
+            trackPoint.right = londict[ModelConstants.rightKey] as? Bool ?? false
+            trackPoints.append(trackPoint)
+        }
+        return trackPoints
+    }
+    
+    
+    
+    
     static func parseJSONToRoutes(_ jsonRoutes: [String: Any]) -> [Route] {
         guard let results = jsonRoutes["routes"] as? [[String: Any]] else {
             return []

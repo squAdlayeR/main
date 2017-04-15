@@ -13,116 +13,9 @@ class DatabaseManager {
     
     let formatter = NumberFormatter()
     
-    private(set) var isConnected: Bool = false
     static let instance = DatabaseManager()
+    private(set) var isConnected: Bool = false
     private(set) var currentUserProfile: UserProfile?
-    var connectivityCheckCount: Int = 0
-    
-
-    
-    func sendLocationInfoToDatabase(from: GeoPoint, to: GeoPoint) {
-        DispatchQueue.global(qos: .background).async {
-            // get the value
-            self.formatter.maximumFractionDigits = 4
-            self.formatter.minimumFractionDigits = 4
-            let latEntry = String(format: "%.4f", from.latitude).replacingOccurrences(of: ".", with: "")
-            let lonEntry = String(format: "%.4f", from.longitude).replacingOccurrences(of: ".", with: "")
-            // add value here
-            var latdict: [String: Any] = [:]
-            latdict["latitude"] = from.latitude
-            var londict: [String: Any] = [:]
-            londict["longitude"] = from.longitude
-            if from.latitude < to.latitude { londict["up"] = true }
-            if from.latitude > to.latitude { londict["down"] = true }
-            if from.longitude > to.longitude { londict["left"] = true }
-            if from.longitude < to.longitude { londict["right"] = true }
-            latdict[lonEntry] = londict
-            // get dirs
-            FIRDatabase.database().reference().child("gpstrack").observeSingleEvent(of: .value, with: { snapshot in
-                if snapshot.hasChild(latEntry) {
-                    // update value here
-                    let latRef = FIRDatabase.database().reference().child("gpstrack").child(latEntry)
-                    let latSnapshot = snapshot.childSnapshot(forPath: latEntry)
-                    if latSnapshot.hasChild(lonEntry) {
-                        let lonRef = latRef.child(lonEntry)
-                        if let _ = londict["up"] {
-                            lonRef.child("up").setValue(true)
-                        }
-                        if let _ = londict["down"] {
-                            lonRef.child("down").setValue(true)
-                        }
-                        if let _ = londict["left"] {
-                            lonRef.child("left").setValue(true)
-                        }
-                        if let _ = londict["right"] {
-                            lonRef.child("right").setValue(true)
-                        }
-                    } else {
-                        latRef.child(lonEntry).setValue(londict)
-                    }
-                } else {
-                    FIRDatabase.database().reference().child("gpstrack").child(latEntry).setValue(latdict)
-                }
-            })
-            DispatchQueue.main.async {
-                print("data sent")
-            }
-        }
-    }
-    
-    func getRectFromDatabase(from: GeoPoint, to: GeoPoint, completion: @escaping (_ trackPoints: Set<TrackPoint>) -> ()) {
-        let fromLat = min(from.latitude, to.latitude)
-        let toLat = max(from.latitude, to.latitude)
-        let fromLon = min(from.longitude, to.longitude)
-        let toLon = max(from.longitude, to.longitude)
-        print(fromLon, toLon)
-        print("============")
-        var trackPoints: Set<TrackPoint> = []
-        DispatchQueue.global(qos: .background).async {
-            // data service here
-            FIRDatabase.database().reference().child("gpstrack").queryOrdered(byChild: "latitude").queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
-                if let all = snapshot.value as? [String: Any] {
-                    for candidate in all.values {
-                        guard let latdict = candidate as? [String: Any],
-                            let lat = latdict["latitude"] as? Double else {
-                                continue
-                        }
-                        var londicts: [[String: Any]] = []
-                        for latdictvalue in latdict.values {
-                            if let latdictvalue = latdictvalue as? [String: Any] {
-                                londicts.append(latdictvalue)
-                            }
-                        }
-                        for londict in londicts {
-                            guard let lon = londict["longitude"] as? Double else {
-                                continue
-                            }
-                            let trackPoint = TrackPoint(lat, lon)
-                            if let _ = londict["up"] {
-                                trackPoint.up = true }
-                            if let _ = londict["down"] {
-                                trackPoint.down = true }
-                            if let _ = londict["left"] {
-                                trackPoint.left = true }
-                            if let _ = londict["right"] {
-                                trackPoint.right = true }
-                            if trackPoint.longitude <= toLon && trackPoint.longitude >= fromLon {
-                                trackPoints.insert(trackPoint)
-                            }
-                        }
-                    }
-                }
-                DispatchQueue.main.async {
-                    //completion block
-                    print(trackPoints.count)
-                    completion(trackPoints)
-                }
-            })
-        }
-    }
-    
-
-    
     
     // ===================== USERPROFILE ==============================
     
@@ -295,23 +188,22 @@ class DatabaseManager {
                 if sourceIndex == destIndex {
                     continue
                 }
-                if sourceIndex >= 0 && destIndex >= 0 {
-                    let section = destIndex > sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
-                    let returnRoute = Route(route.name)
-                    for checkpoint in section {
-                        if destIndex > sourceIndex {
-                            returnRoute.append(checkpoint)
-                        } else {
-                            returnRoute.insert(checkpoint, at: 0)
-                        }
-                    }
-                    routes.append(returnRoute)
+                guard sourceIndex >= 0 && destIndex >= 0 else {
+                    continue
                 }
+                let section = destIndex > sourceIndex ? route.checkPoints[sourceIndex ... destIndex] : route.checkPoints[destIndex ... sourceIndex]
+                let returnRoute = Route(route.name)
+                for checkpoint in section {
+                    if destIndex > sourceIndex {
+                        returnRoute.append(checkpoint)
+                    } else {
+                        returnRoute.insert(checkpoint, at: 0)
+                    }
+                }
+                routes.append(returnRoute)
             }
             completion(routes)
-        }) { error in
-            print(error.localizedDescription)
-        }
+        })
     }
     
     /// Updates a route in database.
@@ -334,6 +226,86 @@ class DatabaseManager {
     
     // ===================== TRACKPOINTS ==============================
     
+    /// Sends track point location information to database.
+    /// - Parameters:
+    ///     - from: GeoPoint: start point of the edge
+    ///     - to: GeoPoint: end point of the edge
+    /// MARK: This process is run in background.
+    func sendLocationInfoToDatabase(from: GeoPoint, to: GeoPoint) {
+        DispatchQueue.global(qos: .background).async {
+            let latEntry = self.getCoordKey(from.latitude)
+            let lonEntry = self.getCoordKey(from.longitude)
+            var latdict: [String: Any] = [:]
+            latdict[ModelConstants.latitudeKey] = from.latitude
+            var londict: [String: Any] = [:]
+            londict[ModelConstants.longitudeKey] = from.longitude
+            if from.latitude < to.latitude { londict[ModelConstants.upKey] = true }
+            if from.latitude > to.latitude { londict[ModelConstants.downKey] = true }
+            if from.longitude > to.longitude { londict[ModelConstants.leftKey] = true }
+            if from.longitude < to.longitude { londict[ModelConstants.rightKey] = true }
+            latdict[lonEntry] = londict
+            // get dirs
+            FIRDatabase.database().reference().child("gpstrack").observeSingleEvent(of: .value, with: { snapshot in
+                if snapshot.hasChild(latEntry) {
+                    // update value here
+                    let latRef = FIRDatabase.database().reference().child("gpstrack").child(latEntry)
+                    let latSnapshot = snapshot.childSnapshot(forPath: latEntry)
+                    if latSnapshot.hasChild(lonEntry) {
+                        let lonRef = latRef.child(lonEntry)
+                        if let _ = londict[ModelConstants.upKey] {
+                            lonRef.child(ModelConstants.upKey).setValue(true)
+                        }
+                        if let _ = londict[ModelConstants.downKey] {
+                            lonRef.child(ModelConstants.downKey).setValue(true)
+                        }
+                        if let _ = londict[ModelConstants.leftKey] {
+                            lonRef.child(ModelConstants.leftKey).setValue(true)
+                        }
+                        if let _ = londict[ModelConstants.rightKey] {
+                            lonRef.child(ModelConstants.rightKey).setValue(true)
+                        }
+                    } else {
+                        latRef.child(lonEntry).setValue(londict)
+                    }
+                } else {
+                    FIRDatabase.database().reference().child("gpstrack").child(latEntry).setValue(latdict)
+                }
+            })
+        }
+    }
+    
+    /// Gets the trackpoints in the rectangle grid specified by a from point and a to point
+    /// as diagnol, passes the result to completion handler.
+    /// - Parameters:
+    ///     - from: GeoPoint: the source
+    ///     - to: GeoPoint: the destination
+    ///     - completion: (Set<TrackPoint>) -> ()
+    func getRectFromDatabase(from: GeoPoint, to: GeoPoint, completion: @escaping (_ trackPoints: Set<TrackPoint>) -> ()) {
+        let fromLat = min(from.latitude, to.latitude)
+        let toLat = max(from.latitude, to.latitude)
+        let fromLon = min(from.longitude, to.longitude)
+        let toLon = max(from.longitude, to.longitude)
+        var trackPoints: Set<TrackPoint> = []
+        DispatchQueue.global(qos: .background).async {
+            // data service here
+            FIRDatabase.database().reference().child("gpstrack").queryOrdered(byChild: ModelConstants.latitudeKey).queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
+                if let all = snapshot.value as? [String: Any] {
+                    for candidate in all.values {
+                        let points = Parser.parseTrackPoints(candidate)
+                        points.forEach({ point in
+                            if point.longitude <= toLon && point.longitude >= fromLon {
+                                trackPoints.insert(point)
+                            }
+                        })
+                    }
+                }
+                DispatchQueue.main.async {
+                    completion(trackPoints)
+                }
+            })
+        }
+    }
+    
     // ===================== UTILITIES ================================
     
     /// Returns the route key of the route. Route name is combined with user id to create a
@@ -345,6 +317,17 @@ class DatabaseManager {
     ///     - String: combined name as route entry
     private func getRouteKey(_ uid: String, _ routeName: String) -> String {
         return "\(routeName)\(DatabaseConstants.separator)\(uid)"
+    }
+    
+    /// Returns the formatted coordinate degree value as the entry in the JSON.
+    /// - Parameters:
+    ///     - coord: Double: value of the coordinate in degrees
+    /// - Returns:
+    ///     - String: formatted string
+    private func getCoordKey(_ coord: Double) -> String {
+        formatter.maximumFractionDigits = 4
+        formatter.minimumFractionDigits = 4
+        return String(format: "%.4f", coord).replacingOccurrences(of: ".", with: "")
     }
     
     /// Runs in background and observes the connection to the database.

@@ -47,7 +47,7 @@ class ModelConstants {
     
     // TrackPoint
     static let upKey: String = "up"
-    static let downkey: String = "down"
+    static let downKey: String = "down"
     static let leftKey: String = "left"
     static let rightKey: String = "right"
     

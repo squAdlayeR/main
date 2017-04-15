@@ -20,7 +20,7 @@ class TrackPoint: CheckPoint {
     
     required init?(map: Map) {
         self.up = map.JSON[ModelConstants.upKey] as? Bool ?? false
-        self.down = map.JSON[ModelConstants.downkey] as? Bool ?? false
+        self.down = map.JSON[ModelConstants.downKey] as? Bool ?? false
         self.left = map.JSON[ModelConstants.leftKey] as? Bool ?? false
         self.right = map.JSON[ModelConstants.rightKey] as? Bool ?? false
         super.init(map: map)
@@ -29,7 +29,7 @@ class TrackPoint: CheckPoint {
     override func mapping(map: Map) {
         super.mapping(map: map)
         up <- map[ModelConstants.upKey]
-        down <- map[ModelConstants.downkey]
+        down <- map[ModelConstants.downKey]
         left <- map[ModelConstants.leftKey]
         right <- map[ModelConstants.rightKey]
     }
