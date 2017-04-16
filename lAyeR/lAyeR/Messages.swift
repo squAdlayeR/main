@@ -58,6 +58,8 @@ class Messages {
     static let operationNotAllowedMessage: String = "Operation Not Allowed."
     static let unknownErrorMessage: String = "Unknown Error."
     
+    /// Naming
+    static let invalidNameMessage: String = "Route name should only contain letters or numbers"
 
 }
 
