@@ -43,8 +43,7 @@ extension ARViewController {
         guard let dest = segue.destination as? RouteDesignerViewController else {
             return
         }
-        
-        dest.removeAllMarkersAndLines()
+        dest.removeAllPoints()
         let currentUserPoint = geoManager.getLastUpdatedUserPoint()
         dest.myLocation = CLLocation(latitude: currentUserPoint.latitude, longitude: currentUserPoint.longitude)
         for (idx, checkpoint) in route.checkPoints.enumerated() {

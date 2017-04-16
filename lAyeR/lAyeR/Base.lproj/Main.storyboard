@@ -866,16 +866,6 @@
                                             <action selector="removeAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dih-x3-cMO"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zis-Oi-GU6">
-                                        <rect key="frame" x="271" y="14" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="toggleRouteType:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eyb-69-bJ1"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6iW-Dv-WQJ">
                                         <rect key="frame" x="16" y="8" width="58" height="34"/>
                                         <constraints>
@@ -1035,17 +1025,6 @@
                                     <constraint firstItem="kyk-27-5Ml" firstAttribute="top" secondItem="fTt-0N-sgk" secondAttribute="bottom" constant="6" id="zt0-Y8-neL"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztM-rI-gw0">
-                                <rect key="frame" x="16" y="121" width="0.0" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleMapType:" destination="BYZ-38-t0r" eventType="touchUpInside" id="idI-Vg-qzW"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Xx-9A-Ae7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
@@ -1107,7 +1086,6 @@
                         <outlet property="layerRoutesButton" destination="xpe-Sz-Bkr" id="jk6-Hd-a0R"/>
                         <outlet property="loadingGpsRoutesIcon" destination="6cO-WP-vAW" id="RP2-Se-7xv"/>
                         <outlet property="loadingLayerRoutesIcon" destination="W1c-WF-9OV" id="9lK-2L-M8z"/>
-                        <outlet property="mapTypeButton" destination="ztM-rI-gw0" id="dBr-1h-44G"/>
                         <outlet property="mostBottomBanner" destination="U13-2h-d5g" id="0Cx-2L-lcF"/>
                         <outlet property="searchBar" destination="kyk-27-5Ml" id="q8G-bX-DyK"/>
                         <outlet property="searchPin" destination="K05-Gd-aGG" id="Ab0-tK-Gea"/>
@@ -1117,7 +1095,6 @@
                         <outlet property="sourcePin" destination="53O-wU-umg" id="eLS-qZ-lx0"/>
                         <outlet property="startButton" destination="cJS-5c-jip" id="wLg-D7-JJN"/>
                         <outlet property="suggestedPlacesTableView" destination="kL1-5c-gyz" id="Gvk-gM-g6L"/>
-                        <outlet property="toggleRouteButton" destination="zis-Oi-GU6" id="hMa-3e-5dA"/>
                         <outlet property="topBanner" destination="Bng-0D-Rga" id="0uX-lw-BjH"/>
                         <outlet property="undoButton" destination="zrI-W7-ZCw" id="fYZ-pV-fhp"/>
                     </connections>

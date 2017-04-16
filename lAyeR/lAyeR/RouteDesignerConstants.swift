@@ -10,6 +10,20 @@ import Foundation
 
 struct RouteDesignerConstants {
     
+    //---------- Enums ----------
+    
+    enum RouteType {
+        case google
+        case layer
+        case gps
+    }
+    
+    enum TypeOfTouch {
+        case touchMap
+        case touchMarker
+        case touchLine
+    }
+    
     //---------- Testing ----------
     
     // If set to true, will do Check_Rep (might slow down the app significantly)
@@ -36,8 +50,22 @@ struct RouteDesignerConstants {
     static let checkpointDefaultName = "Checkpoint"
     static let selectDestinationText = "Please select destination"
     static let selectSourceText = "Please select source"
+    static let exportGPSText = "Export GPS file"
+    static let saveText = "Save to cloud"
+    static let manualRouteText = "Use Manual Route"
+    static let googleRouteText = "Use Google Route"
+    static let failToLoadGpsRoutesText = "Fail to load the routes."
+    static let saveSuccessfulText = "Saved Successfully"
+    static let saveFailText = "Save Failed"
     
-    // For Error Messages
+    // Map Views
+    static let mapViewText = "Map View"
+    static let satelliteViewText = "Satellite View"
+    static let hybridViewText = "Hybrid View"
+    
+    // Error Messages
+    static let duplicateRouteNameWarningText = "You have created a route with this name before, sure to overwrite?"
+    static let emptyRouteNameStringText = "Please give a name to your route"
     static let cannotFindDestinationText = "We can't find this destination!"
     static let cannotFindSourceText = "We can't find this source!"
     static let cannotChooseSameSourceAndDestinationText = "Please select different source and destination!"
@@ -50,5 +78,6 @@ struct RouteDesignerConstants {
     static let startButtonCornerRadius: CGFloat = 7
     static let pinActivatedAlpha: CGFloat = 1.0
     static let pinDeactivatedAlpha: CGFloat = 0.5
+    static let lineStrokeWidth: CGFloat = 5.0
     
 }

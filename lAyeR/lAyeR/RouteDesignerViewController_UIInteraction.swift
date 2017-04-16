@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- this is an extension of the vieww controller that defines UI interactions
+ this is an extension of the view controller that defines UI interactions
  */
 extension RouteDesignerViewController {
 
@@ -50,17 +50,29 @@ extension RouteDesignerViewController {
     }
     
     private func createToggleMapButton() -> UIButton {
-        mapTypeButton.removeFromSuperview()
-        mapTypeButton.setTitle("Map View", for: .normal)
+        let mapTypeButton = UIButton()
+        if mapView.mapType == .normal {
+            mapTypeButton.setTitle(RouteDesignerConstants.mapViewText, for: .normal)
+        } else if mapView.mapType == .satellite {
+            mapTypeButton.setTitle(RouteDesignerConstants.satelliteViewText, for: .normal)
+        } else {
+            mapTypeButton.setTitle(RouteDesignerConstants.hybridViewText, for: .normal)
+        }
         stylizeButton(mapTypeButton)
+        mapTypeButton.addTarget(self, action: #selector(toggleMapType(_:)), for: .touchUpInside)
         return mapTypeButton
     }
     
     private func createSwitcher() -> UIButton {
-        toggleRouteButton.removeFromSuperview()
-        toggleRouteButton.setTitle("Use Manual Design", for: .normal)
-        stylizeButton(toggleRouteButton)
-        return toggleRouteButton
+        let routeTypeButton = UIButton()
+        if manualRouteType {
+            routeTypeButton.setTitle(RouteDesignerConstants.manualRouteText, for: .normal)
+        } else {
+            routeTypeButton.setTitle(RouteDesignerConstants.googleRouteText, for: .normal)
+        }
+        stylizeButton(routeTypeButton)
+        routeTypeButton.addTarget(self, action: #selector(toggleRouteType(_:)), for: .touchUpInside)
+        return routeTypeButton
     }
     
     /// Creates a close button
@@ -85,7 +97,7 @@ extension RouteDesignerViewController {
     /// - Returns: a save button which will close the popup if it is clicked
     private func createSaveButton() -> UIButton {
         let saveButton = UIButton()
-        saveButton.setTitle("Save to cloud", for: .normal)
+        saveButton.setTitle(RouteDesignerConstants.saveText, for: .normal)
         stylizeButton(saveButton)
         saveButton.addTarget(self, action: #selector(saveRoute), for: .touchUpInside)
         return saveButton
@@ -95,7 +107,7 @@ extension RouteDesignerViewController {
     /// - Returns: a export button which will close the popup if it is clicked
     private func createExportButton() -> UIButton {
         let exportButton = UIButton()
-        exportButton.setTitle("Export GPS file", for: .normal)
+        exportButton.setTitle(RouteDesignerConstants.exportGPSText, for: .normal)
         stylizeButton(exportButton)
         exportButton.addTarget(self, action: #selector(exportRoute), for: .touchUpInside)
         return exportButton
@@ -121,88 +133,6 @@ extension RouteDesignerViewController {
     
     func closeOptionPopup() {
         optionsPopupController.closeAlert()
-    }
-    
-    /// Saves the route
-    func saveRoute() {
-        closeStoreRoutePopup()
-        let alert = UIAlertController(title: "Saving Route to Cloud", message: "Enter a Unique Name", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Enter Route Name"
-        }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
-        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
-            let textField = alert!.textFields![0]
-            if (textField.text != nil && textField.text != "") {
-                let route = Route(textField.text!)
-                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, RouteDesignerConstants.checkpointDefaultName, RouteDesignerConstants.checkpointDefaultDescription, true))
-                for marker in self.markers {
-                    let markerData = marker.userData as! CheckPoint
-                    route.append(markerData)
-                }
-                do {
-                    let url = try GPXFileManager.instance.save(name: route.name, image: self.viewCapture(view: self.mapView))
-                    route.setImage(path: url.absoluteString)
-                } catch {
-                    print("where")
-                }
-                // TODO: separate local storage and server
-                self.routeDesignerModel.saveToLocal(route: route)
-                LoadingBadge.instance.showBadge(in: self.view)
-                self.routeDesignerModel.saveToDB(route: route){ bool in
-                    LoadingBadge.instance.hideBadge()
-                    guard let bool = bool else {
-                        let resultAlert = UIAlertController(title: "Save Failed", message: "You have created a route with this name before, sure to overwrite?", preferredStyle: .alert)
-                        resultAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { _ in
-                            DataServiceManager.instance.updateRouteInDatabase(route: route)
-                        }))
-                        resultAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                        self.present(resultAlert, animated: true, completion: nil)
-                        return
-                    }
-                    if bool {
-                        let resultAlert = UIAlertController(title: "Saved Successfully", message: "Congrats", preferredStyle: .alert)
-                        resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
-                        self.present(resultAlert, animated: true, completion: nil)
-                    } else {
-                        self.showAlertMessage(message: Messages.databaseWriteFailureMessage)
-                    }
-                }
-                
-            } else {
-                let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to your route", preferredStyle: .alert)
-                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
-                self.present(resultAlert, animated: true, completion: nil)
-            }
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    /// exports the route
-    func exportRoute() {
-        closeStoreRoutePopup()
-        let alert = UIAlertController(title: "Exporting Route", message: "Enter a Unique Name", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Enter Route Name"
-        }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
-        alert.addAction(UIAlertAction(title: "Export", style: .default, handler: { [weak alert] (_) in
-            let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
-            if (textField.text != nil && textField.text != "") {
-                let route = Route(textField.text!)
-                route.append(CheckPoint(self.source!.latitude, self.source!.longitude, RouteDesignerConstants.checkpointDefaultName, RouteDesignerConstants.checkpointDefaultDescription, true))
-                for marker in self.markers {
-                    let markerData = marker.userData as! CheckPoint
-                    route.append(markerData)
-                }
-                self.share(routes: [route])
-            } else {
-                let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to your route", preferredStyle: .alert)
-                resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
-                self.present(resultAlert, animated: true, completion: nil)
-            }
-        }))
-        self.present(alert, animated: true, completion: nil)
     }
     
     /// Calculates info panel bounds
