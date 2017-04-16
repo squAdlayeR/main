@@ -25,7 +25,7 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     
     /// Returns the height of header view of each section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return userProfileHeaderHeight
+        return UserProfileConstants.headerHeight
     }
     
     /// Returns the header view of each section

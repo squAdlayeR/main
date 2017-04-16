@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MiscConstants {
+struct MiscConstants {
 
     // For text fields
     static let textFieldBorderWidth: CGFloat = 1
@@ -29,5 +29,12 @@ class MiscConstants {
     static let badgeOverLayFrame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100)
     static let bdageIndicatorFrame: CGRect = CGRect(x: 0, y: 0, width: 60, height: 60)
     static let badgeCornerRadius: CGFloat = 10
+    
+    // For input fields
+    static let inputFieldHight: CGFloat = 60
+    static let emailText: String = "email address"
+    static let passwordText: String = "password"
+    static let confirmPasswordText: String = "confirm password"
+    static let usernameText: String = "username"
 
 }

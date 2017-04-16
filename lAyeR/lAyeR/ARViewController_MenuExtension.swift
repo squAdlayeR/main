@@ -27,19 +27,21 @@ extension ARViewController {
     
     /// Prepares the main menu button. When it is clicked, it will toggle the menu
     private func prepareMainMenuButton() {
-        let menuButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: menuButtonIcon)
+        let menuButton = MenuButtonView(radius: MenuConstants.buttonDiameter,
+                                        iconName: MenuViewConstants.buttonIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(toggleMenu))
         menuButton.addGestureRecognizer(tap)
         mainMenuButton = menuButton
-        mainMenuButton.center = CGPoint(x: view.bounds.width * menuLeftPaddingPercent,
-                                        y: view.bounds.height - view.bounds.width * menuLeftPaddingPercent)
+        mainMenuButton.center = CGPoint(x: view.bounds.width * MenuViewConstants.leftPaddingPercent,
+                                        y: view.bounds.height - view.bounds.width * MenuViewConstants.leftPaddingPercent)
         view.addSubview(mainMenuButton)
     }
     
     /// Prepares the updated successful alert
     private func prepareUpdateSuccessAlert() {
-        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
-        updateSuccessAlertController = BasicAlertController(title: successTitle, size: alertSize)
+        let alertSize = CGSize(width: HighLevelMiscConstants.suggestedPopupWidth,
+                               height: HighLevelMiscConstants.suggestedPopupHeight)
+        updateSuccessAlertController = BasicAlertController(title: UIBasicConstants.successTitle, size: alertSize)
         let closeButton = createCloseButton()
         updateSuccessAlertController.addButtonToAlert(closeButton)
         let label = createSuccessText()
@@ -50,8 +52,9 @@ extension ARViewController {
     /// - Returns: a ui label with success text
     private func createSuccessText() -> UILabel {
         let label = UILabel()
-        label.text = locationUpdateSuccessText
-        label.font = UIFont(name: alterDefaultFontLight, size: buttonFontSize)
+        label.text = UIBasicConstants.locationUpdateSuccessText
+        label.font = UIFont(name: UIBasicConstants.defaultFontLight,
+                            size: HighLevelMiscConstants.buttonFontSize)
         label.textAlignment = NSTextAlignment.center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -63,8 +66,9 @@ extension ARViewController {
     /// - Returns: a close button which will close the popup if it is clicked
     private func createCloseButton() -> UIButton {
         let newButton = UIButton()
-        newButton.setTitle(confirmLabelText, for: .normal)
-        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.setTitle(HighLevelMiscConstants.confirmString, for: .normal)
+        newButton.titleLabel?.font = UIFont(name: UIBasicConstants.defaultFontRegular,
+                                            size: HighLevelMiscConstants.buttonFontSize)
         newButton.addTarget(self, action: #selector(closeSuccessAlert), for: .touchUpInside)
         return newButton
     }
@@ -85,7 +89,8 @@ extension ARViewController {
     /// Creates a map button
     /// - Returns: a menu button view
     private func createMapButton() -> MenuButtonView {
-        let mapButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: designerIconName)
+        let mapButton = MenuButtonView(radius: MenuConstants.buttonDiameter,
+                                       iconName: MenuViewConstants.designerIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(openDesigner))
         mapButton.addGestureRecognizer(tap)
         return mapButton
@@ -94,7 +99,8 @@ extension ARViewController {
     /// Creates a settings button
     /// - Returns: a menu button view
     private func createSettingsButton() -> MenuButtonView {
-        let settingsButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: settingsIconName)
+        let settingsButton = MenuButtonView(radius: MenuConstants.buttonDiameter,
+                                            iconName: MenuViewConstants.settingsIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(openAppSettings))
         settingsButton.addGestureRecognizer(tap)
         return settingsButton
@@ -103,7 +109,8 @@ extension ARViewController {
     /// Creates a profile button
     /// - Returns: a menu button view
     private func createProfileButton() -> MenuButtonView {
-        let profileButton = MenuButtonView(radius: MenuConstants.buttonDiameter, iconName: profileIconName)
+        let profileButton = MenuButtonView(radius: MenuConstants.buttonDiameter,
+                                           iconName: MenuViewConstants.profileIconName)
         let tap = UITapGestureRecognizer(target: self, action: #selector(openUserProfile))
         profileButton.addGestureRecognizer(tap)
         return profileButton

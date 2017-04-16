@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InnerViewConstants {
+struct InnerViewConstants {
 
     // For Label Text Block
     static let newLine: String = "\n"

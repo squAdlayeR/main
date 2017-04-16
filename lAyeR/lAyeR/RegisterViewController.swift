@@ -95,27 +95,31 @@ class RegisterViewController: UIViewController {
     }
     
     private func setupUsernameInput() {
-        usernameField = createTextField(with: usernameFieldSample, and: usernameText)
+        usernameField = createTextField(with: usernameFieldSample,
+                                        and: MiscConstants.usernameText)
         usernameField.delegate = self
     }
     
     /// Sets up the email input field
     private func setupEmailInput() {
-        emailField = createTextField(with: emailFieldSample, and: emailText)
+        emailField = createTextField(with: emailFieldSample,
+                                     and: MiscConstants.emailText)
         emailField.keyboardType = .emailAddress
         emailField.delegate = self
     }
     
     /// Sets up the password input field
     private func setupPasswordInput() {
-        passwordField = createTextField(with: passwordFieldSample, and: passwordText)
+        passwordField = createTextField(with: passwordFieldSample,
+                                        and: MiscConstants.passwordText)
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
     }
     
     /// Sets up the password confirmation field
     private func setupPasswordConfirmInput() {
-        passwordConfirmField = createTextField(with: confirmPasswordSample, and: confirmPasswordText)
+        passwordConfirmField = createTextField(with: confirmPasswordSample,
+                                               and: MiscConstants.confirmPasswordText)
         passwordConfirmField.isSecureTextEntry = true
         passwordConfirmField.delegate = self
     }
@@ -138,7 +142,7 @@ class RegisterViewController: UIViewController {
     ///     - placeHolder: the place holder of the text field
     /// - Returns: a well defined / styled input text field
     private func createTextField(with sample: UITextField, and placeHolder: String) -> InputTextFeild {
-        let inputSize = CGSize(width: sample.bounds.width, height: inputFieldHight)
+        let inputSize = CGSize(width: sample.bounds.width, height: MiscConstants.inputFieldHight)
         let newTextFeild = InputTextFeild(placeHolder: placeHolder, size: inputSize)
         newTextFeild.center = sample.center
         return newTextFeild

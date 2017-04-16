@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BasicMarkerConstants {
+struct BasicMarkerConstants {
 
     static let iconPaddingPercentage: CGFloat = 0.2
     static let labelPaddingPercentage: CGFloat = 0.1

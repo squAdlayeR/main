@@ -69,7 +69,7 @@ class InformativeInnerView: UIView {
                            width: self.bounds.width - InnerViewConstants.infoBlockSidePadding * 2,
                            height: InnerViewConstants.innerViewTitleHeight)
         label.frame = frame
-        label.font = UIFont(name: alterDefaultFontRegular, size: InnerViewConstants.innerViewTitleFontSize)
+        label.font = UIFont(name: UIBasicConstants.defaultFontRegular, size: InnerViewConstants.innerViewTitleFontSize)
         label.textColor = UIColor.gray
         label.text = subtitle
         label.textAlignment = NSTextAlignment.center

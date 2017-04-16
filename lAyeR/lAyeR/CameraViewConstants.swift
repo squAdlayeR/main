@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CameraViewConstants {
+struct CameraViewConstants {
 
     static let errorMessagePrefix: String = "error: "
     static let dispatchQueueLabel: String = "VideoDataOutputQueue"

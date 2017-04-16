@@ -20,7 +20,7 @@ class MarkerInfo: UIView {
     /// after it is set, change the corresponding label to display
     private var distance: Double = 0 {
         didSet {
-            self.label.text = String(format: markerDistanceFilter, distance) + markerDistanceUnit
+            self.label.text = "\(String(format: BasicMarkerConstants.distanceFilter, distance))\(BasicMarkerConstants.distanceUnit)"
         }
     }
     
@@ -55,7 +55,7 @@ class MarkerInfo: UIView {
         let newLabel = UILabel()
         newLabel.frame = self.bounds
         newLabel.text = "\(String(format: BasicMarkerConstants.distanceFilter, distance))\(BasicMarkerConstants.distanceUnit)"
-        newLabel.font = UIFont(name: alterDefaultFontLight,
+        newLabel.font = UIFont(name: UIBasicConstants.defaultFontLight,
                                size: BasicMarkerConstants.labelFontSize)
         newLabel.textColor = UIColor.white
         newLabel.textAlignment = NSTextAlignment.center

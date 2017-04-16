@@ -62,7 +62,7 @@ class TopBanner: UIView {
         let newLable = UILabel()
         newLable.frame = titleFrame
         newLable.text = title
-        newLable.font = UIFont(name: alterDefaultFontMedium, size: BasicAlertConstants.titleFontSize)
+        newLable.font = UIFont(name: UIBasicConstants.defaultFontMedium, size: BasicAlertConstants.titleFontSize)
         newLable.textColor = UIColor.white
         newLable.textAlignment = NSTextAlignment.center
         return newLable

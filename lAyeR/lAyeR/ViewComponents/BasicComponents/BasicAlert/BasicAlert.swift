@@ -129,7 +129,7 @@ extension BasicAlert {
     /// opens the alert
     func open() {
         prepareOpen()
-        ResourceManager.playSound(with: openSound)
+        ResourceManager.playSound(with: UIBasicConstants.openSound)
         UIView.animate(withDuration: BasicAlertConstants.openDuration, animations: { [weak self] in
             guard self != nil else { return }
             self!.transform = BasicAlertConstants.originalScale

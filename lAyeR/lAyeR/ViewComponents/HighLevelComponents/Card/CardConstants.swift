@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardConstants {
+struct CardConstants {
 
     static let suggestedMarkerWidth: CGFloat = 75
     static let suggestedMarkerHeight: CGFloat = 100

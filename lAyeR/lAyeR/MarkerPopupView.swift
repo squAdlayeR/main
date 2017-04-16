@@ -33,7 +33,8 @@ class MarkerPopupView: UIView {
         label = UILabel(frame: CGRect(x: 0, y: 12, width: self.frame.size.width, height: 30))
         label.text = "Checkpoint"
         label.textColor = UIColor.white
-        label.font = UIFont(name: alterDefaultFontMedium, size: buttonFontSize)
+        label.font = UIFont(name: UIBasicConstants.defaultFontMedium,
+                            size: HighLevelMiscConstants.buttonFontSize)
         label.numberOfLines = 0
         label.textAlignment = NSTextAlignment.center
         topView.addSubview(label)
@@ -45,7 +46,7 @@ class MarkerPopupView: UIView {
                                          blue: CGFloat(129.0 / 255),
                                          alpha: 1.0), for: UIControlState.normal)
         editButton.titleLabel?.textAlignment = NSTextAlignment.center
-        editButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: 15)
+        editButton.titleLabel?.font = UIFont(name: UIBasicConstants.defaultFontRegular, size: 15)
         topView.addSubview(editButton)
         
         deleteButton = UIButton(frame: CGRect(x: 0, y: 67, width: self.frame.size.width, height: 25))
@@ -55,7 +56,7 @@ class MarkerPopupView: UIView {
                                            blue: CGFloat(43.0 / 255),
                                            alpha: 1.0), for: UIControlState.normal)
         deleteButton.titleLabel?.textAlignment = NSTextAlignment.center
-        deleteButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: 15)
+        deleteButton.titleLabel?.font = UIFont(name: UIBasicConstants.defaultFontRegular, size: 15)
         topView.addSubview(deleteButton)
         
         

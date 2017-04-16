@@ -111,14 +111,16 @@ class LoginViewController: UIViewController {
     
     /// Sets up the email input
     private func setupEmailInput() {
-        emailField = createTextField(with: emailFieldSample, and: emailText)
+        emailField = createTextField(with: emailFieldSample,
+                                     and: MiscConstants.emailText)
         emailField.keyboardType = .emailAddress
         emailField.delegate = self
     }
     
     /// Sets up the password input
     private func setupPasswordInput() {
-        passwordField = createTextField(with: passwordFieldSample, and: passwordText)
+        passwordField = createTextField(with: passwordFieldSample,
+                                        and: MiscConstants.passwordText)
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
     }
@@ -137,7 +139,7 @@ class LoginViewController: UIViewController {
     ///     - placeHolder: the place holder of the text field
     /// - Returns: a well defined / styled input text field
     private func createTextField(with sample: UITextField, and placeHolder: String) -> InputTextFeild {
-        let inputSize = CGSize(width: sample.bounds.width, height: inputFieldHight)
+        let inputSize = CGSize(width: sample.bounds.width, height: MiscConstants.inputFieldHight)
         let newTextFeild = InputTextFeild(placeHolder: placeHolder, size: inputSize)
         newTextFeild.center = sample.center
         return newTextFeild

@@ -32,8 +32,8 @@ class InputTextFeild: UITextField {
         self.layer.cornerRadius = self.bounds.height / 2
         self.layer.masksToBounds = true
         self.backgroundColor = UIColor.clear
-        self.font = UIFont(name: alterDefaultFontRegular, size: MiscConstants.textFieldFontSize)
-        self.textColor = defaultFontColor
+        self.font = UIFont(name: UIBasicConstants.defaultFontRegular, size: MiscConstants.textFieldFontSize)
+        self.textColor = UIColor.white
         self.keyboardAppearance = .dark
     }
     

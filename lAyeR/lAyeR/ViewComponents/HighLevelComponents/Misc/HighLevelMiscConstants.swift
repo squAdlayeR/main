@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HighLevelMiscConstants: UIView {
+struct HighLevelMiscConstants {
 
     static let suggestedPopupWidth: CGFloat = 300
     static let suggestedPopupHeight: CGFloat = 300
