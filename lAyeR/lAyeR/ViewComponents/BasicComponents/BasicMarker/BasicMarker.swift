@@ -67,6 +67,7 @@ class BasicMarker: UIView {
     /// Sets the distance displayed on the marker
     /// - Parameter newDistance: the new distance to be displayed
     func updateDistance(with newDistance: Double) {
+        guard newDistance >= 0 else { return }
         self.info.updateDistance(with: newDistance)
     }
     

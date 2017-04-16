@@ -15,7 +15,9 @@ import SceneKit
 
 
 enum Mode {
+    // in navigation mode, checkpoint card and path arrow will be shown
     case navigation
+    // in explore mode, point of interest card will be shown
     case explore
 }
 
@@ -145,7 +147,12 @@ class ARViewController: UIViewController {
         }
     }
     
-    
+    /**
+     called when the change of user location is detected.
+     It checks whether the user is close enough to the next checkpoint
+     if so, the user is considered to reach the next checkpoint 
+     and the index of the next checkpoint is increased by one
+     */
     private func updateNextCheckpointIndex() {
         for index in nextCheckpointIndex ..< nextCheckpointIndex + ARViewConstants.checkCloseRange {
             guard index >= 0 && index <= controlRoute.size - 1 else {
@@ -193,7 +200,6 @@ class ARViewController: UIViewController {
             }
         }
     }
-    
     
     private func getCheckpointsToDisplay(withNextCheckpointAt nextCheckpointIndex: Int) -> [CheckpointCardController] {
         var newCheckpointCardControllers: [CheckpointCardController] = []
@@ -264,6 +270,13 @@ class ARViewController: UIViewController {
         displayLink.preferredFramesPerSecond = ARViewConstants.framePerSecond
     }
     
+    /**
+     the main loop, it does the following every frame (currently set as 1/60 second)
+     - update the display of Point of Interest cards
+     - update the display of checkpoint cards
+     - udpate the display of the path arrows
+     these updates are based on the user location and device motion at that moment
+     */
     @objc private func updateLoop() {
         let userPoint = geoManager.getLastUpdatedUserPoint()
 
@@ -283,6 +296,9 @@ class ARViewController: UIViewController {
         scnViewController.updateSceneCamera()
     }
     
+    /**
+     return a checkpoint card controller according to the input checkpoint
+     */
     private func createCheckpointCardController(of checkpoint: CheckPoint) -> CheckpointCardController {
         let checkpointCard = CheckpointCard(distance: 0, superViewController: self)
         checkpointCard.setCheckpointName(checkpoint.name)

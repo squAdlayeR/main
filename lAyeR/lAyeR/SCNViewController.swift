@@ -94,15 +94,22 @@ class SCNViewController: UIViewController {
     /**
      return a SCNNode arrow that faces up and points to the North
      */
-    private func getArrowSCNNode() -> SCNNode {
-        let path = Bundle.main.path(forResource: ARViewConstants.pathArrowName, ofType: ARViewConstants.pathArrowExtension)!
+    private func getArrowSCNNode() -> SCNNode? {
+        guard let path = Bundle.main.path(forResource: ARViewConstants.pathArrowName,
+                                          ofType: ARViewConstants.pathArrowExtension) else {
+            return nil
+        }
         let asset = MDLAsset(url: URL(string: path)!)
         let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
+        
+        // set color
         arrowNode.geometry?.firstMaterial?.emission.contents = ARViewConstants.arrowDefaultColor
         
+        // initial rotation to make the arrow point to the North
         arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-Double.pi / 2), 1, 0, 0)
         arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(Double.pi / 2), 0, 1, 0)
         
+        // initialize size
         arrowNode.scale = SCNVector3(x: 1 / 24.0, y: 1 / 24.0, z: 1 / 108.0)
         
         return arrowNode
@@ -199,13 +206,17 @@ class SCNViewController: UIViewController {
         var currentOffset = firstOffset
         
         while currentOffset <= srcDestDistance && leftCount > 0 {
-            let arrow = getArrowSCNNode()
+            guard let arrow = getArrowSCNNode() else {
+                return (0, leftCount)
+            }
             
+            // apply rotation according to the azimuth of the line from "src" to "dest"
             let rotationTransformation = SCNMatrix4Rotate(arrow.transform,
                                                           -Float(GeoUtil.getAzimuth(between: src, dest)),
                                                           0, 1, 0)
             arrow.transform = rotationTransformation
             
+            // set the position of the arrow node relative to the first checkpoint (origin of the coordinate)
             let distance = currentOffset
             let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: srcDestAzimuth, distance: distance)
             arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -ARViewConstants.arrowGap, 0)
@@ -286,7 +297,8 @@ class SCNViewController: UIViewController {
             let dy = arrow.position.y - firstArrow.position.y
             let distance = Double(sqrt(dx * dx + dy * dy))
             
-            let largerPercentage: Double = distance / (2 * ARViewConstants.arrowGap * Double(ARViewConstants.numArrowsDisplayedForward))
+            let largerPercentage =
+                distance / (2 * ARViewConstants.arrowGap * Double(ARViewConstants.numArrowsDisplayedForward))
 
             let x = Double(arrow.scale.x)
             let y = Double(arrow.scale.y)
@@ -301,7 +313,8 @@ class SCNViewController: UIViewController {
      show arorws in the decreasing opacity
      */
     private func updateOpacity() {
-        let opacityGap = ARViewConstants.arrowOpacity / Double(ARViewConstants.numArrowsDisplayedForward)
+        let opacityGap =
+            ARViewConstants.arrowOpacity / Double(ARViewConstants.numArrowsDisplayedForward)
         for i in 0 ..< arrowNodes.count {
             let opacity = ARViewConstants.arrowOpacity - Double(i) * opacityGap
             arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
@@ -346,13 +359,16 @@ class SCNViewController: UIViewController {
      then change back to the normal color
      */
     private var changeColorAction: SCNAction {
-        let pr: CGFloat = (ARViewConstants.targetColorR - ARViewConstants.arrowDefaultColorR) / 0.18
-        let pg: CGFloat = (ARViewConstants.targetColorG - ARViewConstants.arrowDefaultColorG) / 0.18
-        let pb: CGFloat = (ARViewConstants.targetColorB - ARViewConstants.arrowDefaultColorB) / 0.18
+        let pr: CGFloat =
+            (ARViewConstants.targetColorR - ARViewConstants.arrowDefaultColorR) / ARViewConstants.changeColorRate
+        let pg: CGFloat =
+            (ARViewConstants.targetColorG - ARViewConstants.arrowDefaultColorG) / ARViewConstants.changeColorRate
+        let pb: CGFloat =
+            (ARViewConstants.targetColorB - ARViewConstants.arrowDefaultColorB) / ARViewConstants.changeColorRate
         
         return SCNAction.sequence([
             // change to color for highlighting
-            SCNAction.customAction(duration: 0.38, action: { (node, time) in
+            SCNAction.customAction(duration: ARViewConstants.changeToHighlightColorTime, action: { (node, time) in
                 let color = UIColor(red: pr * time,
                                     green: ARViewConstants.arrowDefaultColorG + pg * time,
                                     blue: ARViewConstants.arrowDefaultColorB + pb * time, alpha: 1)
@@ -360,7 +376,7 @@ class SCNViewController: UIViewController {
             }),
             
             // change back to normal color
-            SCNAction.customAction(duration: 0.28, action: { (node, time) in
+            SCNAction.customAction(duration: ARViewConstants.changeToDefaultColorTime, action: { (node, time) in
                 let color = UIColor(red: ARViewConstants.targetColorR - pr * time,
                                     green: ARViewConstants.targetColorG - pg * time,
                                     blue: ARViewConstants.targetColorB - pb * time, alpha: 1)
@@ -375,31 +391,37 @@ class SCNViewController: UIViewController {
      */
     private var floatAction: SCNAction {
         return SCNAction.sequence([
-            SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
-            SCNAction.moveBy(x: 0, y: -0.08, z: 0, duration: 0.28),
+            SCNAction.moveBy(x: 0, y: ARViewConstants.floatDistance, z: 0,
+                             duration: ARViewConstants.floatUpTime),
+            SCNAction.moveBy(x: 0, y: -ARViewConstants.floatDistance, z: 0,
+                             duration: ARViewConstants.floatDownTime),
         ])
     }
     
     private func animateMovingOn() {
+        guard !arrowNodes.isEmpty else {
+            return
+        }
+        
         let count = arrowNodes.count > ARViewConstants.numArrowsDisplayedForward ?
                     ARViewConstants.numArrowsDisplayedForward :
                     arrowNodes.count
-        
+        if animatingArrowIndex > count - 1 {
+            animatingArrowIndex = count - 1
+        }
         for i in getOneRoundIndices(startFrom: animatingArrowIndex, length: count) {
             let relativeIndex = getRelativeIndexInOneIteration(startIndex: animatingArrowIndex,
                                                                actualIndex: i, length: count)
             
             let oneIteration = SCNAction.sequence([
-                SCNAction.group([  // parallely
-                    changeColorAction,
-                    floatAction,
-                    SCNAction.customAction(duration: 0, action: { _,_ in self.animatingArrowIndex = i })
-                ]),
-                SCNAction.wait(duration: Double(count) * 0.38),
+                SCNAction.customAction(duration: 0, action: { _,_ in self.animatingArrowIndex = i }),
+                SCNAction.group([changeColorAction, floatAction]),  // parallely
+                SCNAction.wait(duration: Double(count) * ARViewConstants.animationWaitTime -
+                                         ARViewConstants.oneCompleteAnimationTime),
             ])
         
             let foreverIteration = SCNAction.sequence([
-                SCNAction.wait(duration: Double(relativeIndex) * 0.38),
+                SCNAction.wait(duration: Double(relativeIndex) * ARViewConstants.animationWaitTime),
                 SCNAction.repeatForever(oneIteration)
             ])
             
