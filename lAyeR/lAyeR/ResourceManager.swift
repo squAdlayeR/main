@@ -27,7 +27,8 @@ class ResourceManager {
     /// Plays a sound with specified sound name
     /// - Parameter soundName: the name of the sound
     static func playSound(with soundName: String) {
-        if let soundURL = Bundle.main.url(forResource: soundName, withExtension: soundExtension) {
+        if let soundURL = Bundle.main.url(forResource: soundName,
+                                          withExtension: UIBasicConstants.soundExtension) {
             var mySound: SystemSoundID = 0
             AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
             AudioServicesPlaySystemSound(mySound);

@@ -55,7 +55,7 @@ class MarkerInfo: UIView {
         let newLabel = UILabel()
         newLabel.frame = self.bounds
         newLabel.text = "\(String(format: BasicMarkerConstants.distanceFilter, distance))\(BasicMarkerConstants.distanceUnit)"
-        newLabel.font = UIFont(name: alterDefaultFontLight,
+        newLabel.font = UIFont(name: UIBasicConstants.defaultFontLight,
                                size: BasicMarkerConstants.labelFontSize)
         newLabel.textColor = UIColor.white
         newLabel.textAlignment = NSTextAlignment.center

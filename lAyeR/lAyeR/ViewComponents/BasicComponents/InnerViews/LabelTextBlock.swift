@@ -61,7 +61,7 @@ class LabelTextBlock: UILabel {
     /// - Returns: an attributed string the represents the label
     private func formatingLabel(_ labelText: String, _ iconName: String) -> NSMutableAttributedString {
         let label = NSMutableAttributedString(string: "\(InnerViewConstants.whiteSpace)\(labelText)",
-            attributes: [NSFontAttributeName: UIFont(name: alterDefaultFontMedium, size: InnerViewConstants.labelFontSize)!,
+            attributes: [NSFontAttributeName: UIFont(name: UIBasicConstants.defaultFontMedium, size: InnerViewConstants.labelFontSize)!,
                          NSForegroundColorAttributeName: UIColor.lightGray])
         let result = NSMutableAttributedString()
         let icon = createIconAttachment(iconName)
@@ -87,7 +87,7 @@ class LabelTextBlock: UILabel {
     /// - Returns: an attributed string the represents the content
     private func formatingContent(_ contentText: String) -> NSAttributedString {
         let text = NSAttributedString(string: contentText,
-            attributes: [NSFontAttributeName: UIFont(name: alterDefaultFontRegular, size: InnerViewConstants.contentFontSize)!,
+            attributes: [NSFontAttributeName: UIFont(name: UIBasicConstants.defaultFontRegular, size: InnerViewConstants.contentFontSize)!,
                          NSForegroundColorAttributeName: UIColor.white])
         return text
     }

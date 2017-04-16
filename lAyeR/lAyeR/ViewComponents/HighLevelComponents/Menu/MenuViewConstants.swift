@@ -12,5 +12,11 @@ struct MenuViewConstants {
 
     static let leftPaddingPercent: CGFloat = 0.15
     static let zPosition: CGFloat = 9999
+    
+    static let buttonIconName: String = "menu"
+    static let designerIconName: String = "search"
+    static let miniMapIconName: String = "map"
+    static let profileIconName: String = "profile"
+    static let settingsIconName: String = "settings"
 
 }

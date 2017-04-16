@@ -39,7 +39,7 @@ class CommonAlertController: BasicAlertController {
     /// Creates a text field that shows message
     private func initializeMessageLabel() {
         label = UILabel()
-        label.font = UIFont(name: alterDefaultFontLight,
+        label.font = UIFont(name: UIBasicConstants.defaultFontLight,
                             size: HighLevelMiscConstants.messageFontSize)
         label.textAlignment = NSTextAlignment.center
         label.lineBreakMode = .byWordWrapping
@@ -52,7 +52,7 @@ class CommonAlertController: BasicAlertController {
     private func initializeCloseButton() {
         button = UIButton()
         button.setTitle(HighLevelMiscConstants.confirmString, for: .normal)
-        button.titleLabel?.font = UIFont(name: alterDefaultFontRegular,
+        button.titleLabel?.font = UIFont(name: UIBasicConstants.defaultFontRegular,
                                          size: HighLevelMiscConstants.buttonFontSize)
         button.addTarget(self, action: #selector(closeAlert), for: .touchUpInside)
         addButtonToAlert(button)

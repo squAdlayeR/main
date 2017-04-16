@@ -31,7 +31,6 @@ struct MiscConstants {
     static let badgeCornerRadius: CGFloat = 10
     
     // For input fields
-    static let inputFieldFontSize: CGFloat = 26
     static let inputFieldHight: CGFloat = 60
     static let emailText: String = "email address"
     static let passwordText: String = "password"
