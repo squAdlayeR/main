@@ -11,7 +11,6 @@
 		2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199A1E670A5F00FF6334 /* AppDelegate.swift */; };
 		2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C31199E1E670A5F00FF6334 /* Main.storyboard */; };
 		2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */; };
-		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
 		2C51ADB71E9C83AD0007E980 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C51ADB61E9C83AD0007E980 /* Assets.xcassets */; };
 		2C51ADB91E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */; };
 		2C5FCF3D1EA0E894008BB91E /* BasicMarkerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5FCF3C1EA0E894008BB91E /* BasicMarkerConstants.swift */; };
@@ -38,6 +37,8 @@
 		2EBB03EC1EA22A6B0018389E /* RouteDesignerViewController_SaveExportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB03EB1EA22A6B0018389E /* RouteDesignerViewController_SaveExportExtension.swift */; };
 		2EBB03F11EA304C60018389E /* RouteDesignerViewController_CheckRepExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB03F01EA304C60018389E /* RouteDesignerViewController_CheckRepExtension.swift */; };
 		2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */; };
+		523351AF1EA388A3001A020B /* TrackPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523351AE1EA388A3001A020B /* TrackPointTests.swift */; };
+		523351B11EA38B4C001A020B /* TrackPointStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523351B01EA38B4C001A020B /* TrackPointStructTests.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
 		5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A91E72641C0048249D /* CheckPoint.swift */; };
@@ -176,7 +177,6 @@
 		2C3119A41E670A5F00FF6334 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C3119A61E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C3119AB1E670A5F00FF6334 /* lAyeRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lAyeRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lAyeRTests.swift; sourceTree = "<group>"; };
 		2C3119B11E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C51ADB61E9C83AD0007E980 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_UIInteraction.swift; sourceTree = "<group>"; };
@@ -207,6 +207,8 @@
 		333FC959623BFA4B56C0165F /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR_lAyeRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4010892260B075E01FFB3724 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
 		44A4B3EA204D49B613D44388 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.debug.xcconfig"; sourceTree = "<group>"; };
+		523351AE1EA388A3001A020B /* TrackPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointTests.swift; sourceTree = "<group>"; };
+		523351B01EA38B4C001A020B /* TrackPointStructTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointStructTests.swift; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		5249B1A71E7264000048249D /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
 		5249B1A91E72641C0048249D /* CheckPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
@@ -410,8 +412,9 @@
 			children = (
 				52D379661E8530FA005ED912 /* GeoPointTests.swift */,
 				52D3796A1E8533CC005ED912 /* CheckPointTests.swift */,
+				523351AE1EA388A3001A020B /* TrackPointTests.swift */,
+				523351B01EA38B4C001A020B /* TrackPointStructTests.swift */,
 				52D379671E8530FA005ED912 /* GeoUtilTests.swift */,
-				2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */,
 				A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */,
 				A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */,
 				A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */,
@@ -1206,9 +1209,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A21BBFC11E83FE3700394531 /* ManagerClassSingletonTests.swift in Sources */,
-				2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */,
+				523351AF1EA388A3001A020B /* TrackPointTests.swift in Sources */,
 				A21BBFBF1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift in Sources */,
 				52D379691E8530FA005ED912 /* GeoUtilTests.swift in Sources */,
+				523351B11EA38B4C001A020B /* TrackPointStructTests.swift in Sources */,
 				52D3796B1E8533CC005ED912 /* CheckPointTests.swift in Sources */,
 				A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */,
 				52D379681E8530FA005ED912 /* GeoPointTests.swift in Sources */,

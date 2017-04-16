@@ -66,4 +66,12 @@ class GeoUtilTests: XCTestCase {
         XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, east), Double.pi/2)
         XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, west), -Double.pi/2)
     }
+    
+    /// MARK: Use round up numbers to avoid rounding error
+    func test_distanceFromPointToLine() {
+        let p = GeoPoint(1, 1)
+        let l1 = GeoPoint(1, 0)
+        let l2 = GeoPoint(2, 0)
+        XCTAssertEqual(GeoUtil.distanceFromPointToLine(point: p, fromLineSegmentBetween: l1, and: l2), 1, "Incorrect calculation")
+    }
 }
