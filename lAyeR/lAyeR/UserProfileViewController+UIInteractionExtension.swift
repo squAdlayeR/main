@@ -14,36 +14,40 @@ import UIKit
  */
 extension UserProfileViewController {
 
-    /// Handles logout event.
+    /// Handles logout event
     @IBAction func logout(_ sender: Any) {
-        dataService.signOut()
+        dataService.userAuthenticator.signOut()
         self.performSegue(withIdentifier: StoryboardConstants.userProfileToLoginSegue, sender: nil)
     }
     
-    /// Handles export event.
+    /// Handles export event
     @IBAction func exportPressed(_ sender: UIButton) {
         if selectedRouteNames.isEmpty {
             showAlertMessage(message: Messages.selectFilesMessage)
             return
         }
         LoadingBadge.instance.showBadge(in: view)
-        DatabaseManager.instance.getRoutes(with: selectedRouteNames) { routes in
+        dataService.getRoutes(with: selectedRouteNames) { routes in
             LoadingBadge.instance.hideBadge()
+            guard let routes = routes else {
+                self.showAlertMessage(message: Messages.databaseDisconnectedMessage)
+                return
+            }
             self.share(routes: routes)
         }
     }
     
-    /// Handles select event.
+    /// Handles select event
     @IBAction func selectPressed(_ sender: UIButton) {
         let title = sender.title(for: .normal)
-        selectionMode = !selectionMode
-        routeList.allowsMultipleSelection = !routeList.allowsMultipleSelection
         if title == Messages.selectTitle {
             sender.setTitle(Messages.cancelTitle, for: .normal)
         } else {
             sender.setTitle(Messages.selectTitle, for: .normal)
             deselectAll()
         }
+        selectionMode = !selectionMode
+        routeList.allowsMultipleSelection = !routeList.allowsMultipleSelection
         selectedRouteNames.removeAll()
     }
     

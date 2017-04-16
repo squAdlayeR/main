@@ -24,9 +24,9 @@ extension UserProfileViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    /// Creates the action sheet to present.
+    /// Creates the action sheet to present
     /// - Returns:
-    ///     - UIAlertController: the action sheet.
+    ///     - UIAlertController: the action sheet
     private func createActionSheet() -> UIAlertController {
         let alert = UIAlertController(title: Messages.imagePickerTitle, message: nil, preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: Messages.cancelTitle, style: .cancel, handler: nil)
@@ -43,14 +43,14 @@ extension UserProfileViewController {
         return alert
     }
     
-    /// Opens user camera for user to take photo.
+    /// Opens user camera for user to take photo
     private func openCamera() {
         picker.allowsEditing = false
         picker.sourceType = .camera
         present(picker, animated: true, completion: nil)
     }
     
-    /// Opens user album for image picking.
+    /// Opens user album for image picking
     private func openAlbum() {
         picker.allowsEditing = false
         picker.sourceType = .photoLibrary
@@ -78,7 +78,7 @@ extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigati
         }
     }
     
-    /// Dismisses the image picker if user cancels image picking.
+    /// Dismisses the image picker if user cancels image picking
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -90,32 +90,32 @@ extension UserProfileViewController: UIImagePickerControllerDelegate, UINavigati
  */
 extension UserProfileViewController: TOCropViewControllerDelegate {
     
-    /// Dismisses the image cropper if user cancels image cropping.
+    /// Dismisses the image cropper if user cancels image cropping
     func cropViewController(_ cropViewController: TOCropViewController, didFinishCancelled cancelled: Bool) {
         dismiss(animated: true, completion: nil)
     }
     
     /// After user crops the image, dismiss the image cropper, save the image 
-    /// and refreshes user profile.
+    /// and refreshes user profile
     func cropViewController(_ cropViewController: TOCropViewController, didCropToCircularImage image: UIImage, with cropRect: CGRect, angle: Int) {
         dismiss(animated: true) { _ in
             self.refreshProfile(with: image)
         }
     }
     
-    /// Refreshes User Profile with cropped image.
+    /// Refreshes User Profile with cropped image
     /// - Parameters: 
-    ///     - image: UIImage: the new user icon.
+    ///     - image: UIImage: the new user icon
     private func refreshProfile(with image: UIImage) {
         do {
             let url = try GPXFileManager.instance.save(name: GPSGPXConstants.iconName, image: image)
-            self.avatar.imageFromUrl(url: url.absoluteString)
-            self.userProfile?.setAvatar(url.absoluteString)
-            guard let uid = UserAuthenticator.instance.currentUser?.uid, let profile = self.userProfile else {
-                self.showAlertMessage(message: Messages.databaseWriteFailureMessage)
+            avatar.imageFromUrl(url: url.absoluteString)
+            userProfile?.setAvatar(url.absoluteString)
+            guard let profile = userProfile, dataService.enabled else {
+                showAlertMessage(message: Messages.databaseDisconnectedMessage)
                 return
             }
-            DatabaseManager.instance.updateUserProfile(uid: uid, userProfile: profile)
+            dataService.updateUserProfile(profile)
         } catch {
             self.showAlertMessage(message: Messages.savePNGFailureMessage)
         }

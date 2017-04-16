@@ -6,19 +6,20 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-import Foundation
 import UIKit
-
 /*
  * LoadingBadge is a singleton instance of a partially customized
  * actitivity indicator view to show process.
  */
 public class LoadingBadge {
     
+    /// Defines the overlay view of the badge
     private var overlayView = UIView()
+    
+    /// Defines the activity indicator view of the badge
     private var activityIndicator = UIActivityIndicatorView()
     
-    /// Returns the instance of the loading badge.
+    /// Returns the instance of the loading badge
     static let instance: LoadingBadge = LoadingBadge()
     
     /// Initializes the badge.
@@ -33,8 +34,8 @@ public class LoadingBadge {
         overlayView.addSubview(activityIndicator)
     }
     
-    /// Shows the badge in specified UIView and start animating.
-    /// - Parameter view: UIView: the view to display to the badge.
+    /// Shows the badge in specified UIView and start animating
+    /// - Parameter view: UIView: the view to display to the badge
     public func showBadge(in view: UIView) {
         overlayView.center = view.center
         view.addSubview(overlayView)
@@ -42,7 +43,7 @@ public class LoadingBadge {
         activityIndicator.startAnimating()
     }
     
-    /// Hides the badge and remove it from super view.
+    /// Hides the badge and remove it from super view
     public func hideBadge() {
         activityIndicator.stopAnimating()
         overlayView.removeFromSuperview()

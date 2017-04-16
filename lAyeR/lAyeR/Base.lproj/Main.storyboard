@@ -229,7 +229,7 @@
                                     <action selector="signInUser:" destination="KG1-mK-LJP" eventType="touchUpInside" id="8Po-tm-wve"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcom to lAyeR. You will be having  a totally different augmented reality experience here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGZ-4U-ceP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to lAyeR. You will be having a totally different augmented reality experience here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGZ-4U-ceP">
                                 <rect key="frame" x="35" y="170.5" width="305" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="VcN-16-XbG"/>
@@ -486,7 +486,7 @@
                                 <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="25"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="ikf-BB-RQf" kind="unwind" unwindAction="unwindSegueToARViewWithSegue:" id="QOi-4U-ecT"/>
+                                    <segue destination="ikf-BB-RQf" kind="unwind" identifier="unwindUserProfileToAR" unwindAction="unwindSegueToARViewWithSegue:" id="QOi-4U-ecT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eje-qa-rCD">
@@ -520,9 +520,9 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check Internet connection." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9T-99-lKK">
-                                <rect key="frame" x="37.5" y="320.5" width="300" height="26"/>
+                                <rect key="frame" x="37.5" y="354" width="300" height="26"/>
                                 <fontDescription key="fontDescription" name="DINPro-Regular" family="DINPro" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -532,7 +532,7 @@
                             <constraint firstItem="vz6-mu-KFg" firstAttribute="centerX" secondItem="fkA-2S-kcR" secondAttribute="centerX" id="2zd-MP-S2q"/>
                             <constraint firstItem="DEH-w8-WWs" firstAttribute="trailing" secondItem="fkA-2S-kcR" secondAttribute="trailingMargin" id="3Dv-ta-6gE"/>
                             <constraint firstItem="olM-7O-Wvd" firstAttribute="leading" secondItem="fkA-2S-kcR" secondAttribute="leading" id="4nz-xY-NEk"/>
-                            <constraint firstItem="C9T-99-lKK" firstAttribute="centerY" secondItem="fkA-2S-kcR" secondAttribute="centerY" id="9QF-qh-Aph"/>
+                            <constraint firstItem="C9T-99-lKK" firstAttribute="centerY" secondItem="fkA-2S-kcR" secondAttribute="centerY" multiplier="1.1" id="9QF-qh-Aph"/>
                             <constraint firstItem="exh-bj-xme" firstAttribute="leading" secondItem="fkA-2S-kcR" secondAttribute="leadingMargin" id="Hq9-I2-iZg"/>
                             <constraint firstItem="DEH-w8-WWs" firstAttribute="top" secondItem="ddY-IV-1hb" secondAttribute="bottom" constant="5" id="KDe-B4-hWk"/>
                             <constraint firstItem="ddY-IV-1hb" firstAttribute="leading" secondItem="fkA-2S-kcR" secondAttribute="leadingMargin" id="KcZ-zx-GR7"/>
@@ -1119,6 +1119,7 @@
                         <outlet property="suggestedPlacesTableView" destination="kL1-5c-gyz" id="Gvk-gM-g6L"/>
                         <outlet property="toggleRouteButton" destination="zis-Oi-GU6" id="hMa-3e-5dA"/>
                         <outlet property="topBanner" destination="Bng-0D-Rga" id="0uX-lw-BjH"/>
+                        <outlet property="undoButton" destination="zrI-W7-ZCw" id="fYZ-pV-fhp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

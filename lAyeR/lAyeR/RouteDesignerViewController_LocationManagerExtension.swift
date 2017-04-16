@@ -54,10 +54,10 @@ extension RouteDesignerViewController: CLLocationManagerDelegate {
     }
     
     func changeStartLocation() {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         if !markers.isEmpty && usingCurrentLocationAsSource {
-            modifyLine(at: 0)
+            modifyManualLine(at: 0)
         }
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
 }

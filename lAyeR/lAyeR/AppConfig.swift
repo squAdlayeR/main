@@ -24,5 +24,9 @@ class AppConfig {
     /// API key for google services.
     static let apiKey = "AIzaSyAxEeB1jYBx9HgghM4IXxxzGIA4p6yjr9s"
     
+    /// App launch sleeping time.
+    static let launchTime: UInt32 = 3
+    
+    static let FBProviderID: String = "facebook.com"
     
 }

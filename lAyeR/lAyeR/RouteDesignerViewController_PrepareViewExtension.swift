@@ -10,6 +10,13 @@ import UIKit
 
 extension RouteDesignerViewController {
 
+    func prepareButtons() {
+        gpsRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
+        layerRoutesButton.setTitleColor(UIColor.lightGray, for: .disabled)
+        googleRouteButton.setTitleColor(UIColor.lightGray, for: .disabled)
+        undoButton.setTitleColor(UIColor.lightGray, for: .disabled)
+    }
+    
     func prepareBottomBanner() {
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)

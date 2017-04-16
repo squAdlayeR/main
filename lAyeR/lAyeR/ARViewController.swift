@@ -82,6 +82,7 @@ class ARViewController: UIViewController {
         scnViewController.setupScene()
         
         geoManager.forceUpdateUserNearbyPOIS()
+        GPSTracker.instance.start()
     }
     
     
@@ -234,9 +235,10 @@ class ARViewController: UIViewController {
         let group = DispatchGroup()
         for newPoi in lastUpdatedPOIs {
             if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
-                group.enter()
                 let poiCard = PoiCard(distance: 0, categoryName: newPoi.types.first!, superViewController: self)
-                geoManager.getDetailedPOIInfo(newPoi) { poi in
+                guard let placeID = newPoi.placeID else { continue }
+                group.enter()
+                geoManager.getDetailedPOIInfo(placeID) { poi in
                     if let poi = poi {
                         if let name = poi.name { poiCard.setPoiName(name) }
                         if let address = poi.vicinity { poiCard.setPoiAddress(address) }

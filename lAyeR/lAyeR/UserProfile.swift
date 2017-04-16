@@ -7,7 +7,6 @@
 //
 
 import ObjectMapper
-
 /*
  * This class is used represent user profile data structure.
  * A user profile should contain:
@@ -18,19 +17,25 @@ import ObjectMapper
  */
 class UserProfile: Mappable {
     
+    /// Defines the attributes of user profile
     private(set) var avatarRef: String = ModelConstants.defaultUserIcon
     private(set) var username: String = ModelConstants.defaultUserName
     private(set) var email: String
     private(set) var designedRoutes: [String] = []
     
-    // Initializes UserProfile
+    /// Initializes UserProfile
+    /// - Parameters:
+    ///     - email: String: user email
+    ///     - username: String: user name
     init(email: String, username: String) {
         self.email = email
         self.username = username
     }
     
-    /// Initializes UserProfile from serializable map.
-    /// MARK: This initializer utilizes ObjectMapper framework.
+    /// Initializes UserProfile from serializable map
+    /// - Parameters:
+    ///     - map: Map: mapping of the fields
+    /// MARK: This initializer utilizes ObjectMapper framework
     required init?(map: Map) {
         guard let username = map.JSON[ModelConstants.usernameKey] as? String,
             let email = map.JSON[ModelConstants.emailKey] as? String,
@@ -43,7 +48,7 @@ class UserProfile: Mappable {
         self.designedRoutes = map.JSON[ModelConstants.designedRouteKey] as? [String] ?? []
     }
     
-    /// Maps fields with map.
+    /// Maps fields with map
     func mapping(map: Map) {
         username <- map[ModelConstants.usernameKey]
         email <- map[ModelConstants.emailKey]
@@ -57,14 +62,14 @@ class UserProfile: Mappable {
         self.avatarRef = avatarRef
     }
     
-    /// Removes the route specified by index.
-    /// - Parameter index: Int: the index of the route to remove.
+    /// Removes the route specified by index
+    /// - Parameter index: Int: the index of the route to remove
     func removeDesignedRoute(_ index: Int) {
         designedRoutes.remove(at: index)
     }
     
-    /// Adds a designed route to user profile.
-    /// - Parameter routeName: String: the name of the newly added route.
+    /// Adds a designed route to user profile
+    /// - Parameter routeName: String: the name of the newly added route
     func addDesignedRoute(_ routeName: String) {
         designedRoutes.append(routeName)
     }

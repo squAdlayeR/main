@@ -42,7 +42,9 @@ class LoginViewController: UIViewController {
     
     // Data service instance, used to validate login
     let userAuthenticator: UserAuthenticator = UserAuthenticator.instance
-    let databaseManager: DatabaseManager = DatabaseManager.instance
+    let dataService: DataServiceManager = DataServiceManager.instance
+    
+    // Defines Facebook login button
     var fbLoginButton: FBSDKLoginButton!
     
     override func viewDidLoad() {
