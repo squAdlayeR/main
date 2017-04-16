@@ -1365,7 +1365,7 @@
 					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
-					"~/Documents/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"\"${PODS_ROOT}/iOS-KML-Framework/KML\"",
 				);
 				INFOPLIST_FILE = lAyeR/Info.plist;
@@ -1407,7 +1407,7 @@
 					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
-					"~/Documents/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 					"\"${PODS_ROOT}/iOS-KML-Framework/KML\"",
 				);
 				INFOPLIST_FILE = lAyeR/Info.plist;
@@ -1445,7 +1445,7 @@
 					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
-					"~/Documents/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 				);
 				INFOPLIST_FILE = lAyeRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1482,7 +1482,7 @@
 					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
-					"~/Documents/FacebookSDK",
+					"$(SRCROOT)/FacebookSDK",
 				);
 				INFOPLIST_FILE = lAyeRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
