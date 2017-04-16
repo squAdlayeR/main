@@ -409,12 +409,12 @@
 			isa = PBXGroup;
 			children = (
 				52D379661E8530FA005ED912 /* GeoPointTests.swift */,
+				52D3796A1E8533CC005ED912 /* CheckPointTests.swift */,
 				52D379671E8530FA005ED912 /* GeoUtilTests.swift */,
 				2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */,
 				A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */,
 				A21BBFBE1E83FCED00394531 /* ViewLayoutAdjustmentTests.swift */,
 				A21BBFC01E83FE3700394531 /* ManagerClassSingletonTests.swift */,
-				52D3796A1E8533CC005ED912 /* CheckPointTests.swift */,
 				2C3119B11E670A5F00FF6334 /* Info.plist */,
 			);
 			path = lAyeRTests;

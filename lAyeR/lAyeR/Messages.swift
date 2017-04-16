@@ -23,7 +23,7 @@ class Messages {
     
     //------- I/O -------
     
-    static let databaseDisconnectedMessage: String = "Disconnected from database!"
+    static let databaseDisconnectedMessage: String = "Disconnected from database! Cannot save to/load from database!"
     static let databaseWriteFailureMessage: String = "Failed to save changes to database."
     static let loadRouteFailureMessage: String = "Failed to load route."
     static let saveGPXFailureMessage: String = "Failed to save .gpx files."
@@ -48,7 +48,7 @@ class Messages {
     static let invalidEmailMessage: String = "Invalid Email."
     static let passwordMismatchMessage: String = "Password Mismatch!"
     static let verificationSentMessage: String = "An email verfication is sent to your email. Please verify your email."
-    static let verificationSentFailureMessage: String = "Failed to send verfication email."
+    static let verificationSentFailureMessage: String = "Failed to send verification email."
     
     /// Common
     static let emailAlreadyInUseMessage: String = "Email Already In Use."

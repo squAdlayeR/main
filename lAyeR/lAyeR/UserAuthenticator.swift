@@ -93,7 +93,7 @@ class UserAuthenticator {
         case .errorCodeInvalidEmail:
             return Messages.invalidEmailMessage
         default:
-            return Messages.internalErrorMessage
+            return Messages.networkErrorMessage
         }
     }
     
