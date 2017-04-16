@@ -13,12 +13,14 @@ import SceneKit.ModelIO
 
 
 
-/*
+/**
+ This is the clas that controls the display of the path arrows
+ (It might also controls other ui components displayed using SceneKit in the future)
+ 
  The origin of the coordinate is the first check point
  The positive direction of x axis points to the East
  The negative direction of z axis points to the North
  */
-
 class SCNViewController: UIViewController {
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
@@ -34,6 +36,10 @@ class SCNViewController: UIViewController {
     
     var isAnimating: Bool = true
     
+    /**
+     The first checkpoint of the route to be displayed
+     This checkpoint defines the origin of the coordinate
+     */
     private var firstCheckpoint: GeoPoint? {
         guard route.size > 0 else {
             return nil
@@ -41,6 +47,9 @@ class SCNViewController: UIViewController {
         return route.checkPoints[0]
     }
    
+    /**
+     The next checkpoint the user is currently aiming to
+     */
     private var nextCheckpoint: GeoPoint? {
         guard nextCheckpointIndex >= 0 && nextCheckpointIndex <= route.size - 1 else {
             return nil
@@ -48,7 +57,9 @@ class SCNViewController: UIViewController {
         return route.checkPoints[nextCheckpointIndex]
     }
     
-    /// this method will be called when the AR view finish loading
+    /**
+     this method will be called when the AR view finish loading
+     */
     func setupScene() {
         guard let arViewController = parent as? ARViewController else {
             return
@@ -119,9 +130,8 @@ class SCNViewController: UIViewController {
         
         removeAllArrows()
         
-        let userPoint = geoManager.getLastUpdatedUserPoint()
-        
-        var (previousOffset, leftCount) = addArrows(from: userPoint, to: nextCheckpoint,
+        var (previousOffset, leftCount) = addArrows(from: geoManager.getLastUpdatedUserPoint(),
+                                                    to: nextCheckpoint,
                                                     firstOffset: Constant.firstArrowOffset,
                                                     leftCount: Constant.numArrowsDisplayedForward)
         
@@ -137,7 +147,9 @@ class SCNViewController: UIViewController {
         }
     }
     
-    /// update the index of the next checkpoint according to the user current location
+    /**
+     update the index of the next checkpoint according to the user current location
+     */
     private func updateNextCheckpointIndex() {
         for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
             guard index >= 0 && index <= route.size - 1 else {
@@ -299,6 +311,9 @@ class SCNViewController: UIViewController {
      transform to the corresponding coordinate
      with positive x axis pointing to the East
      positive y axis pointing to the North
+     - Parameters: The azimuth and the distance of the target point
+     - Returns: the corresponding coordinate with positive x axis pointing to the East
+                and the negative y axis pointing to the North
      */
     private func azimuthDistanceToCoordinate(azimuth: Double, distance: Double) -> SCNVector3 {
         let x = distance * sin(azimuth)  // positive: to East
@@ -352,6 +367,10 @@ class SCNViewController: UIViewController {
         ])
     }
     
+    /** 
+     the action to move the arrow up for a certain distance
+     then move back to the original position
+     */
     private var floatAction: SCNAction {
         return SCNAction.sequence([
             SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
@@ -380,6 +399,9 @@ class SCNViewController: UIViewController {
         isAnimating = true
     }
     
+    /**
+     stop the moving on animation of the arrows
+     */
     private func stopAnimation() {
         let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
                     Constant.numArrowsDisplayedForward :

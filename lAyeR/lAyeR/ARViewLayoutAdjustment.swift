@@ -9,6 +9,16 @@
 import Foundation
 import UIKit
 
+/**
+ This is the class that represnets a layout adjustment
+ to be applied to certain augmented reality UI components 
+ (mainly the checkpoint cards and Point of Interest cards)
+ The layout adjustment contains four components
+ - x position 
+ - y position
+ - yaw rotation
+ - horizontal rotation
+ */
 struct ARViewLayoutAdjustment {
     var xPosition: CGFloat = 0
     var yPosition: CGFloat = 0
@@ -88,7 +98,10 @@ struct ARViewLayoutAdjustment {
         return angleWithinMinusPiToPi(deviceMotionManager.getHorzAngleRelToNorth() + azimuth)
     }
     
-    /// tranform an angle in the range from -2PI to 2PI to the equivalent one in the range from -PI to PI, both included
+    /** 
+     tranform an angle in the range from -2PI to 2PI 
+     to the equivalent one in the range from -PI to PI, both included
+     */
     private func angleWithinMinusPiToPi(_ angle: Double) -> Double {
         if angle > M_PI {
             return angle - 2 * M_PI
