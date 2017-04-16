@@ -36,6 +36,8 @@ class SCNViewController: UIViewController {
     
     var isAnimating: Bool = true
     
+    var animatingArrowIndex = 0
+    
     /**
      The first checkpoint of the route to be displayed
      This checkpoint defines the origin of the coordinate
@@ -380,23 +382,56 @@ class SCNViewController: UIViewController {
     
     private func animateMovingOn() {
         let count = arrowNodes.count > ARViewConstants.numArrowsDisplayedForward ?
-            ARViewConstants.numArrowsDisplayedForward :
-            arrowNodes.count
+                    ARViewConstants.numArrowsDisplayedForward :
+                    arrowNodes.count
         
-        for i in 0 ..< count {
+        for i in getOneRoundIndices(startFrom: animatingArrowIndex) {
+            let relativeIndex = getRelativeIndexInOneIteration(startIndex: animatingArrowIndex,
+                                                               actualIndex: i, length: count)
+            
             let oneIteration = SCNAction.sequence([
-                SCNAction.group([changeColorAction, floatAction]),  // parallely
-                SCNAction.wait(duration: Double(count) * 0.24)
+                SCNAction.group([  // parallely
+                    changeColorAction,
+                    floatAction,
+                    SCNAction.customAction(duration: 0, action: { _,_ in self.animatingArrowIndex = i })
+                ]),
+                SCNAction.wait(duration: Double(count) * 0.38),
             ])
         
             let foreverIteration = SCNAction.sequence([
-                SCNAction.wait(duration: Double(i) * 0.38),
+                SCNAction.wait(duration: Double(relativeIndex) * 0.38),
                 SCNAction.repeatForever(oneIteration)
             ])
             
             arrowNodes[i].runAction(foreverIteration, forKey: ARViewConstants.arrowActionKey)
         }
         isAnimating = true
+    }
+    
+    private func getOneRoundIndices(startFrom firstIndex: Int) -> [Int] {
+        var range: [Int] = []
+        let count = arrowNodes.count > ARViewConstants.numArrowsDisplayedForward ?
+                    ARViewConstants.numArrowsDisplayedForward :
+                    arrowNodes.count
+        var index = firstIndex
+        while index <= count - 1 {
+            range.append(index)
+            index += 1
+        }
+        index = 0
+        while index <= firstIndex - 1 {
+            range.append(index)
+            index += 1
+        }
+        return range
+    }
+    
+    private func getRelativeIndexInOneIteration(startIndex: Int, actualIndex: Int, length: Int) -> Int {
+        if actualIndex > startIndex {
+            return actualIndex - startIndex
+        } else {
+            return actualIndex + length - startIndex
+        }
     }
     
     /**
