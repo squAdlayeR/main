@@ -11,5 +11,6 @@ import UIKit
 class MenuViewConstants {
 
     static let leftPaddingPercent: CGFloat = 0.15
+    static let zPosition: CGFloat = 9999
 
 }

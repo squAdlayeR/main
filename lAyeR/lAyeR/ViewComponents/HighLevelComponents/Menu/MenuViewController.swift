@@ -32,6 +32,7 @@ class MenuViewController: NSObject {
     override init() {
         super.init()
         self.menuView = MenuView()
+        menuView.layer.zPosition = MenuViewConstants.zPosition
         menuView.isHidden = true
         isOpened = false
     }
