@@ -56,6 +56,19 @@ struct ARViewConstants {
     static let cardArrowImageName = "arrow.png"
     static let cardArrowViewSize = CGSize(width: 28, height: 60)
     static let arrowImageFrame = CGRect(x: 0, y: 38, width: 28, height: 22)
+    
+    static let floatUpTime: TimeInterval = 0.28
+    static let floatDownTime: TimeInterval = 0.28
+    
+    static let floatDistance: CGFloat = 0.08
+    
+    static let changeToHighlightColorTime = 0.38
+    static let changeToDefaultColorTime = 0.28
+    
+    static let changeColorRate: CGFloat = 0.18
+    
+    static let animationWaitTime: TimeInterval = 0.38
+    static let oneCompleteAnimationTime = changeToHighlightColorTime + changeToDefaultColorTime
 }
 
 
