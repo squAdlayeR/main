@@ -26,7 +26,7 @@ struct Vector3D {
         return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
     }
     
-    /// - Returns: the cross product of this vector and the input vector: this x input
+    /// - Returns: the cross product of this vector and the input vector: "self" x "v"
     func crossProduct(with v: Vector3D) -> Vector3D {
         let x1 = self.x
         let y1 = self.y

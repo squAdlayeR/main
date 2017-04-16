@@ -48,7 +48,9 @@ class SCNViewController: UIViewController {
         return route.checkPoints[nextCheckpointIndex]
     }
     
-    /// this method will be called when the AR view finish loading
+    /**
+     this method will be called when the AR view finish loading
+     */
     func setupScene() {
         guard let arViewController = parent as? ARViewController else {
             return
@@ -119,9 +121,8 @@ class SCNViewController: UIViewController {
         
         removeAllArrows()
         
-        let userPoint = geoManager.getLastUpdatedUserPoint()
-        
-        var (previousOffset, leftCount) = addArrows(from: userPoint, to: nextCheckpoint,
+        var (previousOffset, leftCount) = addArrows(from: geoManager.getLastUpdatedUserPoint(),
+                                                    to: nextCheckpoint,
                                                     firstOffset: Constant.firstArrowOffset,
                                                     leftCount: Constant.numArrowsDisplayedForward)
         
@@ -137,7 +138,9 @@ class SCNViewController: UIViewController {
         }
     }
     
-    /// update the index of the next checkpoint according to the user current location
+    /**
+     update the index of the next checkpoint according to the user current location
+     */
     private func updateNextCheckpointIndex() {
         for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
             guard index >= 0 && index <= route.size - 1 else {
@@ -352,6 +355,10 @@ class SCNViewController: UIViewController {
         ])
     }
     
+    /** 
+     the action to move the arrow up for a certain distance
+     then move back to the original position
+     */
     private var floatAction: SCNAction {
         return SCNAction.sequence([
             SCNAction.moveBy(x: 0, y: 0.08, z: 0, duration: 0.28),
