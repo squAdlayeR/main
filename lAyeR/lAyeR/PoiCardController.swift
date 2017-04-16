@@ -38,7 +38,7 @@ class PoiCardController {
     }
     
     private func calculateAlpha(distance: CGFloat) -> CGFloat {
-        return Constant.maxMarkerAlpha - Constant.markerAlphaChangeRange * distance / Constant.maxPushBackDistance
+        return ARViewConstants.maxMarkerAlpha - ARViewConstants.markerAlphaChangeRange * distance / ARViewConstants.maxPushBackDistance
     }
     
     func removeCard() {

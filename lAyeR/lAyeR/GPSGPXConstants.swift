@@ -6,7 +6,7 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-class GPSGPXConstants {
+struct GPSGPXConstants {
 
     static let defaultLocation: GeoPoint = GeoPoint(0, 0)
     static let timeInterval: TimeInterval = 1

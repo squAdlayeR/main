@@ -15,10 +15,10 @@ import CoreLocation
 class GeoManager: NSObject, CLLocationManagerDelegate {
     
     /// Defines the nearby pois update notification.
-    private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue: Constant.nearbyPOIsUpdatedNotificationName)
+    private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue: ARViewConstants.nearbyPOIsUpdatedNotificationName)
     
     /// Defines user location update notification.
-    private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue: Constant.userLocationUpdatedNotificationName)
+    private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue: ARViewConstants.userLocationUpdatedNotificationName)
     
     /// Defines a singleton instance of GeoManager.
     private static var instance: GeoManager?

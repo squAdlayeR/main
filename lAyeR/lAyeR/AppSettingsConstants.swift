@@ -8,7 +8,9 @@
 
 import UIKit
 
-let poiCategories: [POICategory] = [.atm,
+struct AppSettingsConstants {
+
+    static let poiCategories: [POICategory] = [.atm,
                                     .busStation,
                                     .cafe,
                                     .gym,
@@ -17,11 +19,12 @@ let poiCategories: [POICategory] = [.atm,
                                     .restaurant,
                                     .store,
                                     .university]
-let categoryIndex = 0
-let categoryNameIndex = 1
-let categoriesReusableIdentifier = "categoryCell"
-let defaultCategories: Set<String> = ["atm",
+    static let categoryIndex = 0
+    static let categoryNameIndex = 1
+    static let categoriesReusableIdentifier = "categoryCell"
+    static let defaultCategories: Set<String> = ["atm",
                                       "bus_station",
                                       "restaurant"]
-let defaultNumberOfMarkers: Int = 10
-let defaultDetectionRadius: Int = 500
+    static let defaultNumberOfMarkers: Int = 10
+    static let defaultDetectionRadius: Int = 500
+}

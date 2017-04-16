@@ -77,7 +77,7 @@ class CheckpointCardController {
     /// calculate the opacity of the card
     /// based on the distance from the current user point to the checkpoint associated with this card
     private func calculateAlpha(distance: CGFloat) -> CGFloat {
-        return Constant.maxMarkerAlpha - Constant.markerAlphaChangeRange * distance / Constant.maxPushBackDistance
+        return ARViewConstants.maxMarkerAlpha - ARViewConstants.markerAlphaChangeRange * distance / ARViewConstants.maxPushBackDistance
     }
     
     private func displayArrow() {
