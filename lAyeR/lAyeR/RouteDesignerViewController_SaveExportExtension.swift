@@ -20,6 +20,11 @@ extension RouteDesignerViewController {
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
             let textField = alert!.textFields![0]
             if (textField.text != nil && textField.text != "") {
+                let name = textField.text!
+                guard name.isAlphanumeric else {
+                    self.showAlertMessage(message: Messages.invalidNameMessage)
+                    return
+                }
                 let route = Route(textField.text!)
                 route.append(CheckPoint(self.source!.latitude, self.source!.longitude, RouteDesignerConstants.checkpointDefaultName, RouteDesignerConstants.checkpointDefaultDescription, true))
                 for marker in self.markers {
@@ -74,6 +79,11 @@ extension RouteDesignerViewController {
         alert.addAction(UIAlertAction(title: "Export", style: .default, handler: { [weak alert] (_) in
             let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
             if (textField.text != nil && textField.text != "") {
+                let name = textField.text!
+                guard name.isAlphanumeric else {
+                    self.showAlertMessage(message: Messages.invalidNameMessage)
+                    return
+                }
                 let route = Route(textField.text!)
                 route.append(CheckPoint(self.source!.latitude, self.source!.longitude, RouteDesignerConstants.checkpointDefaultName, RouteDesignerConstants.checkpointDefaultDescription, true))
                 for marker in self.markers {
