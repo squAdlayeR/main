@@ -97,16 +97,16 @@ class CheckpointCardController {
         let halfSuperviewHeight = superView.bounds.height / 2
         
         // the 2 diagonals divdes the angle into 4 cases.
-        if angle > -(CGFloat(M_PI) - screenDiagonalAngle) && angle < -screenDiagonalAngle {
+        if angle > -(CGFloat(Double.pi) - screenDiagonalAngle) && angle < -screenDiagonalAngle {
             arrow.center.y = halfSuperviewHeight + halfSuperviewWidth / tan(angle)
             arrow.center.x = 0
-        } else if angle > screenDiagonalAngle && angle < CGFloat(M_PI) - screenDiagonalAngle {
+        } else if angle > screenDiagonalAngle && angle < CGFloat(Double.pi) - screenDiagonalAngle {
             arrow.center.y = halfSuperviewHeight - halfSuperviewWidth / tan(angle)
             arrow.center.x = 2 * halfSuperviewWidth
         } else if angle > -screenDiagonalAngle && angle < screenDiagonalAngle {
             arrow.center.y = 0
             arrow.center.x = halfSuperviewWidth + halfSuperviewHeight * tan(angle)
-        } else if angle < -(CGFloat(M_PI) - screenDiagonalAngle) || angle > CGFloat(M_PI) - screenDiagonalAngle {
+        } else if angle < -(CGFloat(Double.pi) - screenDiagonalAngle) || angle > CGFloat(Double.pi) - screenDiagonalAngle {
             arrow.center.y = 2 * halfSuperviewHeight
             arrow.center.x = halfSuperviewWidth - halfSuperviewHeight * tan(angle)
         }

@@ -98,8 +98,8 @@ class SCNViewController: UIViewController {
         let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
         arrowNode.geometry?.firstMaterial?.emission.contents = Constant.arrowDefaultColor
         
-        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-M_PI / 2), 1, 0, 0)
-        arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(M_PI / 2), 0, 1, 0)
+        arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-Double.pi / 2), 1, 0, 0)
+        arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(Double.pi / 2), 0, 1, 0)
         
         arrowNode.scale = SCNVector3(x: 1 / 24.0, y: 1 / 24.0, z: 1 / 108.0)
         

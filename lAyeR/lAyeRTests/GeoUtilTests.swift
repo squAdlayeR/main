@@ -62,8 +62,8 @@ class GeoUtilTests: XCTestCase {
         let east = GeoPoint(1, 2)
         let west = GeoPoint(1, 0)
         XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, north), 0)
-        XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, south), M_PI)
-        XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, east), M_PI/2)
-        XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, west), -M_PI/2)
+        XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, south), Double.pi)
+        XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, east), Double.pi/2)
+        XCTAssertEqual(GeoUtil.getAzimuth(between: referencePoint, west), -Double.pi/2)
     }
 }

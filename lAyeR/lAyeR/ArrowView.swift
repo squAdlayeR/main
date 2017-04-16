@@ -22,7 +22,7 @@ class ArrowView: UIView {
         
         arrowImageView = UIImageView(frame: Constant.arrowImageFrame)
         arrowImageView.image = UIImage(named: Constant.cardArrowImageName)
-        arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(-M_PI / 2.0), 0, 0, 1)
+        arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(-Double.pi / 2.0), 0, 0, 1)
         
         self.addSubview(arrowImageView)
     }

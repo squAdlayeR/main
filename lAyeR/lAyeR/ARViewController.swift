@@ -70,7 +70,7 @@ class ARViewController: UIViewController {
         monitorCurrentLocationUpdate()
         
         
-        fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * M_PI / 180
+        fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
         
         startObservingDeviceMotion()
         displayLastUpdatedPOIs()
