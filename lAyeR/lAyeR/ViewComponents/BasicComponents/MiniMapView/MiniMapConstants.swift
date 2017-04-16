@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MiniMapConstants {
+struct MiniMapConstants {
 
     /// Strings
     static let initialRouteName: String = "route to be shown in minimap"

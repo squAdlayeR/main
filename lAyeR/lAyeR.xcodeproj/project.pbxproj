@@ -106,6 +106,7 @@
 		9D37C2E61EA09D10003AAA02 /* MenuConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D37C2E51EA09D10003AAA02 /* MenuConstants.swift */; };
 		9D37C2E81EA0A4BF003AAA02 /* InnerViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D37C2E71EA0A4BF003AAA02 /* InnerViewConstants.swift */; };
 		9D37C2EA1EA0A505003AAA02 /* InfoBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D37C2E91EA0A505003AAA02 /* InfoBlockView.swift */; };
+		9D4DF3471EA33EA6006C0AAE /* UserProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DF3461EA33EA6006C0AAE /* UserProfileConstants.swift */; };
 		9D5693471E8BE66E00052F68 /* InputTextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5693461E8BE66E00052F68 /* InputTextFeild.swift */; };
 		9D73276E1EA21248008D9860 /* LoadingBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73276D1EA21248008D9860 /* LoadingBadge.swift */; };
 		9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D73276F1EA21A09008D9860 /* HighLevelMiscConstants.swift */; };
@@ -272,6 +273,7 @@
 		9D37C2E51EA09D10003AAA02 /* MenuConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuConstants.swift; path = ViewComponents/BasicComponents/Menu/MenuConstants.swift; sourceTree = "<group>"; };
 		9D37C2E71EA0A4BF003AAA02 /* InnerViewConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InnerViewConstants.swift; path = ViewComponents/BasicComponents/InnerViews/InnerViewConstants.swift; sourceTree = "<group>"; };
 		9D37C2E91EA0A505003AAA02 /* InfoBlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoBlockView.swift; path = ViewComponents/BasicComponents/InnerViews/InfoBlockView.swift; sourceTree = "<group>"; };
+		9D4DF3461EA33EA6006C0AAE /* UserProfileConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileConstants.swift; sourceTree = "<group>"; };
 		9D5693461E8BE66E00052F68 /* InputTextFeild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputTextFeild.swift; path = ViewComponents/BasicComponents/Misc/InputTextFeild.swift; sourceTree = "<group>"; };
 		9D6B80991E82AD0900210203 /* UIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIConfig.swift; path = ViewComponents/UIConfig.swift; sourceTree = "<group>"; };
 		9D73276D1EA21248008D9860 /* LoadingBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingBadge.swift; path = ViewComponents/BasicComponents/Misc/LoadingBadge.swift; sourceTree = "<group>"; };
@@ -765,6 +767,7 @@
 				52A845D61EA12D7C0084DAA3 /* UserProfileViewController+IconCropExtension.swift */,
 				52A845DA1EA132040084DAA3 /* UserProfileViewController+TableViewExtension.swift */,
 				52A845DE1EA1B0A30084DAA3 /* UserProfileViewController+UIInteractionExtension.swift */,
+				9D4DF3461EA33EA6006C0AAE /* UserProfileConstants.swift */,
 			);
 			name = UserProfile;
 			sourceTree = "<group>";
@@ -1175,6 +1178,7 @@
 				52A845D01EA106250084DAA3 /* RegisterViewController+AuthenticationExtension.swift in Sources */,
 				9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */,
 				9D7327791EA254AD008D9860 /* Card.swift in Sources */,
+				9D4DF3471EA33EA6006C0AAE /* UserProfileConstants.swift in Sources */,
 				5249B1AA1E72641C0048249D /* CheckPoint.swift in Sources */,
 				A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */,
 				2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */,

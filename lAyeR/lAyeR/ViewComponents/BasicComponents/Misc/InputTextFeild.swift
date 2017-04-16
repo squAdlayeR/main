@@ -33,7 +33,7 @@ class InputTextFeild: UITextField {
         self.layer.masksToBounds = true
         self.backgroundColor = UIColor.clear
         self.font = UIFont(name: alterDefaultFontRegular, size: MiscConstants.textFieldFontSize)
-        self.textColor = defaultFontColor
+        self.textColor = UIColor.white
         self.keyboardAppearance = .dark
     }
     

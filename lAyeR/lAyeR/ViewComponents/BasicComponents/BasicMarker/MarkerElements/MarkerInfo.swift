@@ -20,7 +20,7 @@ class MarkerInfo: UIView {
     /// after it is set, change the corresponding label to display
     private var distance: Double = 0 {
         didSet {
-            self.label.text = String(format: markerDistanceFilter, distance) + markerDistanceUnit
+            self.label.text = "\(String(format: BasicMarkerConstants.distanceFilter, distance))\(BasicMarkerConstants.distanceUnit)"
         }
     }
     

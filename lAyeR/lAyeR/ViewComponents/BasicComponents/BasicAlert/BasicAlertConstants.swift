@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BasicAlertConstants {
+struct BasicAlertConstants {
 
     static let titlePadding: CGFloat = 30
     static let titleFontSize: CGFloat = 30

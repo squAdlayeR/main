@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuConstants {
+struct MenuConstants {
 
     static let buttonInnerPadding: CGFloat = 5
     static let buttonDiameter: CGFloat = 60

@@ -38,7 +38,8 @@ extension ARViewController {
     
     /// Prepares the updated successful alert
     private func prepareUpdateSuccessAlert() {
-        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        let alertSize = CGSize(width: HighLevelMiscConstants.suggestedPopupWidth,
+                               height: HighLevelMiscConstants.suggestedPopupHeight)
         updateSuccessAlertController = BasicAlertController(title: successTitle, size: alertSize)
         let closeButton = createCloseButton()
         updateSuccessAlertController.addButtonToAlert(closeButton)
@@ -51,7 +52,7 @@ extension ARViewController {
     private func createSuccessText() -> UILabel {
         let label = UILabel()
         label.text = locationUpdateSuccessText
-        label.font = UIFont(name: alterDefaultFontLight, size: buttonFontSize)
+        label.font = UIFont(name: alterDefaultFontLight, size: HighLevelMiscConstants.buttonFontSize)
         label.textAlignment = NSTextAlignment.center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -63,8 +64,8 @@ extension ARViewController {
     /// - Returns: a close button which will close the popup if it is clicked
     private func createCloseButton() -> UIButton {
         let newButton = UIButton()
-        newButton.setTitle(confirmLabelText, for: .normal)
-        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.setTitle(HighLevelMiscConstants.confirmString, for: .normal)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: HighLevelMiscConstants.buttonFontSize)
         newButton.addTarget(self, action: #selector(closeSuccessAlert), for: .touchUpInside)
         return newButton
     }

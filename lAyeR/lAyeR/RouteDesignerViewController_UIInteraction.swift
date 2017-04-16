@@ -15,7 +15,8 @@ extension RouteDesignerViewController {
 
     /// Defines the action when save button is pressed.
     @IBAction func saveButtonPressed(_ sender: Any) {
-        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        let alertSize = CGSize(width: HighLevelMiscConstants.suggestedPopupWidth,
+                               height: HighLevelMiscConstants.suggestedPopupHeight)
         storeRoutePopupController = BasicAlertController(title: "Store Your Route", size: alertSize)
         addInnerViewToStorePopup()
         storeRoutePopupController.addButtonToAlert(createCloseStoreButton())
@@ -23,7 +24,8 @@ extension RouteDesignerViewController {
     }
     
     @IBAction func optionsIsPressed(_ sender: Any) {
-        let alertSize = CGSize(width: suggestedPopupWidth, height: suggestedPopupHeight)
+        let alertSize = CGSize(width: HighLevelMiscConstants.suggestedPopupWidth,
+                               height: HighLevelMiscConstants.suggestedPopupHeight)
         optionsPopupController = BasicAlertController(title: "Options", size: alertSize)
         addInnerViewToOptionPopup()
         optionsPopupController.addButtonToAlert(createCloseOptionButton())
@@ -80,7 +82,8 @@ extension RouteDesignerViewController {
     private func createCloseStoreButton() -> UIButton {
         let newButton = UIButton()
         newButton.setTitle("Cancel", for: .normal)
-        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular,
+                                            size: HighLevelMiscConstants.buttonFontSize)
         newButton.addTarget(self, action: #selector(closeStoreRoutePopup), for: .touchUpInside)
         return newButton
     }
@@ -88,7 +91,8 @@ extension RouteDesignerViewController {
     private func createCloseOptionButton() -> UIButton {
         let newButton = UIButton()
         newButton.setTitle("Close", for: .normal)
-        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
+        newButton.titleLabel?.font = UIFont(name: alterDefaultFontRegular,
+                                            size: HighLevelMiscConstants.buttonFontSize)
         newButton.addTarget(self, action: #selector(closeOptionPopup), for: .touchUpInside)
         return newButton
     }
@@ -116,8 +120,9 @@ extension RouteDesignerViewController {
     /// defines the styling of the button
     /// - Parameter button: the button that is to add styling
     private func stylizeButton(_ button: UIButton) {
-        button.titleLabel?.font = UIFont(name: alterDefaultFontRegular, size: buttonFontSize)
-        button.titleLabel?.textColor = defaultFontColor
+        button.titleLabel?.font = UIFont(name: alterDefaultFontRegular,
+                                         size: HighLevelMiscConstants.buttonFontSize)
+        button.titleLabel?.textColor = UIColor.white
         button.frame = CGRect(x: 0, y: 0,
                               width: infoPanelBounds.width - innerViewSidePadding * 2,
                               height: 50)

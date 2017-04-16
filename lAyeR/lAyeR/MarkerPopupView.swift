@@ -33,7 +33,8 @@ class MarkerPopupView: UIView {
         label = UILabel(frame: CGRect(x: 0, y: 12, width: self.frame.size.width, height: 30))
         label.text = "Checkpoint"
         label.textColor = UIColor.white
-        label.font = UIFont(name: alterDefaultFontMedium, size: buttonFontSize)
+        label.font = UIFont(name: alterDefaultFontMedium,
+                            size: HighLevelMiscConstants.buttonFontSize)
         label.numberOfLines = 0
         label.textAlignment = NSTextAlignment.center
         topView.addSubview(label)
