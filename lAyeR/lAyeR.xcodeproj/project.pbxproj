@@ -10,7 +10,6 @@
 		2C0585E01E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0585DF1E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift */; };
 		2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F5C481E97A28100EAECFF /* POICategory.swift */; };
 		2C31199B1E670A5F00FF6334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199A1E670A5F00FF6334 /* AppDelegate.swift */; };
-		2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31199C1E670A5F00FF6334 /* ViewController.swift */; };
 		2C3119A01E670A5F00FF6334 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C31199E1E670A5F00FF6334 /* Main.storyboard */; };
 		2C3119A51E670A5F00FF6334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */; };
 		2C3119B01E670A5F00FF6334 /* lAyeRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3119AF1E670A5F00FF6334 /* lAyeRTests.swift */; };
@@ -35,6 +34,8 @@
 		2EA4447B1E9B355900D80BB5 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */; };
 		2EA4447D1E9B36A000D80BB5 /* TrackPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */; };
 		2EA4447F1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4447E1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift */; };
+		2EBB03E81EA2010C0018389E /* RouteDesignerViewController_SearchBarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB03E71EA2010C0018389E /* RouteDesignerViewController_SearchBarExtension.swift */; };
+		2EBB03EA1EA2017F0018389E /* RouteDesignerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB03E91EA2017F0018389E /* RouteDesignerConstants.swift */; };
 		2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
 		5249B1A81E7264000048249D /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A71E7264000048249D /* GeoPoint.swift */; };
@@ -171,7 +172,6 @@
 		2C1F5C481E97A28100EAECFF /* POICategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POICategory.swift; sourceTree = "<group>"; };
 		2C3119971E670A5F00FF6334 /* lAyeR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lAyeR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C31199A1E670A5F00FF6334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2C31199C1E670A5F00FF6334 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C31199F1E670A5F00FF6334 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C3119A41E670A5F00FF6334 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C3119A61E670A5F00FF6334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -199,6 +199,8 @@
 		2EA4447A1E9B355900D80BB5 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		2EA4447C1E9B36A000D80BB5 /* TrackPointNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointNode.swift; sourceTree = "<group>"; };
 		2EA4447E1E9CA3F600D80BB5 /* RouteDesignerViewController_ControlPointAutomationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_ControlPointAutomationExtension.swift; sourceTree = "<group>"; };
+		2EBB03E71EA2010C0018389E /* RouteDesignerViewController_SearchBarExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_SearchBarExtension.swift; sourceTree = "<group>"; };
+		2EBB03E91EA2017F0018389E /* RouteDesignerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerConstants.swift; sourceTree = "<group>"; };
 		2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_AutoCompleteExtension.swift; sourceTree = "<group>"; };
 		333FC959623BFA4B56C0165F /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR_lAyeRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4010892260B075E01FFB3724 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
@@ -390,7 +392,6 @@
 				2C7333E61E71BA8E00EDE1D8 /* Fonts */,
 				2C7333E11E71B4EA00EDE1D8 /* Common */,
 				52C62D991EA0DED1006D968B /* DataModel */,
-				2C31199C1E670A5F00FF6334 /* ViewController.swift */,
 				2C31199A1E670A5F00FF6334 /* AppDelegate.swift */,
 				2C31199E1E670A5F00FF6334 /* Main.storyboard */,
 				2C3119A31E670A5F00FF6334 /* LaunchScreen.storyboard */,
@@ -494,7 +495,9 @@
 			isa = PBXGroup;
 			children = (
 				A21BBFB61E839BD600394531 /* MarkerPopupView.swift */,
+				2EBB03E91EA2017F0018389E /* RouteDesignerConstants.swift */,
 				A21BBFB71E839BD600394531 /* RouteDesignerViewController.swift */,
+				2EBB03E71EA2010C0018389E /* RouteDesignerViewController_SearchBarExtension.swift */,
 				2C51ADB81E9C97700007E980 /* RouteDesignerViewController_UIInteraction.swift */,
 				2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */,
 				2EA444781E9AFDA200D80BB5 /* RouteDesignerViewController_DesignMarkerLineExtension.swift */,
@@ -542,8 +545,9 @@
 				528288CC1E9678A900163654 /* GPSTracker.swift */,
 				528288DD1E969F2D00163654 /* GPXFileManager.swift */,
 				52B2298A1E974FB2009C733B /* GPXError.swift */,
-				52B2298F1E978284009C733B /* Extensions.swift */,
 				52C62D951EA0A97E006D968B /* GPSGPXConstants.swift */,
+				A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */,
+				52B2298F1E978284009C733B /* Extensions.swift */,
 				52C62D971EA0BE4C006D968B /* Messages.swift */,
 			);
 			name = "GPSTracker+GPX";
@@ -577,7 +581,6 @@
 				52BD49751E8A8DFA00B4B750 /* DatabaseManager.swift */,
 				52C62D9A1EA0E763006D968B /* AuthenticationConstants.swift */,
 				52BD49731E8A8DC000B4B750 /* UserAuthenticator.swift */,
-				5249B1C41E74D8070048249D /* Parser.swift */,
 			);
 			name = DataService;
 			sourceTree = "<group>";
@@ -586,6 +589,7 @@
 			isa = PBXGroup;
 			children = (
 				52A845E01EA1BECE0084DAA3 /* ModelConstants.swift */,
+				5249B1C41E74D8070048249D /* Parser.swift */,
 				52830F261E8F4567009DFD02 /* UserProfile.swift */,
 				5249B1A71E7264000048249D /* GeoPoint.swift */,
 				5249B1A91E72641C0048249D /* CheckPoint.swift */,
@@ -593,7 +597,6 @@
 				52DE2C401E995F4700671B6E /* TrackPoint.swift */,
 				5249B1A51E7263C40048249D /* Route.swift */,
 				5249B1B61E72FC660048249D /* GeoUtil.swift */,
-				A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -1045,6 +1048,7 @@
 			files = (
 				9D0A2AE41E9F69A7008D6A21 /* MiniMapConstants.swift in Sources */,
 				52BD496D1E8A7D1600B4B750 /* UIConfig.swift in Sources */,
+				2EBB03EA1EA2017F0018389E /* RouteDesignerConstants.swift in Sources */,
 				A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */,
 				A28E80031EA22F2A005B65C3 /* RealmRoute.swift in Sources */,
 				9DFB5B9F1E8426FD00724B6E /* InformativeInnerView.swift in Sources */,
@@ -1090,7 +1094,6 @@
 				2E742F9C1E9784D500651A74 /* RouteDesignerModel.swift in Sources */,
 				A25E658B1E9BA50100011885 /* ARViewController_SegueExtension.swift in Sources */,
 				2E742FA01E98415200651A74 /* RouteDesignerViewController_LocationManagerExtension.swift in Sources */,
-				2C31199D1E670A5F00FF6334 /* ViewController.swift in Sources */,
 				9D7327701EA21A09008D9860 /* HighLevelMiscConstants.swift in Sources */,
 				A21BBFBA1E839BD600394531 /* RouteDesignerViewController.swift in Sources */,
 				9D7327761EA251D6008D9860 /* MenuViewConstants.swift in Sources */,
@@ -1130,7 +1133,6 @@
 				9D37C2E81EA0A4BF003AAA02 /* InnerViewConstants.swift in Sources */,
 				9D73277F1EA25501008D9860 /* PriceLevel.swift in Sources */,
 				A28E80071EA22FC4005B65C3 /* RealmGeoPoint.swift in Sources */,
-				9D7DAD021E85635500592EB5 /* Card.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
 				52A845D01EA106250084DAA3 /* RegisterViewController+AuthenticationExtension.swift in Sources */,
@@ -1152,6 +1154,7 @@
 				52B229901E978284009C733B /* Extensions.swift in Sources */,
 				2C0585E01E9CF7D300E24DC4 /* RouteDesignerViewController_PrepareViewExtension.swift in Sources */,
 				52938C011E860D9000EB8F81 /* RegisterViewController.swift in Sources */,
+				2EBB03E81EA2010C0018389E /* RouteDesignerViewController_SearchBarExtension.swift in Sources */,
 				A21BBFBD1E83AB7500394531 /* Constant.swift in Sources */,
 				528288DE1E969F2D00163654 /* GPXFileManager.swift in Sources */,
 				52BD49741E8A8DC000B4B750 /* UserAuthenticator.swift in Sources */,
@@ -1410,8 +1413,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeRTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "lAyeR/lAyeR-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/iOS-GPX-Framework/GPX\" \"${PODS_ROOT}/iOS-KML-Framework\"/**";
 			};
 			name = Debug;
 		};
@@ -1445,8 +1450,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.layer.lAyeRTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "lAyeR/lAyeR-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/iOS-GPX-Framework/GPX\" \"${PODS_ROOT}/iOS-KML-Framework\"/**";
 			};
 			name = Release;
 		};

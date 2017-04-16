@@ -11,40 +11,14 @@ import GoogleMaps
 
 extension RouteDesignerViewController {
 
-    func withinThreshold(first: CGPoint, second: CGPoint) -> Bool {
-        let dist = sqrt((first.x - second.x) * (first.x - second.x) + (first.y - second.y) * (first.y - second.y))
-        return Double(dist) <= threshold
-    }
+    // Definitions
+    // Path:
+    // Point:
+    // Line:
+    // Marker:
+    // ControlPoint:
     
-    func distanceFromPointToLine(point p: CGPoint, fromLineSegmentBetween l1: CGPoint, and l2: CGPoint) -> Double {
-        let a = p.x - l1.x
-        let b = p.y - l1.y
-        let c = l2.x - l1.x
-        let d = l2.y - l1.y
-        
-        let dot = a * c + b * d
-        let lenSq = c * c + d * d
-        let param = dot / lenSq
-        
-        var xx:CGFloat!
-        var yy:CGFloat!
-        
-        if param < 0 || (l1.x == l2.x && l1.y == l2.y) {
-            xx = l1.x
-            yy = l1.y
-        } else if (param > 1) {
-            xx = l2.x
-            yy = l2.y
-        } else {
-            xx = l1.x + param * c
-            yy = l1.y + param * d
-        }
-        
-        let dx = Double(p.x - xx)
-        let dy = Double(p.y - yy)
-        
-        return sqrt(dx * dx + dy * dy)
-    }
+    //---------- Navigating Data Structure
     
     func findPreviousControlPoint(at idx: Int) -> Int {
         var cur = idx-1
@@ -84,24 +58,28 @@ extension RouteDesignerViewController {
         return -1
     }
     
+    //---------- Path
+    
     func addPath(coordinate: CLLocationCoordinate2D, isControlPoint: Bool, at idx: Int) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         if manualRouteType {
             addPoint(coordinate: coordinate, isControlPoint: isControlPoint, at: idx)
-            historyOfMarkers.append(markers)
+            addToHistory()
         } else {
             let lastPoint = markers.isEmpty ? source! : markers.last!.position
             getDirections(origin: "\(lastPoint.latitude) \(lastPoint.longitude)", destination: "\(coordinate.latitude) \(coordinate.longitude)", waypoints: nil, removeAllPoints: false, at: idx) { (result) -> () in
                 if result {
-                    self.historyOfMarkers.append(self.markers)
+                    self.addToHistory()
                 }
             }
         }
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
+    //---------- Point
+    
     func addPoint(coordinate: CLLocationCoordinate2D, isControlPoint: Bool, at idx: Int) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         if idx >= markers.count {
             var currentLocation = usingCurrentLocationAsSource ? myLocation!.coordinate : coordinate
             if !markers.isEmpty {
@@ -118,11 +96,11 @@ extension RouteDesignerViewController {
             let beforeCoord = idx == 0 ? usingCurrentLocationAsSource ? myLocation!.coordinate : coordinate : markers[idx-1].position
             addLine(from: beforeCoord, to: coordinate, at: idx)
         }
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
-    func deletePoint(at idx: Int) {
-        if TESTING { assert(checkRep()) }
+    func removePoint(at idx: Int) {
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         if idx >= 0 && idx < markers.count {
             // 3 Cases
             if idx == 0 {
@@ -149,11 +127,87 @@ extension RouteDesignerViewController {
                 addLine(from: CLLocationCoordinate2DMake(previousMarkerData.latitude, previousMarkerData.longitude), to: CLLocationCoordinate2DMake(nextMarkerData.latitude, nextMarkerData.longitude), at: idx)
             }
         }
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+    }
+    
+    //---------- Marker
+    
+    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool, using markersList: inout [GMSMarker], show: Bool, markerName: String) {
+        let marker = GMSMarker(position: coordinate)
+        marker.title = markerName
+        marker.userData = CheckPoint(coordinate.latitude, coordinate.longitude, marker.title!, "", isControlPoint)
+        if isControlPoint && show {
+            marker.map = mapView
+        }
+        markersList.insert(marker, at: idx)
+    }
+    
+    // Adds Marker with default name
+    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool, using markersList: inout [GMSMarker], show: Bool) {
+        addMarker(coordinate: coordinate, at: idx, isControlPoint: isControlPoint, using: &markers, show: true, markerName: RouteDesignerConstants.checkpointDefaultName)
+    }
+    
+    // Adds Marker with default name and shows on map
+    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool) {
+        addMarker(coordinate: coordinate, at: idx, isControlPoint: isControlPoint, using: &markers, show: true, markerName: RouteDesignerConstants.checkpointDefaultName)
+    }
+    
+    func removeMarker(at idx: Int) {
+        if idx >= 0 && idx < markers.count {
+            markers[idx].map = nil
+            markers.remove(at:idx)
+        }
+    }
+    
+    func makeMarkerControlPoint(at idx: Int) {
+        if idx >= 0 && idx < markers.count {
+            let checkpoint = markers[idx].userData as! CheckPoint
+            checkpoint.isControlPoint = true
+            markers[idx].userData = checkpoint
+            markers[idx].map = mapView
+        }
+    }
+    
+    //---------- Line
+    
+    func addLine(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, at idx: Int, using linesList: inout [GMSPolyline], show: Bool) {
+        let path = GMSMutablePath()
+        path.add(from)
+        path.add(to)
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeWidth = 5.0
+        polyline.geodesic = true
+        polyline.strokeColor = RouteDesignerConstants.mapLineColor
+        if show {
+            polyline.map = mapView
+        }
+        linesList.insert(polyline, at: idx)
+    }
+    
+    func addLine(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, at idx: Int) {
+        addLine(from: from, to: to, at: idx, using: &lines, show: true)
+    }
+    
+    func removeLine(at idx: Int) {
+        if idx >= 0 && idx < lines.count {
+            lines[idx].map = nil
+            lines.remove(at:idx)
+        }
+    }
+    
+    func modifyManualLine(at idx: Int) {
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+        if idx >= 0 && idx < lines.count {
+            let from = idx == 0 ? source! : markers[idx-1].position
+            let to = markers[idx].position
+            removeLine(at: idx)
+            addLine(from: from, to: to, at: idx)
+        }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
     func modifyLine(at idx: Int) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         if idx >= 0 && idx < lines.count {
             let from = idx == 0 ? source! : markers[idx-1].position
             let to = markers[idx].position
@@ -166,70 +220,13 @@ extension RouteDesignerViewController {
                 }
             }
         }
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
-    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool, using markersList: inout [GMSMarker], show: Bool, markerName: String) {
-        let marker = GMSMarker(position: coordinate)
-        marker.title = markerName
-        marker.userData = CheckPoint(coordinate.latitude, coordinate.longitude, marker.title!, "", isControlPoint)
-        if isControlPoint && show {
-            marker.map = mapView
-        }
-        markersList.insert(marker, at: idx)
-    }
-    
-    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool, using markersList: inout [GMSMarker], show: Bool) {
-        addMarker(coordinate: coordinate, at: idx, isControlPoint: isControlPoint, using: &markers, show: true, markerName: checkpointDefaultName)
-    }
-    
-    func addMarker(coordinate: CLLocationCoordinate2D, at idx: Int, isControlPoint: Bool) {
-        addMarker(coordinate: coordinate, at: idx, isControlPoint: isControlPoint, using: &markers, show: true, markerName: checkpointDefaultName)
-    }
-    
-    func addLine(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, at idx: Int, using linesList: inout [GMSPolyline], show: Bool) {
-        let path = GMSMutablePath()
-        path.add(from)
-        path.add(to)
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeWidth = 5.0
-        polyline.geodesic = true
-        polyline.strokeColor = lineColor
-        if show {
-            polyline.map = mapView
-        }
-        linesList.insert(polyline, at: idx)
-    }
-    
-    func addLine(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, at idx: Int) {
-        addLine(from: from, to: to, at: idx, using: &lines, show: true)
-    }
-    
-    func makeMarkerControlPoint(at idx: Int) {
-        if idx >= 0 && idx < markers.count {
-            let checkpoint = markers[idx].userData as! CheckPoint
-            checkpoint.isControlPoint = true
-            markers[idx].userData = checkpoint
-            markers[idx].map = mapView
-        }
-    }
-    
-    func removeMarker(at idx: Int) {
-        if idx >= 0 && idx < markers.count {
-            markers[idx].map = nil
-            markers.remove(at:idx)
-        }
-    }
-    
-    func removeLine(at idx: Int) {
-        if idx >= 0 && idx < lines.count {
-            lines[idx].map = nil
-            lines.remove(at:idx)
-        }
-    }
+    //---------- Remove All
     
     func removeAllMarkersAndLines(usingMarkersList markersList: inout [GMSMarker], usingLinesList linesList: inout [GMSPolyline]) {
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
         for marker in markersList {
             marker.map = nil
         }
@@ -239,7 +236,7 @@ extension RouteDesignerViewController {
         markersList.removeAll()
         linesList.removeAll()
         infoWindow.removeFromSuperview()
-        if TESTING { assert(checkRep()) }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
     func removeAllMarkersAndLines() {

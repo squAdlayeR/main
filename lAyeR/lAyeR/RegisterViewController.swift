@@ -28,9 +28,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     
-    // Defines user authenticator for registration authentication.
-    let userAuthenticator: UserAuthenticator = UserAuthenticator.instance
-    let databaseManager: DatabaseManager = DatabaseManager.instance
+    // Defines data service.
+    let dataService = DataServiceManager.instance
+    let userAuthenticator = UserAuthenticator.instance
     
     // Defines the view for vibrancy effect
     var vibrancyEffectView: UIVisualEffectView!

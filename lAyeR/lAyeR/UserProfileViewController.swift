@@ -68,8 +68,8 @@ class UserProfileViewController: UIViewController {
     /// Loads the user profile.
     private func loadProfile() {
         LoadingBadge.instance.showBadge(in: view)
-        dataService.retrieveUserProfile { profile, success in
-            guard success, let profile = profile else {
+        dataService.retrieveUserProfile { profile in
+            guard let profile = profile else {
                 self.setNotification()
                 LoadingBadge.instance.hideBadge()
                 return
@@ -115,7 +115,7 @@ class UserProfileViewController: UIViewController {
     /// Adds the notification label into vibrancy effect view
     private func setNotification() {
         notification.isHidden = false
-        vibrancyEffectView.contentView.addSubview(self.notification)
+        view.addSubview(self.notification)
     }
     
     /// Sets up the user infomation at the top
@@ -194,6 +194,9 @@ class UserProfileViewController: UIViewController {
             if let route = sender as? Route, let dest = segue.destination as? RouteDesignerViewController {
                 dest.importedRoutes = [route]
             }
+        }
+        if segue.identifier == StoryboardConstants.unwindUserProfileToARSegue {
+            GeoManager.getInstance().forceUpdateUserNearbyPOIS()
         }
     }
     
