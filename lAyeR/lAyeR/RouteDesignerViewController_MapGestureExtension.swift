@@ -31,9 +31,64 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         infoWindow.center = centerPoint
         infoWindow.deleteButton.addTarget(self, action: #selector(deleteButtonTapped(gestureRecognizer:)), for: .touchUpInside)
         infoWindow.editButton.addTarget(self, action: #selector(editButtonTapped(gestureRecognizer:)), for: .touchUpInside)
+        mapView.addSubview(infoWindow)
         if RouteDesignerConstants.testing { assert(checkRep()) }
         return false
     }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+        if (tappedMarker.userData != nil){
+            let location = CLLocationCoordinate2D(latitude: (tappedMarker.userData as! CheckPoint).latitude, longitude: (tappedMarker.userData as! CheckPoint).longitude)
+            var centerPoint = mapView.projection.point(for: location)
+            centerPoint.y = centerPoint.y - 95
+            infoWindow.center = centerPoint
+        }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+        infoWindow.removeFromSuperview()
+        if selectingLayerRoute {
+            selectRoute(coordinate: coordinate, forType: RouteDesignerConstants.RouteType.layer)
+            if selectedRoute {
+                focusOnOneRoute()
+            }
+        } else if selectingGpsRoute {
+            selectRoute(coordinate: coordinate, forType: RouteDesignerConstants.RouteType.gps)
+            if selectedRoute {
+                focusOnOneRoute()
+            }
+        } else {
+            addPath(coordinate: coordinate, isControlPoint: true, at: markers.count)
+        }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+        infoWindow.removeFromSuperview()
+        if selectingSourceCoordinate {
+            sourceBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
+            selectingSourceCoordinate = false
+            sourcePin.alpha = RouteDesignerConstants.pinDeactivatedAlpha
+            useSourceCoordinates = true
+        } else if selectingSearchCoordinate {
+            searchBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
+            selectingSearchCoordinate = false
+            searchPin.alpha = RouteDesignerConstants.pinDeactivatedAlpha
+            useDestCoordinates = true
+        }
+        if selectingLayerRoute {
+            selectRoute(coordinate: coordinate, forType: RouteDesignerConstants.RouteType.layer)
+        } else if selectingGpsRoute {
+            selectRoute(coordinate: coordinate, forType: RouteDesignerConstants.RouteType.gps)
+        }
+        if RouteDesignerConstants.testing { assert(checkRep()) }
+    }
+    
+    // ---------- Helper Functions ----------
     
     func deleteButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
         if RouteDesignerConstants.testing { assert(checkRep()) }
@@ -48,7 +103,7 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         for _ in prevIdx+1..<nextIdx {
             removePoint(at: prevIdx+1)
         }
-        modifyLine(at: prevIdx+1)
+        modifyToGoogleLine(at: prevIdx+1)
         addToHistory()
         if RouteDesignerConstants.testing { assert(checkRep()) }
     }
@@ -75,11 +130,11 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
                 let newMarkerData = CheckPoint(markerData.latitude, markerData.longitude, nameTextField.text!, descriptionTextField.text!, markerData.isControlPoint)
                 self.tappedMarker.userData = newMarkerData
                 
-                let resultAlert = UIAlertController(title: "CheckPoint Details Saved Successfully", message: "Congrats", preferredStyle: .alert)
+                let resultAlert = UIAlertController(title: RouteDesignerConstants.saveSuccessfulText, message: "Congrats", preferredStyle: .alert)
                 resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
                 self.present(resultAlert, animated: true, completion: nil)
             } else {
-                let resultAlert = UIAlertController(title: "Save Failed", message: "Please give a name to this CheckPoint", preferredStyle: .alert)
+                let resultAlert = UIAlertController(title: RouteDesignerConstants.saveFailText, message: "Please give a name to this CheckPoint", preferredStyle: .alert)
                 resultAlert.addAction(UIAlertAction(title: "Okay", style: .default))
                 self.present(resultAlert, animated: true, completion: nil)
             }
@@ -89,54 +144,49 @@ extension RouteDesignerViewController: GMSMapViewDelegate {
         if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        if RouteDesignerConstants.testing { assert(checkRep()) }
-        if (tappedMarker.userData != nil){
-            let location = CLLocationCoordinate2D(latitude: (tappedMarker.userData as! CheckPoint).latitude, longitude: (tappedMarker.userData as! CheckPoint).longitude)
-            var centerPoint = mapView.projection.point(for: location)
-            centerPoint.y = centerPoint.y - 95
-            infoWindow.center = centerPoint
+    private func selectRoute(coordinate: CLLocationCoordinate2D, forType: RouteDesignerConstants.RouteType) {
+        let startPoint = mapView.projection.point(for: coordinate)
+        switch forType {
+        case .layer:
+            for (idx, layerRoute) in layerRoutesMarkers.enumerated() {
+                let typeOfTouch = getTypeOfTouch(from: startPoint, using: layerRoute)
+                switch typeOfTouch.0 {
+                case .touchMap: continue
+                case .touchMarker: selectLayerOrGpsRoute(at: idx, usingMarkers: layerRoutesMarkers, usingLines: layerRoutesLines)
+                case .touchLine: selectLayerOrGpsRoute(at: idx, usingMarkers: layerRoutesMarkers, usingLines: layerRoutesLines)
+                }
+            }
+        case .gps:
+            for (idx, layerRoute) in gpsRoutesMarkers.enumerated() {
+                let typeOfTouch = getTypeOfTouch(from: startPoint, using: layerRoute)
+                switch typeOfTouch.0 {
+                case .touchMap: continue
+                case .touchMarker: selectLayerOrGpsRoute(at: idx, usingMarkers: gpsRoutesMarkers, usingLines: gpsRoutesLines)
+                case .touchLine: selectLayerOrGpsRoute(at: idx, usingMarkers: gpsRoutesMarkers, usingLines: gpsRoutesLines)
+                }
+            }
+        default:
+            break
         }
-        if RouteDesignerConstants.testing { assert(checkRep()) }
     }
     
-    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+    private func selectLayerOrGpsRoute(at idx: Int, usingMarkers aMarkers: [[GMSMarker]], usingLines aLines: [[GMSPolyline]]) {
         if RouteDesignerConstants.testing { assert(checkRep()) }
-        infoWindow.removeFromSuperview()
-        if selectingLayerRoute {
-            selectRoute(coordinate: coordinate, forType: 0)
-            if selectedRoute {
-                focusOnOneRoute()
+        removeAllPoints()
+        selectedRoute = true
+        for (index, route) in aLines.enumerated() {
+            for (index2, line) in route.enumerated() {
+                if idx == index {
+                    line.strokeColor = RouteDesignerConstants.mapLineColor
+                    let marker = aMarkers[index][index2]
+                    let markerData = marker.userData as! CheckPoint
+                    marker.icon = GMSMarker.markerImage(with: .red)
+                    addPoint(coordinate: marker.position, isControlPoint: markerData.isControlPoint, at: index2)
+                } else {
+                    line.strokeColor = UIColor.gray
+                    aMarkers[index][index2].icon = GMSMarker.markerImage(with: .gray)
+                }
             }
-        } else if selectingGpsRoute {
-            selectRoute(coordinate: coordinate, forType: 1)
-            if selectedRoute {
-                focusOnOneRoute()
-            }
-        } else {
-            addPath(coordinate: coordinate, isControlPoint: true, at: markers.count)
-        }
-        if RouteDesignerConstants.testing { assert(checkRep()) }
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        if RouteDesignerConstants.testing { assert(checkRep()) }
-        infoWindow.removeFromSuperview()
-        if selectingSourceCoordinate {
-            sourceBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
-            selectingSourceCoordinate = false
-            sourcePin.alpha = 0.5
-            useSourceCoordinates = true
-        } else if selectingSearchCoordinate {
-            searchBar.text = "\(coordinate.latitude) \(coordinate.longitude)"
-            selectingSearchCoordinate = false
-            searchPin.alpha = 0.5
-            useDestCoordinates = true
-        }
-        if selectingLayerRoute {
-            selectRoute(coordinate: coordinate, forType: 0)
-        } else if selectingGpsRoute {
-            selectRoute(coordinate: coordinate, forType: 1)
         }
         if RouteDesignerConstants.testing { assert(checkRep()) }
     }
