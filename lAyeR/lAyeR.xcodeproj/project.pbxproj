@@ -134,7 +134,6 @@
 		A238E0721E8FA7A900BA10DC /* CheckpointCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */; };
 		A238E0741E8FAC7000BA10DC /* PoiCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238E0731E8FAC7000BA10DC /* PoiCardController.swift */; };
 		A253FB511E92892C002C6ADC /* LocalStorageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB4E1E92892C002C6ADC /* LocalStorageManagerProtocol.swift */; };
-		A253FB521E92892C002C6ADC /* PlistLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB4F1E92892C002C6ADC /* PlistLocalStorageManager.swift */; };
 		A253FB531E92892C002C6ADC /* RealmLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */; };
 		A253FB551E92985B002C6ADC /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB541E92985B002C6ADC /* ArrowView.swift */; };
 		A253FB591E93D2F1002C6ADC /* RealmString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253FB581E93D2F1002C6ADC /* RealmString.swift */; };
@@ -302,7 +301,6 @@
 		A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckpointCardController.swift; sourceTree = "<group>"; };
 		A238E0731E8FAC7000BA10DC /* PoiCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoiCardController.swift; sourceTree = "<group>"; };
 		A253FB4E1E92892C002C6ADC /* LocalStorageManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManagerProtocol.swift; sourceTree = "<group>"; };
-		A253FB4F1E92892C002C6ADC /* PlistLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistLocalStorageManager.swift; sourceTree = "<group>"; };
 		A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmLocalStorageManager.swift; sourceTree = "<group>"; };
 		A253FB541E92985B002C6ADC /* ArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		A253FB581E93D2F1002C6ADC /* RealmString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmString.swift; sourceTree = "<group>"; };
@@ -558,7 +556,6 @@
 				A253FB571E93D2DD002C6ADC /* RealmModels */,
 				A253FB4E1E92892C002C6ADC /* LocalStorageManagerProtocol.swift */,
 				A253FB501E92892C002C6ADC /* RealmLocalStorageManager.swift */,
-				A253FB4F1E92892C002C6ADC /* PlistLocalStorageManager.swift */,
 			);
 			name = LocalStorage;
 			sourceTree = "<group>";
@@ -1099,7 +1096,6 @@
 				528288B31E92690C00163654 /* AppSettingsConstants.swift in Sources */,
 				9D73276E1EA21248008D9860 /* LoadingBadge.swift in Sources */,
 				52DE2C411E995F4700671B6E /* TrackPoint.swift in Sources */,
-				A253FB521E92892C002C6ADC /* PlistLocalStorageManager.swift in Sources */,
 				52938BFF1E860D8000EB8F81 /* LoginViewController.swift in Sources */,
 				2C1F5C491E97A28100EAECFF /* POICategory.swift in Sources */,
 				A285404B1E71C4A200CF51B7 /* ARViewLayoutAdjustment.swift in Sources */,
