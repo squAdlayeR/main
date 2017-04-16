@@ -121,19 +121,19 @@ extension ARViewController {
     /// Opens the user profile page
     func openUserProfile() {
         menuController.remove()
-        self.performSegue(withIdentifier: "arToUserProfile", sender: nil)
+        self.performSegue(withIdentifier: StoryboardConstants.arToUserProfileSegue, sender: nil)
     }
     
     /// Opens the app settings page
     func openAppSettings() {
         menuController.remove()
-        self.performSegue(withIdentifier: "settingsSegue", sender: nil)
+        self.performSegue(withIdentifier: StoryboardConstants.arToSettingsSegue, sender: nil)
     }
     
     /// Opens the map designer page
     func openDesigner() {
         menuController.remove()
-        self.performSegue(withIdentifier: "arToDesignerSegue", sender: nil)
+        self.performSegue(withIdentifier: StoryboardConstants.arToDesignerSegue, sender: nil)
     }
     
     /// Force updates the user current location and nearby pois

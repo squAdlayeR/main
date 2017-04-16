@@ -9,17 +9,19 @@
 class StoryboardConstants {
     
     // Identifier
-    static let routeListIdentifier: String = "routeListCell"
-    static let storyboardIdentifier: String = "Main"
-    static let arViewControllerIdentifier: String = "ARViewController"
+    static let routeListIdentifier = "routeListCell"
+    static let storyboardIdentifier = "Main"
+    static let arViewControllerIdentifier = "ARViewController"
     
     // Segue
-    static let userProfileToDesignerSegue: String = "userProfileToDesigner"
-    static let unwindUserProfileToARSegue: String = "unwindUserProfileToAR"
-    static let userProfileToLoginSegue: String = "userProfileToLogin"
-    static let loginToARSegue: String = "loginToAR"
-    static let arToDesignerImportSegue: String = "arToDesignerImport"
-    static let arToDesignerSegue: String = "arToDesigner"
-    static let directToDesignerSegue: String = "arToDesignerWithDirect"
+    static let userProfileToDesignerSegue = "userProfileToDesigner"
+    static let unwindUserProfileToARSegue = "unwindUserProfileToAR"
+    static let userProfileToLoginSegue = "userProfileToLogin"
+    static let loginToARSegue = "loginToAR"
+    static let arToDesignerImportSegue = "arToDesignerImport"
+    static let arToDesignerSegue = "arToDesigner"
+    static let directToDesignerSegue = "arToDesignerWithDirect"
+    static let arToSettingsSegue = "settingsSegue"
+    static let arToUserProfileSegue = "arToUserProfile"
     
 }
