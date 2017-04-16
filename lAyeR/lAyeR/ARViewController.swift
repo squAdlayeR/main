@@ -291,8 +291,17 @@ class ARViewController: UIViewController {
         return CheckpointCardController(checkpoint: checkpoint, card: checkpointCard)
     }
     
+    /**
+     After the user reaches the destination,
+     change back to the explore mode (display nearby POIs)
+     */
     private func handleArrival() {
-        // TODO: use this method to inform user arrival
+        scnViewController.removeAllArrows()
+        checkpointCardControllers.removeAll()
+        miniMapController.mapView.clear()
+        geoManager.forceUpdateUserPoint()
+        geoManager.forceUpdateUserNearbyPOIS()
+        setMode(to: .explore)
     }
 }
 
