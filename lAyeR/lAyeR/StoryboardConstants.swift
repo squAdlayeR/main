@@ -19,4 +19,7 @@ class StoryboardConstants {
     static let userProfileToLoginSegue: String = "userProfileToLogin"
     static let loginToARSegue: String = "loginToAR"
     static let arToDesignerImportSegue: String = "arToDesignerImport"
+    static let arToDesignerSegue: String = "arToDesigner"
+    static let directToDesignerSegue: String = "arToDesignerWithDirect"
+    
 }

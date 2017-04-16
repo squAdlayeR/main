@@ -128,7 +128,6 @@ let contactIcon: String = "contact"
 let websiteIcon: String = "website"
 let ratingsIcon: String = "ratings"
 let statusIcon: String = "status"
-let segueToDirectName: String = "arToDesignerWithDirect"
 
 /// Loading Badge
 let defaultOverLayFrame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100)

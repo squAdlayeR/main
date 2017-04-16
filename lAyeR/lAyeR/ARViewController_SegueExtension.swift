@@ -23,13 +23,13 @@ extension ARViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "arToDesignerImport" {
+        if segue.identifier == StoryboardConstants.arToDesignerImportSegue {
             if let url = sender as? URL, let dest = segue.destination as? RouteDesignerViewController {
                 dest.importedURL = url
             }
             return
         }
-        if segue.identifier == "arToDesignerSegue" {
+        if segue.identifier == StoryboardConstants.arToDesignerSegue {
             guard let dest = segue.destination as? RouteDesignerViewController else { return }
             dest.removeAllMarkersAndLines()
             let currentUserPoint = geoManager.getLastUpdatedUserPoint()
@@ -38,7 +38,7 @@ extension ARViewController {
                 dest.addPoint(coordinate: CLLocationCoordinate2D(latitude: checkpoint.latitude, longitude: checkpoint.longitude), isControlPoint: checkpoint.isControlPoint, at: idx)
             }
         }
-        if segue.identifier == segueToDirectName {
+        if segue.identifier == StoryboardConstants.directToDesignerSegue {
             guard let dest = segue.destination as? RouteDesignerViewController else { return }
             if let destName = cardDestination {
                 let currentUserPoint = geoManager.getLastUpdatedUserPoint()

@@ -91,7 +91,7 @@ class PoiCard: Card {
             if let name = self.name { destQuery = destQuery.appending("\(name) ") }
             if let address = self.address { destQuery = destQuery.appending(address) }
             superController.cardDestination = destQuery
-            superViewController.performSegue(withIdentifier: segueToDirectName, sender: nil)
+            superViewController.performSegue(withIdentifier: StoryboardConstants.directToDesignerSegue, sender: nil)
         }
     }
     
