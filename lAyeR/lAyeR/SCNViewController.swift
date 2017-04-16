@@ -94,15 +94,22 @@ class SCNViewController: UIViewController {
     /**
      return a SCNNode arrow that faces up and points to the North
      */
-    private func getArrowSCNNode() -> SCNNode {
-        let path = Bundle.main.path(forResource: ARViewConstants.pathArrowName, ofType: ARViewConstants.pathArrowExtension)!
+    private func getArrowSCNNode() -> SCNNode? {
+        guard let path = Bundle.main.path(forResource: ARViewConstants.pathArrowName,
+                                          ofType: ARViewConstants.pathArrowExtension) else {
+            return nil
+        }
         let asset = MDLAsset(url: URL(string: path)!)
         let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
+        
+        // set color
         arrowNode.geometry?.firstMaterial?.emission.contents = ARViewConstants.arrowDefaultColor
         
+        // initial rotation to make the arrow point to the North
         arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-Double.pi / 2), 1, 0, 0)
         arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(Double.pi / 2), 0, 1, 0)
         
+        // initialize size
         arrowNode.scale = SCNVector3(x: 1 / 24.0, y: 1 / 24.0, z: 1 / 108.0)
         
         return arrowNode
@@ -199,13 +206,17 @@ class SCNViewController: UIViewController {
         var currentOffset = firstOffset
         
         while currentOffset <= srcDestDistance && leftCount > 0 {
-            let arrow = getArrowSCNNode()
+            guard let arrow = getArrowSCNNode() else {
+                return (0, leftCount)
+            }
             
+            // apply rotation according to the azimuth of the line from "src" to "dest"
             let rotationTransformation = SCNMatrix4Rotate(arrow.transform,
                                                           -Float(GeoUtil.getAzimuth(between: src, dest)),
                                                           0, 1, 0)
             arrow.transform = rotationTransformation
             
+            // set the position of the arrow node relative to the first checkpoint (origin of the coordinate)
             let distance = currentOffset
             let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: srcDestAzimuth, distance: distance)
             arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -ARViewConstants.arrowGap, 0)
