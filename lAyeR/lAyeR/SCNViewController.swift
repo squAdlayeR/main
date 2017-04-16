@@ -381,6 +381,13 @@ class SCNViewController: UIViewController {
     }
     
     private func animateMovingOn() {
+        guard !arrowNodes.isEmpty else {
+            return
+        }
+        if animatingArrowIndex > arrowNodes.count - 1 {
+            animatingArrowIndex = arrowNodes.count - 1
+        }
+        
         let count = arrowNodes.count > ARViewConstants.numArrowsDisplayedForward ?
                     ARViewConstants.numArrowsDisplayedForward :
                     arrowNodes.count
@@ -390,12 +397,9 @@ class SCNViewController: UIViewController {
                                                                actualIndex: i, length: count)
             
             let oneIteration = SCNAction.sequence([
-                SCNAction.group([  // parallely
-                    changeColorAction,
-                    floatAction,
-                    SCNAction.customAction(duration: 0, action: { _,_ in self.animatingArrowIndex = i })
-                ]),
-                SCNAction.wait(duration: Double(count) * 0.38),
+                SCNAction.customAction(duration: 0, action: { _,_ in self.animatingArrowIndex = i }),
+                SCNAction.group([changeColorAction, floatAction]),  // parallely
+                SCNAction.wait(duration: Double(count) * 0.38 - 0.66),
             ])
         
             let foreverIteration = SCNAction.sequence([
