@@ -43,7 +43,7 @@ class Messages {
     
     /// Register
     static let createUserFailureMessage: String = "Failed to sign up."
-    static let inputFormatMessage: String = "Username and password should only contain letters and numbers."
+    static let inputFormatMessage: String = "Username and password should not be empty and only contain alphanumeric characters and whitespaces."
     static let inputLengthMessage: String = "Password should be longer than or equal to 6 digits and less than or equal to 12 digits."
     static let invalidEmailMessage: String = "Invalid Email."
     static let passwordMismatchMessage: String = "Password Mismatch!"
@@ -59,7 +59,7 @@ class Messages {
     static let unknownErrorMessage: String = "Unknown Error."
     
     /// Naming
-    static let invalidNameMessage: String = "Route name should only contain letters or numbers"
+    static let invalidNameMessage: String = "Route name should not be empty and only contain alphanumeric characters and whitespaces."
 
 }
 

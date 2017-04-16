@@ -74,7 +74,10 @@ extension String {
     
     /// Returns true if a string is alphanumeric.
     var isAlphanumeric: Bool {
-        return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
+        let validCharacters = range(of: "[^a-zA-Z0-9 ]", options: .regularExpression) == nil
+        let nonEmpty = !isEmpty
+        let containCharacters = !self.replacingOccurrences(of: " ", with: "").isEmpty
+        return validCharacters && nonEmpty && containCharacters
     }
 }
 
