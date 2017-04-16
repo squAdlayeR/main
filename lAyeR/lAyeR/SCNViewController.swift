@@ -385,7 +385,7 @@ class SCNViewController: UIViewController {
                     ARViewConstants.numArrowsDisplayedForward :
                     arrowNodes.count
         
-        for i in getOneRoundIndices(startFrom: animatingArrowIndex) {
+        for i in getOneRoundIndices(startFrom: animatingArrowIndex, length: count) {
             let relativeIndex = getRelativeIndexInOneIteration(startIndex: animatingArrowIndex,
                                                                actualIndex: i, length: count)
             
@@ -408,16 +408,20 @@ class SCNViewController: UIViewController {
         isAnimating = true
     }
     
-    private func getOneRoundIndices(startFrom firstIndex: Int) -> [Int] {
+    /**
+     suppose firstIndex = 3, length = 5, 
+     this method will return
+     3, 4, 0, 1, 2
+     */
+    private func getOneRoundIndices(startFrom firstIndex: Int, length: Int) -> [Int] {
         var range: [Int] = []
-        let count = arrowNodes.count > ARViewConstants.numArrowsDisplayedForward ?
-                    ARViewConstants.numArrowsDisplayedForward :
-                    arrowNodes.count
+        
         var index = firstIndex
-        while index <= count - 1 {
+        while index <= length - 1 {
             range.append(index)
             index += 1
         }
+
         index = 0
         while index <= firstIndex - 1 {
             range.append(index)
@@ -426,8 +430,13 @@ class SCNViewController: UIViewController {
         return range
     }
     
+    /**
+     suppose startIndex = 3, actualIndex = 2, length = 5
+     this method will return 4
+     because 3, 4, 0, 1, 2
+     */
     private func getRelativeIndexInOneIteration(startIndex: Int, actualIndex: Int, length: Int) -> Int {
-        if actualIndex > startIndex {
+        if actualIndex >= startIndex {
             return actualIndex - startIndex
         } else {
             return actualIndex + length - startIndex
