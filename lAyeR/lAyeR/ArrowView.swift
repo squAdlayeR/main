@@ -18,10 +18,10 @@ class ArrowView: UIView {
     var arrowImageView: UIImageView!
     
     func setup() {
-        self.frame.size = Constant.cardArrowViewSize
+        self.frame.size = ARViewConstants.cardArrowViewSize
         
-        arrowImageView = UIImageView(frame: Constant.arrowImageFrame)
-        arrowImageView.image = UIImage(named: Constant.cardArrowImageName)
+        arrowImageView = UIImageView(frame: ARViewConstants.arrowImageFrame)
+        arrowImageView.image = UIImage(named: ARViewConstants.cardArrowImageName)
         arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(-Double.pi / 2.0), 0, 0, 1)
         
         self.addSubview(arrowImageView)

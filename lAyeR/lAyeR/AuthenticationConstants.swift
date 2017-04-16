@@ -6,7 +6,7 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-class AuthenticationConstants {
+struct AuthenticationConstants {
     
     static let minimumPasswordLength: Int = 6
     static let maximumPasswordLength: Int = 12

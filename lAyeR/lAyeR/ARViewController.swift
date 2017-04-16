@@ -32,9 +32,9 @@ class ARViewController: UIViewController {
     var nextCheckpointIndex = 0
     var fov: Double!
     private let nearbyPOIsUpdatedNotificationName = NSNotification.Name(rawValue:
-                                                                        Constant.nearbyPOIsUpdatedNotificationName)
+                                                                        ARViewConstants.nearbyPOIsUpdatedNotificationName)
     private let userLocationUpdatedNotificationName = NSNotification.Name(rawValue:
-                                                                        Constant.userLocationUpdatedNotificationName)
+                                                                        ARViewConstants.userLocationUpdatedNotificationName)
 
     // for displaying checkpoint card and poi card
     var checkpointCardControllers: [CheckpointCardController] = []
@@ -147,7 +147,7 @@ class ARViewController: UIViewController {
     
     
     private func updateNextCheckpointIndex() {
-        for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
+        for index in nextCheckpointIndex ..< nextCheckpointIndex + ARViewConstants.checkCloseRange {
             guard index >= 0 && index <= controlRoute.size - 1 else {
                 continue
             }
@@ -167,7 +167,7 @@ class ARViewController: UIViewController {
      */
     private func doesArrive(at controlPoint: CheckPoint) -> Bool {
         let userPoint = geoManager.getLastUpdatedUserPoint()
-        return GeoUtil.getCoordinateDistance(userPoint, controlPoint) < Constant.arrivalDistanceThreshold
+        return GeoUtil.getCoordinateDistance(userPoint, controlPoint) < ARViewConstants.arrivalDistanceThreshold
     }
     
     
@@ -197,8 +197,8 @@ class ARViewController: UIViewController {
     
     private func getCheckpointsToDisplay(withNextCheckpointAt nextCheckpointIndex: Int) -> [CheckpointCardController] {
         var newCheckpointCardControllers: [CheckpointCardController] = []
-        let startIndex = nextCheckpointIndex - Constant.numCheckpointDisplayedBackward
-        let endIndex = nextCheckpointIndex + Constant.numCheckpointDisplayedForward
+        let startIndex = nextCheckpointIndex - ARViewConstants.numCheckpointDisplayedBackward
+        let endIndex = nextCheckpointIndex + ARViewConstants.numCheckpointDisplayedForward
         for i in startIndex ..< endIndex {
             guard i >= 0 && i <= controlRoute.size - 1 else {
                 continue
@@ -261,7 +261,7 @@ class ARViewController: UIViewController {
      */
     private func startObservingDeviceMotion() {
         displayLink.add(to: .current, forMode: .defaultRunLoopMode)
-        displayLink.preferredFramesPerSecond = Constant.framePerSecond
+        displayLink.preferredFramesPerSecond = ARViewConstants.framePerSecond
     }
     
     @objc private func updateLoop() {

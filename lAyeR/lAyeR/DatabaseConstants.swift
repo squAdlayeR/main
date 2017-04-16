@@ -6,7 +6,7 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-class DatabaseConstants {
+struct DatabaseConstants {
     
     static let profilesKey: String = "profiles"
     static let gpstrackKey: String = "gpstrack"

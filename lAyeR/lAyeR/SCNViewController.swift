@@ -93,10 +93,10 @@ class SCNViewController: UIViewController {
      return a SCNNode arrow that faces up and points to the North
      */
     private func getArrowSCNNode() -> SCNNode {
-        let path = Bundle.main.path(forResource: Constant.pathArrowName, ofType: Constant.pathArrowExtension)!
+        let path = Bundle.main.path(forResource: ARViewConstants.pathArrowName, ofType: ARViewConstants.pathArrowExtension)!
         let asset = MDLAsset(url: URL(string: path)!)
         let arrowNode = SCNNode(mdlObject: asset.object(at: 0))
-        arrowNode.geometry?.firstMaterial?.emission.contents = Constant.arrowDefaultColor
+        arrowNode.geometry?.firstMaterial?.emission.contents = ARViewConstants.arrowDefaultColor
         
         arrowNode.transform = SCNMatrix4Rotate(SCNMatrix4Identity, Float(-Double.pi / 2), 1, 0, 0)
         arrowNode.transform = SCNMatrix4Rotate(arrowNode.transform, Float(Double.pi / 2), 0, 1, 0)
@@ -132,8 +132,8 @@ class SCNViewController: UIViewController {
         
         var (previousOffset, leftCount) = addArrows(from: geoManager.getLastUpdatedUserPoint(),
                                                     to: nextCheckpoint,
-                                                    firstOffset: Constant.firstArrowOffset,
-                                                    leftCount: Constant.numArrowsDisplayedForward)
+                                                    firstOffset: ARViewConstants.firstArrowOffset,
+                                                    leftCount: ARViewConstants.numArrowsDisplayedForward)
         
         for index in nextCheckpointIndex ..< route.size - 1 {
             if leftCount <= 0 {
@@ -151,7 +151,7 @@ class SCNViewController: UIViewController {
      update the index of the next checkpoint according to the user current location
      */
     private func updateNextCheckpointIndex() {
-        for index in nextCheckpointIndex ..< nextCheckpointIndex + Constant.checkCloseRange {
+        for index in nextCheckpointIndex ..< nextCheckpointIndex + ARViewConstants.checkCloseRange {
             guard index >= 0 && index <= route.size - 1 else {
                 return
             }
@@ -168,7 +168,7 @@ class SCNViewController: UIViewController {
      */
     private func doesArrive(at checkpoint: CheckPoint) -> Bool {
         let userPoint = geoManager.getLastUpdatedUserPoint()
-        return GeoUtil.getCoordinateDistance(userPoint, checkpoint) < Constant.arrivalDistanceThreshold
+        return GeoUtil.getCoordinateDistance(userPoint, checkpoint) < ARViewConstants.arrivalDistanceThreshold
     }
     
     /**
@@ -206,12 +206,12 @@ class SCNViewController: UIViewController {
             
             let distance = currentOffset
             let positionRelToSrc = azimuthDistanceToCoordinate(azimuth: srcDestAzimuth, distance: distance)
-            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -Constant.arrowGap, 0)
+            arrow.position = srcPosition + positionRelToSrc + SCNVector3(0, -ARViewConstants.arrowGap, 0)
             
             arrowNodes.append(arrow)
             scene.rootNode.addChildNode(arrow)
             
-            currentOffset += Constant.arrowGap
+            currentOffset += ARViewConstants.arrowGap
             leftCount -= 1
         }
         return (currentOffset - srcDestDistance, leftCount)
@@ -284,7 +284,7 @@ class SCNViewController: UIViewController {
             let dy = arrow.position.y - firstArrow.position.y
             let distance = Double(sqrt(dx * dx + dy * dy))
             
-            let largerPercentage: Double = distance / (2 * Constant.arrowGap * Double(Constant.numArrowsDisplayedForward))
+            let largerPercentage: Double = distance / (2 * ARViewConstants.arrowGap * Double(ARViewConstants.numArrowsDisplayedForward))
 
             let x = Double(arrow.scale.x)
             let y = Double(arrow.scale.y)
@@ -299,9 +299,9 @@ class SCNViewController: UIViewController {
      show arorws in the decreasing opacity
      */
     private func updateOpacity() {
-        let opacityGap = Constant.arrowOpacity / Double(Constant.numArrowsDisplayedForward)
+        let opacityGap = ARViewConstants.arrowOpacity / Double(ARViewConstants.numArrowsDisplayedForward)
         for i in 0 ..< arrowNodes.count {
-            let opacity = Constant.arrowOpacity - Double(i) * opacityGap
+            let opacity = ARViewConstants.arrowOpacity - Double(i) * opacityGap
             arrowNodes[i].opacity = CGFloat(opacity < 0 ? 0 : opacity)
         }
     }
@@ -344,24 +344,24 @@ class SCNViewController: UIViewController {
      then change back to the normal color
      */
     private var changeColorAction: SCNAction {
-        let pr: CGFloat = (Constant.targetColorR - Constant.arrowDefaultColorR) / 0.18
-        let pg: CGFloat = (Constant.targetColorG - Constant.arrowDefaultColorG) / 0.18
-        let pb: CGFloat = (Constant.targetColorB - Constant.arrowDefaultColorB) / 0.18
+        let pr: CGFloat = (ARViewConstants.targetColorR - ARViewConstants.arrowDefaultColorR) / 0.18
+        let pg: CGFloat = (ARViewConstants.targetColorG - ARViewConstants.arrowDefaultColorG) / 0.18
+        let pb: CGFloat = (ARViewConstants.targetColorB - ARViewConstants.arrowDefaultColorB) / 0.18
         
         return SCNAction.sequence([
             // change to color for highlighting
             SCNAction.customAction(duration: 0.38, action: { (node, time) in
                 let color = UIColor(red: pr * time,
-                                    green: Constant.arrowDefaultColorG + pg * time,
-                                    blue: Constant.arrowDefaultColorB + pb * time, alpha: 1)
+                                    green: ARViewConstants.arrowDefaultColorG + pg * time,
+                                    blue: ARViewConstants.arrowDefaultColorB + pb * time, alpha: 1)
                 node.geometry!.firstMaterial!.emission.contents = color
             }),
             
             // change back to normal color
             SCNAction.customAction(duration: 0.28, action: { (node, time) in
-                let color = UIColor(red: Constant.targetColorR - pr * time,
-                                    green: Constant.targetColorG - pg * time,
-                                    blue: Constant.targetColorB - pb * time, alpha: 1)
+                let color = UIColor(red: ARViewConstants.targetColorR - pr * time,
+                                    green: ARViewConstants.targetColorG - pg * time,
+                                    blue: ARViewConstants.targetColorB - pb * time, alpha: 1)
                 node.geometry!.firstMaterial!.emission.contents = color
             })
         ])
@@ -379,8 +379,8 @@ class SCNViewController: UIViewController {
     }
     
     private func animateMovingOn() {
-        let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
-            Constant.numArrowsDisplayedForward :
+        let count = arrowNodes.count > ARViewConstants.numArrowsDisplayedForward ?
+            ARViewConstants.numArrowsDisplayedForward :
             arrowNodes.count
         
         for i in 0 ..< count {
@@ -394,7 +394,7 @@ class SCNViewController: UIViewController {
                 SCNAction.repeatForever(oneIteration)
             ])
             
-            arrowNodes[i].runAction(foreverIteration, forKey: Constant.arrowActionKey)
+            arrowNodes[i].runAction(foreverIteration, forKey: ARViewConstants.arrowActionKey)
         }
         isAnimating = true
     }
@@ -403,11 +403,11 @@ class SCNViewController: UIViewController {
      stop the moving on animation of the arrows
      */
     private func stopAnimation() {
-        let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
-                    Constant.numArrowsDisplayedForward :
+        let count = arrowNodes.count > ARViewConstants.numArrowsDisplayedForward ?
+                    ARViewConstants.numArrowsDisplayedForward :
                     arrowNodes.count
         for i in 0 ..< count {
-            arrowNodes[i].removeAction(forKey: Constant.arrowActionKey)
+            arrowNodes[i].removeAction(forKey: ARViewConstants.arrowActionKey)
         }
         isAnimating = false
     }

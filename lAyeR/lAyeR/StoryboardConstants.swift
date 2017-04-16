@@ -6,7 +6,7 @@
 //  Copyright © 2017年 nus.cs3217.layer. All rights reserved.
 //
 
-class StoryboardConstants {
+struct StoryboardConstants {
     
     // Identifier
     static let routeListIdentifier = "routeListCell"

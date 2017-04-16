@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Constant {
+struct ARViewConstants {
     static let nearbyPOIsUpdatedNotificationName = "nearbyPOIsUpdatedNotification"
     static let userLocationUpdatedNotificationName = "userLocationUpdatedNotification"
     

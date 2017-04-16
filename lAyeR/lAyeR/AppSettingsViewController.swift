@@ -66,7 +66,7 @@ class AppSettingsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let contentSize = CGSize(width: categoriesTable.frame.width,
-                                 height: categoriesTable.frame.origin.y + categoriesTable.rowHeight * CGFloat(poiCategories.count))
+                                 height: categoriesTable.frame.origin.y + categoriesTable.rowHeight * CGFloat(AppSettingsConstants.poiCategories.count))
         scrollView.contentSize = contentSize
         
     }
@@ -156,14 +156,14 @@ extension AppSettingsViewController: UITableViewDelegate, UITableViewDataSource 
     
     /// Defines the number of cells in the table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return poiCategories.count
+        return AppSettingsConstants.poiCategories.count
     }
     
     /// Defines the diplay of cells.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: categoriesReusableIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: AppSettingsConstants.categoriesReusableIdentifier)
         guard let categoryCell = cell as? POICategoriesCell else { return cell! }
-        let specificCategory = poiCategories[indexPath.item]
+        let specificCategory = AppSettingsConstants.poiCategories[indexPath.item]
         categoryCell.prepareDisplay(with: specificCategory)
         return categoryCell
     }
