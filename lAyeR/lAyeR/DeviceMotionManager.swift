@@ -10,11 +10,11 @@ import CoreMotion
 import Foundation
 import UIKit
 
-/**
- this class is a single wrapper of the iOS CMDeviceMotionManager
- It provides the API to get some useful value is not directly provided by CMDeveceMotionManager
- */
 
+/**
+ this class is a singleton wrapper of the iOS CMDeviceMotionManager
+ It provides the API to get some useful values that are not directly provided by CMDeveceMotionManager
+ */
 class DeviceMotionManager {
     private static var instance: DeviceMotionManager?
     

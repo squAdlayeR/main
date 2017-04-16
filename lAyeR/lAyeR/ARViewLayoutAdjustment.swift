@@ -9,6 +9,16 @@
 import Foundation
 import UIKit
 
+/**
+ This is the class that represnets a layout adjustment
+ to be applied to certain augmented reality UI components 
+ (mainly the checkpoint cards and Point of Interest cards)
+ The layout adjustment contains four components
+ - x position 
+ - y position
+ - yaw rotation
+ - horizontal rotation
+ */
 struct ARViewLayoutAdjustment {
     var xPosition: CGFloat = 0
     var yPosition: CGFloat = 0

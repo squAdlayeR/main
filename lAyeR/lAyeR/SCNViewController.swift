@@ -13,12 +13,14 @@ import SceneKit.ModelIO
 
 
 
-/*
+/**
+ This is the clas that controls the display of the path arrows
+ (It might also controls other ui components displayed using SceneKit in the future)
+ 
  The origin of the coordinate is the first check point
  The positive direction of x axis points to the East
  The negative direction of z axis points to the North
  */
-
 class SCNViewController: UIViewController {
     // for displaying path with SceneKit
     let cameraNode = SCNNode()
@@ -34,6 +36,10 @@ class SCNViewController: UIViewController {
     
     var isAnimating: Bool = true
     
+    /**
+     The first checkpoint of the route to be displayed
+     This checkpoint defines the origin of the coordinate
+     */
     private var firstCheckpoint: GeoPoint? {
         guard route.size > 0 else {
             return nil
@@ -41,6 +47,9 @@ class SCNViewController: UIViewController {
         return route.checkPoints[0]
     }
    
+    /**
+     The next checkpoint the user is currently aiming to
+     */
     private var nextCheckpoint: GeoPoint? {
         guard nextCheckpointIndex >= 0 && nextCheckpointIndex <= route.size - 1 else {
             return nil
@@ -302,6 +311,9 @@ class SCNViewController: UIViewController {
      transform to the corresponding coordinate
      with positive x axis pointing to the East
      positive y axis pointing to the North
+     - Parameters: The azimuth and the distance of the target point
+     - Returns: the corresponding coordinate with positive x axis pointing to the East
+                and the negative y axis pointing to the North
      */
     private func azimuthDistanceToCoordinate(azimuth: Double, distance: Double) -> SCNVector3 {
         let x = distance * sin(azimuth)  // positive: to East
@@ -387,6 +399,9 @@ class SCNViewController: UIViewController {
         isAnimating = true
     }
     
+    /**
+     stop the moving on animation of the arrows
+     */
     private func stopAnimation() {
         let count = arrowNodes.count > Constant.numArrowsDisplayedForward ?
                     Constant.numArrowsDisplayedForward :

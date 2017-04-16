@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+
+/**
+ This is the UIView class that represents
+ the arrow pointing to the highlight checkpoint (default is the next checkpoint) when it is out of the view
+ */
 class ArrowView: UIView {
     var arrowImageView: UIImageView!
     
