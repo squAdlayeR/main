@@ -21,9 +21,11 @@ class PoiCardController {
         self.card = card
     }
     
-    /// update position and orientation of card
-    /// update the distance displayed on the card
-    /// update the opacity of the card
+    /**
+     update position and orientation of card
+     update the distance displayed on the card
+     update the opacity of the card
+     */
     func updateCard(userPoint: GeoPoint, motionManager: DeviceMotionManager,
                     superView: UIView, fov: Double) {
         let azimuth = GeoUtil.getAzimuth(between: userPoint, poi)

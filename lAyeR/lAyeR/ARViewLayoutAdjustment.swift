@@ -40,11 +40,14 @@ struct ARViewLayoutAdjustment {
         }
     }
     
-    var perspectiveYPosition: CGFloat {
+    /**
+     The height position used to simulate the perspective projection
+     */
+    private var perspectiveYPosition: CGFloat {
         let projectionPlaneDistance = ARViewConstants.projectionPlaneDistance
         let projectionPlaneToTargeDistance = CGFloat(distance)
-        let eyeYPositioin = superView.bounds.height * 0.56
-        let range = superView.bounds.height * 0.18
+        let eyeYPositioin = superView.bounds.height * ARViewConstants.eyeYPositionInPercentage
+        let range = superView.bounds.height * ARViewConstants.perspectiveHeightRangeInPercentage
         let riseOffset = projectionPlaneDistance / (projectionPlaneDistance + projectionPlaneToTargeDistance) * range
         return eyeYPositioin - riseOffset
     }
@@ -59,6 +62,9 @@ struct ARViewLayoutAdjustment {
         calculateParameters()
     }
     
+    /**
+     Main method, calculate the value of each parameter of adjustment
+     */
     mutating func calculateParameters() {
         let yawAngle = deviceMotionManager.getYawAngle()
         let horzAngle = getHorzAngle()

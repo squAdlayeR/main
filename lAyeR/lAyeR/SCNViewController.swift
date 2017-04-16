@@ -246,6 +246,11 @@ class SCNViewController: UIViewController {
         arrowNodes = []
     }
     
+    /**
+     update the orientation of the scnee camera node according to the data from DeviceMotionManager
+     update the position of the scene camera according to the user location
+     This method will be called in the main update look in ARViewController
+     */
     func updateSceneCamera() {
         updateSceneCameraOrientation()
         updateSceneCameraPosition()

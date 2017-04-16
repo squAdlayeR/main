@@ -34,8 +34,10 @@ class CheckpointCardController {
         arrow.setup()
     }
     
-    /// set this card as being selected
-    /// this will create a white arrow pointing to the card if it is out of the view
+    /**
+     set this card as being selected
+     this will create a white arrow pointing to the card if it is out of the view
+     */
     func setSelected(_ selected: Bool) {
         self.selected = selected
         
@@ -49,9 +51,11 @@ class CheckpointCardController {
         }
     }
     
-    /// update position and orientation of card
-    /// update the distance displayed on the card
-    /// update the opacity of the card
+    /**
+     update position and orientation of card
+     update the distance displayed on the card
+     update the opacity of the card
+     */
     func updateCard(userPoint: GeoPoint, motionManager: DeviceMotionManager,
                     superView: UIView, fov: Double) {
         let azimuth = GeoUtil.getAzimuth(between: userPoint, checkpoint)
@@ -74,8 +78,10 @@ class CheckpointCardController {
         }
     }
     
-    /// calculate the opacity of the card
-    /// based on the distance from the current user point to the checkpoint associated with this card
+    /**
+     calculate the opacity of the card
+     based on the distance from the current user point to the checkpoint associated with this card
+     */
     private func calculateAlpha(distance: CGFloat) -> CGFloat {
         return ARViewConstants.maxMarkerAlpha - ARViewConstants.markerAlphaChangeRange * distance / ARViewConstants.maxPushBackDistance
     }

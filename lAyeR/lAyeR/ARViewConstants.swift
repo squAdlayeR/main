@@ -69,6 +69,9 @@ struct ARViewConstants {
     
     static let animationWaitTime: TimeInterval = 0.38
     static let oneCompleteAnimationTime = changeToHighlightColorTime + changeToDefaultColorTime
+    
+    static let eyeYPositionInPercentage: CGFloat = 0.56
+    static let perspectiveHeightRangeInPercentage: CGFloat = 0.18
 }
 
 

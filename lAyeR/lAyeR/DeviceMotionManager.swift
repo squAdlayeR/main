@@ -92,3 +92,18 @@ class DeviceMotionManager {
         return atan2(-rotationMatrix.m32, -rotationMatrix.m31)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
