@@ -52,7 +52,7 @@ extension LoginViewController: FBSDKLoginButtonDelegate {
     
     /// Signs in the user with facebook credential.
     /// - Parameter crendential: Facebook authentication credential.
-    private func signInUser(with credential: FIRAuthCredential) {
+    private func signInUser(with credential: AuthCredential) {
         dataService.signInUser(with: credential) { (user, error) in
             if let error = error {
                 self.handleError(error: error)

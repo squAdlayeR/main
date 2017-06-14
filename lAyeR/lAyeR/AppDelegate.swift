@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sleep(AppConfig.launchTime)
         initializeWindow()
         // Checks if user logged in
-        guard let currentUser = FIRAuth.auth()?.currentUser else {
+        guard let currentUser = Auth.auth().currentUser else {
             return true
         }
         let isFBUser = !currentUser.providerData.filter({ $0.providerID == AppConfig.FBProviderID }).isEmpty
@@ -91,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func configureDependencies(_ application: UIApplication, launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         GMSPlacesClient.provideAPIKey(AppConfig.apiKey)
         GMSServices.provideAPIKey(AppConfig.apiKey)
-        FIRApp.configure()
+        FirebaseApp.configure()
         DatabaseManager.instance.startCheckConnectivity()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

@@ -8,6 +8,7 @@
 
 import ObjectMapper
 import FirebaseDatabase
+import FirebaseAuth
 
 class DatabaseManager {
     
@@ -24,7 +25,7 @@ class DatabaseManager {
     ///     - uid: String: user id
     ///     - userProfile: UserProfile: user profile to be added
     func addUserProfileToDatabase(uid: String, userProfile: UserProfile) {
-        FIRDatabase.database().reference().child(DatabaseConstants.profilesKey).child(uid).setValue(userProfile.toJSON())
+        Database.database().reference().child(DatabaseConstants.profilesKey).child(uid).setValue(userProfile.toJSON())
     }
     
     /// Creates a user profile when user first sign in with facebook credential
@@ -50,7 +51,7 @@ class DatabaseManager {
     ///     - uid: String: user id
     ///     - completion: () -> ()
     private func verifyUserProfile(uid: String, completion: @escaping () -> ()) {
-        FIRDatabase.database().reference().child(DatabaseConstants.profilesKey).observeSingleEvent(of: .value, with: { snapshot in
+        Database.database().reference().child(DatabaseConstants.profilesKey).observeSingleEvent(of: .value, with: { snapshot in
             guard snapshot.hasChild(uid) else {
                 completion()
                 return
@@ -63,7 +64,7 @@ class DatabaseManager {
     ///     - uid: String: user id of user
     ///     - completion: (UserProfile?) -> ()
     func getUserProfile(uid: String, completion: @escaping (_ userProfile: UserProfile?) -> ()) {
-        FIRDatabase.database().reference().child(DatabaseConstants.profilesKey).child(uid).observeSingleEvent(of: .value, with: { snapshot in
+        Database.database().reference().child(DatabaseConstants.profilesKey).child(uid).observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? [String: Any] ?? [:]
             let profile = UserProfile(JSON: value)
             completion(profile)
@@ -91,7 +92,7 @@ class DatabaseManager {
     func updateUserProfile(uid: String, userProfile: UserProfile) {
         DispatchQueue.global(qos: .background).async {
             self.currentUserProfile = userProfile
-            FIRDatabase.database().reference().child(DatabaseConstants.profilesKey).child(uid).setValue(userProfile.toJSON())
+            Database.database().reference().child(DatabaseConstants.profilesKey).child(uid).setValue(userProfile.toJSON())
         }
     }
     
@@ -104,12 +105,12 @@ class DatabaseManager {
     ///     - completion: (Bool?) -> ()
     func addRoute(uid: String, route: Route, completion: @escaping (_ success: Bool?) -> ()) {
         let combinedName = getRouteKey(uid, route.name)
-        FIRDatabase.database().reference().child(DatabaseConstants.routesKey).observeSingleEvent(of: .value, with: { snapshot in
+        Database.database().reference().child(DatabaseConstants.routesKey).observeSingleEvent(of: .value, with: { snapshot in
             if snapshot.hasChild(combinedName) {
                 completion(nil)
                 return
             }
-            FIRDatabase.database().reference().child(DatabaseConstants.routesKey).child(combinedName).setValue(route.toJSON(), withCompletionBlock: { error, ref in
+            Database.database().reference().child(DatabaseConstants.routesKey).child(combinedName).setValue(route.toJSON(), withCompletionBlock: { error, ref in
                 completion(error == nil)
             })
         })
@@ -122,7 +123,7 @@ class DatabaseManager {
     ///     - completion: (Route?) -> ()
     func getRoute(uid: String, named routeName: String, completion: @escaping (_ route: Route?) -> ()) {
         let combinedName = getRouteKey(uid, routeName)
-        FIRDatabase.database().reference().child(DatabaseConstants.routesKey).child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
+        Database.database().reference().child(DatabaseConstants.routesKey).child(combinedName).observeSingleEvent(of: .value, with: { snapshot in
             let result = Parser.parseRoute(snapshot.value)
             completion(result)
         })
@@ -159,7 +160,7 @@ class DatabaseManager {
     ///     - range: search radius in meters
     ///     - completion: ([Route]) -> ()
     func getRoutes(between source: GeoPoint, and destination: GeoPoint, inRange range: Double, completion: @escaping (_ routes: [Route]) -> ()) {
-        FIRDatabase.database().reference().child(DatabaseConstants.routesKey).observeSingleEvent(of: .value, with: { snapshot in
+        Database.database().reference().child(DatabaseConstants.routesKey).observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? [String: Any] else {
                 completion([])
                 return
@@ -212,7 +213,7 @@ class DatabaseManager {
     ///     - route: Route: route to be updated
     func updateRoute(uid: String, route: Route) {
         let combinedName = getRouteKey(uid, route.name)
-        FIRDatabase.database().reference().child(DatabaseConstants.routesKey).child(combinedName).setValue(route.toJSON())
+        Database.database().reference().child(DatabaseConstants.routesKey).child(combinedName).setValue(route.toJSON())
     }
     
     /// Removes a route from database
@@ -221,7 +222,7 @@ class DatabaseManager {
     ///     - uid: user id
     func removeRoute(uid: String, routeName: String) {
         let combinedName = getRouteKey(uid, routeName)
-        FIRDatabase.database().reference().child(DatabaseConstants.routesKey).child(combinedName).removeValue()
+        Database.database().reference().child(DatabaseConstants.routesKey).child(combinedName).removeValue()
     }
     
     // ===================== TRACKPOINTS ==============================
@@ -245,10 +246,10 @@ class DatabaseManager {
             if from.longitude < to.longitude { londict[ModelConstants.rightKey] = true }
             latdict[lonEntry] = londict
             // get dirs
-            FIRDatabase.database().reference().child(DatabaseConstants.gpstrackKey).observeSingleEvent(of: .value, with: { snapshot in
+            Database.database().reference().child(DatabaseConstants.gpstrackKey).observeSingleEvent(of: .value, with: { snapshot in
                 if snapshot.hasChild(latEntry) {
                     // update value here
-                    let latRef = FIRDatabase.database().reference().child(DatabaseConstants.gpstrackKey).child(latEntry)
+                    let latRef = Database.database().reference().child(DatabaseConstants.gpstrackKey).child(latEntry)
                     let latSnapshot = snapshot.childSnapshot(forPath: latEntry)
                     if latSnapshot.hasChild(lonEntry) {
                         let lonRef = latRef.child(lonEntry)
@@ -268,7 +269,7 @@ class DatabaseManager {
                         latRef.child(lonEntry).setValue(londict)
                     }
                 } else {
-                    FIRDatabase.database().reference().child(DatabaseConstants.gpstrackKey).child(latEntry).setValue(latdict)
+                    Database.database().reference().child(DatabaseConstants.gpstrackKey).child(latEntry).setValue(latdict)
                 }
             })
         }
@@ -288,7 +289,7 @@ class DatabaseManager {
         var trackPoints: Set<TrackPoint> = []
         DispatchQueue.global(qos: .background).async {
             // data service here
-            FIRDatabase.database().reference().child(DatabaseConstants.gpstrackKey).queryOrdered(byChild: ModelConstants.latitudeKey).queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
+            Database.database().reference().child(DatabaseConstants.gpstrackKey).queryOrdered(byChild: ModelConstants.latitudeKey).queryStarting(atValue: fromLat).queryEnding(atValue: toLat).observeSingleEvent(of: .value, with: { snapshot in
                 if let all = snapshot.value as? [String: Any] {
                     for candidate in all.values {
                         let points = Parser.parseTrackPoints(candidate)
@@ -332,7 +333,7 @@ class DatabaseManager {
     
     /// Runs in background and observes the connection to the database
     func startCheckConnectivity() {
-        let connectedRef = FIRDatabase.database().reference(withPath: DatabaseConstants.connectKey)
+        let connectedRef = Database.database().reference(withPath: DatabaseConstants.connectKey)
         DispatchQueue.global(qos: .background).async {
             connectedRef.observe(.value, with: { snapshot in
                 guard let connected = snapshot.value as? Bool else {

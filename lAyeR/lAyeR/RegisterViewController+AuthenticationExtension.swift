@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 /**
  An extension that is used to define interactions with user

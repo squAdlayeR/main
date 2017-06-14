@@ -24,7 +24,7 @@ class UserAuthenticator {
     ///     - password: String: registration password
     ///     - completion: AuthenticationCallback?
     func createUser(email: String, password: String, completion: AuthenticationCallback?) {
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: completion)
+        Auth.auth().createUser(withEmail: email, password: password, completion: completion)
     }
     
     /// Signs in a user with email and password authentication
@@ -33,12 +33,12 @@ class UserAuthenticator {
     ///     - password: String: user password
     ///     - completion: AuthenticationCallback?
     func signInUser(email: String, password: String, completion: AuthenticationCallback?) {
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: completion)
+        Auth.auth().signIn(withEmail: email, password: password, completion: completion)
     }
     
     /// Returns firebase facebook credential
     func createCredential() -> AuthenticationCredential {
-        return FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        return FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
     }
     
     /// Signs in a user with credential
@@ -46,24 +46,24 @@ class UserAuthenticator {
     ///     - credential: FIRAuthenCredential: crendential used
     ///     - completion: AuthenticationCallback?
     func signInUser(with credential: AuthenticationCredential, completion: AuthenticationCallback?) {
-        FIRAuth.auth()?.signIn(with: credential, completion: completion)
+        Auth.auth().signIn(with: credential, completion: completion)
     }
     
     /// Sends email verification to a user registered with email
     /// - Parameters:
     ///     - completion: FIRSendEmailVerificationCallback?
-    func sendEmailVerification(completion: FIRSendEmailVerificationCallback?) {
-        FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: completion)
+    func sendEmailVerification(completion: SendEmailVerificationCallback?) {
+        Auth.auth().currentUser?.sendEmailVerification(completion: completion)
     }
     
     /// Signs out a user
     func signOut() {
-        try? FIRAuth.auth()?.signOut()
+        try? Auth.auth().signOut()
     }
     
     /// Returns current user
-    var currentUser: FIRUser? {
-        return FIRAuth.auth()?.currentUser
+    var currentUser: User? {
+        return Auth.auth().currentUser
     }
     
     /// Returns the error message associated with the authentication error
@@ -72,25 +72,25 @@ class UserAuthenticator {
     /// - Returns:
     ///     - String: error message
     func getErrorMessage(error: Error) -> String {
-        guard let errCode = FIRAuthErrorCode(rawValue: error._code) else {
+        guard let errCode = AuthErrorCode(rawValue: error._code) else {
             return Messages.unknownErrorMessage
         }
         switch errCode {
-        case .errorCodeWrongPassword:
+        case .wrongPassword:
             return Messages.wrongPasswordMessage
-        case .errorCodeUserDisabled:
+        case .userDisabled:
             return Messages.userDisabledMessage
-        case .errorCodeUserNotFound:
+        case .userNotFound:
             return Messages.userNotFoundMessage
-        case .errorCodeInvalidCredential:
+        case .invalidCredential:
             return Messages.invalidCredentialMessage
-        case .errorCodeOperationNotAllowed:
+        case .operationNotAllowed:
             return Messages.operationNotAllowedMessage
-        case .errorCodeEmailAlreadyInUse:
+        case .emailAlreadyInUse:
             return Messages.emailAlreadyInUseMessage
-        case .errorCodeInternalError:
+        case .internalError:
             return Messages.internalErrorMessage
-        case .errorCodeInvalidEmail:
+        case .invalidEmail:
             return Messages.invalidEmailMessage
         default:
             return Messages.networkErrorMessage
@@ -157,6 +157,6 @@ class UserAuthenticator {
     
 }
 
-typealias AuthenticationCredential = FIRAuthCredential
-typealias AuthenticationCallback = FIRAuthResultCallback
-typealias User = FIRUser
+typealias AuthenticationCredential = AuthCredential
+typealias AuthenticationCallback = AuthResultCallback
+

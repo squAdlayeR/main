@@ -11,7 +11,7 @@ def shared_pods
   pod ‘Firebase’, ‘>= 2.5.0’
   pod 'Firebase/Database'
   pod 'Firebase/Auth’
-  pod 'RealmSwift'
+  pod 'RealmSwift’
 end
 
 target ‘lAyeR’ do
