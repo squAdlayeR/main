@@ -1,0 +1,33 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+  use_frameworks!
+
+def shared_pods
+  pod ‘GoogleMaps’
+  pod ‘GooglePlaces’
+  pod ‘GooglePlacePicker’
+  pod 'ObjectMapper', '~> 2.2'
+  pod 'Alamofire', '~> 4.0’
+  pod ‘Firebase’, ‘>= 2.5.0’
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth’
+  pod 'RealmSwift'
+end
+
+target ‘lAyeR’ do
+  shared_pods
+  pod 'iOS-GPX-Framework', git: ‘http://github.com/merlos/iOS-GPX-Framework’
+  pod 'iOS-KML-Framework', :git => 'https://github.com/FLCLjp/iOS-KML-Framework.git'
+  pod 'TOCropViewController'
+  target ‘lAyeRTests' do
+        inherit! :complete
+    end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+    end
+  end
+end
