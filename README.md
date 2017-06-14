@@ -5,3 +5,7 @@ $ cd Path/to/main/lAyeR
 $ pod install
 $ pod update
 ```
+Before commit, run
+```
+$ pod deintegrate
+```
