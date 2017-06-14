@@ -88,7 +88,6 @@
 		52D379691E8530FA005ED912 /* GeoUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D379671E8530FA005ED912 /* GeoUtilTests.swift */; };
 		52D3796B1E8533CC005ED912 /* CheckPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D3796A1E8533CC005ED912 /* CheckPointTests.swift */; };
 		52DE2C411E995F4700671B6E /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DE2C401E995F4700671B6E /* TrackPoint.swift */; };
-		63C7415C002E0EF9D153CE7A /* Pods_lAyeR_lAyeRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 333FC959623BFA4B56C0165F /* Pods_lAyeR_lAyeRTests.framework */; };
 		9D0A2AE41E9F69A7008D6A21 /* MiniMapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE11E9F69A7008D6A21 /* MiniMapConstants.swift */; };
 		9D0A2AE61E9F69A7008D6A21 /* MiniMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE31E9F69A7008D6A21 /* MiniMapViewController.swift */; };
 		9D0A2AE81E9FBC25008D6A21 /* MiscConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A2AE71E9FBC25008D6A21 /* MiscConstants.swift */; };
@@ -155,7 +154,6 @@
 		A2AF0ABA1E70103800B4478C /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AB91E70103800B4478C /* ARViewController.swift */; };
 		A2AF0ABF1E711A7900B4478C /* Vector3DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */; };
 		A2AF0AD11E76C2FB00B4478C /* GeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */; };
-		AC8B577FF2356994FC52A038 /* Pods_lAyeR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CB6E50A05C1445CA4223E3 /* Pods_lAyeR.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,9 +201,6 @@
 		2EBB03EB1EA22A6B0018389E /* RouteDesignerViewController_SaveExportExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_SaveExportExtension.swift; sourceTree = "<group>"; };
 		2EBB03F01EA304C60018389E /* RouteDesignerViewController_CheckRepExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_CheckRepExtension.swift; sourceTree = "<group>"; };
 		2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_AutoCompleteExtension.swift; sourceTree = "<group>"; };
-		333FC959623BFA4B56C0165F /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR_lAyeRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4010892260B075E01FFB3724 /* Pods-lAyeR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.debug.xcconfig"; sourceTree = "<group>"; };
-		44A4B3EA204D49B613D44388 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		523351AE1EA388A3001A020B /* TrackPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointTests.swift; sourceTree = "<group>"; };
 		523351B01EA38B4C001A020B /* TrackPointStructTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointStructTests.swift; sourceTree = "<group>"; };
 		5249B1A51E7263C40048249D /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -254,7 +249,6 @@
 		52D379671E8530FA005ED912 /* GeoUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoUtilTests.swift; sourceTree = "<group>"; };
 		52D3796A1E8533CC005ED912 /* CheckPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckPointTests.swift; sourceTree = "<group>"; };
 		52DE2C401E995F4700671B6E /* TrackPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
-		72CB6E50A05C1445CA4223E3 /* Pods_lAyeR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D0A2AE11E9F69A7008D6A21 /* MiniMapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniMapConstants.swift; path = ViewComponents/BasicComponents/MiniMapView/MiniMapConstants.swift; sourceTree = "<group>"; };
 		9D0A2AE31E9F69A7008D6A21 /* MiniMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniMapViewController.swift; path = ViewComponents/BasicComponents/MiniMapView/MiniMapViewController.swift; sourceTree = "<group>"; };
 		9D0A2AE71E9FBC25008D6A21 /* MiscConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiscConstants.swift; path = ViewComponents/BasicComponents/Misc/MiscConstants.swift; sourceTree = "<group>"; };
@@ -322,8 +316,6 @@
 		A2AF0AB91E70103800B4478C /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		A2AF0ABE1E711A7900B4478C /* Vector3DTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3DTests.swift; sourceTree = "<group>"; };
 		A2AF0AD01E76C2FB00B4478C /* GeoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoManager.swift; sourceTree = "<group>"; };
-		D646D842E6443414AAF6FDEA /* Pods-lAyeR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR.release.xcconfig"; sourceTree = "<group>"; };
-		EE41EF6B640994BA0701FD70 /* Pods-lAyeR-lAyeRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lAyeR-lAyeRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,7 +327,6 @@
 				52830F421E8FF8E7009DFD02 /* FBSDKCoreKit.framework in Frameworks */,
 				52830F431E8FF8E7009DFD02 /* FBSDKLoginKit.framework in Frameworks */,
 				52830F441E8FF8E7009DFD02 /* FBSDKShareKit.framework in Frameworks */,
-				AC8B577FF2356994FC52A038 /* Pods_lAyeR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,7 +338,6 @@
 				52830F461E8FF960009DFD02 /* FBSDKCoreKit.framework in Frameworks */,
 				52830F471E8FF960009DFD02 /* FBSDKLoginKit.framework in Frameworks */,
 				52830F481E8FF960009DFD02 /* FBSDKShareKit.framework in Frameworks */,
-				63C7415C002E0EF9D153CE7A /* Pods_lAyeR_lAyeRTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +351,6 @@
 				2C3119AE1E670A5F00FF6334 /* lAyeRTests */,
 				2C3119981E670A5F00FF6334 /* Products */,
 				FED6868487D29D53B260A46F /* Frameworks */,
-				8DA1E158E63E6E524E16F881 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -634,17 +623,6 @@
 			name = DataModel;
 			sourceTree = "<group>";
 		};
-		8DA1E158E63E6E524E16F881 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4010892260B075E01FFB3724 /* Pods-lAyeR.debug.xcconfig */,
-				D646D842E6443414AAF6FDEA /* Pods-lAyeR.release.xcconfig */,
-				44A4B3EA204D49B613D44388 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */,
-				EE41EF6B640994BA0701FD70 /* Pods-lAyeR-lAyeRTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		9D11C3611E98D15800C33207 /* MiniMapView */ = {
 			isa = PBXGroup;
 			children = (
@@ -853,8 +831,6 @@
 				52830F3E1E8FF8E7009DFD02 /* FBSDKCoreKit.framework */,
 				52830F3F1E8FF8E7009DFD02 /* FBSDKLoginKit.framework */,
 				52830F401E8FF8E7009DFD02 /* FBSDKShareKit.framework */,
-				72CB6E50A05C1445CA4223E3 /* Pods_lAyeR.framework */,
-				333FC959623BFA4B56C0165F /* Pods_lAyeR_lAyeRTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -866,12 +842,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C3119B41E670A5F00FF6334 /* Build configuration list for PBXNativeTarget "lAyeR" */;
 			buildPhases = (
-				B4E8CB32BA446E223B9016DC /* [CP] Check Pods Manifest.lock */,
 				2C3119931E670A5E00FF6334 /* Sources */,
 				2C3119941E670A5E00FF6334 /* Frameworks */,
 				2C3119951E670A5E00FF6334 /* Resources */,
-				68D97BC21C046EF5F4DF9040 /* [CP] Embed Pods Frameworks */,
-				72231A18FC56C8436FFBB2C1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -886,12 +859,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C3119B71E670A5F00FF6334 /* Build configuration list for PBXNativeTarget "lAyeRTests" */;
 			buildPhases = (
-				50837305E09A8D1E076965FD /* [CP] Check Pods Manifest.lock */,
 				2C3119A71E670A5F00FF6334 /* Sources */,
 				2C3119A81E670A5F00FF6334 /* Frameworks */,
 				2C3119A91E670A5F00FF6334 /* Resources */,
-				FFA9768C96FFA83B5EC0A422 /* [CP] Embed Pods Frameworks */,
-				FD6B8417D320E9146B921B2B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -982,99 +952,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		50837305E09A8D1E076965FD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		68D97BC21C046EF5F4DF9040 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		72231A18FC56C8436FFBB2C1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR/Pods-lAyeR-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B4E8CB32BA446E223B9016DC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FD6B8417D320E9146B921B2B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FFA9768C96FFA83B5EC0A422 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lAyeR-lAyeRTests/Pods-lAyeR-lAyeRTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2C3119931E670A5E00FF6334 /* Sources */ = {
@@ -1340,7 +1217,6 @@
 		};
 		2C3119B51E670A5F00FF6334 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4010892260B075E01FFB3724 /* Pods-lAyeR.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1382,7 +1258,6 @@
 		};
 		2C3119B61E670A5F00FF6334 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D646D842E6443414AAF6FDEA /* Pods-lAyeR.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1423,7 +1298,6 @@
 		};
 		2C3119B81E670A5F00FF6334 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44A4B3EA204D49B613D44388 /* Pods-lAyeR-lAyeRTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/lAyeR.app/lAyeR";
@@ -1460,7 +1334,6 @@
 		};
 		2C3119B91E670A5F00FF6334 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE41EF6B640994BA0701FD70 /* Pods-lAyeR-lAyeRTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/lAyeR.app/lAyeR";
