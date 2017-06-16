@@ -1241,7 +1241,6 @@
 					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
-					"$(SRCROOT)/FacebookSDK",
 					"\"${PODS_ROOT}/iOS-KML-Framework/KML\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = fast;
@@ -1283,7 +1282,6 @@
 					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
-					"$(SRCROOT)/FacebookSDK",
 					"\"${PODS_ROOT}/iOS-KML-Framework/KML\"",
 				);
 				INFOPLIST_FILE = lAyeR/Info.plist;
