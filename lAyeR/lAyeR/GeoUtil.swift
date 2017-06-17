@@ -94,7 +94,7 @@ class GeoUtil {
         var sum: Double = 0
         for index in 0..<route1.checkPoints.count {
             let pt = route1.checkPoints[index]
-            var min = DBL_MAX
+            var min: Double = .greatestFiniteMagnitude
             for idx in 0..<route2.checkPoints.count - 1 {
                 let pt1 = route2.checkPoints[idx]
                 let pt2 = route2.checkPoints[idx + 1]

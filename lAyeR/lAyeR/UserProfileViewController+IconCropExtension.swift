@@ -97,7 +97,7 @@ extension UserProfileViewController: TOCropViewControllerDelegate {
     
     /// After user crops the image, dismiss the image cropper, save the image 
     /// and refreshes user profile
-    func cropViewController(_ cropViewController: TOCropViewController, didCropToCircularImage image: UIImage, with cropRect: CGRect, angle: Int) {
+    private func cropViewController(_ cropViewController: TOCropViewController, didCropToCircularImage image: UIImage, with cropRect: CGRect, angle: Int) {
         dismiss(animated: true) { _ in
             self.refreshProfile(with: image)
         }

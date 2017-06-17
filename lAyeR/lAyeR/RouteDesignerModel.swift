@@ -39,7 +39,7 @@ class RouteDesignerModel {
                         directionsURLString += "|" + waypoint
                     }
                 }
-                directionsURLString = directionsURLString.addingPercentEscapes(using: String.Encoding.utf8)!
+                directionsURLString = directionsURLString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
                 let directionsURL = NSURL(string: directionsURLString)
                 DispatchQueue.main.async( execute: { () -> Void in
                     let directionsData = NSData(contentsOf: directionsURL! as URL)
