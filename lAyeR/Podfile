@@ -12,6 +12,11 @@ def shared_pods
   pod 'Firebase/Database'
   pod 'Firebase/Auth’
   pod 'RealmSwift’
+  pod ‘Bolts’
+  pod ‘FBSDKCoreKit’
+  pod ‘FBSDKLoginKit’
+  pod ‘FBSDKShareKit’
+  pod ‘FBSDKMessengerShareKit’
 end
 
 target ‘lAyeR’ do
