@@ -125,7 +125,7 @@ class GeoManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    /// Gathers the detailes information of a poi and pass it to completion handler.
+    /// Gathers the detailed information of a poi and pass it to completion handler.
     /// - Parameters:
     ///     - poi: POI: the poi to find information.
     func getDetailedPOIInfo(_ placeID: String, completion: @escaping (_ newPOI: POI?) -> ()) {
