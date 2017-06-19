@@ -9,7 +9,18 @@
 import UIKit
 
 class Cluster {
-    init(<#parameters#>) {
-        super.init(distance: <#T##Double#>, icon: <#T##String#>, superViewController: <#T##UIViewController#>)
+    let poiCardControllers: [PoiCardController]
+    
+    init(poiCardControllers: [PoiCardController]) {
+        self.poiCardControllers = poiCardControllers
+        setPoiCardControllersBelonging()
     }
+    
+    private func setPoiCardControllersBelonging() {
+        for controller in poiCardControllers {
+            controller.cluster = self
+        }
+    }
+    
+    
 }
