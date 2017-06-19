@@ -12,6 +12,10 @@ import UIKit
 class PoiCardController {
     let poi: POI
     let card: PoiCard
+    
+    // Belonging cluster
+    var cluster: Cluster?
+    
     var poiName: String? {
         return poi.name
     }

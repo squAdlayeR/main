@@ -38,8 +38,7 @@
 		2EBB03F11EA304C60018389E /* RouteDesignerViewController_CheckRepExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB03F01EA304C60018389E /* RouteDesignerViewController_CheckRepExtension.swift */; };
 		2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */; };
 		36EEB24D972ED2A01632FA46 /* Pods_lAyeR_lAyeRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B10763B74E53983BA8534F3 /* Pods_lAyeR_lAyeRTests.framework */; };
-		3896706A1EF6B4E40060B412 /* ClusterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389670691EF6B4E40060B412 /* ClusterCard.swift */; };
-		3896706C1EF6B8A80060B412 /* ClusterCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3896706B1EF6B8A80060B412 /* ClusterCardController.swift */; };
+		3896706A1EF6B4E40060B412 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389670691EF6B4E40060B412 /* Cluster.swift */; };
 		523351AF1EA388A3001A020B /* TrackPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523351AE1EA388A3001A020B /* TrackPointTests.swift */; };
 		523351B11EA38B4C001A020B /* TrackPointStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523351B01EA38B4C001A020B /* TrackPointStructTests.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
@@ -205,8 +204,7 @@
 		2EBB03EB1EA22A6B0018389E /* RouteDesignerViewController_SaveExportExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_SaveExportExtension.swift; sourceTree = "<group>"; };
 		2EBB03F01EA304C60018389E /* RouteDesignerViewController_CheckRepExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_CheckRepExtension.swift; sourceTree = "<group>"; };
 		2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_AutoCompleteExtension.swift; sourceTree = "<group>"; };
-		389670691EF6B4E40060B412 /* ClusterCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterCard.swift; sourceTree = "<group>"; };
-		3896706B1EF6B8A80060B412 /* ClusterCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterCardController.swift; sourceTree = "<group>"; };
+		389670691EF6B4E40060B412 /* Cluster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cluster.swift; sourceTree = "<group>"; };
 		4B10763B74E53983BA8534F3 /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR_lAyeRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		523351AE1EA388A3001A020B /* TrackPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointTests.swift; sourceTree = "<group>"; };
 		523351B01EA38B4C001A020B /* TrackPointStructTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointStructTests.swift; sourceTree = "<group>"; };
@@ -553,14 +551,6 @@
 			name = SearchExtensions;
 			sourceTree = "<group>";
 		};
-		389670681EF6B4C70060B412 /* Cluster */ = {
-			isa = PBXGroup;
-			children = (
-				389670691EF6B4E40060B412 /* ClusterCard.swift */,
-			);
-			name = Cluster;
-			sourceTree = "<group>";
-		};
 		5249B1A41E7263A30048249D /* RouteDesigner */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,7 +736,6 @@
 				9D7327801EA2551C008D9860 /* CardConstants.swift */,
 				9D2938DC1E82B6720054A9F7 /* CheckPoint */,
 				9D7DACF81E85461C00592EB5 /* POI */,
-				389670681EF6B4C70060B412 /* Cluster */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -811,9 +800,9 @@
 				A25E658A1E9BA50100011885 /* ARViewController_SegueExtension.swift */,
 				A25E658C1E9BB37800011885 /* SCNViewController.swift */,
 				A238E0711E8FA7A900BA10DC /* CheckpointCardController.swift */,
-				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
 				A25E65881E9B7B8400011885 /* CameraController.swift */,
-				3896706B1EF6B8A80060B412 /* ClusterCardController.swift */,
+				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
+				389670691EF6B4E40060B412 /* Cluster.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1095,7 +1084,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3896706A1EF6B4E40060B412 /* ClusterCard.swift in Sources */,
+				3896706A1EF6B4E40060B412 /* Cluster.swift in Sources */,
 				9D0A2AE41E9F69A7008D6A21 /* MiniMapConstants.swift in Sources */,
 				52BD496D1E8A7D1600B4B750 /* UIBasicConstants.swift in Sources */,
 				2EBB03EA1EA2017F0018389E /* RouteDesignerConstants.swift in Sources */,
@@ -1185,7 +1174,6 @@
 				A28E80071EA22FC4005B65C3 /* RealmGeoPoint.swift in Sources */,
 				5249B1A81E7264000048249D /* GeoPoint.swift in Sources */,
 				5249B1B71E72FC660048249D /* GeoUtil.swift in Sources */,
-				3896706C1EF6B8A80060B412 /* ClusterCardController.swift in Sources */,
 				52A845D01EA106250084DAA3 /* RegisterViewController+AuthenticationExtension.swift in Sources */,
 				9D1970121E87FE8E00C1DAA1 /* MenuViewController.swift in Sources */,
 				9D7327791EA254AD008D9860 /* Card.swift in Sources */,
