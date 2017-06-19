@@ -124,7 +124,7 @@ extension PoiCard {
     
     /// Sets the contact of poi
     /// - Parameter contact: the contact of the poi
-    func setPoiContacet(_ contact: String) {
+    func setPoiContact(_ contact: String) {
         self.popupController.addText(with: CardConstants.contactLabel,
                                      iconName: CardConstants.contactIcon,
                                      and: contact)

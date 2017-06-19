@@ -250,7 +250,7 @@ class ARViewController: UIViewController {
                         if let address = poi.vicinity { poiCard.setPoiAddress(address) }
                         if let rating = poi.rating { poiCard.setPoiRating(rating) }
                         if let website = poi.website { poiCard.setPoiWebsite(website) }
-                        if let contact = poi.contact { poiCard.setPoiContacet(contact) }
+                        if let contact = poi.contact { poiCard.setPoiContact(contact) }
                     }
                     group.leave()
                 }
