@@ -66,7 +66,7 @@ class CheckpointCardController {
                                                   superView: superView, fov: fov)
         card.applyViewAdjustment(layoutAdjustment)
         card.update(distance)
-        card.setMarkderAlpha(to: calculateAlpha(distance: layoutAdjustment.pushBackDistance))
+        card.setMarkerAlpha(to: calculateAlpha(distance: layoutAdjustment.pushBackDistance))
         
         guard selected else {
            return

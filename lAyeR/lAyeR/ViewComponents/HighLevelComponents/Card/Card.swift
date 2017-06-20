@@ -101,7 +101,7 @@ class Card: NSObject {
     
     /// Changes the alpha of the marker
     /// - Parameter alpha: the new alpha of the marker
-    func setMarkderAlpha(to alpha: CGFloat) {
+    func setMarkerAlpha(to alpha: CGFloat) {
         self.markerAlpha = alpha
     }
     

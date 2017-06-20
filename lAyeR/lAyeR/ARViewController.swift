@@ -39,8 +39,8 @@ class ARViewController: UIViewController {
                                                                         ARViewConstants.userLocationUpdatedNotificationName)
 
     // for displaying checkpoint card and poi card
-    var checkpointCardControllers: [CheckpointCardController] = []
-    var currentPoiCardControllers: [PoiCardController] = []
+    internal var checkpointCardControllers: [CheckpointCardController] = []
+    internal var currentPoiCardControllers: [PoiCardController] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
 
@@ -219,27 +219,36 @@ class ARViewController: UIViewController {
         return newCheckpointCardControllers
     }
     
-    /**
-     update the cards of points of interest to be displayed
-     remove the obsolete cards (in the current list but not in the new list)
-     keep the cards that in both the current list and new list
-     add in the cards that are in the new list but not in the current list
-     */
+    
+    /// Gets the updated POIs sorted by azimuth. Called on location update.
+    ///
+    /// - Returns: Array of sorted POIs
+    private func getUpdatedPOIsSortedByAzimuth() -> [POI] {
+        let userPoint = geoManager.getLastUpdatedUserPoint()
+        return geoManager.getLastUpdatedNearbyPOIs().sorted {GeoUtil.getAzimuth(between: userPoint, $0.0) >
+                                                             GeoUtil.getAzimuth(between: userPoint, $0.1)}
+    }
+    
+    
+    /// update the cards of points of interest to be displayed
+    /// remove the obsolete cards (in the current list but not in the new list)
+    /// keep the cards that in both the current list and new list
+    /// add in the cards that are in the new list but not in the current list
     private func displayLastUpdatedPOIs() {
-        let lastUpdatedPOIs = geoManager.getLastUpdatedNearbyPOIs()
+        let sortedPOIs = getUpdatedPOIsSortedByAzimuth()
         var newPOICardControllers: [PoiCardController] = []
 
         // keep the previous POI and corresponding card that also appears in the updated POI list
         // discard the obsolete POIs and remove corresponding card that does no appear in the updated list
         for poiCardController in currentPoiCardControllers {
-            if lastUpdatedPOIs.contains(where: { $0.name == poiCardController.poiName }) {
+            if sortedPOIs.contains(where: { $0.name == poiCardController.poiName }) {
                 newPOICardControllers.append(poiCardController)
             }
         }
         
         // add the new POI and create corresponding card that appears in the updated list but not the previous list
         let group = DispatchGroup()
-        for newPoi in lastUpdatedPOIs {
+        for newPoi in sortedPOIs {
             if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
                 let poiCard = PoiCard(distance: 0, categoryName: newPoi.types.first!, superViewController: self)
                 guard let placeID = newPoi.placeID else { continue }

@@ -13,9 +13,6 @@ class PoiCardController {
     let poi: POI
     let card: PoiCard
     
-    // Belonging cluster
-    var cluster: Cluster?
-    
     var poiName: String? {
         return poi.name
     }
@@ -40,7 +37,7 @@ class PoiCardController {
                                                       superView: superView, fov: fov)
         card.applyViewAdjustment(layoutAdjustment)
         card.update(distance)
-        card.setMarkderAlpha(to: calculateAlpha(distance: layoutAdjustment.pushBackDistance))
+        card.setMarkerAlpha(to: calculateAlpha(distance: layoutAdjustment.pushBackDistance))
     }
     
     private func calculateAlpha(distance: CGFloat) -> CGFloat {
