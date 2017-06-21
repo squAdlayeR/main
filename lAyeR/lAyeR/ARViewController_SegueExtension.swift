@@ -13,7 +13,7 @@ import MapKit
 
 extension ARViewController {
     @IBAction func unwindSegueToARView(segue: UIStoryboardSegue) {
-        currentPoiCardControllers.removeAll()
+        currentPoiCardSetControllers.removeAll()
     }
     
     @IBAction func unwindFromRouteDesigner(segue: UIStoryboardSegue) {

@@ -40,7 +40,7 @@ class ARViewController: UIViewController {
 
     // for displaying checkpoint card and poi card
     internal var checkpointCardControllers: [CheckpointCardController] = []
-    internal var currentPoiCardControllers: [PoiCardController] = []
+    internal var currentPoiCardSetControllers: [POISetControlDelegate] = []
     
     private lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(updateLoop))
 
@@ -75,7 +75,7 @@ class ARViewController: UIViewController {
         fov = Double(cameraViewController.captureDevice.activeFormat.videoFieldOfView) * Double.pi / 180
         
         startObservingDeviceMotion()
-        displayLastUpdatedPOIs()
+        POIsDidUpdate()
         
         prepareMenu()
         prepareMiniMap()
@@ -113,7 +113,7 @@ class ARViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: nearbyPOIsUpdatedNotificationName, object: nil, queue: nil, using: { [unowned self] _ in
             
             if self.mode == .explore {
-                self.displayLastUpdatedPOIs()
+                self.POIsDidUpdate()
             }
         })
     }
@@ -219,74 +219,65 @@ class ARViewController: UIViewController {
         return newCheckpointCardControllers
     }
     
-    
-    /// Gets the updated POI groups grouped by azimuth. Called on location update.
-    ///
-    /// - Returns: Array groups (arrays) of sorted POIs
-    private func getUpdatedPOIGroupsByAzimuth() -> [[POI]] {
-        let userPoint = geoManager.getLastUpdatedUserPoint()
-        var sortedAzimuthPOITuples = geoManager.getLastUpdatedNearbyPOIs()
-                                               .map {(GeoUtil.getAzimuth(between: userPoint, $0), $0)}
-                                               .sorted {$0.0.0 > $0.1.0}
-        var groups: [[POI]] = []
-        let halfAngle = ARViewConstants.clusteringAngle * 0.5
-        while !sortedAzimuthPOITuples.isEmpty {
-            let centerTuple = sortedAzimuthPOITuples.removeFirst()
-            var newGroup = [centerTuple.1]
-            while let leftTuple = sortedAzimuthPOITuples.last {
-                if (leftTuple.0 + 2 * .pi - centerTuple.0) < halfAngle {
-                    newGroup.append(sortedAzimuthPOITuples.removeLast().1)
-                }
-            }
-            while let rightTuple = sortedAzimuthPOITuples.first {
-                if (centerTuple.0 - rightTuple.0 + 2 * .pi) < halfAngle {
-                    newGroup.append(sortedAzimuthPOITuples.removeFirst().1)
-                }
-            }
-            groups.append(newGroup)
-        }
-        return groups
-    }
-    
-    
     /// update the cards of points of interest to be displayed
     /// remove the obsolete cards (in the current list but not in the new list)
     /// keep the cards that in both the current list and new list
     /// add in the cards that are in the new list but not in the current list
-    private func displayLastUpdatedPOIs() {
-//        let sortedPOIs = getUpdatedPOIGroupsByAzimuth()
-//        var newPOICardControllers: [PoiCardController] = []
-//
-//        // keep the previous POI and corresponding card that also appears in the updated POI list
-//        // discard the obsolete POIs and remove corresponding card that does no appear in the updated list
-//        for poiCardController in currentPoiCardControllers {
-//            if sortedPOIs.contains(where: { $0.name == poiCardController.poiName }) {
-//                newPOICardControllers.append(poiCardController)
-//            }
-//        }
-//        
-//        // add the new POI and create corresponding card that appears in the updated list but not the previous list
-//        let group = DispatchGroup()
-//        for newPoi in sortedPOIs {
-//            if !newPOICardControllers.contains(where: { $0.poiName == newPoi.name }) {
-//                let poiCard = PoiCard(distance: 0, categoryName: newPoi.types.first!, superViewController: self)
-//                guard let placeID = newPoi.placeID else { continue }
-//                group.enter()
-//                geoManager.getDetailedPOIInfo(placeID) { poi in
-//                    if let poi = poi {
-//                        if let name = poi.name { poiCard.setPoiName(name) }
-//                        if let address = poi.vicinity { poiCard.setPoiAddress(address) }
-//                        if let rating = poi.rating { poiCard.setPoiRating(rating) }
-//                        if let website = poi.website { poiCard.setPoiWebsite(website) }
-//                        if let contact = poi.contact { poiCard.setPoiContact(contact) }
-//                    }
-//                    group.leave()
-//                }
-//                newPOICardControllers.append(PoiCardController(poi: newPoi, card: poiCard))
-//            }
-//        }
-//        
-//        currentPoiCardControllers = newPOICardControllers
+    private func POIsDidUpdate() {
+        let userPoint = geoManager.getLastUpdatedUserPoint()
+        
+        // Validate and sort POIs, and tuple them with corresponding Azimuth and PoiCards
+        let dispatchGroup = DispatchGroup()
+        let pois = geoManager.getLastUpdatedNearbyPOIs().filter {$0.placeID != nil}
+        var sortedAzimuthPOICardTuples: [(Double, POI, PoiCard)] = []
+        for poi in pois {
+            let card = PoiCard(distance: 0, categoryName: poi.types.first!, superViewController: self)
+            dispatchGroup.enter()
+            geoManager.getDetailedPOIInfo(poi.placeID!) { poi in
+                if let poi = poi {
+                    if let name = poi.name { card.setPoiName(name) }
+                    if let address = poi.vicinity { card.setPoiAddress(address) }
+                    if let rating = poi.rating { card.setPoiRating(rating) }
+                    if let website = poi.website { card.setPoiWebsite(website) }
+                    if let contact = poi.contact { card.setPoiContact(contact) }
+                }
+                dispatchGroup.leave()
+            }
+            sortedAzimuthPOICardTuples.append((GeoUtil.getAzimuth(between: userPoint, poi), poi, card))
+        }
+        sortedAzimuthPOICardTuples.sort {$0.0.0 > $0.1.0}
+        
+        // Group these tuples by Azimuth
+        var groups: [[(Double, POI, PoiCard)]] = []
+        let halfAngle = ARViewConstants.clusteringAngle * 0.5
+        while !sortedAzimuthPOICardTuples.isEmpty {
+            let centerTuple = sortedAzimuthPOICardTuples.removeFirst()
+            var newGroup = [centerTuple]
+            while let leftTuple = sortedAzimuthPOICardTuples.last {
+                if (leftTuple.0 + 2 * .pi - centerTuple.0) < halfAngle {
+                    newGroup.append(sortedAzimuthPOICardTuples.removeLast())
+                } else {
+                    break
+                }
+            }
+            while let rightTuple = sortedAzimuthPOICardTuples.first {
+                if (centerTuple.0 - rightTuple.0 + 2 * .pi) < halfAngle {
+                    newGroup.append(sortedAzimuthPOICardTuples.removeFirst())
+                } else {
+                    break
+                }
+            }
+            groups.append(newGroup)
+        }
+        
+        // Create POISetControlDelegates depending on size of groups
+        currentPoiCardSetControllers = groups.map {
+            if $0.count == 1 {
+                return PoiCardController(poi: $0[0].1, card: $0[0].2)
+            } else {
+                return ClusterController(pois: $0.map {$0.1}, cards: $0.map {$0.2})
+            }
+        }
     }
     
     /**
@@ -315,7 +306,7 @@ class ARViewController: UIViewController {
                                                     superView: view, fov: fov)
             }
         case .explore:
-            for poiCardController in currentPoiCardControllers {
+            for poiCardController in currentPoiCardSetControllers {
                 poiCardController.updateComponents(userPoint: userPoint, superView: view, fov: fov)
             }
         }
