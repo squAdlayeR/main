@@ -32,6 +32,7 @@ struct ARViewConstants {
                                            blue: arrowDefaultColorB,
                                            alpha: arrowDefaultColorAlpha)
     static let framePerSecond = 60
+    static let clusteringAngle = 0.1
     
     static let numCheckpointDisplayedForward = 1
     static let numCheckpointDisplayedBackward = 0
