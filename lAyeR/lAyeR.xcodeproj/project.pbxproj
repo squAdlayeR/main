@@ -39,6 +39,7 @@
 		2EE5CDCE1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */; };
 		36EEB24D972ED2A01632FA46 /* Pods_lAyeR_lAyeRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B10763B74E53983BA8534F3 /* Pods_lAyeR_lAyeRTests.framework */; };
 		3896706A1EF6B4E40060B412 /* ClusterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389670691EF6B4E40060B412 /* ClusterController.swift */; };
+		38F1D2B21EFAAD8B00FB49F4 /* POISetControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F1D2B11EFAAD8B00FB49F4 /* POISetControlDelegate.swift */; };
 		523351AF1EA388A3001A020B /* TrackPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523351AE1EA388A3001A020B /* TrackPointTests.swift */; };
 		523351B11EA38B4C001A020B /* TrackPointStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523351B01EA38B4C001A020B /* TrackPointStructTests.swift */; };
 		5249B1A61E7263C40048249D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5249B1A51E7263C40048249D /* Route.swift */; };
@@ -205,6 +206,7 @@
 		2EBB03F01EA304C60018389E /* RouteDesignerViewController_CheckRepExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_CheckRepExtension.swift; sourceTree = "<group>"; };
 		2EE5CDCD1E9A12AD004EC19B /* RouteDesignerViewController_AutoCompleteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDesignerViewController_AutoCompleteExtension.swift; sourceTree = "<group>"; };
 		389670691EF6B4E40060B412 /* ClusterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterController.swift; sourceTree = "<group>"; };
+		38F1D2B11EFAAD8B00FB49F4 /* POISetControlDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POISetControlDelegate.swift; sourceTree = "<group>"; };
 		4B10763B74E53983BA8534F3 /* Pods_lAyeR_lAyeRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lAyeR_lAyeRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		523351AE1EA388A3001A020B /* TrackPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointTests.swift; sourceTree = "<group>"; };
 		523351B01EA38B4C001A020B /* TrackPointStructTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointStructTests.swift; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				A25E65881E9B7B8400011885 /* CameraController.swift */,
 				A238E0731E8FAC7000BA10DC /* PoiCardController.swift */,
 				389670691EF6B4E40060B412 /* ClusterController.swift */,
+				38F1D2B11EFAAD8B00FB49F4 /* POISetControlDelegate.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1200,6 +1203,7 @@
 				52A845E61EA1D29D0084DAA3 /* DatabaseConstants.swift in Sources */,
 				52A845E11EA1BECE0084DAA3 /* ModelConstants.swift in Sources */,
 				A21BBFBB1E839BD600394531 /* TriangleView.swift in Sources */,
+				38F1D2B21EFAAD8B00FB49F4 /* POISetControlDelegate.swift in Sources */,
 				A253FB591E93D2F1002C6ADC /* RealmString.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

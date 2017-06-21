@@ -316,8 +316,7 @@ class ARViewController: UIViewController {
             }
         case .explore:
             for poiCardController in currentPoiCardControllers {
-                poiCardController.updateCard(userPoint: userPoint, motionManager: motionManager,
-                                             superView: view, fov: fov)
+                poiCardController.updateComponents(userPoint: userPoint, superView: view, fov: fov)
             }
         }
         
