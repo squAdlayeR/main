@@ -74,8 +74,16 @@ struct ARViewLayoutAdjustment {
     /**
      Main method, calculate the value of each parameter of adjustment
      */
-    mutating func calculateParameters(following initialAdjustment: ARViewLayoutAdjustment? = nil,
-                                      at index: Int? = nil) {
+    mutating func calculateParameters(following initialAdjustment: ARViewLayoutAdjustment! = nil,
+                                      at index: Int! = nil) {
+        if initialAdjustment != nil {
+            xPosition = initialAdjustment.xPosition + CGFloat(index!) * 5
+            yPosition = initialAdjustment.yPosition - CGFloat(index!) * 5
+            yawRotationAngle = initialAdjustment.yawRotationAngle
+            horzRotationAngle = initialAdjustment.horzRotationAngle
+            return
+        }
+        
         let yawAngle = deviceMotionManager.getYawAngle()
         let horzAngle = getHorzAngle()
         let verticalAngle = deviceMotionManager.getVerticalAngle()
@@ -102,11 +110,6 @@ struct ARViewLayoutAdjustment {
         
         yawRotationAngle = -(CGFloat)(yawAngle)
         horzRotationAngle = -(CGFloat)(horzAngle)
-        
-        if initialAdjustment != nil {
-            xPosition += CGFloat(index!) * 5
-            yPosition -= CGFloat(index!) * 5
-        }
     }
     
     /**

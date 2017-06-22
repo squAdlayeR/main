@@ -35,7 +35,7 @@ class ClusterController: POISetControlDelegate {
                                                           at: i)
             card.applyViewAdjustment(layoutAdjustment)
             card.update(distance)
-            card.setMarkerAlpha(to: CGFloat(5 - i) * 0.2)
+            card.setMarkerAlpha(to: i < 5 ? CGFloat(5 - i) * 0.1 + 0.5 : 0)
         }
     }
     
