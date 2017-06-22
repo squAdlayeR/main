@@ -254,14 +254,14 @@ class ARViewController: UIViewController {
             let centerTuple = sortedAzimuthPOICardTuples.removeFirst()
             var newGroup = [centerTuple]
             while let leftTuple = sortedAzimuthPOICardTuples.last {
-                if (leftTuple.0 + 2 * .pi - centerTuple.0) < halfAngle {
+                if abs((leftTuple.0 < 0 ? (leftTuple.0 + 2 * .pi) : leftTuple.0) - centerTuple.0) < halfAngle {
                     newGroup.append(sortedAzimuthPOICardTuples.removeLast())
                 } else {
                     break
                 }
             }
             while let rightTuple = sortedAzimuthPOICardTuples.first {
-                if (centerTuple.0 - rightTuple.0 + 2 * .pi) < halfAngle {
+                if abs((rightTuple.0 < 0 ? (rightTuple.0 + 2 * .pi) : rightTuple.0) - centerTuple.0) < halfAngle {
                     newGroup.append(sortedAzimuthPOICardTuples.removeFirst())
                 } else {
                     break
