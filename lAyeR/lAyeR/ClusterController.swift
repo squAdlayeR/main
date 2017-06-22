@@ -25,6 +25,8 @@ class ClusterController: POISetControlDelegate {
                                                       distance: initialDistance, azimuth: azimuth,
                                                       superView: superView, fov: fov)
         cards.first!.applyViewAdjustment(initialLayoutAdjustment)
+        cards.first!.setMarkerAlpha(to: 1)
+        cards.first!.update(initialDistance)
         for i in 1..<self.cards.count {
             let card = cards[i]
             let distance = GeoUtil.getCoordinateDistance(userPoint, pois[i])
@@ -33,6 +35,7 @@ class ClusterController: POISetControlDelegate {
                                                           at: i)
             card.applyViewAdjustment(layoutAdjustment)
             card.update(distance)
+            card.setMarkerAlpha(to: CGFloat(5 - i) * 0.2)
         }
     }
     
