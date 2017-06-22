@@ -36,6 +36,9 @@ class POI: GeoPoint {
     private(set) var website: String?
     private(set) var types: [String] = []
     
+    var azimuth: Double!
+    var distance: Double!
+    
     /// Initializes POI from latitude and longitude
     /// - Parameters:
     ///     - latitude: Double: latitude of the point in degrees

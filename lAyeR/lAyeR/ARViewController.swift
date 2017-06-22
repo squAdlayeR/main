@@ -229,7 +229,11 @@ class ARViewController: UIViewController {
         // Validate and sort POIs, and tuple them with corresponding Azimuth and PoiCards
         let dispatchGroup = DispatchGroup()
         let pois = geoManager.getLastUpdatedNearbyPOIs().filter {$0.placeID != nil}
-        var sortedAzimuthPOICardTuples: [(Double, POI, PoiCard)] = []
+        _ = pois.map {
+            $0.azimuth = GeoUtil.getAzimuth(between: userPoint, $0)
+            $0.distance = GeoUtil.getCoordinateDistance(userPoint, $0)
+        }
+        var sortedAzimuthPOICardTuples: [(POI, PoiCard)] = []
         for poi in pois {
             let card = PoiCard(distance: 0, categoryName: poi.types.first!, superViewController: self)
             dispatchGroup.enter()
@@ -243,39 +247,40 @@ class ARViewController: UIViewController {
                 }
                 dispatchGroup.leave()
             }
-            sortedAzimuthPOICardTuples.append((GeoUtil.getAzimuth(between: userPoint, poi), poi, card))
+            sortedAzimuthPOICardTuples.append((poi, card))
         }
-        sortedAzimuthPOICardTuples.sort {$0.0.0 > $0.1.0}
+        sortedAzimuthPOICardTuples.sort {$0.0.0.azimuth > $0.1.0.azimuth}
         
         // Group these tuples by Azimuth
-        var groups: [[(Double, POI, PoiCard)]] = []
+        var groups: [[(POI, PoiCard)]] = []
         let halfAngle = ARViewConstants.clusteringAngle * 0.5
         while !sortedAzimuthPOICardTuples.isEmpty {
             let centerTuple = sortedAzimuthPOICardTuples.removeFirst()
             var newGroup = [centerTuple]
             while let leftTuple = sortedAzimuthPOICardTuples.last {
-                if abs((leftTuple.0 < 0 ? (leftTuple.0 + 2 * .pi) : leftTuple.0) - centerTuple.0) < halfAngle {
+                if abs((leftTuple.0.azimuth < 0 ? (leftTuple.0.azimuth + 2 * .pi) : leftTuple.0.azimuth) - centerTuple.0.azimuth) < halfAngle {
                     newGroup.append(sortedAzimuthPOICardTuples.removeLast())
                 } else {
                     break
                 }
             }
             while let rightTuple = sortedAzimuthPOICardTuples.first {
-                if abs((rightTuple.0 < 0 ? (rightTuple.0 + 2 * .pi) : rightTuple.0) - centerTuple.0) < halfAngle {
+                if abs((rightTuple.0.azimuth < 0 ? (rightTuple.0.azimuth + 2 * .pi) : rightTuple.0.azimuth) - centerTuple.0.azimuth) < halfAngle {
                     newGroup.append(sortedAzimuthPOICardTuples.removeFirst())
                 } else {
                     break
                 }
             }
+            newGroup.sort {$0.0.0.distance < $0.1.0.distance}
             groups.append(newGroup)
         }
         
         // Create POISetControlDelegates depending on size of groups
         currentPoiCardSetControllers = groups.map {
             if $0.count == 1 {
-                return PoiCardController(poi: $0[0].1, card: $0[0].2)
+                return PoiCardController(poi: $0[0].0, card: $0[0].1)
             } else {
-                return ClusterController(pois: $0.map {$0.1}, cards: $0.map {$0.2})
+                return ClusterController(pois: $0.map {$0.0}, cards: $0.map {$0.1})
             }
         }
     }

@@ -19,8 +19,8 @@ class ClusterController: POISetControlDelegate {
     
     func updateComponents(userPoint: GeoPoint, superView: UIView, fov: Double) {
         let centerPOI = pois.first!
-        let azimuth = GeoUtil.getAzimuth(between: userPoint, centerPOI)
-        let initialDistance = GeoUtil.getCoordinateDistance(userPoint, centerPOI)
+        let azimuth = centerPOI.azimuth!
+        let initialDistance = centerPOI.distance!
         let initialLayoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager,
                                                       distance: initialDistance, azimuth: azimuth,
                                                       superView: superView, fov: fov)

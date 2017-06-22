@@ -104,8 +104,8 @@ struct ARViewLayoutAdjustment {
         horzRotationAngle = -(CGFloat)(horzAngle)
         
         if initialAdjustment != nil {
-            xPosition += CGFloat(index) * 5
-            yPosition -= CGFloat(index) * 5
+            xPosition += CGFloat(index!) * 5
+            yPosition -= CGFloat(index!) * 5
         }
     }
     
