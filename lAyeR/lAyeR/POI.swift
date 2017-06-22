@@ -35,9 +35,8 @@ class POI: GeoPoint {
     private(set) var contact: String?
     private(set) var website: String?
     private(set) var types: [String] = []
-    
-    var azimuth: Double!
-    var distance: Double!
+    private(set) var azimuth: Double?
+    private(set) var distance: Double?
     
     /// Initializes POI from latitude and longitude
     /// - Parameters:
@@ -51,6 +50,26 @@ class POI: GeoPoint {
     /// is different from POI strcture and POI will not be used for query and storage
     required init?(map: Map) {
         super.init(map: map)
+    }
+
+    /// Calculates the azimuth from user point, store it and return it.
+    ///
+    /// - Parameter userPoint: User Location
+    /// - Returns: The calculated azimuth
+    func calculateAzimuth(from userPoint: GeoPoint) -> Double {
+        let calculatedAzimuth = GeoUtil.getAzimuth(between: userPoint, self)
+        self.azimuth = calculatedAzimuth
+        return calculatedAzimuth
+    }
+    
+    /// Calculates the distance from user point, store it and return it.
+    ///
+    /// - Parameter userPoint: User Location
+    /// - Returns: The calculated distance
+    func calculateDistance(from userPoint: GeoPoint) -> Double {
+        let calculatedDistance = GeoUtil.getCoordinateDistance(userPoint, self)
+        self.distance = calculatedDistance
+        return calculatedDistance
     }
     
     /// Sets the place id of the place

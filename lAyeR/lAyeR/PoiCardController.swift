@@ -18,11 +18,14 @@ class PoiCardController: POISetControlDelegate, Hashable {
     }
     
     func updateComponents(userPoint: GeoPoint, superView: UIView, fov: Double) {
+        let distance = poi.distance ?? poi.calculateDistance(from: userPoint)
         let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager,
-                                                      distance: poi.distance, azimuth: poi.azimuth,
-                                                      superView: superView, fov: fov)
+                                                      distance: distance,
+                                                      azimuth: poi.azimuth ?? poi.calculateAzimuth(from: userPoint),
+                                                      superView: superView,
+                                                      fov: fov)
         card.applyViewAdjustment(layoutAdjustment)
-        card.update(poi.distance)
+        card.update(distance)
         card.setMarkerAlpha(to: calculateAlpha(distance: layoutAdjustment.pushBackDistance))
     }
     

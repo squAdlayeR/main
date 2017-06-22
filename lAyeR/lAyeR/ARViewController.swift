@@ -230,8 +230,8 @@ class ARViewController: UIViewController {
         let dispatchGroup = DispatchGroup()
         let pois = geoManager.getLastUpdatedNearbyPOIs().filter {$0.placeID != nil}
         pois.forEach {
-            $0.azimuth = GeoUtil.getAzimuth(between: userPoint, $0)
-            $0.distance = GeoUtil.getCoordinateDistance(userPoint, $0)
+            _ = $0.calculateAzimuth(from: userPoint)
+            _ = $0.calculateDistance(from: userPoint)
         }
         var sortedAzimuthPOICardTuples: [(POI, PoiCard)] = []
         for poi in pois {
@@ -249,7 +249,7 @@ class ARViewController: UIViewController {
             }
             sortedAzimuthPOICardTuples.append((poi, card))
         }
-        sortedAzimuthPOICardTuples.sort {$0.0.0.azimuth > $0.1.0.azimuth}
+        sortedAzimuthPOICardTuples.sort {$0.0.0.azimuth! > $0.1.0.azimuth!}
         
         // Group these tuples by Azimuth
         var groups: [[(POI, PoiCard)]] = []
@@ -258,20 +258,20 @@ class ARViewController: UIViewController {
             let centerTuple = sortedAzimuthPOICardTuples.removeFirst()
             var newGroup = [centerTuple]
             while let leftTuple = sortedAzimuthPOICardTuples.last {
-                if abs((leftTuple.0.azimuth < 0 ? (leftTuple.0.azimuth + 2 * .pi) : leftTuple.0.azimuth) - centerTuple.0.azimuth) < halfAngle {
+                if abs((leftTuple.0.azimuth! < 0 ? (leftTuple.0.azimuth! + 2 * .pi) : leftTuple.0.azimuth!) - centerTuple.0.azimuth!) < halfAngle {
                     newGroup.append(sortedAzimuthPOICardTuples.removeLast())
                 } else {
                     break
                 }
             }
             while let rightTuple = sortedAzimuthPOICardTuples.first {
-                if abs((rightTuple.0.azimuth < 0 ? (rightTuple.0.azimuth + 2 * .pi) : rightTuple.0.azimuth) - centerTuple.0.azimuth) < halfAngle {
+                if abs((rightTuple.0.azimuth! < 0 ? (rightTuple.0.azimuth! + 2 * .pi) : rightTuple.0.azimuth!) - centerTuple.0.azimuth!) < halfAngle {
                     newGroup.append(sortedAzimuthPOICardTuples.removeFirst())
                 } else {
                     break
                 }
             }
-            newGroup.sort {$0.0.0.distance < $0.1.0.distance}
+            newGroup.sort {$0.0.0.distance! < $0.1.0.distance!}
             groups.append(newGroup)
         }
         
