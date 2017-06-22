@@ -40,6 +40,6 @@ class ClusterController: POISetControlDelegate {
     }
     
     deinit {
-        _ = cards.map {$0.removeFromSuperview()}
+        cards.forEach {$0.removeFromSuperview()}
     }
 }

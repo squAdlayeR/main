@@ -229,7 +229,7 @@ class ARViewController: UIViewController {
         // Validate and sort POIs, and tuple them with corresponding Azimuth and PoiCards
         let dispatchGroup = DispatchGroup()
         let pois = geoManager.getLastUpdatedNearbyPOIs().filter {$0.placeID != nil}
-        _ = pois.map {
+        pois.forEach {
             $0.azimuth = GeoUtil.getAzimuth(between: userPoint, $0)
             $0.distance = GeoUtil.getCoordinateDistance(userPoint, $0)
         }
