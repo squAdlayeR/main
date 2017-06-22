@@ -25,7 +25,7 @@ import ObjectMapper
  */
 class POI: GeoPoint {
     
-    /// Defines the attributes of a POI
+    // Defines the attributes of a POI
     private(set) var placeID: String?
     private(set) var name: String?
     private(set) var vicinity: String?

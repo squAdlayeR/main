@@ -20,15 +20,19 @@ class ClusterController: POISetControlDelegate {
     func updateComponents(userPoint: GeoPoint, superView: UIView, fov: Double) {
         let centerPOI = pois.first!
         let azimuth = GeoUtil.getAzimuth(between: userPoint, centerPOI)
-        let distance = GeoUtil.getCoordinateDistance(userPoint, centerPOI)
-        
-        let layoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager,
-                                                      distance: distance, azimuth: azimuth,
+        let initialDistance = GeoUtil.getCoordinateDistance(userPoint, centerPOI)
+        let initialLayoutAdjustment = ARViewLayoutAdjustment(deviceMotionManager: motionManager,
+                                                      distance: initialDistance, azimuth: azimuth,
                                                       superView: superView, fov: fov)
-        for (i, card) in self.cards.enumerated() {
+        cards.first!.applyViewAdjustment(initialLayoutAdjustment)
+        for i in 1..<self.cards.count {
+            let card = cards[i]
+            let distance = GeoUtil.getCoordinateDistance(userPoint, pois[i])
+            let layoutAdjustment = ARViewLayoutAdjustment(distance: distance,
+                                                          following: initialLayoutAdjustment,
+                                                          at: i)
             card.applyViewAdjustment(layoutAdjustment)
             card.update(distance)
-            card.setMarkerAlpha(to: (5 - CGFloat(i)) * 0.2)
         }
     }
     
