@@ -28,7 +28,7 @@ class PoiCard: Card {
     var address: String?
     
     /// Belonging Group
-    private var cluster: ClusterController?
+    fileprivate var cluster: ClusterController?
     
     /// Initializes the poi view controller
     /// - Parameters:
@@ -107,7 +107,7 @@ class PoiCard: Card {
 extension PoiCard {
     
     override func tapped() {
-        super.tapped()
+        self.cluster?.cardTapped(defaultCallback: super.tapped())
     }
     
     /// Sets the name of poi

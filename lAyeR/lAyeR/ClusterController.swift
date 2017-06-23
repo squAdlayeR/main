@@ -9,6 +9,8 @@
 import UIKit
 
 class ClusterController: POISetControlDelegate {
+    static var expandedCluster: ClusterController?
+    
     let pois: [POI]
     let cards: [PoiCard]
     
@@ -39,6 +41,24 @@ class ClusterController: POISetControlDelegate {
             card.update(distance)
             card.setMarkerAlpha(to: i < 5 ? CGFloat(5 - i) * 0.1 + 0.5 : 0)
         }
+    }
+    
+    func cardTapped(defaultCallback: @escaping () -> Void = {}) {
+        if ClusterController.expandedCluster !== self {
+            ClusterController.expandedCluster?.pack()
+            ClusterController.expandedCluster = self
+            self.expand()
+        } else {
+            defaultCallback()
+        }
+    }
+    
+    private func pack() {
+        
+    }
+    
+    private func expand() {
+        
     }
     
     deinit {
