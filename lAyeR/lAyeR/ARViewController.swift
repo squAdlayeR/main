@@ -219,7 +219,7 @@ class ARViewController: UIViewController {
         return newCheckpointCardControllers
     }
     
-    /// update the cards of points of interest to be displayed
+    /// Update the cards of points of interest to be displayed
     /// remove the obsolete cards (in the current list but not in the new list)
     /// keep the cards that in both the current list and new list
     /// add in the cards that are in the new list but not in the current list

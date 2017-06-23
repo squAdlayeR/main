@@ -64,7 +64,7 @@ class Card: NSObject {
     /// Adds a single tap gesture recognizor to the marker
     /// This gesture will open the alert
     private func addMarkerGesture() {
-        let markerIsPressed = UITapGestureRecognizer(target: self, action: #selector(openPopup))
+        let markerIsPressed = UITapGestureRecognizer(target: self, action: #selector(tapped))
         markerCard.addGestureRecognizer(markerIsPressed)
     }
     
@@ -110,7 +110,12 @@ class Card: NSObject {
 /**
  An extension that is used to define interactions
  */
-extension Card {
+internal extension Card {
+    
+    /// GestureRecognizer target. Called when tapped.
+    func tapped() {
+        openPopup()
+    }
     
     /// Opens the popup
     func openPopup() {

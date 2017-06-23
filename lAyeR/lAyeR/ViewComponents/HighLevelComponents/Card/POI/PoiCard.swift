@@ -11,7 +11,7 @@ import UIKit
 /**
  Note: this class is specifically used for poi marker.
  Main functionality:
- 1. displayes a marker with a specified frame
+ 1. displays a marker with a specified frame
  2. clicking on the marker will show an popup, which displays
  infomation about the marker. To be more specific, for
  poi, the possible information include
@@ -26,6 +26,9 @@ class PoiCard: Card {
     // Defines name and address that will be used for query
     var name: String?
     var address: String?
+    
+    /// Belonging Group
+    private var cluster: ClusterController?
     
     /// Initializes the poi view controller
     /// - Parameters:
@@ -102,6 +105,10 @@ class PoiCard: Card {
  towards the outer elements
  */
 extension PoiCard {
+    
+    override func tapped() {
+        super.tapped()
+    }
     
     /// Sets the name of poi
     /// - Parameter name: the name of the poi
